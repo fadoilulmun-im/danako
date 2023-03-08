@@ -15,7 +15,7 @@ class CreateWaqfPayments extends Migration
     {
         Schema::create('waqf_payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('waqf_id');
+            $table->unsignedBigInteger('waqf_id')->nullable();
             $table->float('amount');
             $table->date('time');
             $table->string('payment_method');
