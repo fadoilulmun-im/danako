@@ -16,3 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', function () {
+        return view('admin.layout.master');
+    });
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
+
+    Route::get('/campaign-categories', function () {
+        return view('admin.master.category.index');
+    });
+});
