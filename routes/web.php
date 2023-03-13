@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', function () {
-        return view('admin.layout.master');
+        return view('admin.page.index');
     });
     Route::get('/dashboard', function () {
         return view('admin.dashboard');

@@ -7,63 +7,6 @@
     "content-hash": "7b56bfb5d21eaae286e532c3ed2f8941",
     "packages": [
         {
-            "name": "askedio/laravel-soft-cascade",
-            "version": "9.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Askedio/laravel-soft-cascade.git",
-                "reference": "7eeba7b6380a0c188fdfc71d07eb88c4bd74a2b0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Askedio/laravel-soft-cascade/zipball/7eeba7b6380a0c188fdfc71d07eb88c4bd74a2b0",
-                "reference": "7eeba7b6380a0c188fdfc71d07eb88c4bd74a2b0",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/container": "^7.0|^8.0|^9.0",
-                "illuminate/database": "^7.0|^8.0|^9.0",
-                "illuminate/events": "^7.0|^8.0|^9.0",
-                "illuminate/support": "^7.0|^8.0|^9.0",
-                "php": "^7.2.5|^8.0"
-            },
-            "require-dev": {
-                "codacy/coverage": "dev-master",
-                "orchestra/testbench": "^5.0|^6.0|^7.0",
-                "phpunit/phpunit": "^8.4|^9.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Askedio\\SoftCascade\\Providers\\GenericServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Askedio\\SoftCascade\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Will Bowman",
-                    "homepage": "https://medium.com/@asked_io",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Laravel Cascade Soft Delete & Restore",
-            "support": {
-                "issues": "https://github.com/Askedio/laravel-soft-cascade/issues",
-                "source": "https://github.com/Askedio/laravel-soft-cascade/tree/9.0.0"
-            },
-            "time": "2022-02-15T14:01:31+00:00"
-        },
-        {
             "name": "asm89/stack-cors",
             "version": "v2.1.1",
             "source": {
@@ -1253,71 +1196,6 @@
                 "source": "https://github.com/laravel/framework"
             },
             "time": "2022-12-08T15:28:55+00:00"
-        },
-        {
-            "name": "laravel/sanctum",
-            "version": "v2.15.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/sanctum.git",
-                "reference": "31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sanctum/zipball/31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473",
-                "reference": "31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "illuminate/console": "^6.9|^7.0|^8.0|^9.0",
-                "illuminate/contracts": "^6.9|^7.0|^8.0|^9.0",
-                "illuminate/database": "^6.9|^7.0|^8.0|^9.0",
-                "illuminate/support": "^6.9|^7.0|^8.0|^9.0",
-                "php": "^7.2|^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0",
-                "phpunit/phpunit": "^8.0|^9.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Laravel\\Sanctum\\SanctumServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Sanctum\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "Laravel Sanctum provides a featherweight authentication system for SPAs and simple APIs.",
-            "keywords": [
-                "auth",
-                "laravel",
-                "sanctum"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/sanctum/issues",
-                "source": "https://github.com/laravel/sanctum"
-            },
-            "time": "2022-04-08T13:39:49+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -5548,61 +5426,6 @@
                 "source": "https://github.com/webmozarts/assert/tree/1.11.0"
             },
             "time": "2022-06-03T18:03:27+00:00"
-        },
-        {
-            "name": "wildside/userstamps",
-            "version": "2.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/WildsideUK/Laravel-Userstamps.git",
-                "reference": "371cfbf5fda1872cc487888c6a8ac01e3e8249aa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/WildsideUK/Laravel-Userstamps/zipball/371cfbf5fda1872cc487888c6a8ac01e3e8249aa",
-                "reference": "371cfbf5fda1872cc487888c6a8ac01e3e8249aa",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^5.2|^6.0|^7.0|^8.0|^9.0|^10.0",
-                "php": ">=5.5.9"
-            },
-            "require-dev": {
-                "illuminate/database": "^5.2|^6.0|^7.0|^8.0|^9.0|^10.0",
-                "orchestra/testbench": "^3.1|^4.0|^5.0|^6.0|^7.0|^8.0",
-                "phpunit/phpunit": "^5.0|^6.0|^7.0|^8.4|^9.0|^10.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Wildside\\Userstamps\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "WILDSIDE",
-                    "email": "hello@wildside.uk",
-                    "homepage": "https://wildside.uk"
-                }
-            ],
-            "description": "Laravel Userstamps provides an Eloquent trait which automatically maintains `created_by` and `updated_by` columns on your model, populated by the currently authenticated user in your application.",
-            "keywords": [
-                "created_by",
-                "deleted_by",
-                "eloquent",
-                "laravel",
-                "updated_by",
-                "userstamps"
-            ],
-            "support": {
-                "issues": "https://github.com/WildsideUK/Laravel-Userstamps/issues",
-                "source": "https://github.com/WildsideUK/Laravel-Userstamps/tree/2.3.0"
-            },
-            "time": "2023-02-15T09:35:24+00:00"
         }
     ],
     "packages-dev": [
@@ -6048,66 +5871,6 @@
                 "source": "https://github.com/hamcrest/hamcrest-php/tree/v2.0.1"
             },
             "time": "2020-07-09T08:09:16+00:00"
-        },
-        {
-            "name": "laravel/sail",
-            "version": "v1.19.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/sail.git",
-                "reference": "4f230634a3163f3442def6a4e6ffdb02b02e14d6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/4f230634a3163f3442def6a4e6ffdb02b02e14d6",
-                "reference": "4f230634a3163f3442def6a4e6ffdb02b02e14d6",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/console": "^8.0|^9.0|^10.0",
-                "illuminate/contracts": "^8.0|^9.0|^10.0",
-                "illuminate/support": "^8.0|^9.0|^10.0",
-                "php": "^7.3|^8.0"
-            },
-            "bin": [
-                "bin/sail"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Laravel\\Sail\\SailServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Laravel\\Sail\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Taylor Otwell",
-                    "email": "taylor@laravel.com"
-                }
-            ],
-            "description": "Docker files for running a basic Laravel application.",
-            "keywords": [
-                "docker",
-                "laravel"
-            ],
-            "support": {
-                "issues": "https://github.com/laravel/sail/issues",
-                "source": "https://github.com/laravel/sail"
-            },
-            "time": "2023-01-31T13:37:57+00:00"
         },
         {
             "name": "mockery/mockery",
