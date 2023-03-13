@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
 
 Route::group(['prefix' => 'admin'], function () {
@@ -25,7 +25,7 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.dashboard');
     });
 
-    Route::get('/campaign-categories', function () {
-        return view('admin.master.category.index');
+    Route::get('/categories', function () {
+        return view('admin.page.master.category');
     });
 });

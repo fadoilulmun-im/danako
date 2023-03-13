@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\CampaignCategoryController;
+use App\Http\Controllers\API\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,4 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('campaign-categories', CampaignCategoryController::class);
+Route::group(['prefix' => 'master'], function () {
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('api.master.categories.index');
+        Route::post('/', [CategoryController::class, 'store'])->name('api.master.categories.store');
+        Route::get('/{id}', [CategoryController::class, 'show'])->name('api.master.categories.show');
+        Route::post('/{id}', [CategoryController::class, 'update'])->name('api.master.categories.update');
+        Route::delete('/{id}', [CategoryController::class, 'delete'])->name('api.master.categories.delete');
+    });
+});

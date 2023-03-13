@@ -62,19 +62,19 @@
               <li class="menu-title">Navigation</li>
   
               <li>
-                  <a href="index.html">
+                  <a href="/admin">
                       <i class="mdi mdi-view-dashboard-outline"></i>
                       <span class="badge bg-success rounded-pill float-end">9+</span>
                       <span> Dashboard </span>
                   </a>
               </li>
 
-              <li class="menu-title mt-2">Apps</li>
+              <li class="menu-title mt-2">Master</li>
 
               <li>
-                  <a href="apps-calendar.html">
-                      <i class="mdi mdi-calendar-blank-outline"></i>
-                      <span> Calendar </span>
+                  <a href="/admin/categories">
+                      <i class="dripicons-view-thumb"></i>
+                      <span> Category </span>
                   </a>
               </li>
 
