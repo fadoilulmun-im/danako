@@ -10,4 +10,12 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    public function setResponse(
+        $data = null, 
+        $message = null,
+        $code = 200
+    ){
+        return setResponse($data, $message, $code);
+    }
 }

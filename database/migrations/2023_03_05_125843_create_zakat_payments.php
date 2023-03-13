@@ -15,8 +15,8 @@ class CreateZakatPayments extends Migration
     {
         Schema::create('zakat_payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('zakat_id');
-            $table->fload('amounts');
+            $table->unsignedBigInteger('zakat_id')->nullable();
+            $table->float('amounts');
             $table->date('time');
             $table->string('payment_method');
             $table->timestamps();

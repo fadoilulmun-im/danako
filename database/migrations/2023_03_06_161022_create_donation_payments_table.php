@@ -16,7 +16,7 @@ class CreateDonationPaymentsTable extends Migration
         Schema::create('donation_payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('donation_id')->constrained('donations','id');
-            $table->fload('amount_donation');
+            $table->float('amount_donation');
             $table->date('donation_time');
             $table->string('payment_method');
             $table->timestamps();

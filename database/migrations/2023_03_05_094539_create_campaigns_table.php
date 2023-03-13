@@ -15,7 +15,7 @@ class CreateCampaignsTable extends Migration
     {
         Schema::create('campaigns', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreignId('category_id')->nullable()->constrained('campaign_categories')->onUpdate('cascade')->onDelete('set null');
             $table->string('name');
             $table->string('description');

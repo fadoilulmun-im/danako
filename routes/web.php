@@ -14,5 +14,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
+});
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', function () {
+        return view('admin.page.index');
+    });
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard');
+    });
+
+    Route::get('/campaign-categories', function () {
+        return view('admin.master.category.index');
+    });
 });

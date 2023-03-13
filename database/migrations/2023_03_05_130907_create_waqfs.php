@@ -15,7 +15,7 @@ class CreateWaqfs extends Migration
     {
         Schema::create('waqfs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('name');
             $table->float('amount');
             $table->date('time');

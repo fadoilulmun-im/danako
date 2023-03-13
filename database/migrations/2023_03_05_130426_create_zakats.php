@@ -15,8 +15,8 @@ class CreateZakats extends Migration
     {
         Schema::create('zakats', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('category_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->string('name');
             $table->float('amounts');
             $table->date('time');
