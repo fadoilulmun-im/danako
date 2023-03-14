@@ -127,4 +127,27 @@ class CategoryController extends Controller
         DB::commit();
         return $this->setResponse(null, 'Category deleted successfully');
     }
+
+    public function list(Request $request)
+    {
+        switch ($request->input('type')) {
+            case 'zakat':
+                $model = ZakatCategory::select(['id', 'name']);
+                break;
+            
+            default:
+                $model = CampaignCategory::select(['id', 'name']);
+                break;
+        };
+
+        if($request->filled('search')){
+            $model->where(DB::raw('LOWER(name)'), 'like', '%' . strtolower($request->input('search')) . '%');
+        }
+
+        if($request->input('limit')){
+            $model->limit($request->input('limit'));
+        }
+
+        return $this->setResponse($model->get(), 'Category list retrieved successfully');
+    }
 }
