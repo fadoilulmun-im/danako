@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'master'], function () {
     Route::group(['prefix' => 'categories'], function () {
+        Route::get('/list', [CategoryController::class, 'list'])->name('api.master.categories.list');
         Route::get('/', [CategoryController::class, 'index'])->name('api.master.categories.index');
         Route::post('/', [CategoryController::class, 'store'])->name('api.master.categories.store');
         Route::get('/{id}', [CategoryController::class, 'show'])->name('api.master.categories.show');
