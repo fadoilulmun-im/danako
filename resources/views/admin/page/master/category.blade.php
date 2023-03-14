@@ -22,7 +22,7 @@
                 <div class='mb-3'>
                   <a href="#campaign" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Campaign</a>
                   <a href="#zakat" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Zakat</a>
-                  <a href="#waqaf" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Waqaf</a>
+                  {{-- <a href="#waqaf" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Waqaf</a> --}}
                 </div>
 
                 <table id="datatable" class="w-100 table table-bordered dt-responsive table-responsive nowrap">
@@ -59,7 +59,7 @@
 @section('init-js')
   <script src="{{asset('')}}assets/js/pages/datatables.init.js"></script>
   <script>
-    let type = $(location).attr('hash').slice(1) ?? 'campaign';
+    let type = $(location).attr('hash') ? $(location).attr('hash').slice(1) : 'campaign';
     document.addEventListener('DOMContentLoaded', function() {
       clickable(type);
       let table = $('#datatable').DataTable({
@@ -83,14 +83,6 @@
 
         table.ajax.url( "{{ route('api.master.categories.index') }}?type=" + type ).load();
       });
-
-      function clickable(type){
-        $('.clickable').each(function(){
-          if($(this).text().toLowerCase() == type){
-            $(this).removeClass('btn-outline-primary').addClass('btn-primary');
-          }
-        });
-      }
 
       $('.clickable.create').on('click', function(){
         type = ($(this).text().toLowerCase());
@@ -165,6 +157,15 @@
       });
     });
 
+    
+    function clickable(type){
+      $('.clickable').each(function(){
+        if($(this).text().toLowerCase() == type){
+          $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+        }
+      });
+    }
+
     function edit(id){
       $('#loading').modal('show');
       $.ajax({
@@ -206,7 +207,7 @@
               <div class='mb-2'>
                 <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable create">Campaign</button>
                 <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable create">Zakat</button>
-                <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable create">Waqaf</button>
+                {{-- <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable create">Waqaf</button> --}}
               </div>
               <div>
                 <label for="create-name" class="form-label">Name</label>
