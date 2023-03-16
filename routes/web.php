@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,4 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.page.master.category');
     });
 });
+
