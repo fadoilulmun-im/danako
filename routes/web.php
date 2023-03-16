@@ -29,3 +29,7 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.page.master.category');
     });
 });
+
+Route::get('/landing', function () {
+    return view('landing.index');
+});
