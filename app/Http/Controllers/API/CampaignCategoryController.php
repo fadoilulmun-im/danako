@@ -6,17 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\CampaignCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class CampaignCategoryController extends Controller
 {
     public function index(Request $request)
     {
-        $data = CampaignCategory::query();
-        if($request->filled('search')){
-            $data->where(DB::raw('LOWER(name)'), 'LIKE', '%'.strtolower($request->input('search')).'%');
-        }
-
-        return $data->orderBy($request->input('order', 'id'), $request->input('dir', 'DESC'))->paginate($request->input('limit') ?? CampaignCategory::count());
+        return DataTables::of(CampaignCategory::select(['id', 'name']))
+            ->addColumn('action', function ($data) {
+                return '
+                    <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning mr-1" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Edit"></span>
+                    <span onclick="destroy('. $data->id .')" class="fas fa-trash-alt text-danger" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Delete"></span>
+                ';
+            })
+            ->addIndexColumn()
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     public function store(Request $request)
