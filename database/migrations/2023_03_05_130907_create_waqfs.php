@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDonationPaymentsTable extends Migration
+class CreateWaqfs extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateDonationPaymentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('donation_payments', function (Blueprint $table) {
+        Schema::create('waqfs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('donation_id')->constrained('donations','id');
-            $table->float('amount_donation');
-            $table->date('donation_time');
-            $table->string('payment_method');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('name');
+            $table->float('amount');
+            $table->date('time');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +30,6 @@ class CreateDonationPaymentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('donation_payments');
+        Schema::dropIfExists('waqfs');
     }
 }
