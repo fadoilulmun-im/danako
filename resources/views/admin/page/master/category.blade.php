@@ -92,13 +92,11 @@
 
       $('#form-create').submit(function(e){
         $('#createModal').modal('hide');
-        $('#loading').modal('show');
         e.preventDefault();
         $('#create-type').val(type);
         let data = $(this).serialize();
-
-        $.ajax({
-          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        
+        ajax({
           url: "{{ route('api.master.categories.store') }}",
           type: "POST",
           data: data,
@@ -107,19 +105,15 @@
               table.ajax.reload();
               $('#create-name').val('');
             }
-          }
-        }).always(function(){
-          $('#loading').modal('hide');
+          },
         });
       });
 
       $('#form-edit').submit(function(e){
         $('#editModal').modal('hide');
-        $('#loading').modal('show');
         e.preventDefault();
 
-        $.ajax({
-          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        ajax({
           url: "{{ route('api.master.categories.update', '') }}/" + $('#edit-id').val(),
           type: "POST",
           data: {
@@ -131,9 +125,7 @@
               table.ajax.reload();
               $('#create-name').val('');
             }
-          }
-        }).always(function(){
-          $('#loading').modal('hide');
+          },
         });
       });
       
@@ -142,17 +134,14 @@
         $('#loading').modal('show');
         e.preventDefault();
 
-        $.ajax({
-          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        ajax({
           url: "{{ route('api.master.categories.delete', '') }}/" + $('#delete-id').val() + '?type=' + type,
           type: "DELETE",
           success: function(response){
             if(response.meta.status == 'OK'){
               table.ajax.reload();
             }
-          }
-        }).always(function(){
-          $('#loading').modal('hide');
+          },
         });
       });
     });
@@ -167,9 +156,7 @@
     }
 
     function edit(id){
-      $('#loading').modal('show');
-      $.ajax({
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+      ajax({
         url: "{{ route('api.master.categories.show', '') }}/" + id +'?type=' + type,
         type: "GET",
         success: function(response){
@@ -179,9 +166,7 @@
             $('#edit-type').val(type);
             $('#editModal').modal('show');
           }
-        }
-      }).always(function(){
-        $('#loading').modal('hide');
+        },
       });
     }
 
