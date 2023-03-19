@@ -106,7 +106,7 @@
             if(!setting.error){
               setting.error = function (response) {
                 let res = response.responseJSON
-                let code = response.meta.code
+                let code = res.meta.code
 
                 if (code === 401) {
                   window.location.href = "/";
