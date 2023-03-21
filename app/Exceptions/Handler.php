@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -32,6 +33,27 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        //
+        $this->renderable(function (Throwable $e, $request) {
+            if ($request->expectsJson()) {
+                if ($e instanceof \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface) {
+                    return setResponse(null, $e->getMessage(), $e->getStatusCode());
+                }
+                
+                if ($e instanceof \Illuminate\Auth\AuthenticationException) {
+                    return setResponse(null, $e->getMessage(), 401);
+                }
+
+                if($e instanceof \Illuminate\Validation\ValidationException) {
+                    return setResponse($e->errors(), $e->getMessage(), 422);
+                }
+
+                return setResponse([
+                    'exception' => get_class($e),
+                    'file' => $e->getFile(),
+                    'line' => $e->getLine(),
+                    'trace' => $e->getTraceAsString()
+                ], $e->getMessage(), 500);
+            }
+        });
     }
 }
