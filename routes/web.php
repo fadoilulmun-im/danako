@@ -32,6 +32,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/categories', function () {
         return view('admin.page.master.category');
     });
+
+    Route::get('/campaigns', function () {
+        return view('admin.page.master.campaign');
+    });
+    
+    Route::get('/donations', function () {
+        return view('admin.page.master.donation');
+    });
 });
 
 Route::get('/landing', function () {
