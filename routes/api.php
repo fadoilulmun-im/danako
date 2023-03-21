@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\CampaignController;
+use App\Http\Controllers\API\DonationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,5 +29,11 @@ Route::group(['prefix' => 'master'], function () {
         Route::get('/{id}', [CategoryController::class, 'show'])->name('api.master.categories.show');
         Route::post('/{id}', [CategoryController::class, 'update'])->name('api.master.categories.update');
         Route::delete('/{id}', [CategoryController::class, 'delete'])->name('api.master.categories.delete');
+    });
+    Route::group(['prefix' => 'campaigns'], function () {
+        Route::get('/', [CampaignController::class, 'index'])->name('api.master.campaigns.index');
+    });
+    Route::group(['prefix' => 'donations'], function () {
+        Route::get('/', [DonationController::class, 'index'])->name('api.master.donations.index');
     });
 });

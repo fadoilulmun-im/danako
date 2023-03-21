@@ -17,7 +17,6 @@ class CreateDonationsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users','id');
             $table->foreignId('campaign_id')->constrained('campaigns','id');
-            $table->string('name');
             $table->float('amount_donations');
             $table->text('hope')->nullable();
             $table->timestamps();
