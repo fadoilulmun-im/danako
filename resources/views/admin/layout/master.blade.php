@@ -81,6 +81,42 @@
         @yield('third-party-js')
 
         <!-- init js-->
+        <script>
+          function ajax(setting){
+            setting.headers = {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            };
+
+            if(localStorage.getItem('_token')){
+              setting.headers['Authorization'] = 'Bearer '+localStorage.getItem('_token');
+            }
+
+            if(!setting.beforeSend){
+              setting.beforeSend = function () {
+                $('#loading').modal('show');
+              };
+            }
+            
+            if(!setting.complete){
+              setting.complete = function () {
+                $('#loading').modal('hide');
+              };
+            }
+            
+            if(!setting.error){
+              setting.error = function (response) {
+                let res = response.responseJSON
+                let code = res.meta.code
+
+                if (code === 401) {
+                  window.location.href = "/";
+                }
+              };
+            }
+
+            $.ajax(setting);
+          }
+        </script>
         @yield('init-js')
         
 
