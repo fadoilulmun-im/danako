@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/verification/{id}', function () {
+    return 'Email verified';
+})->name('verification.verify');
+
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', function () {
         return view('admin.page.index');
