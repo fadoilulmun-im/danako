@@ -13,8 +13,8 @@ class AuthUserController extends Controller
     public function register(Request $request)
     {
         $rules = [
-            'username' => 'required|string',
-            'email' => 'required|string|email|unique:users',
+            'username' => 'required|string|unique:users,username|alpha_dash|min:3',
+            'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:6',
         ];
 
@@ -25,8 +25,8 @@ class AuthUserController extends Controller
 
         DB::beginTransaction();
         $user = User::create([
-            'username' => $request->username,
-            'email' => $request->email,
+            'username' => strtolower($request->username),
+            'email' => strtolower($request->email),
             'password' => bcrypt($request->password)
         ]);
         $user->sendEmailVerificationNotification();

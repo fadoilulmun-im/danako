@@ -7,6 +7,7 @@ use App\Models\CampaignCategory;
 use App\Models\ZakatCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 use Intervention\Image\Facades\Image;
@@ -34,7 +35,12 @@ class CategoryController extends Controller
         };
         return DataTables::of($model)
             ->editColumn('logo_path', function ($data) {
-                return '<img src="'. asset('uploads'. $data->logo_path) .'" alt="logo" style="width: 100px; height: 100px">';
+                if(File::exists(public_path('uploads'. $data->logo_path))){
+                    $path = 'uploads'. $data->logo_path;
+                }else{
+                    $path = 'assets/images/image-solid.svg';
+                }
+                return '<img src="'. asset($path) .'" alt="logo" style="width: 100px; height: 100px">';
             })
             ->addColumn('action', function ($data) {
                 return '
@@ -57,20 +63,26 @@ class CategoryController extends Controller
         }
 
         DB::beginTransaction();
+        $path = '/category';
         switch ($request->input('type')) {
             case 'zakat':
                 $model = new ZakatCategory;
+                $path .= '/zakat';
                 break;
             
             default:
                 $model = new CampaignCategory;
+                $path .= '/campaign';
                 break;
         };
+
+        if(!File::exists(public_path('uploads'. $path))){
+            File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+        }
 
         $model->name = $request->input('name');
 
         $fileName = time().'.'.$request->file('logo')->extension();
-        $path = '/category';
         $file = $request->file('logo');
 
         $canvas = Image::canvas(300, 300, '#ffffff');
