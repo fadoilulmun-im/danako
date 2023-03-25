@@ -6,6 +6,7 @@ use App\Http\Controllers\API\CampaignController;
 use App\Http\Controllers\API\DonationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthenticationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::prefix('auth-user')->group(function () {
     Route::post('register', [AuthUserController::class, 'register']);
@@ -43,3 +41,7 @@ Route::group(['prefix' => 'master'], function () {
         Route::get('/', [DonationController::class, 'index'])->name('api.master.donations.index');
     });
 });
+
+Route::post('/login', [AuthenticationController::class, 'login']);
+Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware(['auth:sanctum']);
+Route::get('/me', [AuthenticationController::class, 'me'])->middleware(['auth:sanctum']);

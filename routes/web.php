@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\WEB\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('admin.page.welcome');
     return view('welcome');
 });
 
