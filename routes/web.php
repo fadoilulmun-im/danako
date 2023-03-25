@@ -22,9 +22,15 @@ Route::get('/', function () {
 Route::get('/verification-email/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
 
 Route::group(['prefix' => 'admin'], function () {
+
+    Route::get('/login', function () {
+        return view('admin.page.login');
+    })->name('admin.login');
+
     Route::get('/', function () {
         return view('admin.page.index');
-    });
+    })->name('admin.dashboard');
+
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     });

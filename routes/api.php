@@ -6,7 +6,7 @@ use App\Http\Controllers\API\CampaignController;
 use App\Http\Controllers\API\DonationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\API\AuthenticationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,14 +25,20 @@ Route::prefix('auth-user')->group(function () {
     Route::post('login', [AuthUserController::class, 'login']);
 });
 
+Route::prefix('auth-admin')->group(function () {
+    Route::post('/login', [AuthenticationController::class, 'login'])->name('api.admin.login');
+    Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware(['auth:sanctum'])->name('api.admin.logout');
+    Route::get('/me', [AuthenticationController::class, 'me'])->middleware(['auth:sanctum']);
+});
+
 Route::group(['prefix' => 'master'], function () {
     Route::group(['prefix' => 'categories'], function () {
         Route::get('/list', [CategoryController::class, 'list'])->name('api.master.categories.list');
-        Route::get('/', [CategoryController::class, 'index'])->name('api.master.categories.index');
-        Route::post('/', [CategoryController::class, 'store'])->name('api.master.categories.store');
+        Route::get('/', [CategoryController::class, 'index'])->name('api.master.categories.index')->middleware(['auth:sanctum']);
+        Route::post('/', [CategoryController::class, 'store'])->name('api.master.categories.store')->middleware(['auth:sanctum']);
         Route::get('/{id}', [CategoryController::class, 'show'])->name('api.master.categories.show');
-        Route::post('/{id}', [CategoryController::class, 'update'])->name('api.master.categories.update');
-        Route::delete('/{id}', [CategoryController::class, 'delete'])->name('api.master.categories.delete');
+        Route::post('/{id}', [CategoryController::class, 'update'])->name('api.master.categories.update')->middleware(['auth:sanctum']);
+        Route::delete('/{id}', [CategoryController::class, 'delete'])->name('api.master.categories.delete')->middleware(['auth:sanctum']);
     });
     Route::group(['prefix' => 'campaigns'], function () {
         Route::get('/', [CampaignController::class, 'index'])->name('api.master.campaigns.index');
@@ -41,7 +47,3 @@ Route::group(['prefix' => 'master'], function () {
         Route::get('/', [DonationController::class, 'index'])->name('api.master.donations.index');
     });
 });
-
-Route::post('/login', [AuthenticationController::class, 'login']);
-Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware(['auth:sanctum']);
-Route::get('/me', [AuthenticationController::class, 'me'])->middleware(['auth:sanctum']);

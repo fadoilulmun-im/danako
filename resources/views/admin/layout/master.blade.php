@@ -12,6 +12,8 @@
       <!-- icons -->
       <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
+      <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
+
     </head>
 
     <!-- body start -->
@@ -77,6 +79,7 @@
         <script src="{{asset('assets/libs/waypoints/lib/jquery.waypoints.min.js')}}"></script>
         <script src="{{asset('assets/libs/jquery.counterup/jquery.counterup.min.js')}}"></script>
         <script src="{{asset('assets/libs/feather-icons/feather.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
         @yield('third-party-js')
 
@@ -108,13 +111,53 @@
                 let res = response.responseJSON
                 let code = res.meta.code
 
-                if (code === 401) {
-                  window.location.href = "/";
+                switch (code) {
+                  case 401:
+                    Swal.fire({
+                      title: 'Anda Belum Login',
+                      text: "Silahkan login terlebih dahulu untuk melakukan aksi ini",
+                      icon: 'error',
+                      showCancelButton: false,
+                      confirmButtonText: 'LOGIN',
+                      showLoaderOnConfirm: true,
+                      allowOutsideClick: () => !Swal.isLoading(),
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        window.location.href = "{{ route('admin.login') }}";
+                      }
+                    })
+                    break;
+                  case 403:
+                    Swal.fire({
+                      title: 'Hak akses',
+                      text: "Anda tidak memiliki hak akses untuk melakukan aksi ini",
+                      icon: 'error',
+                    })
+                  default:
+                    Swal.fire({
+                      title: 'ERROR',
+                      text: res.meta.message,
+                      icon: 'error',
+                    })
+                    break;
                 }
+
+                
               };
             }
 
             $.ajax(setting);
+          }
+
+          function logout(){
+            ajax({
+              url: "{{ route('api.admin.logout') }}",
+              success: function (response) {
+                localStorage.removeItem('_token');
+                window.location.href = "/";
+              },
+              complete: function () {}
+            });
           }
         </script>
         @yield('init-js')

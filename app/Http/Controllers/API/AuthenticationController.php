@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\Role;
 
 use App\Models\User;
@@ -16,29 +17,34 @@ class AuthenticationController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
+            'username' => 'required|string',
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $user = User::where($fieldType, $request->username)->where('role_id', config('env.role.admin'))->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect'],
-            ]);
+            return $this->setResponse(null, 'Username atau Password salah', 401);
         }
 
-        return $user->createToken('user login')->plainTextToken;
+        return $this->setResponse([
+            'access_token' => $user->createToken($user->username)->plainTextToken,
+            'token_type' => 'Bearer',
+            'expires_at' => config('sanctum.expiration') ? Carbon::parse(
+                config('sanctum.expiration')
+            )->toDateTimeString() : null
+        ]);
     }
 
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
+        return $this->setResponse(null, 'Logout successfully');
     }
+
     public function me(Request $request)
     {
-        $user = Auth::user();
-        $post = Role::where('user', $user->id);
-        return response()->json(Auth::user());
+        return $this->setResponse(Auth::user());
     }
 }

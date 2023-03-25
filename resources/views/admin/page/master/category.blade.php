@@ -75,7 +75,12 @@
       let table = $('#datatable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('api.master.categories.index') }}?type=" + type,
+        ajax: {
+          url: "{{ route('api.master.categories.index') }}?type=" + type,
+          beforeSend: function (request) {
+            request.setRequestHeader("Authorization", 'Bearer '+ localStorage.getItem('_token'));
+          }
+        },
         columns: [
           {data: 'DT_RowIndex', name: 'id', searchable: false},
           {data: 'logo_path', name: 'logo_path', searchable: false, orderable: false},
