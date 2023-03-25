@@ -48,7 +48,12 @@ class AuthUserController extends Controller
             return $this->setResponse($validator->errors(), null, 422);
         }
 
-        $credentials = array_merge(request(['username', 'password']), ['role_id' => config('env.role.user')]);
+        $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $credentials = [
+            'role_id' => config('env.role.user'),
+            $fieldType => $request->username,
+            'password' => $request->password
+        ];
         if (!auth()->attempt($credentials)) {
             return $this->setResponse(null, 'Username or Password Wrong', 401);
         }

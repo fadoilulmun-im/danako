@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WEB\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,9 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/verification/{id}', function () {
-    return 'Email verified';
-})->name('verification.verify');
+Route::get('/verification-email/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', function () {
