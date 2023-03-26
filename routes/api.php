@@ -7,6 +7,7 @@ use App\Http\Controllers\API\DonationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthenticationController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,16 @@ Route::prefix('auth-admin')->group(function () {
 });
 
 Route::group(['prefix' => 'master'], function () {
+    Route::group(['prefix' => 'users'], function () {
+        Route::get('/list', [UserController::class, 'list'])->name('api.master.users.list');
+        Route::put('/{id}/change-status', [UserController::class, 'changeStatus'])->name('api.master.users.changeStatus')->middleware(['auth:sanctum']);
+        Route::put('/{id}/reset-password', [UserController::class, 'resetPassword'])->name('api.master.users.resetPassword')->middleware(['auth:sanctum']);
+        Route::get('/', [UserController::class, 'index'])->name('api.master.users.index')->middleware(['auth:sanctum']);
+        Route::post('/', [UserController::class, 'store'])->name('api.master.users.store')->middleware(['auth:sanctum']);
+        Route::get('/{id}', [UserController::class, 'show'])->name('api.master.users.show');
+        Route::post('/{id}', [UserController::class, 'update'])->name('api.master.users.update')->middleware(['auth:sanctum']);
+        Route::delete('/{id}', [UserController::class, 'delete'])->name('api.master.users.delete')->middleware(['auth:sanctum']);
+    });
     Route::group(['prefix' => 'categories'], function () {
         Route::get('/list', [CategoryController::class, 'list'])->name('api.master.categories.list');
         Route::get('/', [CategoryController::class, 'index'])->name('api.master.categories.index')->middleware(['auth:sanctum']);

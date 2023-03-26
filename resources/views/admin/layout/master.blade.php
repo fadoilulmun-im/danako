@@ -159,6 +159,10 @@
               complete: function () {}
             });
           }
+
+          document.addEventListener('DOMContentLoaded', function() {
+            $('.pro-user-name').html((localStorage.getItem('_user_username') ?? 'default') + ' <i class="mdi mdi-chevron-down"></i>');
+          });
         </script>
         @yield('init-js')
         

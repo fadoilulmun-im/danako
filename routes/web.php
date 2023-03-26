@@ -35,6 +35,10 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.dashboard');
     });
 
+    Route::get('/users', function () {
+        return view('admin.page.master.user');
+    });
+
     Route::get('/categories', function () {
         return view('admin.page.master.category');
     });

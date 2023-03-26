@@ -33,7 +33,8 @@ class AuthenticationController extends Controller
             'token_type' => 'Bearer',
             'expires_at' => config('sanctum.expiration') ? Carbon::parse(
                 config('sanctum.expiration')
-            )->toDateTimeString() : null
+            )->toDateTimeString() : null,
+            'user' => $user,
         ]);
     }
 

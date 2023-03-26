@@ -5,7 +5,6 @@
   <link href="{{asset('')}}assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
   <link href="{{asset('')}}assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
   <link href="{{asset('')}}assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet" type="text/css" />
-  <link href="{{asset('')}}assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
   <link href="{{asset('')}}assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
   <style>
     .dropify-wrapper .dropify-message span.file-icon p {
@@ -61,16 +60,15 @@
   <script src="{{asset('')}}assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
   <script src="{{asset('')}}assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
   <script src="{{asset('')}}assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
-  <script src="{{asset('')}}assets/libs/dropzone/min/dropzone.min.js"></script>
   <script src="{{asset('')}}assets/libs/dropify/js/dropify.min.js"></script>
 @endsection
 
 @section('init-js')
   <script src="{{asset('')}}assets/js/pages/datatables.init.js"></script>
-  <script src="{{asset('')}}assets/js/pages/form-fileuploads.init.js"></script>
   <script>
     let type = $(location).attr('hash') ? $(location).attr('hash').slice(1) : 'campaign';
     document.addEventListener('DOMContentLoaded', function() {
+      $('.dropify').dropify({});
       clickable(type);
       let table = $('#datatable').DataTable({
         processing: true,
@@ -211,7 +209,6 @@
               <div class='mb-2'>
                 <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable create">Campaign</button>
                 <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable create">Zakat</button>
-                {{-- <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable create">Waqaf</button> --}}
               </div>
               <div>
                 <input type="hidden" id="create-type" name="type" class="form-control" required>
@@ -222,7 +219,7 @@
                 </div>
                 <div class="mb-2">
                   <label for="create-logo" class="form-label">Logo</label>
-                  <input type="file" data-plugins="dropify" id="create-logo" name="logo" required/>
+                  <input type="file" data-plugins="dropify" class="dropify" id="create-logo" name="logo" required/>
                 </div>
               </div>
             </div>
@@ -255,7 +252,7 @@
                 </div>
                 <div class="mb-2">
                   <label for="edit-logo" class="form-label">Logo</label>
-                  <input type="file" data-plugins="dropify" id="edit-logo" name="logo"/>
+                  <input type="file" data-plugins="dropify" class="dropify" id="edit-logo" name="logo"/>
                 </div>
               </div>
             </div>

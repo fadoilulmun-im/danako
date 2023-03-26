@@ -13,6 +13,7 @@ class AuthUserController extends Controller
     public function register(Request $request)
     {
         $rules = [
+            'name' => 'required|string',
             'username' => 'required|string|unique:users,username|alpha_dash|min:3',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:6',
@@ -25,6 +26,7 @@ class AuthUserController extends Controller
 
         DB::beginTransaction();
         $user = User::create([
+            'name' => $request->name,
             'username' => strtolower($request->username),
             'email' => strtolower($request->email),
             'password' => bcrypt($request->password),
@@ -68,7 +70,8 @@ class AuthUserController extends Controller
             'token_type' => 'Bearer',
             'expires_at' => config('sanctum.expiration') ? Carbon::parse(
                 config('sanctum.expiration')
-            )->toDateTimeString() : null
+            )->toDateTimeString() : null,
+            'user' => $user,
         ]);
     }
 
