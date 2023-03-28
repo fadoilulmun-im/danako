@@ -31,7 +31,7 @@
       </div>
 
       <div class="login">
-        <a href="#" class="btn btn-success-landing login d-flex align-items-center">
+        <a href="{{route('admin.dashboard')}}" class="btn btn-success-landing login d-flex align-items-center">
           Masuk
           <img src="{{ asset('custom/icons/arrow-login.svg') }}" class="ms-2">
         </a>
