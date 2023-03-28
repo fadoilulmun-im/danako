@@ -70,7 +70,7 @@
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
             {data: 'user_id', name: 'user_id.username'},
-            {data: 'campaign_id', name: 'campaign_id.name'},
+            {data: 'campaign_id', name: 'campaign_id.title'},
             {data: 'amount_donations', name: 'amount_donations'},
             {data: 'hope', name: 'hope'},
             {data: 'action', name: 'action', orderable: false, searchable: false},

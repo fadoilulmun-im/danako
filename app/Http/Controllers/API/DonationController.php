@@ -14,7 +14,7 @@ class DonationController extends Controller
 {
     public function index(Request $request)
     {
-        return DataTables::of(Donation::select(['id', 'user_id', 'campaign_id', 'amount_donations', 'hope'])->with(['user', 'campaign']))
+        return DataTables::of(Donation::select(['id', 'user_id', 'campaign_id', 'amount_donations', 'hope']))
             ->addColumn('action', function ($data) {
                 return '
                     <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning mr-1" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Edit"></span>
@@ -24,11 +24,16 @@ class DonationController extends Controller
             ->editColumn('user_id', function ($data)  {
                 return $data->user->username;
             })
-            ->editColumn('category_id', function ($data)  {
-                return $data->campaign->name;
+            ->editColumn('campaign_id', function ($data)  {
+                return $data->campaign->title;
             })
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function store(Request $request)
+    {
+        
     }
 }

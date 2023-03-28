@@ -217,7 +217,7 @@
                 </div>
                 <div class="mb-2">
                   <label for="create-logo" class="form-label">Logo</label>
-                  <input type="file" data-plugins="dropify" id="create-logo" name="logo" required/>
+                  <input type="file" data-plugins="dropify" id="create-logo" name="logo">
                 </div>
               </div>
             </div>
