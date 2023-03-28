@@ -24,6 +24,7 @@ use App\Http\Controllers\API\UserController;
 Route::prefix('auth-user')->group(function () {
     Route::post('register', [AuthUserController::class, 'register']);
     Route::post('login', [AuthUserController::class, 'login']);
+    Route::get('logout', [AuthUserController::class, 'logout'])->name('api.user.logout')->middleware(['auth:sanctum']);
 });
 
 Route::prefix('auth-admin')->group(function () {
