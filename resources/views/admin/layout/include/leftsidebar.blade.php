@@ -57,6 +57,12 @@
                 </li>
                 <li class="menu-title mt-2">Master</li>
                 <li>
+                    <a href="/admin/users">
+                        <i class="fas fa-users"></i>
+                        <span> User </span>
+                    </a>
+                </li>
+                <li>
                     <a href="/admin/categories">
                         <i class="dripicons-view-thumb"></i>
                         <span> Category </span>
