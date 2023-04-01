@@ -19,11 +19,11 @@ class Campaign extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User','id');
+        return $this->belongsTo(User::class);
     }
 
     public function category()
     {
-        return $this->belongsTo('App\Models\CampaignCategory','id');
+        return $this->belongsTo(CampaignCategory::class);
     }
 }

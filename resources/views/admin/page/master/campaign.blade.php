@@ -78,8 +78,6 @@
                                     placeholder="user id"> --}}
                                 <select name="user_id" id="user_id" class="form-control select2 select2User" style="width: 100%">
                                 </select>
-                                <span class="d-none invalid-feedback text-danger error-text user_id_error"
-                                    style="font-size: 13px"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -90,8 +88,6 @@
                                 <select name="category_id" id="category_id" class="form-control select2 select2Category" 
                                 style="width: 100%">
                                 </select>
-                                <span class="d-none invalid-feedback text-danger error-text category_id_error"
-                                    style="font-size: 13px"></span>
                             </div>
                         </div>
                     </div>
@@ -108,9 +104,7 @@
                             <div class="mb-2">
                                 <label for="target_amount" class="form-label">Target amount</label>
                                 <input type="text" class="form-control" id="target_amount" name="target_amount"
-                                    placeholder="Doe">
-                                <span class="d-none invalid-feedback text-danger error-text target_amount_error"
-                                    style="font-size: 13px"></span>
+                                    placeholder="Target amount">
                             </div>
                         </div>
                     </div>
@@ -120,8 +114,6 @@
                                 <label for="description" class="form-label">Description</label>
                                 <textarea type="text" class="form-control" id="description" name="description"
                                     placeholder="Write something here"></textarea>
-                                <span class="d-none invalid-feedback text-danger error-text description_error"
-                                    style="font-size: 13px"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -129,8 +121,6 @@
                                 <label for="purpose" class="form-label">Purpose</label>
                                 <textarea type="text" class="form-control" id="purpose" name="purpose"
                                     placeholder="Write something here"></textarea>
-                                <span class="d-none invalid-feedback text-danger error-text purpose_error"
-                                    style="font-size: 13px"></span>
                             </div>
                         </div>
                     </div>
@@ -139,18 +129,14 @@
                             <div class="mb-2">
                                 <label for="receiver" class="form-label">Receiver</label>
                                 <input type="text" class="form-control" id="receiver" name="receiver"
-                                    placeholder="John">
-                                <span class="d-none invalid-feedback text-danger error-text receiver_error"
-                                    style="font-size: 13px"></span>
+                                    placeholder="Receiver">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="address_receiver" class="form-label">Address receiver</label>
                                 <input type="text" class="form-control" id="address_receiver" name="address_receiver"
-                                    placeholder="Doe">
-                                <span class="d-none invalid-feedback text-danger error-text address_receiver_error"
-                                    style="font-size: 13px"></span>
+                                    placeholder="Address receiver">
                             </div>
                         </div>
                     </div>
@@ -160,8 +146,6 @@
                                 <label for="start_date" class="form-label">Start date</label>
                                 <input type="date" class="form-control" id="start_date" name="start_date"
                                     placeholder="Start campaign">
-                                <span class="d-none invalid-feedback text-danger error-text start_date_error"
-                                    style="font-size: 13px"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -169,8 +153,6 @@
                                 <label for="end_date" class="form-label">End date</label>
                                 <input type="date" class="form-control" id="end_date" name="end_date"
                                     placeholder="End campaign">
-                                <span class="d-none invalid-feedback text-danger error-text end_date_error"
-                                    style="font-size: 13px"></span>
                             </div>
                         </div>
                     </div>
@@ -186,8 +168,6 @@
                                 <label for="detail_usage_of_funds" class="form-label">Funds usage detail</label>
                                 <textarea type="text" class="form-control" id="detail_usage_of_funds"
                                     name="detail_usage_of_funds" placeholder="Write something here"></textarea>
-                                <span class="d-none invalid-feedback text-danger error-text detail_usage_of_funds_error"
-                                    style="font-size: 13px"></span>
                             </div>
                         </div>
                     </div>
@@ -285,7 +265,7 @@
         order: [[0, 'desc']]
     });
 
-    $('.select2User').select2({
+    var sel_user = $('.select2User').select2({
         placeholder: {value: '',text: 'None Selected'},
         dropdownParent: $("#campaignModal"),
         allowClear: true,
@@ -310,19 +290,18 @@
         var id = $('#user_id').val();
     });
 
-    $('.select2Category').select2({
+    var sel_cat = $('.select2Category').select2({
         placeholder: {value: '',text: 'None Selected'},
-        allowClear: true,
         dropdownParent: $("#campaignModal"),
+        allowClear: true,
         ajax: {
             url: "{{ route('api.master.campaigns.category.list') }}",
             dataType: 'json',
             delay: 250,
             processResults: function (data) {
-                data = data.data;
                 return {
-                    results: $.map(data, function (item) {
-                        console.log(data);
+                    results: $.map(data.data, function (item) {
+                        console.log(data.data);
                         return {
                             text: item.name,
                             id: item.id
@@ -333,7 +312,7 @@
             cache: true
         }
     }).on('change', function (e) {
-        var id = $('#category_id').val();
+        $('#category_id').val();
     });
 
     var state = $('#saveBtn').val();
@@ -344,6 +323,13 @@
         type = "PUT"; // for update
         saveUrl = "{{ route('api.master.campaigns.update','') }}/" + id;
     }
+
+    $('#addBtn').click(function(e){
+        $('#modalTitle').text("Create New Campaign");
+        $('#formCampaign').trigger("reset");
+        $('#campaignModal').modal('show'); // modal campaign untuk create tampil
+        $('#saveBtn').val("create");
+    });
 
     function edit(id){
         ajax({
@@ -366,10 +352,85 @@
                     $('#campaignModal').modal('show');
                     $('#modalTitle').text("Edit Campaign");
                     $('#saveBtn').val("update");
+                    $('.select2Category').select2({
+                        placeholder: {value: response.data.category.id, text: response.data.category.name},
+                        dropdownParent: $("#campaignModal"),
+                        allowClear: true,
+                        ajax: {
+                            url: "{{ route('api.master.campaigns.category.list') }}",
+                            dataType: 'json',
+                            delay: 250,
+                            processResults: function (data) {
+                                return {
+                                    results: $.map(data.data, function (item) {
+                                        console.log(data.data);
+                                        return {
+                                            text: item.name,
+                                            id: item.id
+                                        }
+                                    })
+                                };
+                            },
+                            cache: true
+                        }
+                    }).on('select2:select', function (e) {
+                        $('#category_id').val();
+                    });
+
+                    $('.select2User').select2({
+                        placeholder: {value: response.data.user.id, text: response.data.user.username},
+                        dropdownParent: $("#campaignModal"),
+                        allowClear: true,
+                        ajax: {
+                            url: "{{ route('api.master.campaigns.user.list') }}",
+                            dataType: 'json',
+                            delay: 250,
+                            processResults: function (data) {
+                                return {
+                                    results: $.map(data.data, function (item) {
+                                        console.log(data.data);
+                                        return {
+                                            text: item.username,
+                                            id: item.id
+                                        }
+                                    })
+                                };
+                            },
+                            cache: true
+                        }
+                    }).on('select2:select', function (e) {
+                        $('#user_id').val();
+                    });
+                    getId = $('.select2User').val();
+                    console.log(getId);
+                    // $('.select2User').select2();
+                    // $('.select2User').val(response.data.user_id).trigger('change');
+                    // $('.select2Category').select2();
+                    // $('.select2Category').val(response.data.category_id).trigger('change');
                 }
             },
         });
     }
+
+    $('#formCampaign').submit(function(e){
+        e.preventDefault();
+
+        ajax({
+            url: saveUrl,
+            type: type,
+            data: new FormData(e.target),
+            processData: false,
+            contentType: false,
+            success: function(response){
+                if(response.meta.status == 'OK'){
+                    $("#campaignModal").modal('hide');
+                    $('#formCampaign').trigger("reset");
+                    table.ajax.reload();
+                    $('.dropify-clear').click();
+                }
+            },  
+        });
+    }); 
 
     function destroy(id){
         $('#delete-id').val(id);
@@ -391,33 +452,6 @@
             },
         });
     });
-
-    $('#addBtn').click(function(e){
-        $('#modalTitle').text("Create New Campaign");
-        $('#formCampaign').trigger("reset");
-        $('#campaignModal').modal('show'); // modal campaign untuk create tampil
-        $('#saveBtn').val("create");
-    });
-
-    $('#formCampaign').submit(function(e){
-        e.preventDefault();
-
-        ajax({
-            url: saveUrl,
-            type: type,
-            data: new FormData(e.target),
-            processData: false,
-            contentType: false,
-            success: function(response){
-                if(response.meta.status == 'OK'){
-                    $("#campaignModal").modal('hide');
-                    $('#formCampaign').trigger("reset");
-                    table.ajax.reload();
-                    $('.dropify-clear').click();
-                }
-            },  
-        });
-    }); 
 
 </script>
 @endsection

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Yajra\DataTables\DataTables;
 
 class CampaignController extends Controller
@@ -61,7 +62,12 @@ class CampaignController extends Controller
                 ';
             })
             ->editColumn('img_path', function ($data) {
-                return '<img src="'. asset('uploads'. $data->img_path) .'" alt="logo" style="width: 100px; height: 100px">';
+                if(File::exists(public_path('uploads'. $data->img_path))){
+                    $path = 'uploads'. $data->img_path;
+                }else{
+                    $path = 'assets/images/image-solid.svg';
+                }
+                return '<img src="'. asset($path) .'" alt="logo" style="width: 100px; height: 100px">';
             })
             // ->editColumn('user_id', function ($data)  {
             //     return $data->user->username;
@@ -70,7 +76,7 @@ class CampaignController extends Controller
             //     return $data->category->name;
             // })
             ->addIndexColumn()
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'img_path'])
             ->make(true);
 
 
@@ -128,8 +134,11 @@ class CampaignController extends Controller
             $campaign->start_date = $request->input('start_date');
             $campaign->end_date = $request->input('end_date');
 
-            $fileName = time().'.'.$request->file('img_path')->extension();
             $path = '/campaign';
+            if(!File::exists(public_path('uploads'. $path))){
+                File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+            }
+            $fileName = time().'.'.$request->file('img_path')->extension();
             $file = $request->file('img_path');
     
             $canvas = Image::canvas(300, 300, '#ffffff');
@@ -153,7 +162,7 @@ class CampaignController extends Controller
 
     public function show($id)
     {
-        $campaign = Campaign::find($id);
+        $campaign = Campaign::with(['user', 'category'])->find($id);
 
         if(!$campaign){
             return $this->setResponse(null, 'Campaign not found', 404);
@@ -165,7 +174,7 @@ class CampaignController extends Controller
     public function update(Request $request, $id)
     {
         $rules = $this->rules();
-        // $rules['img_path'] .= '|required';
+        $rules['img_path'] .= '|required';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return $this->setResponse($validator->errors(), null, 422);
@@ -183,25 +192,29 @@ class CampaignController extends Controller
             $campaign->start_date = $request->input('start_date');
             $campaign->end_date = $request->input('end_date');
 
-            // if($request->hasFile('logo')){
-            //     $campaign->deleteLogoFile();
-    
-            //     $fileName = time().'.'.$request->file('img_path')->extension();
-            //     $path = '/campaign';
-            //     $file = $request->file('img_path');
+            if($request->hasFile('img_path')){
+                $campaign->deleteLogoFile();
+                $path = '/campaign';
+                
+                if(!File::exists(public_path('uploads'. $path))){
+                    File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+                }
         
-            //     $canvas = Image::canvas(300, 300, '#ffffff');
-            //     $img = Image::make($file->getRealPath());
-            //     $height = $img->height();
-            //     $width = $img->width();
-            //     $img->resize($width > $height ? 300 : null, $height >= $width ? 300 : null, function ($constraint){
-            //         $constraint->aspectRatio();
-            //         $constraint->upsize();
-            //     });
-            //     $canvas->insert($img, 'center');
-            //     $canvas->save(public_path('uploads') . $path . '/' . $fileName);
-            //     $campaign->img_path = $path . '/' . $fileName;
-            // }
+                $fileName = time().'.'.$request->file('img_path')->extension();
+                $file = $request->file('img_path');
+        
+                $canvas = Image::canvas(300, 300, '#ffffff');
+                $img = Image::make($file->getRealPath());
+                $height = $img->height();
+                $width = $img->width();
+                $img->resize($width > $height ? 300 : null, $height >= $width ? 300 : null, function ($constraint){
+                    $constraint->aspectRatio();
+                    $constraint->upsize();
+                });
+                $canvas->insert($img, 'center');
+                $canvas->save(public_path('uploads') . $path . '/' . $fileName);
+                $campaign->img_path = $path . '/' . $fileName;
+            }
 
             $campaign->save();
             DB::commit();

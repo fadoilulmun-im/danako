@@ -55,7 +55,3 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('/landing', function () {
     return view('landing.index');
 });
-
-Route::get('/landing', function () {
-    return view('landing.index');
-});
