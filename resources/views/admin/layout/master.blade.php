@@ -12,6 +12,23 @@
       <!-- icons -->
       <link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
+      <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
+
+      {{-- font size dropify-infos-message --}}
+      <style>
+        .dropify-wrapper .dropify-message span.file-icon p {
+          font-size: 25px;
+        }
+      </style>
+
+      {{-- <style>
+        @media (max-width: 991.98px){
+          .left-side-menu{
+            display: inline;
+            overflow-y: scroll;
+          }
+        }
+      </style> --}}
     </head>
 
     <!-- body start -->
@@ -77,10 +94,102 @@
         <script src="{{asset('assets/libs/waypoints/lib/jquery.waypoints.min.js')}}"></script>
         <script src="{{asset('assets/libs/jquery.counterup/jquery.counterup.min.js')}}"></script>
         <script src="{{asset('assets/libs/feather-icons/feather.min.js')}}"></script>
+        <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
 
         @yield('third-party-js')
 
         <!-- init js-->
+        <script>
+          function ajax(setting){
+            setting.headers = {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            };
+
+            if(localStorage.getItem('_token')){
+              setting.headers['Authorization'] = 'Bearer '+localStorage.getItem('_token');
+            }
+
+            if(!setting.beforeSend){
+              setting.beforeSend = function () {
+                $('#loading').modal('show');
+              };
+            }
+            
+            if(!setting.complete){
+              setting.complete = function () {
+                $('#loading').modal('hide');
+              };
+            }
+            
+            if(!setting.error){
+              setting.error = function (response) {
+                let res = response.responseJSON
+                let code = res.meta.code
+
+                handleError(code, res);
+              };
+            }
+
+            $.ajax(setting);
+          }
+
+          function logout(){
+            ajax({
+              url: "{{ route('api.admin.logout') }}",
+              success: function (response) {
+                localStorage.removeItem('_token');
+                localStorage.removeItem('_user_username');
+                window.location.href = "/";
+              },
+              complete: function () {}
+            });
+          }
+
+          function handleError(code, res){
+            switch (code) {
+              case 401:
+                Swal.fire({
+                  title: 'Anda Belum Login',
+                  text: "Silahkan login terlebih dahulu untuk melakukan aksi ini",
+                  icon: 'error',
+                  showCancelButton: false,
+                  confirmButtonText: 'LOGIN',
+                  showLoaderOnConfirm: true,
+                  allowOutsideClick: () => !Swal.isLoading(),
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = "{{ route('admin.login') }}";
+                  }
+                })
+                break;
+              case 403:
+                Swal.fire({
+                  title: 'Hak akses',
+                  text: "Anda tidak memiliki hak akses untuk melakukan aksi ini",
+                  icon: 'error',
+                })
+              case 422:
+                Swal.fire({
+                  title: 'ERROR',
+                  text: res.meta.message,
+                  icon: 'error',
+                })
+                let errors = res.data;
+                $.each(errors, function(key, value){
+                  $(`input[name="${key}"]`).addClass('is-invalid');
+                  $(`input[name="${key}"]`).next().text(value);
+                });
+                break;
+              default:
+                Swal.fire({
+                  title: 'ERROR',
+                  text: res.meta.message,
+                  icon: 'error',
+                })
+                break;
+            }
+          }
+        </script>
         @yield('init-js')
         
 

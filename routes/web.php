@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\WEB\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,22 +16,46 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-<<<<<<< HEAD
-    return view('admin.page.index');
-=======
     return view('welcome');
->>>>>>> 6dea91e6c7a2160a9d1a8b56c087f94100108fc4
 });
 
+Route::get('/verification-email/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
+
 Route::group(['prefix' => 'admin'], function () {
+
+    Route::get('/login', function () {
+        return view('admin.page.login');
+    })->name('admin.login');
+
     Route::get('/', function () {
         return view('admin.page.index');
-    });
+    })->name('admin.dashboard');
+
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     });
 
+    Route::get('/users', function () {
+        return view('admin.page.master.user');
+    });
+
+    Route::get('/profile', function () {
+        return view('admin.page.profile');
+    })->name('admin.profile');
+
     Route::get('/categories', function () {
         return view('admin.page.master.category');
     });
+
+    Route::get('/campaigns', function () {
+        return view('admin.page.master.campaign');
+    });
+    
+    Route::get('/donations', function () {
+        return view('admin.page.master.donation');
+    });
+});
+
+Route::get('/landing', function () {
+    return view('landing.index');
 });

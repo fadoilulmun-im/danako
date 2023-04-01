@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDonationsTable extends Migration
+class CreateWithdrawFundsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateDonationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('donations', function (Blueprint $table) {
+        Schema::create('withdraw_funds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users','id');
-            $table->foreignId('campaign_id')->constrained('campaigns','id');
-            $table->float('amount_donations');
-            $table->text('hope')->nullable();
+            $table->foreignId('campaign_id')->nullable()->constrained('campaigns')->onUpdate('cascade')->onDelete('set null');
+            $table->string('description');
+            $table->float('amount');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +29,6 @@ class CreateDonationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('donations');
+        Schema::dropIfExists('withdraw_funds');
     }
 }
