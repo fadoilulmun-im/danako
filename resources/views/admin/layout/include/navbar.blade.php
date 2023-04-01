@@ -172,7 +172,7 @@
 
       <li class="dropdown notification-list topbar-dropdown">
           <a class="nav-link dropdown-toggle nav-user me-0 waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
-              <img src="{{asset('assets/images/users/user-1.jpg')}}" alt="user-image" class="rounded-circle">
+              <img src="" id="user-img-nav" alt="user-image" class="rounded-circle">
               <span class="pro-user-name ms-1">
                   {{-- Nowak <i class="mdi mdi-chevron-down"></i>  --}}
               </span>
@@ -184,15 +184,9 @@
               </div>
 
               <!-- item-->
-              <a href="contacts-profile.html" class="dropdown-item notify-item">
+              <a href="{{ route('admin.profile') }}" class="dropdown-item notify-item">
                   <i class="fe-user"></i>
                   <span>My Account</span>
-              </a>
-
-              <!-- item-->
-              <a href="auth-lock-screen.html" class="dropdown-item notify-item">
-                  <i class="fe-lock"></i>
-                  <span>Lock Screen</span>
               </a>
 
               <div class="dropdown-divider"></div>
@@ -250,3 +244,10 @@
   <div class="clearfix"></div> 
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        $('.pro-user-name').html((localStorage.getItem('_user_username') ?? 'default') + ' <i class="mdi mdi-chevron-down"></i>');
+        $('#user-img-nav').attr('src', localStorage.getItem('_user_photo_profile'));
+    });
+</script>

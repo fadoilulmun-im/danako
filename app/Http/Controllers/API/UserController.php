@@ -27,14 +27,14 @@ class UserController extends Controller
                 return '
                 <div class="text-center w-100">
                     <div class="form-check form-switch justify-content-center" >
-                        <input onchange="changeStatus(this,' . $data->id . ')" class="form-check-input" type="checkbox" '. $checked . '/>
+                        <input role="button" onchange="changeStatus(this,' . $data->id . ')" class="form-check-input" type="checkbox" '. $checked . ' data-bs-toggle="tooltip" data-bs-placement="top" title="Change Status"/>
                     </div>
                 </div>';
             })
             ->addColumn('action', function ($data) {
                 return '
-                    <span onclick="detail('. $data->id .')" class="fas fa-info-circle text-primary me-1" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Detail"></span>
-                    <span onclick="resetPassword('. $data->id .')" class="fas fa-redo-alt text-danger" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Reset Password"></span>
+                    <span onclick="detail('. $data->id .')" class="fas fa-info-circle text-primary me-1" style="font-size: 1.2rem; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"></span>
+                    <span onclick="resetPassword('. $data->id .')" class="fas fa-redo-alt text-danger" style="font-size: 1.2rem; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Reset Password"></span>
                 ';
             })
             ->addIndexColumn()

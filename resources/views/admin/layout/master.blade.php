@@ -14,6 +14,21 @@
 
       <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
 
+      {{-- font size dropify-infos-message --}}
+      <style>
+        .dropify-wrapper .dropify-message span.file-icon p {
+          font-size: 25px;
+        }
+      </style>
+
+      {{-- <style>
+        @media (max-width: 991.98px){
+          .left-side-menu{
+            display: inline;
+            overflow-y: scroll;
+          }
+        }
+      </style> --}}
     </head>
 
     <!-- body start -->
@@ -111,38 +126,7 @@
                 let res = response.responseJSON
                 let code = res.meta.code
 
-                switch (code) {
-                  case 401:
-                    Swal.fire({
-                      title: 'Anda Belum Login',
-                      text: "Silahkan login terlebih dahulu untuk melakukan aksi ini",
-                      icon: 'error',
-                      showCancelButton: false,
-                      confirmButtonText: 'LOGIN',
-                      showLoaderOnConfirm: true,
-                      allowOutsideClick: () => !Swal.isLoading(),
-                    }).then((result) => {
-                      if (result.isConfirmed) {
-                        window.location.href = "{{ route('admin.login') }}";
-                      }
-                    })
-                    break;
-                  case 403:
-                    Swal.fire({
-                      title: 'Hak akses',
-                      text: "Anda tidak memiliki hak akses untuk melakukan aksi ini",
-                      icon: 'error',
-                    })
-                  default:
-                    Swal.fire({
-                      title: 'ERROR',
-                      text: res.meta.message,
-                      icon: 'error',
-                    })
-                    break;
-                }
-
-                
+                handleError(code, res);
               };
             }
 
@@ -154,15 +138,57 @@
               url: "{{ route('api.admin.logout') }}",
               success: function (response) {
                 localStorage.removeItem('_token');
+                localStorage.removeItem('_user_username');
                 window.location.href = "/";
               },
               complete: function () {}
             });
           }
 
-          document.addEventListener('DOMContentLoaded', function() {
-            $('.pro-user-name').html((localStorage.getItem('_user_username') ?? 'default') + ' <i class="mdi mdi-chevron-down"></i>');
-          });
+          function handleError(code, res){
+            switch (code) {
+              case 401:
+                Swal.fire({
+                  title: 'Anda Belum Login',
+                  text: "Silahkan login terlebih dahulu untuk melakukan aksi ini",
+                  icon: 'error',
+                  showCancelButton: false,
+                  confirmButtonText: 'LOGIN',
+                  showLoaderOnConfirm: true,
+                  allowOutsideClick: () => !Swal.isLoading(),
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = "{{ route('admin.login') }}";
+                  }
+                })
+                break;
+              case 403:
+                Swal.fire({
+                  title: 'Hak akses',
+                  text: "Anda tidak memiliki hak akses untuk melakukan aksi ini",
+                  icon: 'error',
+                })
+              case 422:
+                Swal.fire({
+                  title: 'ERROR',
+                  text: res.meta.message,
+                  icon: 'error',
+                })
+                let errors = res.data;
+                $.each(errors, function(key, value){
+                  $(`input[name="${key}"]`).addClass('is-invalid');
+                  $(`input[name="${key}"]`).next().text(value);
+                });
+                break;
+              default:
+                Swal.fire({
+                  title: 'ERROR',
+                  text: res.meta.message,
+                  icon: 'error',
+                })
+                break;
+            }
+          }
         </script>
         @yield('init-js')
         

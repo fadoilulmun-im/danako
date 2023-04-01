@@ -28,9 +28,12 @@ Route::prefix('auth-user')->group(function () {
 });
 
 Route::prefix('auth-admin')->group(function () {
+    Route::post('/', [AuthenticationController::class, 'update'])->name('api.admin.update')->middleware(['auth:sanctum']);
+    Route::post('/change-password', [AuthenticationController::class, 'changePassword'])->name('api.admin.changePassword')->middleware(['auth:sanctum']);
     Route::post('/login', [AuthenticationController::class, 'login'])->name('api.admin.login');
     Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware(['auth:sanctum'])->name('api.admin.logout');
-    Route::get('/me', [AuthenticationController::class, 'me'])->middleware(['auth:sanctum']);
+    Route::get('/me', [AuthenticationController::class, 'me'])->name('api.admin.me')->middleware(['auth:sanctum']);
+    Route::post('/upload-image', [AuthenticationController::class, 'uploadImage'])->name('api.admin.uploadImage')->middleware(['auth:sanctum']);
 });
 
 Route::group(['prefix' => 'master'], function () {
