@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserImage::class, 'user_id', 'id')->where('type', 'profile');
     }
+    
+    // public function campaign()
+    // {
+    //     return $this->hasMany('App\Models\Campaign', 'id');
+    // }
 }
