@@ -236,16 +236,11 @@
         lengthChange: true,
         processing: true,
         serverSide: true,
-        ajax: { 
-            url: "{{ route('api.master.campaigns.index') }}",
-            data: function (d) {
-                d.id = $('#select2User').val()
-            }
-        },
+        ajax: "{{ route('api.master.campaigns.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
-            {data: 'user_id', name: 'user_id'},
-            {data: 'category_id', name: 'category_id'},
+            {data: 'user_id', name: 'user_id.username'},
+            {data: 'category_id', name: 'category_id.name'},
             {data: 'title', name: 'title'},
             {data: 'description', name: 'description'},
             {data: 'img_path', name: 'img_path'},

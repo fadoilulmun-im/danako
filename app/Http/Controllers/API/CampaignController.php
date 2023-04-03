@@ -69,12 +69,12 @@ class CampaignController extends Controller
                 }
                 return '<img src="'. asset($path) .'" alt="logo" style="width: 100px; height: 100px">';
             })
-            // ->editColumn('user_id', function ($data)  {
-            //     return $data->user->username;
-            // })
-            // ->editColumn('category_id', function ($data)  {
-            //     return $data->category->name;
-            // })
+            ->editColumn('user_id', function ($data)  {
+                return $data->user->username;
+            })
+            ->editColumn('category_id', function ($data)  {
+                return $data->category->name;
+            })
             ->addIndexColumn()
             ->rawColumns(['action', 'img_path'])
             ->make(true);

@@ -62,5 +62,10 @@ Route::group(['prefix' => 'master'], function () {
     });
     Route::group(['prefix' => 'donations'], function () {
         Route::get('/', [DonationController::class, 'index'])->name('api.master.donations.index');
+        Route::post('/', [DonationController::class, 'store'])->name('api.master.donations.store');
+        Route::get('/campaign-list', [DonationController::class, 'campaignList'])->name('api.master.donations.campaign.list');
+        Route::get('/{id}', [DonationController::class, 'show'])->name('api.master.donations.show');
+        Route::put('/{id}', [DonationController::class, 'update'])->name('api.master.donations.update');
+        Route::delete('/{id}', [DonationController::class, 'delete'])->name('api.master.donations.delete');
     });
 });
