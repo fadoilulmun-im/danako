@@ -95,4 +95,16 @@ class UserController extends Controller
         
         return $this->setResponse($model, 'User created', 201);
     }
+
+    public function list(Request $request){
+        $model = User::select(['users.id', 'users.name', 'username', 'email', 'is_active', 'role_id', 'roles.name as role_name'])
+            ->join('roles', 'roles.id', '=', 'users.role_id')
+            ->where('is_active', true);
+
+        if($request->filled('role')){
+            $model->where('role_id', $request->role);
+        }
+
+        return $this->setResponse($model->get(), null, 200);
+    }
 }

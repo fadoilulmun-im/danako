@@ -35,7 +35,7 @@ class CategoryController extends Controller
         };
         return DataTables::of($model)
             ->editColumn('logo_path', function ($data) {
-                if(File::exists(public_path('uploads'. $data->logo_path))){
+                if($data->logo_path && File::exists(public_path('uploads'. $data->logo_path))){
                     $path = 'uploads'. $data->logo_path;
                 }else{
                     $path = 'assets/images/image-solid.svg';
