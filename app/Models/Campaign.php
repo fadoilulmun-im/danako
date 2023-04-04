@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 class Campaign extends Model
 {
@@ -16,6 +17,13 @@ class Campaign extends Model
         'purpose', 'address_receiver', 'detail_usage_of_funds', 'real_time_amount', 'verification_status', 'activity'
     ];
     protected $primaryKey = 'id';
+
+    public function deleteImageFile()
+    {
+        if(File::exists(public_path('uploads'. $this->logo_path))){
+            File::delete(public_path('uploads'. $this->logo_path));
+        }
+    }
 
     public function user()
     {

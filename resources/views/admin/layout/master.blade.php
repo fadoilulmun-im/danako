@@ -139,6 +139,7 @@
               success: function (response) {
                 localStorage.removeItem('_token');
                 localStorage.removeItem('_user_username');
+                localStorage.removeItem('_user_photo_profile');
                 window.location.href = "/";
               },
               complete: function () {}
@@ -158,6 +159,9 @@
                   allowOutsideClick: () => !Swal.isLoading(),
                 }).then((result) => {
                   if (result.isConfirmed) {
+                    localStorage.removeItem('_token');
+                    localStorage.removeItem('_user_username');
+                    localStorage.removeItem('_user_photo_profile');
                     window.location.href = "{{ route('admin.login') }}";
                   }
                 })
@@ -178,6 +182,12 @@
                 $.each(errors, function(key, value){
                   $(`input[name="${key}"]`).addClass('is-invalid');
                   $(`input[name="${key}"]`).next().text(value);
+
+                  $(`select[name="${key}"]`).addClass('is-invalid');
+                  $(`select[name="${key}"]`).parent().next().text(value);
+
+                  $(`textarea[name="${key}"]`).addClass('is-invalid');
+                  $(`textarea[name="${key}"]`).next().text(value);
                 });
                 break;
               default:

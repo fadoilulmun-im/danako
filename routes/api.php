@@ -61,7 +61,7 @@ Route::group(['prefix' => 'master'], function () {
         Route::get('/category-list', [CampaignController::class, 'categoryList'])->name('api.master.campaigns.category.list');
         Route::get('/user-list', [CampaignController::class, 'userList'])->name('api.master.campaigns.user.list');
         Route::get('/{id}', [CampaignController::class, 'show'])->name('api.master.campaigns.show');
-        Route::put('/{id}', [CampaignController::class, 'update'])->name('api.master.campaigns.update');
+        Route::post('/{id}', [CampaignController::class, 'update'])->name('api.master.campaigns.update');
         Route::delete('/{id}', [CampaignController::class, 'delete'])->name('api.master.campaigns.delete');
     });
     Route::group(['prefix' => 'donations'], function () {

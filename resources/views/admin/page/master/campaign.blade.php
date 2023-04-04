@@ -76,8 +76,9 @@
                                 <label for="user_id" class="form-label">User</label><br />
                                 {{-- <input type="text" class="form-control" name="user_id" id="user_id"
                                     placeholder="user id"> --}}
-                                <select name="user_id" id="user_id" class="form-control select2 select2User" style="width: 100%">
+                                <select name="user_id" id="user_id" class="form-control select2 select2User custom-select" style="width: 100%" required>
                                 </select>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -85,9 +86,10 @@
                                 <label for="category_id" class="form-label">Category</label><br />
                                 {{-- <input type="text" class="form-control" name="category_id" id="category_id"
                                     placeholder="category id"> --}}
-                                <select name="category_id" id="category_id" class="form-control select2 select2Category" 
-                                style="width: 100%">
+                                <select name="category_id" id="category_id" class="form-control select2 select2Category custom-select" 
+                                style="width: 100%" required>
                                 </select>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                     </div>
@@ -95,16 +97,15 @@
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="title" class="form-label">Title</label><br />
-                                <input type="text" class="form-control" id="title" name="title" placeholder="John">
-                                <span class="d-none invalid-feedback text-danger error-text title_error"
-                                    style="font-size: 13px"></span>
+                                <input type="text" class="form-control" id="title" name="title" placeholder="John" required>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="target_amount" class="form-label">Target amount</label>
-                                <input type="text" class="form-control" id="target_amount" name="target_amount"
-                                    placeholder="Target amount">
+                                <input type="text" class="form-control" id="target_amount" name="target_amount" placeholder="Target amount" required>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                     </div>
@@ -113,14 +114,16 @@
                             <div class="mb-2">
                                 <label for="description" class="form-label">Description</label>
                                 <textarea type="text" class="form-control" id="description" name="description"
-                                    placeholder="Write something here"></textarea>
+                                    placeholder="Write something here" required></textarea>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="purpose" class="form-label">Purpose</label>
                                 <textarea type="text" class="form-control" id="purpose" name="purpose"
-                                    placeholder="Write something here"></textarea>
+                                    placeholder="Write something here" required></textarea>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                     </div>
@@ -129,14 +132,16 @@
                             <div class="mb-2">
                                 <label for="receiver" class="form-label">Receiver</label>
                                 <input type="text" class="form-control" id="receiver" name="receiver"
-                                    placeholder="Receiver">
+                                    placeholder="Receiver" required>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="address_receiver" class="form-label">Address receiver</label>
                                 <input type="text" class="form-control" id="address_receiver" name="address_receiver"
-                                    placeholder="Address receiver">
+                                    placeholder="Address receiver" required>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                     </div>
@@ -145,29 +150,33 @@
                             <div class="mb-2">
                                 <label for="start_date" class="form-label">Start date</label>
                                 <input type="date" class="form-control" id="start_date" name="start_date"
-                                    placeholder="Start campaign">
+                                    placeholder="Start campaign" required>
+                                    <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="end_date" class="form-label">End date</label>
                                 <input type="date" class="form-control" id="end_date" name="end_date"
-                                    placeholder="End campaign">
+                                    placeholder="End campaign" required>
+                                    <div class="invalid-feedback"></div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-2">
-                                <label for="img_path" class="form-label">Image</label>
-                                <input type="file" data-plugins="dropify" id="img_path" name="img_path">
+                                <label for="image" class="form-label">Image</label>
+                                <input type="file" data-plugins="dropify" id="image" name="image" required>
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="detail_usage_of_funds" class="form-label">Funds usage detail</label>
                                 <textarea type="text" class="form-control" id="detail_usage_of_funds"
-                                    name="detail_usage_of_funds" placeholder="Write something here"></textarea>
+                                    name="detail_usage_of_funds" placeholder="Write something here" required></textarea>
+                                    <div class="invalid-feedback"></div>
                             </div>
                         </div>
                     </div>
@@ -239,8 +248,8 @@
         ajax: "{{ route('api.master.campaigns.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
-            {data: 'user_id', name: 'user_id.username'},
-            {data: 'category_id', name: 'category_id.name'},
+            {data: 'user.name', name: 'user.name'},
+            {data: 'category.name', name: 'category.name'},
             {data: 'title', name: 'title'},
             {data: 'description', name: 'description'},
             {data: 'img_path', name: 'img_path'},
@@ -265,15 +274,14 @@
         dropdownParent: $("#campaignModal"),
         allowClear: true,
         ajax: {
-            url: "{{ route('api.master.campaigns.user.list') }}",
+            url: "{{ route('api.master.users.list') }}",
             dataType: 'json',
             delay: 250,
             processResults: function (data) {
                 return {
                     results: $.map(data.data, function (item) {
-                        console.log(data.data);
                         return {
-                            text: item.username,
+                            text: (item.name ?? item.username) + ' ('+ item.role_name +') ',
                             id: item.id
                         }
                     })
@@ -290,13 +298,12 @@
         dropdownParent: $("#campaignModal"),
         allowClear: true,
         ajax: {
-            url: "{{ route('api.master.campaigns.category.list') }}",
+            url: "{{ route('api.master.categories.list') }}" + '?type=campaign',
             dataType: 'json',
             delay: 250,
             processResults: function (data) {
                 return {
                     results: $.map(data.data, function (item) {
-                        console.log(data.data);
                         return {
                             text: item.name,
                             id: item.id
@@ -310,16 +317,20 @@
         $('#category_id').val();
     });
 
-    var state = $('#saveBtn').val();
-    var type = "POST"; // for store
-    var id = $('#campaign_id').val();
-    var saveUrl = "{{ route('api.master.campaigns.store') }}";
-    if (state == "update"){
-        type = "PUT"; // for update
-        saveUrl = "{{ route('api.master.campaigns.update','') }}/" + id;
-    }
+    // var state = $('#saveBtn').val();
+    // var type = "POST"; // for store
+    // var id = $('#campaign_id').val();
+    // var saveUrl = "{{ route('api.master.campaigns.store') }}";
+    // if (state == "update"){
+    //     type = "PUT"; // for update
+    //     saveUrl = "{{ route('api.master.campaigns.update','') }}/" + id;
+    // }
+
+    let saveUrl = '';
 
     $('#addBtn').click(function(e){
+        $('input[name="image"]').prop('required',true);
+        saveUrl = "{{ route('api.master.campaigns.store') }}";
         $('#modalTitle').text("Create New Campaign");
         $('#formCampaign').trigger("reset");
         $('#campaignModal').modal('show'); // modal campaign untuk create tampil
@@ -347,75 +358,31 @@
                     $('#campaignModal').modal('show');
                     $('#modalTitle').text("Edit Campaign");
                     $('#saveBtn').val("update");
-                    $('.select2Category').select2({
-                        placeholder: {value: response.data.category.id, text: response.data.category.name},
-                        dropdownParent: $("#campaignModal"),
-                        allowClear: true,
-                        ajax: {
-                            url: "{{ route('api.master.campaigns.category.list') }}",
-                            dataType: 'json',
-                            delay: 250,
-                            processResults: function (data) {
-                                return {
-                                    results: $.map(data.data, function (item) {
-                                        console.log(data.data);
-                                        return {
-                                            text: item.name,
-                                            id: item.id
-                                        }
-                                    })
-                                };
-                            },
-                            cache: true
-                        }
-                    }).on('select2:select', function (e) {
-                        $('#category_id').val();
-                    });
-
-                    $('.select2User').select2({
-                        placeholder: {value: response.data.user.id, text: response.data.user.username},
-                        dropdownParent: $("#campaignModal"),
-                        allowClear: true,
-                        ajax: {
-                            url: "{{ route('api.master.campaigns.user.list') }}",
-                            dataType: 'json',
-                            delay: 250,
-                            processResults: function (data) {
-                                return {
-                                    results: $.map(data.data, function (item) {
-                                        console.log(data.data);
-                                        return {
-                                            text: item.username,
-                                            id: item.id
-                                        }
-                                    })
-                                };
-                            },
-                            cache: true
-                        }
-                    }).on('select2:select', function (e) {
-                        $('#user_id').val();
-                    });
-                    getId = $('.select2User').val();
-                    console.log(getId);
-                    // $('.select2User').select2();
-                    // $('.select2User').val(response.data.user_id).trigger('change');
-                    // $('.select2Category').select2();
-                    // $('.select2Category').val(response.data.category_id).trigger('change');
+                    
+                    $('.select2Category').append(new Option(response.data.category.name, response.data.category.id, false, true));
+                    $('.select2User').append(new Option(response.data.user.name ?? response.data.user.username, response.data.user.id, false, true));
                 }
             },
         });
+
+        $('input[name="image"]').prop('required',false);
+        saveUrl = "{{ route('api.master.campaigns.update', ':id') }}";
+        saveUrl = saveUrl.replace(':id', id);
     }
 
     $('#formCampaign').submit(function(e){
         e.preventDefault();
+        let btn = $(this).find("button[type=submit]" );
 
         ajax({
             url: saveUrl,
-            type: type,
+            type: 'POST',
             data: new FormData(e.target),
             processData: false,
             contentType: false,
+            beforeSend: function () {
+                btn.html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...`);
+            },
             success: function(response){
                 if(response.meta.status == 'OK'){
                     $("#campaignModal").modal('hide');
@@ -423,7 +390,15 @@
                     table.ajax.reload();
                     $('.dropify-clear').click();
                 }
-            },  
+            },
+            error: function (response) {
+                let res = response.responseJSON;
+                let code = res.meta.code;
+                handleError(code, res);
+            },
+            complete: function(){
+                btn.html('Save');
+            }
         });
     }); 
 

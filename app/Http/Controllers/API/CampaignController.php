@@ -23,7 +23,7 @@ class CampaignController extends Controller
             'title' => 'required|string',
             'description' => 'required|string',
             'target_amount' => 'required|numeric',
-            'img_path' => 'image',
+            'image' => 'image',
             'receiver' => 'required|string',
             'purpose' => 'required|string',
             'address_receiver' => 'required|string',
@@ -33,27 +33,9 @@ class CampaignController extends Controller
         ];
     }
 
-    // public function create(){
-    //     $user = User::all();
-    //     $category = CampaignCategory::all();
-
-    //     return view('admin.page.master.campaign', [
-    //         'user' => $user,
-    //         'category' => $category
-    //     ]);
-    // }
-
     public function index(Request $request)
     {
-
-        // $campaign = Campaign::query();
-        // ->join('users', 'campaigns.user_id', '=', 'users.user_id');
-        // if ($request->get('id')) {
-        //     $campaign->where('id', '=', $request->get('id'));
-        // }
-
-        $campaign = Campaign::with(['user', 'category'])->select(['id', 'user_id', 'category_id', 'title', 'description', 'img_path', 'slug', 'target_amount', 'start_date', 'end_date', 'receiver', 
-        'purpose', 'address_receiver', 'real_time_amount', 'detail_usage_of_funds','verification_status', 'activity']);
+        $campaign = Campaign::with(['user', 'category']);
         return DataTables::of($campaign)
             ->addColumn('action', function ($data) {
                 return '
@@ -68,12 +50,6 @@ class CampaignController extends Controller
                     $path = 'assets/images/image-solid.svg';
                 }
                 return '<img src="'. asset($path) .'" alt="logo" style="width: 100px; height: 100px">';
-            })
-            ->editColumn('user_id', function ($data)  {
-                return $data->user->username;
-            })
-            ->editColumn('category_id', function ($data)  {
-                return $data->category->name;
             })
             ->addIndexColumn()
             ->rawColumns(['action', 'img_path'])
@@ -115,10 +91,10 @@ class CampaignController extends Controller
     public function store(Request $request)
     {
         $rules = $this->rules();
-        $rules['img_path'] .= '|required';
+        $rules['image'] .= '|required';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return $this->setResponse($validator->errors(), null, 422);
+            return $this->setResponse($validator->errors(), 'Silahkan isi form dengan benar', 422);
         } else {
             DB::beginTransaction();
             $campaign = new Campaign;
@@ -138,23 +114,12 @@ class CampaignController extends Controller
             if(!File::exists(public_path('uploads'. $path))){
                 File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
             }
-            $fileName = time().'.'.$request->file('img_path')->extension();
-            $file = $request->file('img_path');
-    
-            $canvas = Image::canvas(300, 300, '#ffffff');
-            $img = Image::make($file->getRealPath());
-            $height = $img->height();
-            $width = $img->width();
-            $img->resize($width > $height ? 300 : null, $height >= $width ? 300 : null, function ($constraint){
-                $constraint->aspectRatio();
-                $constraint->upsize();
-            });
-            $canvas->insert($img, 'center');
-            $canvas->save(public_path('uploads') . $path . '/' . $fileName);
+            $fileName = time().'.'.$request->file('image')->extension();
+            $request->file('image')->move(public_path('uploads'. $path), $fileName);
 
             $campaign->img_path = $path . '/' . $fileName;
-
             $campaign->save();
+
             DB::commit();
             return $this->setResponse($campaign, 'Campaign created successfully');
         }
@@ -174,7 +139,6 @@ class CampaignController extends Controller
     public function update(Request $request, $id)
     {
         $rules = $this->rules();
-        $rules['img_path'] .= '|required';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return $this->setResponse($validator->errors(), null, 422);
@@ -192,27 +156,16 @@ class CampaignController extends Controller
             $campaign->start_date = $request->input('start_date');
             $campaign->end_date = $request->input('end_date');
 
-            if($request->hasFile('img_path')){
-                $campaign->deleteLogoFile();
+            if($request->hasFile('image')){
+                $campaign->deleteImageFile();
                 $path = '/campaign';
                 
                 if(!File::exists(public_path('uploads'. $path))){
                     File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
                 }
         
-                $fileName = time().'.'.$request->file('img_path')->extension();
-                $file = $request->file('img_path');
-        
-                $canvas = Image::canvas(300, 300, '#ffffff');
-                $img = Image::make($file->getRealPath());
-                $height = $img->height();
-                $width = $img->width();
-                $img->resize($width > $height ? 300 : null, $height >= $width ? 300 : null, function ($constraint){
-                    $constraint->aspectRatio();
-                    $constraint->upsize();
-                });
-                $canvas->insert($img, 'center');
-                $canvas->save(public_path('uploads') . $path . '/' . $fileName);
+                $fileName = time().'.'.$request->file('image')->extension();
+                $request->file('image')->move(public_path('uploads'. $path), $fileName);
                 $campaign->img_path = $path . '/' . $fileName;
             }
 
