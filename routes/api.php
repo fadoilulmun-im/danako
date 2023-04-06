@@ -56,10 +56,9 @@ Route::group(['prefix' => 'master'], function () {
         Route::delete('/{id}', [CategoryController::class, 'delete'])->name('api.master.categories.delete')->middleware(['auth:sanctum']);
     });
     Route::group(['prefix' => 'campaigns'], function () {
+        Route::get('/list', [CampaignController::class, 'list'])->name('api.master.campaigns.list');
         Route::get('/', [CampaignController::class, 'index'])->name('api.master.campaigns.index');
         Route::post('/', [CampaignController::class, 'store'])->name('api.master.campaigns.store');
-        Route::get('/category-list', [CampaignController::class, 'categoryList'])->name('api.master.campaigns.category.list');
-        Route::get('/user-list', [CampaignController::class, 'userList'])->name('api.master.campaigns.user.list');
         Route::get('/{id}', [CampaignController::class, 'show'])->name('api.master.campaigns.show');
         Route::post('/{id}', [CampaignController::class, 'update'])->name('api.master.campaigns.update');
         Route::delete('/{id}', [CampaignController::class, 'delete'])->name('api.master.campaigns.delete');
@@ -67,9 +66,8 @@ Route::group(['prefix' => 'master'], function () {
     Route::group(['prefix' => 'donations'], function () {
         Route::get('/', [DonationController::class, 'index'])->name('api.master.donations.index');
         Route::post('/', [DonationController::class, 'store'])->name('api.master.donations.store');
-        Route::get('/campaign-list', [DonationController::class, 'campaignList'])->name('api.master.donations.campaign.list');
         Route::get('/{id}', [DonationController::class, 'show'])->name('api.master.donations.show');
-        Route::put('/{id}', [DonationController::class, 'update'])->name('api.master.donations.update');
+        Route::post('/{id}', [DonationController::class, 'update'])->name('api.master.donations.update');
         Route::delete('/{id}', [DonationController::class, 'delete'])->name('api.master.donations.delete');
     });
 });

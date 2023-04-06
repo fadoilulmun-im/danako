@@ -105,6 +105,13 @@ class UserController extends Controller
             $model->where('role_id', $request->role);
         }
 
+        if ($request->has('q')) {
+            $search = $request->q;
+            $model->orderby('users.name', 'asc')->where('users.name', 'LIKE', "%$search%");
+        } else {
+            $model->orderby('users.name', 'asc')->limit(10);
+        }
+
         return $this->setResponse($model->get(), null, 200);
     }
 }

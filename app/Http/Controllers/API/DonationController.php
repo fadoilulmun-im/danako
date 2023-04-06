@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Donation;
 use App\Models\Campaign;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -15,19 +14,15 @@ class DonationController extends Controller
 {
     public function index(Request $request)
     {
-        return DataTables::of(Donation::select(['id', 'user_id', 'campaign_id', 'amount_donations', 'hope']))
+        $donation = Donation::with(['user', 'campaign']);
+        return DataTables::of($donation)
             ->addColumn('action', function ($data) {
                 return '
-                    <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning mr-1" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Edit"></span>
+                    <span onclick="detail('. $data->id .')" class="fas fa-eye text-primary me-1" style="font-size: 1.2rem; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"></span>
+                    <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning me-1" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Edit"></span>
                     <span onclick="destroy('. $data->id .')" class="fas fa-trash-alt text-danger" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Delete"></span>
                 ';
             })
-            // ->editColumn('user_id', function ($data)  {
-            //     return $data->user->username;
-            // })
-            // ->editColumn('campaign_id', function ($data)  {
-            //     return $data->campaign->title;
-            // })
             ->addIndexColumn()
             ->rawColumns(['action'])
             ->make(true);
@@ -38,24 +33,9 @@ class DonationController extends Controller
         return [
             'user_id' => 'required',
             'campaign_id' => 'required',
-            'amount_donations' => 'required||numeric',
+            'amount_donations' => 'required|numeric',
             'hope' => 'nullable|string',
         ];
-    }
-
-    public function campaignList(Request $request)
-    {
-        $campaign = [];
-        if ($request->has('q')) {
-            $search = $request->q;
-            $campaign = Campaign::orderby('title', 'asc')
-                ->select("id", "title")
-                ->where('title', 'LIKE', "%$search%")
-                ->get();
-        } else {
-            $campaign = Campaign::orderby('title', 'asc')->select("id", "title")->limit(10)->get();
-        }
-        return $this->setResponse($campaign);
     }
 
     public function store(Request $request)
@@ -63,7 +43,7 @@ class DonationController extends Controller
         $rules = $this->rules();
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return $this->setResponse($validator->errors(), null, 422);
+            return $this->setResponse($validator->errors(), 'Silahkan isi form dengan benar', 422);
         } else {
             DB::beginTransaction();
             $donation = new Donation;
@@ -88,13 +68,12 @@ class DonationController extends Controller
         return $this->setResponse($donation, 'Donation retrieved successfully');
     }
 
-
     public function update(Request $request, $id)
     {
         $rules = $this->rules();
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return $this->setResponse($validator->errors(), null, 422);
+            return $this->setResponse($validator->errors(), 'Silahkan isi form dengan benar', 422);
         } else {
             DB::beginTransaction();
             $donation = Donation::find($id);
@@ -119,5 +98,21 @@ class DonationController extends Controller
             $donation->delete();
             return $this->setResponse(null, 'Donation deleted successfully');
         }
+    }
+
+    public function list(Request $request)
+    {
+        $model = Donation::select(['campaigns.id as id', 'campaigns.title as title', 'campaigns.category_id', 'campaign_categories.name as category_name'])
+            ->join('campaign_categories', 'campaign_categories.id', '=', 'campaigns.category_id');
+
+        if($request->filled('category')){
+            $model->where('category_id', $request->category);
+        }
+
+        if($request->filled('search')){
+            $model->where(DB::raw('LOWER(title)'), 'like', '%' . strtolower($request->input('search')) . '%');
+        }
+
+        return $this->setResponse($model->get(), null, 200);
     }
 }
