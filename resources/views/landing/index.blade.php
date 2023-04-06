@@ -1,161 +1,284 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Landing Page</title>
-  <link rel="stylesheet" href="{{ asset('assets/libs/bootstrap/css/bootstrap.min.css') }}">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="{{ asset('custom/css/style.css') }}">
+@extends('landing.layouts.app')
 
-</head>
-<body class="bg-dark">
+@section('title')
+    Dashboard
+@endsection
 
-  <nav class="navbar navbar-landing bg-white">
+
+
+@section('content')
+<header class="header">
     <div class="container">
-      <div class="logo">
-        <a href="/">
-          <img src="{{ asset('custom/images/logo.svg') }}" alt="logo">
-        </a>
-      </div>
-
-      <div class="search">
-        <input type="text" class="search-landing" placeholder='&#xF002; Coba cari "Bencana alam"'>
-      </div>
-
-      <div class="menu-landing">
-        <a href="#" class="menu-link-landing">Prosedur</a>
-        <a href="#" class="menu-link-landing">FAQs</a>
-        <a href="#" class="menu-link-landing">Tentang Kami</a>
-      </div>
-
-      <div class="login">
-        <a href="#" class="btn btn-success-landing login d-flex align-items-center">
-          Masuk
-          <img src="{{ asset('custom/icons/arrow-login.svg') }}" class="ms-2">
-        </a>
-      </div>
+     <div class="text-center">
+       <div class="text-header">
+         <h1 class="color-primary">
+           Lorem ipsum dolor <span class="text-white">sit  amet</span>
+           <br>
+           consectetur
+         </h1>
+         <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc</p>
+       </div>
+       <div class="btn-header pt-5">
+         <button type="button" class="btn btn-primary btn-lg bg-danako-primary border-0 bt-index mx-5 ">Large button</button>
+         <button type="button" class="btn btn-outline-secondary btn-lg mx-5 border-2 bt-index text-white">Large button</button>
+       </div>
+     </div>
     </div>
-  </nav>
+   </header>
+   
+   
+   <section class="hero py-4">
+     <div class="container text-center">
+       <h2 class="text-white">
+         Kenapa pilih  
+         <img src="{{ asset('danako/img/logo.png') }}" alt="logo" height="21px"/>
+         ?
+       </h2>
+       <div class="row pilih-bg">
+         <div class="col-md-4 py-3 px-5">
+           <div class="card p-2">
+             <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
+               <div class="icon">
+                 <img src="{{ asset('') }}custom/icons/Time_progress_light-1.svg" alt="">
+               </div>
+               <h5 class="m-0">Cepat dan Tepat</h5>
+             </div>
+             <div class="card-body text-start text-hero">
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
+             </div>
+           </div>
+         </div>
+         <div class="col-md-4 py-3 px-5">
+           <div class="card p-2">
+             <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
+               <div class="icon">
+                 <img src="{{ asset('') }}custom/icons/Done_all_round_light.svg" alt="">
+               </div>
+               <h5 class="m-0">Cepat dan Tepat</h5>
+             </div>
+             <div class="card-body text-start text-hero">
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
+             </div>
+           </div>
+         </div>
+         <div class="col-md-4 py-3 px-5">
+           <div class="card p-2">
+             <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
+               <div class="icon">
+                 <img src="{{ asset('') }}custom/icons/Line_up_light.svg" alt="">
+               </div>
+               <h5 class="m-0">Cepat dan Tepat</h5>
+             </div>
+             <div class="card-body text-start text-hero">
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+ 
+   </section>
+ 
+   <section class="pb-80">
+     <div class="container" >
+       <h2 class="text-center" style="font-size: 38px ; padding-top: 27px; padding-bottom: 47px;">Mereka yang  <spand class="title-gren">segera</spand> butuh bantuanmu</h2>
+       <div class="container">
+ 
+         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+           <div class="col">
+             <div class="card h-100">
+               <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
+               <div class="card-body">
+                 <p>Nov 2023</p>
+                 <h5 class="card-title">Gemba Cianjur</h5>
+                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
+                 <div class="progress">
+                   <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                 </div>
+                 <div class="row">
+                   <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
+                   <div class="col-6 text-end pt-2">46 hari lagi</div>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class="col">
+             <div class="card h-100">
+               <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
+               <div class="card-body">
+                 <p>Nov 2023</p>
+                 <h5 class="card-title">Gemba Cianjur</h5>
+                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
+                 <div class="progress">
+                   <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                 </div>
+                 <div class="row">
+                   <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
+                   <div class="col-6 text-end pt-2">46 hari lagi</div>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class="col">
+             <div class="card h-100">
+               <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
+               <div class="card-body">
+                 <p>Nov 2023</p>
+                 <h5 class="card-title">Gemba Cianjur</h5>
+                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
+                 <div class="progress">
+                   <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                 </div>
+                 <div class="row">
+                   <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
+                   <div class="col-6 text-end pt-2">46 hari lagi</div>
+                 </div>
+               </div>
+             </div>
+           </div>
+           <div class="col">
+             <div class="card h-100">
+               <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
+               <div class="card-body">
+                 <p>Nov 2023</p>
+                 <h5 class="card-title">Gemba Cianjur</h5>
+                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
+                 <div class="progress">
+                   <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                 </div>
+                 <div class="row">
+                   <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
+                   <div class="col-6 text-end pt-2">46 hari lagi</div>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+ 
+         <div class="d-flex justify-content-end pt-4">
+           <button type="button" class="btn btn-primary btn-sm ms-auto rounded-3 bg-danako-primary border-0">Lihat semua</button>
+         </div>
+       </div>
+     </div>
+   </section>
+ 
+ 
+   <section class="container"  style="background-color: #EEF4E6" >
+     <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel">
+       <div class="carousel-inner container">
+         <div class="carousel-item pt-5 pb-5 active">
+           <div class="row">
+             <div class="col-md-6">
+               <p>Mereka yang sudah terbantu</p>
+               <h2 class="color-primary">
+                 Lorem ipsum dolor <span class="text-white">sit  amet</span>
+                 <br>
+                 consectetur
+               </h2>
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, vestibulum ac ipsum. Praesent vitae vulputate urna. Pellentesque molestie felis ante, vitae viverra ipsum mattis id. In hac habitasse platea dictumst. Ut vel sagittis diam. Maecenas congue sollicitudin volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla porttitor nisl id eleifend fermentum</p>
+             </div>
+             <div class="col-md-6">
+               <img src="{{ asset('') }}danako/img/conten1.png" class="d-block w-100" alt="...">
+             </div>         
+           </div>
+         </div>
+         <div class="carousel-item pt-5 pb-5">
+           <div class="row">
+             <div class="col-md-6">
+               <p>Mereka yang sudah terbantu</p>
+               <h2 class="color-primary">
+                 Lorem ipsum dolor <span class="text-white">sit  amet</span>
+                 <br>
+                 consectetur
+               </h2>
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, vestibulum ac ipsum. Praesent vitae vulputate urna. Pellentesque molestie felis ante, vitae viverra ipsum mattis id. In hac habitasse platea dictumst. Ut vel sagittis diam. Maecenas congue sollicitudin volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla porttitor nisl id eleifend fermentum</p>
+             </div>
+             <div class="col-md-6">
+               <img src="{{ asset('') }}danako/img/conten1.png" class="d-block w-100" alt="...">
+             </div>         
+           </div>
+         </div>
+         <div class="carousel-item pt-5 pb-5">
+           <div class="row">
+             <div class="col-md-6">
+               <p>Mereka yang sudah terbantu</p>
+               <h2 class="color-primary">
+                 Lorem ipsum dolor <span class="text-white">sit  amet</span>
+                 <br>
+                 consectetur
+               </h2>
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, vestibulum ac ipsum. Praesent vitae vulputate urna. Pellentesque molestie felis ante, vitae viverra ipsum mattis id. In hac habitasse platea dictumst. Ut vel sagittis diam. Maecenas congue sollicitudin volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla porttitor nisl id eleifend fermentum</p>
+             </div>
+             <div class="col-md-6">
+               <img src="{{ asset('') }}danako/img/conten1.png" class="d-block w-100" alt="...">
+             </div>         
+           </div>
+         </div>
+       </div>
+       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Previous</span>
+       </button>
+       <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Next</span>
+       </button>
+     </div>
+   </section>
+ 
+   <div class="container h-100 pt-5 pb-5">
+     <div class="row align-items-center h-100">
+       <div class="sponsor rounded">
+         <h2 class="text-center">Lebih dari 50 Perusahaan dan Institusi telah mempercayai kami hingga tahun 2023</h2>
+         <div class="container">
+           <div class="slider">
+           <div class="logos">
+             <i class="fab fa-js fa-4x"></i>
+             <i class="fab fa-linkedin-in fa-4x"></i>
+             <i class="fab fa-dribbble fa-4x"></i>
+             <i class="fab fa-medium-m fa-4x"></i>
+             <i class="fab fa-github fa-4x"></i>
+           </div>
+           <div class="logos">
+             <i class="fab fa-js fa-4x"></i>
+             <i class="fab fa-linkedin-in fa-4x"></i>
+             <i class="fab fa-dribbble fa-4x"></i>
+             <i class="fab fa-medium-m fa-4x"></i>
+             <i class="fab fa-github fa-4x"></i>
+           </div>
+         </div>
+         <div class="slider">
+           <div class="logos">
+             <i class="fab fa-js fa-4x"></i>
+             <i class="fab fa-linkedin-in fa-4x"></i>
+             <i class="fab fa-dribbble fa-4x"></i>
+             <i class="fab fa-medium-m fa-4x"></i>
+             <i class="fab fa-github fa-4x"></i>
+           </div>
+           <div class="logos">
+             <i class="fab fa-js fa-4x"></i>
+             <i class="fab fa-linkedin-in fa-4x"></i>
+             <i class="fab fa-dribbble fa-4x"></i>
+             <i class="fab fa-medium-m fa-4x"></i>
+             <i class="fab fa-github fa-4x"></i>
+           </div>
+         </div>
+         </div>
+       </div>
+     </div>
+   </div>
 
-  <header class="header">
-    <div class="text-center">
-      <div class="text-header">
-        <h1 class="h1-header color-success-landing">
-          Lorem ipsum dolor <span class="text-white">sit  amet</span>
-          consectetur
-        </h1>
-        <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc</p>
-      </div>
-      <div class="btn-header mt-4">
-        <button class="btn btn-success-landing">Donasi Sekarang</button>
-        <button class="btn btn-outline-white-landing">Ajukan Campaign</button>
-      </div>
-    </div>
-  </header>
-  
-  <section class="hero py-4">
-    <div class="container text-center">
-      <h2 class="text-white">
-        Kenapa pilih  
-        <img src="{{ asset('custom/images/logo.svg') }}" alt="logo" height="21px"/>
-        ?
-      </h2>
-      <div class="row">
-        <div class="col-4 py-3 px-5">
-          <div class="card p-2">
-            <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
-              <div class="icon">
-                <img src="{{ asset('') }}custom/icons/Time_progress_light-1.svg" alt="">
-              </div>
-              <h5 class="m-0">Cepat dan Tepat</h5>
-            </div>
-            <div class="card-body text-start text-hero">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
-            </div>
-          </div>
-        </div>
-        <div class="col-4 py-3 px-5">
-          <div class="card p-2">
-            <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
-              <div class="icon">
-                <img src="{{ asset('') }}custom/icons/Done_all_round_light.svg" alt="">
-              </div>
-              <h5 class="m-0">Cepat dan Tepat</h5>
-            </div>
-            <div class="card-body text-start text-hero">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
-            </div>
-          </div>
-        </div>
-        <div class="col-4 py-3 px-5">
-          <div class="card p-2">
-            <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
-              <div class="icon">
-                <img src="{{ asset('') }}custom/icons/Line_up_light.svg" alt="">
-              </div>
-              <h5 class="m-0">Cepat dan Tepat</h5>
-            </div>
-            <div class="card-body text-start text-hero">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </section>
-
-  <footer class="py-4 text-footer footer">
-    <div class="container">
-      <div class="row align-items-center mb-4">
-        <div class="col-6 text-start">
-          <h5 class="color-success-landing m-0">Tentang Kami</h5>
-        </div>
-        <div class="col-6 text-end">
-          <div class="logo">
-            <img src="{{ asset('custom/images/logo.svg') }}" alt="logo">
-          </div>
-        </div>
-      </div>
-      <div class="row align-items-center mb-5">
-        <div class="col-6 text-start">
-          <p class="m-0">E-mail: cs.lmizakat@gmail.com</p>
-          <p class="m-0">Alamat: Gedung Sehati, Jl. Barata Jaya XXII No.20, Baratajaya,</p>
-          <p class="m-0">Kec. Gubeng, Kota SBY, Jawa Timur 60284</p> 
-          <p class="m-0">Telp: (031) 5053883</p>
-        </div>
-        <div class="col-6 text-end">
-          <p class="m-0">DANAKO telah mendapatkan izin sesuai dengan</p>
-          <p class="m-0">SK Menkumham: AHU-1279.AH.01.04 Thn.2009</p>
-          <p class="m-0">SK Menteri Agama RI: No.672 Thn 2021</p>
-          <p class="m-0">SK BWI: 3.3.00231 Thn.2019</p>
-        </div>
-      </div>
-      <div class="row align-items-end">
-        <div class="col-6 text-start">
-          Copyright ©2023 All rights reserved | ICT IT LMI
-        </div>
-        <div class="col-6 text-end">
-          <span class="icon-footer">
-            <img src="{{ asset('custom/icons/facebook.svg') }}" alt="">
-          </span>
-          <span class="icon-footer">
-            <img src="{{ asset('custom/icons/telegram.svg') }}" alt="">
-          </span>
-          <span class="icon-footer">
-            <img src="{{ asset('custom/icons/youtube.svg') }}" alt="">
-          </span>
-          <span class="icon-footer">
-            <img src="{{ asset('custom/icons/instagram.svg') }}" alt="">
-          </span>
-        </div>
-      </div>
-    </div>
-  </footer>
+@endsection
 
 
-  <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-</body>
-</html>
+@push('after-script')
+
+
+
+
+<script>
+
+  </script>
+@endpush
+
+
