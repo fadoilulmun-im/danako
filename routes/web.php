@@ -56,6 +56,108 @@ Route::group(['prefix' => 'admin'], function () {
     });
 });
 
+
+
 Route::get('/landing', function () {
     return view('landing.index');
 });
+
+Route::get('/login', function () {
+    return view('landing.auth.login');
+});
+
+Route::get('/daftar', function () {
+    return view('landing.auth.daftar');
+});
+
+Route::get('/kategori', function () {
+    return view('landing.kategori');
+});
+
+Route::get('/ajukan-campaign', function () {
+    return view('landing.ajukan_campaign');
+});
+
+
+Route::get('/campaign-pending', function () {
+    return view('landing.campaign_pending');
+});
+
+Route::get('/detail-campaign', function () {
+    return view('landing.detail_campaign');
+});
+
+Route::get('/detail-penyaluran-campaign', function () {
+    return view('landing.detail_penyaluran_campaign');
+});
+
+Route::get('/detail_campaign_pemilik', function () {
+    return view('landing.detail_campaign_pemilik');
+});
+
+Route::get('/hitung-maal', function () {
+    return view('landing.hitung_maal');
+});
+
+Route::get('/hitung-profesi', function () {
+    return view('landing.hitung_profesi');
+});
+
+Route::get('/konfirmasi-email', function () {
+    return view('landing.konfirmasi_email');
+});
+
+Route::get('/payment-gagal', function () {
+    return view('landing.payment_gagal');
+});
+
+Route::get('/payment-sukses', function () {
+    return view('landing.payment_sukses');
+});
+
+
+Route::get('/zakat', function () {
+    return view('landing.zakat');
+});
+
+
+Route::get('/utama', function () {
+    return view('landing.utama');
+});
+
+
+
+
+Route::get('/profile', function () {
+    return view('landing.profile.profile');
+});
+
+
+Route::get('/profile-campaign', function () {
+    return view('landing.profile.campaign');
+});
+
+
+Route::get('/donasi', function () {
+    return view('landing.profile.donasi');
+});
+
+Route::get('/buat-campaign', function () {
+    return view('landing.buat_campaign');
+});
+
+
+Route::get('/pencairan-dana', function () {
+    return view('landing.pencairan_dana');
+});
+
+
+Route::get('/awal-kategori', function () {
+    return view('landing.awal_kategori');
+});
+
+
+
+
+
+
