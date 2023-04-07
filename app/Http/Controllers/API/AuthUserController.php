@@ -61,9 +61,9 @@ class AuthUserController extends Controller
         }
 
         $user = auth()->user();
-        if (!$user->hasVerifiedEmail()) {
-            return $this->setResponse(null, 'Email not verified', 401);
-        }
+        // if (!$user->hasVerifiedEmail()) {
+        //     return $this->setResponse(null, 'Email not verified', 401);
+        // }
 
         return $this->setResponse([
             'access_token' => $user->createToken($user->username)->plainTextToken,
