@@ -1334,3 +1334,179 @@ option {
   color: #999;
 }
 
+
+/* buat campaign */
+
+
+.f1-steps { 
+  overflow: hidden; 
+  position: relative; 
+  margin-top: 20px; 
+}
+
+.f1-progress { 
+position: absolute; 
+top: 0; 
+width: 3px; 
+height: 100%; 
+left: 48%; 
+background: #ddd; 
+}
+
+.f1-progress-line { 
+position: absolute; 
+top: 0; 
+left: 50%; 
+width: 1px; 
+height: 0; 
+background: #338056; 
+transform: translateX(-50%);
+}
+
+.f1-step { 
+position: relative; 
+width: 100%; 
+margin-bottom: 30px;
+}
+
+.f1-step-icon {
+display: inline-block; 
+width: 40px; 
+height: 40px; 
+margin-right: 10px;
+background: #ddd;
+font-size: 16px; 
+color: #fff; 
+line-height: 40px;
+text-align: center;
+-moz-border-radius: 50%; 
+-webkit-border-radius: 50%; 
+border-radius: 50%;
+}
+
+.f1-step.activated .f1-step-icon {
+background: #fff; 
+border: 1px solid #338056; 
+color: #338056; 
+line-height: 38px;
+}
+
+.f1-step.active .f1-step-icon {
+background: #338056;
+color: #fff;
+width: 48px; 
+height: 48px; 
+font-size: 22px; 
+line-height: 48px;
+}
+
+.f1-step p { 
+color: #ccc; 
+}
+
+.f1-step.activated p { 
+color: #338056; 
+}
+
+.f1-step.active p { 
+color: #338056; 
+}
+
+.f1 fieldset { 
+display: none; 
+text-align: left; 
+}
+
+.f1-buttons { 
+text-align: right; 
+}
+
+.f1 .input-error { 
+border-color: #f35b3f; 
+}
+
+@media only screen and (max-width: 767px) {
+.f1-steps { overflow: hidden; position: relative; margin-top: 20px; }
+
+.f1-progress { position: absolute; top: 24px; left: 0; width: 100%; height: 1px; background: #ddd; }
+.f1-progress-line { position: absolute; top: 0; left: 0; height: 1px; background: #338056; width: 100%; }
+
+.f1-step { position: relative; float: left; width: 25%; padding: 0 5px; }
+
+.f1-step-icon {
+display: inline-block; width: 40px; height: 40px; margin-top: 4px; background: #ddd;
+font-size: 16px; color: #fff; line-height: 40px;
+-moz-border-radius: 50%; -webkit-border-radius: 50%; border-radius: 50%;
+}
+.f1-step.activated .f1-step-icon {
+background: #fff; border: 1px solid #338056; color: #338056; line-height: 38px;
+}
+.f1-step.active .f1-step-icon {
+width: 48px; height: 48px; margin-top: 0; background: #338056; font-size: 22px; line-height: 48px;
+}
+
+.f1-step p { color: #ccc; }
+.f1-step.activated p { color: #338056; }
+.f1-step.active p { color: #338056; }
+
+.f1 fieldset { display: none; text-align: left; }
+
+.f1-buttons { text-align: right; }
+
+.f1 .input-error { border-color: #f35b3f; }
+}
+
+
+.box-input{
+box-sizing: border-box;
+background: #FFFFFF;
+border: 1px solid rgba(0, 0, 0, 0.37);
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+.files input {
+outline: 2px dashed #92b0b3;
+outline-offset: -10px;
+-webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+transition: outline-offset .15s ease-in-out, background-color .15s linear;
+padding: 120px 0px 85px 35%;
+text-align: center !important;
+margin: 0;
+width: 100% !important;
+}
+.files input:focus{     outline: 2px dashed #92b0b3;  outline-offset: -10px;
+-webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+transition: outline-offset .15s ease-in-out, background-color .15s linear; border:1px solid #92b0b3;
+}
+.files{ position:relative}
+.files:after {  pointer-events: none;
+position: absolute;
+top: 60px;
+left: 0;
+width: 50px;
+right: 0;
+height: 56px;
+content: "";
+background-image: url(https://image.flaticon.com/icons/png/128/109/109612.png);
+display: block;
+margin: 0 auto;
+background-size: 100%;
+background-repeat: no-repeat;
+}
+.color input{ background-color:#f1f1f1;}
+.files:before {
+position: absolute;
+bottom: 10px;
+left: 0;  pointer-events: none;
+width: 100%;
+right: 0;
+height: 57px;
+content: " or drag it here. ";
+display: block;
+margin: 0 auto;
+color: #2ea591;
+font-weight: 600;
+text-transform: capitalize;
+text-align: center;
+}

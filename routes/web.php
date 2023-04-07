@@ -56,6 +56,8 @@ Route::group(['prefix' => 'admin'], function () {
     });
 });
 
+
+
 Route::get('/landing', function () {
     return view('landing.index');
 });
@@ -140,8 +142,19 @@ Route::get('/donasi', function () {
     return view('landing.profile.donasi');
 });
 
+Route::get('/buat-campaign', function () {
+    return view('landing.buat_campaign');
+});
 
 
+Route::get('/pencairan-dana', function () {
+    return view('landing.pencairan_dana');
+});
+
+
+Route::get('/awal-kategori', function () {
+    return view('landing.awal_kategori');
+});
 
 
 
