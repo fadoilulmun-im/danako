@@ -44,8 +44,7 @@ Route::group(['prefix' => 'master'], function () {
         Route::get('/', [UserController::class, 'index'])->name('api.master.users.index')->middleware(['auth:sanctum']);
         Route::post('/', [UserController::class, 'store'])->name('api.master.users.store')->middleware(['auth:sanctum']);
         Route::get('/{id}', [UserController::class, 'show'])->name('api.master.users.show');
-        Route::post('/{id}', [UserController::class, 'update'])->name('api.master.users.update')->middleware(['auth:sanctum']);
-        Route::delete('/{id}', [UserController::class, 'delete'])->name('api.master.users.delete')->middleware(['auth:sanctum']);
+        Route::put('/{id}/verif', [UserController::class, 'updateVerifiying'])->name('api.master.users.verif')->middleware(['auth:sanctum']);
     });
     Route::group(['prefix' => 'categories'], function () {
         Route::get('/list', [CategoryController::class, 'list'])->name('api.master.categories.list');

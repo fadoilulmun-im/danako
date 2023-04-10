@@ -39,6 +39,10 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.page.master.user');
     });
 
+    Route::get('/users/{id}', function ($id) {
+        return view('admin.page.master.user.detail', ['id' => $id]);
+    })->name('admin.user.detail');
+
     Route::get('/profile', function () {
         return view('admin.page.profile');
     })->name('admin.profile');

@@ -50,6 +50,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserImage::class, 'user_id', 'id')->where('type', 'profile');
     }
+
+    public function detail()
+    {
+        return $this->hasOne(UserDetail::class, 'user_id', 'id');
+    }
     
     // public function campaign()
     // {

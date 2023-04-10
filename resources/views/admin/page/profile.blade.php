@@ -8,7 +8,7 @@
     <div class="row mt-2">
       <div class="col-12">
         <div class="card mx-auto" style="max-width: 350px">
-          <span class="spinner-border avatar-lg my-5 mx-auto" role="status" aria-hidden="true"></span>
+          <span class="spinner spinner-border avatar-lg my-5 mx-auto" role="status" aria-hidden="true"></span>
         </div>
       </div>
     </div>

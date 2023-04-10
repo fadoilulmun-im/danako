@@ -36,6 +36,7 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Status</th>
+                        <th>Verification</th>
                         <th>Actions</th>
                     </tr>
                   </thead>
@@ -160,6 +161,7 @@
           {data: 'username', name: 'username'},
           {data: 'email', name: 'email'},
           {data: 'status', name: 'status', searchable: false, orderable: false},
+          {data: 'verification', name: 'verification', searchable: false, orderable: false},
           {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         order: [[0, 'desc']],
@@ -196,7 +198,7 @@
             })
           },
         })
-      })
+      });
 
       $('#form-create').submit(function(e){
         e.preventDefault();
@@ -216,7 +218,7 @@
             table.ajax.reload();
           },
         })
-      })
+      });
     });
     
     function resetPassword(id){

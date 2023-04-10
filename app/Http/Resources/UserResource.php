@@ -17,7 +17,7 @@ class UserResource extends JsonResource
         return array_merge(
             parent::toArray($request),
             [
-                'photo_profile' => $this->photoProfile ?asset('uploads'.$this->photoProfile->path) : asset('assets/images/image-solid.svg'),
+                'photo_profile' => $this->photoProfile && File::exists(public_path('uploads'. $this->photoProfile->path)) ? asset('uploads'.$this->photoProfile->path) : asset('assets/images/image-solid.svg'),
             ]
         );
     }
