@@ -55,6 +55,7 @@ Route::group(['prefix' => 'master'], function () {
         Route::delete('/{id}', [CategoryController::class, 'delete'])->name('api.master.categories.delete')->middleware(['auth:sanctum']);
     });
     Route::group(['prefix' => 'campaigns'], function () {
+        Route::get('/pagination', [CampaignController::class, 'pagination'])->name('api.master.campaigns.pagination');
         Route::get('/', [CampaignController::class, 'index'])->name('api.master.campaigns.index');
         Route::post('/', [CampaignController::class, 'store'])->name('api.master.campaigns.store');
         Route::get('/category-list', [CampaignController::class, 'categoryList'])->name('api.master.campaigns.category.list');

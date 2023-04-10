@@ -187,4 +187,10 @@ class CampaignController extends Controller
             return $this->setResponse(null, 'Campaign deleted successfully');
         }
     }
+
+    public function pagination(Request $request)
+    {
+        $campaign = Campaign::paginate($request->input('limit', 2));
+        return $this->setResponse($campaign);
+    }
 }
