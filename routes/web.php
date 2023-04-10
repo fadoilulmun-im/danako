@@ -55,7 +55,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 Route::get('/login', function () {
-    return view('landing.user.login');
+    return view('user.login');
 });
 
 Route::get('/landing', function () {

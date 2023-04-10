@@ -114,7 +114,7 @@
                     localStorage.setItem('_token', response.data.access_token);
                     localStorage.setItem('_user_name', response.data.user.name);
                     localStorage.setItem('_user_username', response.data.user.username);
-                    window.location.href = "{{ route('admin.dashboard') }}";
+                    window.location.href = "{{ route('welcome') }}";
                   } else {
                     Swal.fire({
                       icon: 'error',

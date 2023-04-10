@@ -26,6 +26,19 @@ Route::prefix('auth-user')->group(function () {
     Route::post('login', [AuthUserController::class, 'login']);
 });
 
+Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register'])->name('register');
+//API route for login user
+Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login'])->name('login');
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/profile', function (Request $request) {
+        return auth()->user();
+    });
+
+    // API route for logout user
+    Route::post('/logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
+});
+
 Route::prefix('auth-admin')->group(function () {
     Route::post('/login', [AuthenticationController::class, 'login'])->name('api.admin.login');
     Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware(['auth:sanctum'])->name('api.admin.logout');
@@ -43,6 +56,7 @@ Route::group(['prefix' => 'master'], function () {
         Route::post('/{id}', [UserController::class, 'update'])->name('api.master.users.update')->middleware(['auth:sanctum']);
         Route::delete('/{id}', [UserController::class, 'delete'])->name('api.master.users.delete')->middleware(['auth:sanctum']);
     });
+    
     Route::group(['prefix' => 'categories'], function () {
         Route::get('/list', [CategoryController::class, 'list'])->name('api.master.categories.list');
         Route::get('/', [CategoryController::class, 'index'])->name('api.master.categories.index')->middleware(['auth:sanctum']);
