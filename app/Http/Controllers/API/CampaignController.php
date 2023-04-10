@@ -39,7 +39,8 @@ class CampaignController extends Controller
         return DataTables::of($campaign)
             ->addColumn('action', function ($data) {
                 return '
-                    <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning mr-1" style="font-size: 1.2rem; cursor: pointer" title="Edit"></span>
+                    <span onclick="detail('. $data->id .')" class="fas fa-eye text-primary me-1" style="font-size: 1.2rem; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"></span>
+                    <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning me-1" style="font-size: 1.2rem; cursor: pointer" title="Edit"></span>
                     <span onclick="destroy('. $data->id .')" class="fas fa-trash-alt text-danger" style="font-size: 1.2rem; cursor: pointer" title="Delete"></span>
                 ';
             })
@@ -56,36 +57,6 @@ class CampaignController extends Controller
             ->make(true);
 
 
-    }
-
-    public function userList(Request $request)
-    {
-        $user = [];
-        if ($request->has('q')) {
-            $search = $request->q;
-            $user = User::orderby('username', 'asc')
-                ->select("id", "username")
-                ->where('username', 'LIKE', "%$search%")
-                ->get();
-        } else {
-            $user = User::orderby('username', 'asc')->select("id", "username")->limit(10)->get();
-        }
-        return $this->setResponse($user);
-    }
-
-    public function categoryList(Request $request)
-    {
-        $category = [];
-        if ($request->has('q')) {
-            $search = $request->q;
-            $category = CampaignCategory::orderby('name', 'asc')
-                ->select("id", "name")
-                ->where('name', 'LIKE', "%$search%")
-                ->get();
-        } else {
-            $category = CampaignCategory::orderby('name', 'asc')->select("id", "name")->limit(10)->get();
-        }
-        return $this->setResponse($category);
     }
 
     public function store(Request $request)
@@ -188,9 +159,28 @@ class CampaignController extends Controller
         }
     }
 
-    public function pagination(Request $request)
+    public function list(Request $request)
     {
-        $campaign = Campaign::paginate($request->input('limit', 2));
-        return $this->setResponse($campaign);
+        $model = Campaign::select(['campaigns.id as id', 'campaigns.title as title', 'campaigns.category_id', 'campaign_categories.name as category_name'])
+            ->join('campaign_categories', 'campaign_categories.id', '=', 'campaigns.category_id');
+
+        if($request->filled('category')){
+            $model->where('category_id', $request->category);
+        }
+
+        if($request->filled('search')){
+            $model->where(DB::raw('LOWER(title)'), 'like', '%' . strtolower($request->input('search')) . '%');
+        }
+
+        if ($request->has('q')) {
+            $search = $request->q;
+            $model->orderby('title', 'asc')
+                ->where('title', 'LIKE', "%$search%")
+                ->get();
+        } else {
+            $model->orderby('title', 'asc')->limit(10)->get();
+        }
+
+        return $this->setResponse($model->get(), null, 200);
     }
 }

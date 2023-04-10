@@ -210,6 +210,16 @@ class CategoryController extends Controller
             $model->limit($request->input('limit'));
         }
 
+        if ($request->has('q')) {
+            $search = $request->q;
+            $model->orderby('name', 'asc')
+                ->select("id", "name")
+                ->where('name', 'LIKE', "%$search%")
+                ->get();
+        } else {
+            $model->orderby('name', 'asc')->select("id", "name")->limit(10)->get();
+        }
+
         return $this->setResponse($model->get(), 'Category list retrieved successfully');
     }
 }

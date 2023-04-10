@@ -15,11 +15,11 @@ class Donation extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User','id');
+        return $this->belongsTo(User::class);
     }
 
     public function campaign()
     {
-        return $this->HasOne('App\Models\Campaign','id');
+        return $this->belongsTo(Campaign::class);
     }
 }

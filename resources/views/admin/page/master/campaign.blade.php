@@ -60,6 +60,7 @@
 @endsection
 
 @section('modal')
+<!-- Modal Create and Edit-->
 <div class="modal fade" id="campaignModal" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -74,8 +75,6 @@
                             <div class="mb-2">
                                 <input type="hidden" name="id" id="campaign_id">
                                 <label for="user_id" class="form-label">User</label><br />
-                                {{-- <input type="text" class="form-control" name="user_id" id="user_id"
-                                    placeholder="user id"> --}}
                                 <select name="user_id" id="user_id" class="form-control select2 select2User custom-select" style="width: 100%" required>
                                 </select>
                                 <div class="invalid-feedback"></div>
@@ -84,8 +83,6 @@
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="category_id" class="form-label">Category</label><br />
-                                {{-- <input type="text" class="form-control" name="category_id" id="category_id"
-                                    placeholder="category id"> --}}
                                 <select name="category_id" id="category_id" class="form-control select2 select2Category custom-select" 
                                 style="width: 100%" required>
                                 </select>
@@ -186,11 +183,91 @@
                     <button type="submit" class="btn btn-primary" id="saveBtn">Save</button>
                 </div>
             </form>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+    </div>
 </div>
 
-{{-- Modal Delete --}}
+<!-- Modal Detail -->
+<div class="modal fade" id="detailModal" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modalTitle">Detail Campaign</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-responsive no-margin">
+                    <tr>
+                        <th>Image</th>
+                        <td id="detail_img"></td>
+                    </tr>
+                    <tr>
+                        <th>Campaign ID</th>
+                        <td><span id="detail_id"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Username</th>
+                        <td><span id="detail_user"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Category</th>
+                        <td><span id="detail_category"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td><span id="detail_title"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td><span id="detail_description"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Target amount</th>
+                        <td><span id="detail_target_amount"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Receiver</th>
+                        <td><span id="detail_receiver"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Purpose</th>
+                        <td><span id="detail_purpose"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Address receiver</th>
+                        <td><span id="detail_address_receiver"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Start date</th>
+                        <td><span id="detail_start_date"></span></td>
+                    </tr>
+                    <tr>
+                        <th>End date</th>
+                        <td><span id="detail_end_date"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Detail usage of funds</th>
+                        <td><span id="detail_usage"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Real time amount</th>
+                        <td><span id="detail_realtime_amount"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td><span id="detail_status"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Activity</th>
+                        <td><span id="detail_activity"></span></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Delete -->
 <div id="deleteModal" class="modal fade">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -248,7 +325,7 @@
         ajax: "{{ route('api.master.campaigns.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
-            {data: 'user.name', name: 'user.name'},
+            {data: 'user.username', name: 'user.username'},
             {data: 'category.name', name: 'category.name'},
             {data: 'title', name: 'title'},
             {data: 'description', name: 'description'},
@@ -290,7 +367,7 @@
             cache: true
         }
     }).on('change', function (e) {
-        var id = $('#user_id').val();
+        $('#user_id').val();
     });
 
     var sel_cat = $('.select2Category').select2({
@@ -317,15 +394,6 @@
         $('#category_id').val();
     });
 
-    // var state = $('#saveBtn').val();
-    // var type = "POST"; // for store
-    // var id = $('#campaign_id').val();
-    // var saveUrl = "{{ route('api.master.campaigns.store') }}";
-    // if (state == "update"){
-    //     type = "PUT"; // for update
-    //     saveUrl = "{{ route('api.master.campaigns.update','') }}/" + id;
-    // }
-
     let saveUrl = '';
 
     $('#addBtn').click(function(e){
@@ -333,7 +401,7 @@
         saveUrl = "{{ route('api.master.campaigns.store') }}";
         $('#modalTitle').text("Create New Campaign");
         $('#formCampaign').trigger("reset");
-        $('#campaignModal').modal('show'); // modal campaign untuk create tampil
+        $('#campaignModal').modal('show');
         $('#saveBtn').val("create");
     });
 
@@ -358,7 +426,6 @@
                     $('#campaignModal').modal('show');
                     $('#modalTitle').text("Edit Campaign");
                     $('#saveBtn').val("update");
-                    
                     $('.select2Category').append(new Option(response.data.category.name, response.data.category.id, false, true));
                     $('.select2User').append(new Option(response.data.user.name ?? response.data.user.username, response.data.user.id, false, true));
                 }
@@ -387,6 +454,8 @@
                 if(response.meta.status == 'OK'){
                     $("#campaignModal").modal('hide');
                     $('#formCampaign').trigger("reset");
+                    $('.select2Category').val(null).trigger("change");
+                    $('.select2User').val(null).trigger("change");
                     table.ajax.reload();
                     $('.dropify-clear').click();
                 }
@@ -422,6 +491,36 @@
             },
         });
     });
+
+    function detail(id){
+        $('#detail_img').empty();
+        $('#detailModal').modal('show');
+
+        ajax({
+            url: "{{ route('api.master.campaigns.show','') }}/" + id,
+            type: "GET",
+            success: function(response){
+                if(response.meta.status == 'OK'){
+                    $('#detail_img').append('<img src="{{ asset('uploads') }}' + response.data.img_path + '" alt="logo" style="width: 100px; height: 100px">');
+                    $('#detail_id').text(response.data.id);
+                    $('#detail_user').text(response.data.user.username);
+                    $('#detail_category').text(response.data.category.name);
+                    $('#detail_title').text(response.data.title);
+                    $('#detail_description').text(response.data.description);
+                    $('#detail_target_amount').text(response.data.target_amount);
+                    $('#detail_receiver').text(response.data.receiver);
+                    $('#detail_purpose').text(response.data.purpose);
+                    $('#detail_address_receiver').text(response.data.address_receiver);
+                    $('#detail_usage').text(response.data.detail_usage_of_funds);
+                    $('#detail_start_date').text(response.data.start_date);
+                    $('#detail_end_date').text(response.data.end_date);
+                    $('#detail_realtime_amount').text(response.data.real_time_amount);
+                    $('#detail_status').text(response.data.status);
+                    $('#detail_activity').text(response.data.activity);
+                }
+            },
+        });
+    }
 
 </script>
 @endsection

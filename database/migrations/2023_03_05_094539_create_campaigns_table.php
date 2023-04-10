@@ -21,14 +21,14 @@ class CreateCampaignsTable extends Migration
             $table->string('slug')->nullable();
             $table->string('img_path')->nullable();
             $table->string('description');
-            $table->integer('target_amount');
+            $table->double('target_amount', 12, 0);
             $table->string('receiver');
             $table->string('purpose');
             $table->string('address_receiver');
             $table->string('detail_usage_of_funds');
             $table->date('start_date');
             $table->date('end_date');
-            $table->integer('real_time_amount')->nullable();
+            $table->double('real_time_amount', 12, 0)->nullable();
             $table->enum('verification_status', ['unverified', 'processing', 'rejected', 'verified'])->default('unverified');
             $table->enum('activity', ['processing', 'closed', 'sending', 'received'])->default('processing');
             $table->timestamps();
