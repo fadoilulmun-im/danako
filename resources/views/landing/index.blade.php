@@ -7,7 +7,7 @@
 
 
 @section('content')
-<header class="header">
+  <header class="header">
     <div class="container">
      <div class="text-center">
        <div class="text-header">
@@ -24,7 +24,7 @@
        </div>
      </div>
     </div>
-   </header>
+  </header>
    
    
    <section class="hero py-4">

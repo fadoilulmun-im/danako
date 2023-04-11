@@ -27,6 +27,19 @@ Route::prefix('auth-user')->group(function () {
     Route::get('logout', [AuthUserController::class, 'logout'])->name('api.user.logout')->middleware(['auth:sanctum']);
 });
 
+Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register'])->name('register');
+//API route for login user
+Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login'])->name('login');
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/profile', function (Request $request) {
+        return auth()->user();
+    });
+
+    // API route for logout user
+    Route::post('/logout', [App\Http\Controllers\API\AuthController::class, 'logout']);
+});
+
 Route::prefix('auth-admin')->group(function () {
     Route::post('/', [AuthenticationController::class, 'update'])->name('api.admin.update')->middleware(['auth:sanctum']);
     Route::post('/change-password', [AuthenticationController::class, 'changePassword'])->name('api.admin.changePassword')->middleware(['auth:sanctum']);
@@ -46,6 +59,7 @@ Route::group(['prefix' => 'master'], function () {
         Route::get('/{id}', [UserController::class, 'show'])->name('api.master.users.show');
         Route::put('/{id}/verif', [UserController::class, 'updateVerifiying'])->name('api.master.users.verif')->middleware(['auth:sanctum']);
     });
+    
     Route::group(['prefix' => 'categories'], function () {
         Route::get('/list', [CategoryController::class, 'list'])->name('api.master.categories.list');
         Route::get('/', [CategoryController::class, 'index'])->name('api.master.categories.index')->middleware(['auth:sanctum']);

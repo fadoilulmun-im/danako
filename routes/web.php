@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing.index');
 });
 
 Route::get('/verification-email/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
@@ -61,6 +61,10 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 
+
+Route::get('/login', function () {
+    return view('user.login');
+});
 
 Route::get('/landing', function () {
     return view('landing.index');
