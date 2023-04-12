@@ -70,9 +70,9 @@ Route::get('/landing', function () {
     return view('landing.index');
 });
 
-Route::get('/login', function () {
-    return view('landing.auth.login');
-});
+// Route::get('/login', function () {
+//     return view('landing.auth.login');
+// });
 
 Route::get('/daftar', function () {
     return view('landing.auth.daftar');
