@@ -1,4 +1,10 @@
 @extends('landing.layouts.app')
+@extends('landing.layouts.app')
+
+@section('title')
+    Dashboard
+@endsection
+
 
 @section('title')
     Dashboard

@@ -32,6 +32,7 @@
                 <li><a class="dropdown-item" href="#">Another action</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><button id="logout-btn" class="dropdown-item">Logout</button></li>
               </ul>
            </li>
           
@@ -39,4 +40,32 @@
         </div>
       </div>
     </nav>
+    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+        crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function() {
+        $('#logout-btn').click(function(e) {
+            e.preventDefault();
+            var token = $('meta[name="csrf-token"]').attr('content');
+
+            $.ajax({
+                url: "{{ route('api.user.logout') }}",
+                type: 'POST',
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-TOKEN': token
+                },
+                success: function(response) {
+                  console.log('success', response)
+                  window.location.href = "{{ route('index') }}";
+                    // Handle success response here
+                },
+                error: function(response) {
+                    // Handle error response here
+                }
+            });
+        });
+    });
+</script>
+
   </section>
