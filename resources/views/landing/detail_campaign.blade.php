@@ -24,72 +24,35 @@
                                     </div>
                                     <div class="col-md-10">
                                         <div class="job-info">
-                                            <h1>Penyaluran Dana Gempa Cianjur </h1>
+                                            <h1 id="title">Loading... </h1>
                                             
-                                            <span>
-                                                <i class='bx bx-paper-plane' ></i>
-                                                Apply Before: June 01,2021
+                                            <span id="deadline">
+                                              {{-- <i class='bx bx-paper-plane'></i> --}}
+                                              Loading...
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <img src="{{ asset('') }}danako/img/campaign/detail-campaign.png" class="img-fluid" alt="Responsive image">
+                            <img id="image" src="{{ asset('') }}danako/img/campaign/detail-campaign.png" class="img-fluid" alt="Responsive image">
 
                             <h6 class="pt-3">Pencairan dana Rp 1.500.000 ke rekening *****11321412 a.n. SITI</h6>
 
                             <div class="border-bottom border-3 pt-2"></div>
-
                               
                             <div class="details-text pt-2">
                               <h3>Description</h3>
-                              <p class="truncate">Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.</p>
-                              <div class="toggle-text hide">
-                                Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.
-                                <div class="details-text pt-2">
-                                  <h3>Detail 2</h3>
-                                 <p> Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.</p>
-
-                                  <ul>
-                                      <li>
-                                          <i class='bx bx-check'></i>
-                                          Work experience
-                                      </li>
-                                      <li>
-                                          <i class='bx bx-check'></i>
-                                          Skills (soft skills and/or technical skills)
-                                      </li>
-                                      <li>
-                                          <i class='bx bx-check'></i>
-                                          WPersonal qualities and attributes.
-                                      </li>
-                                      <li>
-                                          <i class='bx bx-check'></i>
-                                          Support software roll-outs to production.
-                                      </li>
-                                      <li>
-                                          <i class='bx bx-check'></i>
-                                          Guide and mentor junior engineers. Serve as team lead if appropriate.
-
-                                      </li>
-                                  </ul>
-                              </div>
-
-                              <img src="{{ asset('') }}danako/img/campaign/detail-campaign3.png" class="img-fluid" alt="Responsive image">
-
-                              <div class="details-text pt-2">
-                                  <h3>Detail 3</h3>
-                                 <p> Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.</p>
-                              </div>
+                              <div id="content">
+                                <div class="text-center w-100">
+                                  <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                  </div>
+                                </div>
                               </div>
                               
-                              <button class="toggle-button readmore" onclick="toggleText()">Baca Selengkapnya</button>
+                              {{-- <button class="toggle-button readmore" onclick="toggleText()">Baca Selengkapnya</button> --}}
                             </div>
-                           
-                           
-                            
-
                         
                         </div>
                     </div>
@@ -98,8 +61,8 @@
 
                <div class="kontak-campaign pt-3 pb-3">
                 <div class="d-flex align-items-center">
-                  <img src="{{ asset('') }}danako/img/campaign/Circel.png" alt="LMI ZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
-                  <h4 class="ms-3 m-0">LMI ZAKAT</h4>
+                  <img id="image-campaigner" src="{{ asset('') }}danako/img/campaign/Circel.png" alt="LMI ZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
+                  <h4 class="ms-3 m-0" id="name-campaigner">Loading...</h4>
                 </div>
                 <p style="margin-top: 5px;">Penggalang Dana <span class="color-primary">Lihat</span></p>
                </div>
@@ -209,60 +172,56 @@
                                 <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
                               </div> 
                             </div>
-                        </div>
+                          </div>
 
-                        <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                          <div class="row">
-                            <div class="col-9">
-                              <h6 class="text-start">Hamba Allah</h6>
-                              <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
+                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
+                            <div class="row">
+                              <div class="col-9">
+                                <h6 class="text-start">Hamba Allah</h6>
+                                <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
+                              </div>
+                              <div class="col-3">
+                                <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
+                              </div> 
                             </div>
-                            <div class="col-3">
-                              <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                            </div> 
                           </div>
-                      </div>
 
-                      <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                        <div class="row">
-                          <div class="col-9">
-                            <h6 class="text-start">Hamba Allah</h6>
-                            <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
+                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
+                            <div class="row">
+                              <div class="col-9">
+                                <h6 class="text-start">Hamba Allah</h6>
+                                <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
+                              </div>
+                              <div class="col-3">
+                                <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
+                              </div> 
+                            </div>
                           </div>
-                          <div class="col-3">
-                            <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                          </div> 
-                        </div>
-                    </div>
 
 
-                    <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                      <div class="row">
-                        <div class="col-9">
-                          <h6 class="text-start">Hamba Allah</h6>
-                          <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                        </div>
-                        <div class="col-3">
-                          <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                        </div> 
-                      </div>
-                  </div>
+                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
+                            <div class="row">
+                              <div class="col-9">
+                                <h6 class="text-start">Hamba Allah</h6>
+                                <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
+                              </div>
+                              <div class="col-3">
+                                <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
+                              </div> 
+                            </div>
+                          </div>
 
-                  <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                    <div class="row">
-                      <div class="col-9">
-                        <h6 class="text-start">Hamba Allah</h6>
-                        <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                      </div>
-                      <div class="col-3">
-                        <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                      </div> 
-                    </div>
-                </div>
-
-                          
-
-                      
+                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
+                            <div class="row">
+                              <div class="col-9">
+                                <h6 class="text-start">Hamba Allah</h6>
+                                <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
+                              </div>
+                              <div class="col-3">
+                                <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
+                              </div> 
+                            </div>
+                          </div>
 
                         </div>
                     </div>
@@ -292,7 +251,8 @@
 
 
 @push('after-script')
-<script>function toggleText() {
+<script>
+  function toggleText() {
     var text = document.querySelector('.toggle-text');
     var button = document.querySelector('.toggle-button');
     if (text.classList.contains('hide')) {
@@ -303,7 +263,30 @@
       button.innerHTML = 'Baca Selengkapnya';
     }
   }
-  </script>
+
+  $(document).ready(function() {
+    let url = "{{ route('api.master.campaigns.show', $id) }}";
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(response) {
+        let data = response.data;
+        $('#title').text(data.title);
+        if(data.img_path){
+          $('#image').attr('src', `{{ asset('uploads${data.img_path}')}}`);
+        }
+        $('#content').html(data.description);
+
+        $('#name-campaigner').text(data.user.name);
+        $('#deadline').html(`Apply before <b>${new Date(data.end_date).toLocaleDateString("id", { year: 'numeric', month: 'long', day: 'numeric' })}</b>`);
+        if(data.user?.photo_profile?.path ?? null){
+          $('#image-campaigner').attr('src', `{{ asset('uploads${data.user.photo_profile.path}')}}`);
+        }
+
+      }
+    });
+  });
+</script>
 @endpush
 
 

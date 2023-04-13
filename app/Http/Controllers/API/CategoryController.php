@@ -131,17 +131,24 @@ class CategoryController extends Controller
         }
         
         DB::beginTransaction();
+        $path = '/category';
         switch ($request->input('type')) {
             case 'zakat':
                 $model = ZakatCategory::find($id);
+                $path .= '/zakat';
                 break;
             
             default:
                 $model = CampaignCategory::find($id);
+                $path .= '/campaign';
                 break;
         };
         if(!$model){
             return $this->setResponse(null, 'Category not found', 404);
+        }
+
+        if(!File::exists(public_path('uploads'. $path))){
+            File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
         }
 
         $model->name = $request->input('name');
@@ -213,11 +220,10 @@ class CategoryController extends Controller
         if ($request->has('q')) {
             $search = $request->q;
             $model->orderby('name', 'asc')
-                ->select("id", "name")
                 ->where('name', 'LIKE', "%$search%")
                 ->get();
         } else {
-            $model->orderby('name', 'asc')->select("id", "name")->limit(10)->get();
+            $model->orderby('name', 'asc')->limit(10)->get();
         }
 
         return $this->setResponse($model->get(), 'Category list retrieved successfully');

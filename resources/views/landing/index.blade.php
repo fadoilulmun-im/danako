@@ -1,12 +1,7 @@
 @extends('landing.layouts.app')
 
 @section('title')
-    Dashboard
-@endsection
-
-
-@section('title')
-    Dashboard
+  Home
 @endsection
 
 
@@ -84,88 +79,25 @@
  
    </section>
  
-   <section class="pb-80">
-     <div class="container" >
-       <h2 class="text-center" style="font-size: 38px ; padding-top: 27px; padding-bottom: 47px;">Mereka yang  <spand class="title-gren">segera</spand> butuh bantuanmu</h2>
-       <div class="container">
- 
-         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-           <div class="col">
-             <div class="card h-100">
-               <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
-               <div class="card-body">
-                 <p>Nov 2023</p>
-                 <h5 class="card-title">Gemba Cianjur</h5>
-                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                 <div class="progress">
-                   <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                 </div>
-                 <div class="row">
-                   <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                   <div class="col-6 text-end pt-2">46 hari lagi</div>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="col">
-             <div class="card h-100">
-               <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
-               <div class="card-body">
-                 <p>Nov 2023</p>
-                 <h5 class="card-title">Gemba Cianjur</h5>
-                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                 <div class="progress">
-                   <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                 </div>
-                 <div class="row">
-                   <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                   <div class="col-6 text-end pt-2">46 hari lagi</div>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="col">
-             <div class="card h-100">
-               <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
-               <div class="card-body">
-                 <p>Nov 2023</p>
-                 <h5 class="card-title">Gemba Cianjur</h5>
-                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                 <div class="progress">
-                   <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                 </div>
-                 <div class="row">
-                   <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                   <div class="col-6 text-end pt-2">46 hari lagi</div>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="col">
-             <div class="card h-100">
-               <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
-               <div class="card-body">
-                 <p>Nov 2023</p>
-                 <h5 class="card-title">Gemba Cianjur</h5>
-                 <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                 <div class="progress">
-                   <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                 </div>
-                 <div class="row">
-                   <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                   <div class="col-6 text-end pt-2">46 hari lagi</div>
-                 </div>
-               </div>
-             </div>
-           </div>
-         </div>
- 
-         <div class="d-flex justify-content-end pt-4">
-           <button type="button" class="btn btn-primary btn-sm ms-auto rounded-3 bg-danako-primary border-0">Lihat semua</button>
-         </div>
-       </div>
-     </div>
-   </section>
+  <section class="pb-80">
+    <div class="container" >
+      <h2 class="text-center" style="font-size: 38px ; padding-top: 27px; padding-bottom: 47px;">Mereka yang  <spand class="title-gren">segera</spand> butuh bantuanmu</h2>
+      <div class="container">
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="segera">
+          <div class="text-center w-100">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end pt-4 d-none" id="lihat-semua">
+          <button type="button" class="btn btn-primary btn-sm ms-auto rounded-3 bg-danako-primary border-0">Lihat semua</button>
+        </div>
+      </div>
+    </div>
+  </section>
  
  
    <section class="container"  style="background-color: #EEF4E6" >
@@ -277,12 +209,54 @@
 
 
 @push('after-script')
+  <script>
+    const days = (date_1, date_2) =>{
+      let difference = date_1.getTime() - date_2.getTime();
+      let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+      return TotalDays;
+    }
 
+    $(document).ready(function(){
+      $.ajax({
+        url: "{{ route('api.master.campaigns.pagination') }}?per_page=4",
+        type: "GET",
+        success: function(response){
+          let data = response.data.data;
+          $('#segera').html('');
+          data.forEach(item => {
+            $('#segera').append(`
+              <div class="col">
+                <div class="card h-100" onclick="detail(${item.id})">
+                  <img src="{{ asset('uploads${item.img_path}') }}" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                    <h5 class="card-title">${item.title}</h5>
+                    <p class="card-text">${item.description}</p>
+                    <div class="progress">
+                      <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+                      <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `)
+          });
+          $('#lihat-semua').toggleClass('d-none');
+        },
+        error: function(response){
+          $('#segera').html('Ada kesalahan server')
+        }
+      })
+    });
 
-
-
-<script>
-
+    const detail = (id) => {
+      let url = "{{ route('campaigns.detail', ':id') }}";
+      url = url.replace(':id', id);
+      window.location.href = url;
+    }
   </script>
 @endpush
 

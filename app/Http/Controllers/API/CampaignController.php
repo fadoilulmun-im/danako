@@ -98,7 +98,7 @@ class CampaignController extends Controller
 
     public function show($id)
     {
-        $campaign = Campaign::with(['user', 'category'])->find($id);
+        $campaign = Campaign::with(['user.photoProfile', 'category'])->find($id);
 
         if(!$campaign){
             return $this->setResponse(null, 'Campaign not found', 404);
@@ -182,5 +182,18 @@ class CampaignController extends Controller
         }
 
         return $this->setResponse($model->get(), null, 200);
+    }
+
+    public function pagination(Request $request)
+    {
+        $model = Campaign::query();
+
+        if($request->filled('search')){
+            $model->where(DB::raw('LOWER(title)'), 'like', '%' . strtolower($request->input('search')) . '%');
+        }
+
+        $model->orderby($request->input('order', 'title'), $request->input('sort', 'asc'));
+
+        return $this->setResponse($model->paginate($request->input('per_page', 10)), null, 200);
     }
 }

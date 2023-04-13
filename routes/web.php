@@ -63,7 +63,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 Route::get('/user', function () { return view('landing.index');})->name('landing');
-Route::get('/', function () { return view('landing.page');})->name('index');
+Route::get('/', function () { return view('landing.index');})->name('index');
 Route::get('/loginuser', function () { return view('landing.login');})->name('login');
 Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
 
@@ -88,9 +88,9 @@ Route::get('/campaign-pending', function () {
     return view('landing.campaign_pending');
 });
 
-Route::get('/detail-campaign', function () {
-    return view('landing.detail_campaign');
-});
+Route::get('/detail-campaign/{id}', function ($id) {
+    return view('landing.detail_campaign', ['id' => $id]);
+})->name('campaigns.detail');
 
 Route::get('/detail-penyaluran-campaign', function () {
     return view('landing.detail_penyaluran_campaign');
