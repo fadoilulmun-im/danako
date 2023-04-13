@@ -1,0 +1,621 @@
+body {
+    margin: 0;
+    font-family: "Source Sans Pro";
+}
+
+.nav {
+    height: 65px;
+    width: 100%;
+    background-color: #fff;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+}
+
+.nav > .nav-header {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav > .nav-header > .nav-logo img {
+    max-height: 30px;
+    width: auto;
+    cursor: pointer;
+    margin-right: auto;
+}
+
+.nav > .nav-btn {
+    display: none;
+}
+
+.nav > .nav-links {
+    display: inline;
+    float: right;
+    font-size: 18px;
+    margin-right: auto;
+}
+
+.nav > .nav-links > button {
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #79c121;
+    border-radius: 8px;
+    width: 160px;
+    height: 40px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.nav > .nav-links > button:hover {
+    background-color: #456722;
+    color: #fff;
+}
+
+.nav > .nav-links > button > i {
+    margin-right: 10px;
+}
+
+.nav > .nav-links > a {
+    display: inline-block;
+    padding: 13px 10px 13px 10px;
+    text-decoration: none;
+    color: #000;
+}
+
+.nav > .nav-links > a:hover {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.nav > #nav-check {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .nav {
+        padding-left: 10px;
+    }
+
+    .nav > .nav-header {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .nav > .nav-btn {
+        display: inline-block;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        padding-left: 10px;
+    }
+
+    .nav > .nav-btn > label {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        padding: 13px;
+    }
+
+    .nav > .nav-btn > label:hover,
+    .nav #nav-check:checked ~ .nav-btn > label {
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .nav > .nav-btn > label > span {
+        display: block;
+        width: 25px;
+        height: 10px;
+        border-top: 2px solid #000;
+    }
+
+    .nav > .nav-links {
+        position: absolute;
+        display: block;
+        width: 100%;
+        background-color: #fff;
+        height: 0px;
+        transition: all 0.3s ease-in;
+        overflow-y: hidden;
+        top: 50px;
+        left: 0px;
+    }
+
+    .nav > .nav-links > a {
+        display: block;
+        width: 100%;
+    }
+
+    .nav > #nav-check:not(:checked) ~ .nav-links {
+        height: 0px;
+    }
+
+    .nav > #nav-check:checked ~ .nav-links {
+        height: calc(100vh - 50px);
+        overflow-y: auto;
+    }
+}
+
+/* Banner */
+.banner {
+    height: 895px;
+    background-image: url("banner.jpg");
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    text-align: center;
+    font-family: "dm sans";
+    position: relative;
+}
+
+.banner h1 {
+    font-size: 72px;
+    margin-bottom: 30px;
+    color: #e9eceb;
+    text-align: center;
+    max-width: 900px;
+    word-wrap: break-word;
+}
+
+.banner p {
+    font-size: 24px;
+    margin-bottom: 50px;
+    color: #e9eceb;
+}
+
+.highlight {
+    color: #79c121;
+}
+
+.banner-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner-button {
+    display: inline-block;
+    padding: 0.5em 1em;
+    text-decoration: none;
+    color: #fff;
+    background-color: #79c121;
+    border-radius: 2em;
+    width: 15em;
+    height: 3em;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-right: 7em;
+    font-family: "dm sans";
+    transition: background-color 0.3s ease-in-out;
+}
+
+.banner-button:hover {
+    background-color: #456722;
+    color: #fff;
+}
+
+.banner-button:last-child {
+    margin-right: 0;
+}
+
+@media (max-width: 768px) {
+    .banner-buttons {
+        flex-direction: column;
+    }
+
+    .banner-button {
+        font-size: 1em;
+        padding: 0.5em 0.8em;
+        margin-right: 0.5em;
+        margin-bottom: 0.5em;
+        width: 15em;
+        height: 3em;
+    }
+
+    .banner h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
+
+    .banner p {
+        font-size: 16px;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+}
+
+/* Why Choose Us */
+.why-choose-us {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+    background-image: url("why choose us.jpg");
+    background-size: cover;
+}
+
+.why-choose-us .card {
+    flex: 1 1 200px;
+    max-width: 300px;
+    height: 200px;
+    background-color: #fff;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 240px;
+    padding-bottom: 50px;
+}
+
+.why-choose-us .card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.why-choose-us .card-icon {
+    font-size: 40px;
+    color: #79c121;
+    text-align: center;
+}
+
+.why-choose-us .card-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #333;
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+.why-choose-us .card-title span {
+    margin-left: 40px;
+}
+
+.why-choose-us .card-text {
+    margin-top: 20px;
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.why-choose-us h2 {
+    font-size: 48px;
+    margin-bottom: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.why-choose-us img {
+    display: inline-block;
+    max-width: 4em;
+    max-height: auto;
+    vertical-align: middle;
+    margin-left: 10px; /* adjust the margin as necessary */
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+    .why-choose-us .card {
+        flex: 1 1 100%;
+        max-width: none;
+    }
+
+    .why-choose-us h2 {
+        flex-direction: column;
+        height: auto;
+        font-size: 48px;
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
+
+    .why-choose-us img {
+        margin-left: 0;
+    }
+    .why-choose-us .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Flagship Program */
+
+.campaign {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding-top: 20px;
+}
+
+.campaign-card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 240px;
+    padding-bottom: 50px;
+    position: relative;
+}
+
+.campaign h1 {
+    font-size: 48px;
+    margin-bottom: 30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    word-wrap: break-word;
+    height: 100%;
+}
+
+.campaign h2 {
+    font-size: 48px;
+    margin-bottom: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    word-wrap: break-word;
+    height: 100%;
+}
+
+.campaign-card {
+    width: 300px;
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    margin: 5px;
+    padding-bottom: 40px;
+}
+
+.campaign-image {
+    width: 100%;
+    height: 50%;
+    position: relative;
+}
+
+.campaign-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.campaign-info {
+    width: 100%;
+    height: 50%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.campaign-datetime {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+.campaign-title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.campaign-description {
+    font-size: 16px;
+    margin-bottom: 10px;
+    height: 60px;
+    overflow: hidden;
+}
+
+.campaign-progress {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.progress-bar {
+    height: 20px;
+    width: 100%;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    position: relative;
+}
+
+.progress-fill {
+    height: 100%;
+    background-color: #0cbf65;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.campaign-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    width: 100%;
+    height: auto;
+}
+
+.campaign-collected,
+.campaign-deadline {
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.campaign-collected span {
+    font-weight: bold;
+    color: #0cbf65;
+    margin-left: 5px;
+}
+
+.campaign-deadline span {
+    margin-left: 5px;
+    color: #777;
+}
+
+.more-link {
+    position: absolute;
+    bottom: 10px;
+    right: calc(5% + 10px);
+}
+
+.more-link a {
+    color: #79c121;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.more-link a:hover {
+    text-decoration: underline;
+}
+@media only screen and (max-width: 768px) {
+    .campaign h1 {
+        flex-direction: column;
+        height: auto;
+        font-size: 48px;
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
+
+    .campaign h2 {
+        flex-direction: column;
+        height: auto;
+        font-size: 30px;
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
+
+    .campaign-card-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 50px;
+        justify-content: left;
+    }
+
+    .campaign-card {
+        flex: 0 0 auto;
+        width: 98%;
+        margin-right: 10px;
+    }
+
+    .campaign-card:last-child {
+        margin-right: 0;
+    }
+
+    .more-link {
+        position: absolute;
+    }
+}
+
+/* Testimony */
+.testimony {
+    height: 540px;
+    background-color: #eee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.testimony h2 {
+    font-size: 48px;
+    margin-bottom: 30px;
+}
+
+.testimony p {
+    font-size: 18px;
+    max-width: 600px;
+    margin-bottom: 50px;
+}
+
+/* Affiliated Company */
+.affiliated-company {
+    height: 515px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.affiliated-company h2 {
+    font-size: 48px;
+    margin-bottom: 30px;
+}
+
+.affiliated-company p {
+    font-size: 18px;
+    max-width: 600px;
+    margin-bottom: 50px;
+}
+
+/* Footer */
+.footer {
+    height: 275px;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.footer h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.footer p {
+    font-size: 18px;
+    max-width: 600px;
+    margin-bottom: 50px;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
