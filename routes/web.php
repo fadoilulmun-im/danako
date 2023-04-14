@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\WEB\VerifyEmailController;
+use App\Models\CampaignCategory;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -75,8 +76,9 @@ Route::get('/daftar', function () {
     return view('landing.auth.daftar');
 });
 
-Route::get('/kategori', function () {
-    return view('landing.kategori');
+Route::get('/kategori/{id}', function ($id) {
+    $category = CampaignCategory::findOrFail($id);
+    return view('landing.kategori', ['id' => $id, 'category' => $category]);
 });
 
 Route::get('/ajukan-campaign', function () {

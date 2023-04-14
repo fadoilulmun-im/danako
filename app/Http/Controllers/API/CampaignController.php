@@ -192,6 +192,10 @@ class CampaignController extends Controller
             $model->where(DB::raw('LOWER(title)'), 'like', '%' . strtolower($request->input('search')) . '%');
         }
 
+        if($request->filled('category_id')){
+            $model->where('category_id', $request->category_id);
+        }
+
         $model->orderby($request->input('order', 'title'), $request->input('sort', 'asc'));
 
         return $this->setResponse($model->paginate($request->input('per_page', 10)), null, 200);

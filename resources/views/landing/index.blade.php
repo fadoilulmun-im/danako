@@ -210,12 +210,6 @@
 
 @push('after-script')
   <script>
-    const days = (date_1, date_2) =>{
-      let difference = date_1.getTime() - date_2.getTime();
-      let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-      return TotalDays;
-    }
-
     $(document).ready(function(){
       $.ajax({
         url: "{{ route('api.master.campaigns.pagination') }}?per_page=4",
@@ -251,12 +245,6 @@
         }
       })
     });
-
-    const detail = (id) => {
-      let url = "{{ route('campaigns.detail', ':id') }}";
-      url = url.replace(':id', id);
-      window.location.href = url;
-    }
   </script>
 @endpush
 
