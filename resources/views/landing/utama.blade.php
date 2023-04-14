@@ -92,22 +92,39 @@
         success: function(response){
           let data = response.data;
           $('#kategori').html(``);
-          data.forEach(item => {
-            $('#kategori').append(`
-              <div class="konten-kanan container pt-5">
-                <div class="row">
-                  <div class="col-md-5 ">
-                    <img src="${item.logo_link ?? "{{ asset('') }}danako/img/kategori.png"}" class="img-fluid">
-                  </div>
-                  <div class="col-md-1"></div>
-                  <div class="col-md-6 mx-auto p-sm-5 p-md-5">
-                    <h3>${item.name}</h3>
-                    <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
-                    <button type="button" class="btn btn-info">Donasi</button>
+          data.forEach((item, index) => {
+            if(index % 2 != 0){
+              $('#kategori').append(`
+                <div class="konten-kanan container pt-5">
+                  <div class="row">
+                    <div class="col-md-6 ">
+                      <img src="${item.logo_link ?? "{{ asset('') }}danako/img/kategori.png"}" class="img-fluid">
+                    </div>
+                    <div class="col-md-6 mx-auto p-sm-5 p-md-5 text-right">
+                      <h3>${item.name}</h3>
+                      <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
+                      <button type="button" class="btn btn-info text-white">Donasi</button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            `)
+              `)
+            }else{
+              $('#kategori').append(`
+                <div class="konten-kanan container pt-5">
+                  <div class="row">
+                    <div class="col-md-6 mx-auto p-sm-5 p-md-5">
+                      <h3>${item.name}</h3>
+                      <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
+                      <button type="button" class="btn btn-info text-white">Donasi</button>
+                    </div>
+                    <div class="col-md-6 ">
+                      <img src="${item.logo_link ?? "{{ asset('') }}danako/img/kategori.png"}" class="img-fluid">
+                    </div>
+                  </div>
+                </div>
+              `)
+            }
+            
           });
         }
       })
