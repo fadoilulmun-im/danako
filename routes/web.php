@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use App\Http\Controllers\GoogleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-<<<<<<< HEAD
-    return view('admin.page.index');
-=======
     return view('welcome');
->>>>>>> 6dea91e6c7a2160a9d1a8b56c087f94100108fc4
 });
 
 Route::group(['prefix' => 'admin'], function () {
@@ -32,4 +30,24 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/categories', function () {
         return view('admin.page.master.category');
     });
+
+    Route::get('/campaigns', function () {
+        return view('admin.page.master.campaign');
+    });
+    
+    Route::get('/donations', function () {
+        return view('admin.page.master.donation');
+    });
 });
+
+
+
+
+
+Route::get('/user', function () { return view('landing.index');})->name('landing');
+Route::get('/', function () { return view('landing.page');})->name('index');
+Route::get('/loginuser', function () { return view('landing.login');})->name('login');
+Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
+
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
