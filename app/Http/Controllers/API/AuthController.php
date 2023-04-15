@@ -18,7 +18,6 @@ class AuthController extends Controller
             'phone_number' => 'required|string|min:10',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-
         ]);
 
         if ($validator->fails()) {
@@ -57,7 +56,7 @@ class AuthController extends Controller
     // method for user logout and delete token
     public function logout()
     {
-        auth()->user()->tokens()->delete();
+        auth()->user()->token()->delete();
 
         return [
             'message' => 'You have successfully logged out and the token was successfully deleted'
