@@ -65,6 +65,12 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::get('/user', function () { return view('landing.index');})->name('landing');
 Route::get('/', function () { return view('landing.index');})->name('index');
+
+Route::get('/utama', function () {
+    return view('landing.utama');
+});
+
+
 Route::get('/loginuser', function () { return view('landing.login');})->name('login');
 Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
 
@@ -128,9 +134,6 @@ Route::get('/zakat', function () {
 });
 
 
-Route::get('/utama', function () {
-    return view('landing.utama');
-});
 
 
 

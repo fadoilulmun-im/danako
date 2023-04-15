@@ -166,7 +166,7 @@
    <div class="container h-100 pt-5 pb-5">
      <div class="row align-items-center h-100">
        <div class="sponsor rounded">
-         <h2 class="text-center">Lebih dari 50 Perusahaan dan Institusi telah mempercayai kami hingga tahun 2023</h2>
+         <h2 class="text-center">Lebih dari 25 Perusahaan dan Institusi telah mempercayai kami hingga tahun 2023</h2>
          <div class="container">
            <div class="slider">
            <div class="logos">
@@ -210,41 +210,45 @@
 
 @push('after-script')
   <script>
-    $(document).ready(function(){
-      $.ajax({
-        url: "{{ route('api.master.campaigns.pagination') }}?per_page=4",
-        type: "GET",
-        success: function(response){
-          let data = response.data.data;
-          $('#segera').html('');
-          data.forEach(item => {
-            $('#segera').append(`
-              <div class="col">
-                <div class="card h-100" onclick="detail(${item.id})">
-                  <img src="{{ asset('uploads${item.img_path}') }}" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                    <h5 class="card-title">${item.title}</h5>
-                    <p class="card-text">${item.description}</p>
-                    <div class="progress">
-                      <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
-                      <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
-                    </div>
-                  </div>
+$(document).ready(function(){
+  $.ajax({
+    url: "{{ route('api.master.campaigns.pagination') }}?per_page=4",
+    type: "GET",
+    success: function(response){
+      let data = response.data.data;
+      $('#segera').html('');
+      data.forEach(item => {
+        let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('danako/img/category/1.png') }}";
+        let img_size = item.img_path ? 'width="300" height="200"' : '';
+        $('#segera').append(`
+          <div class="col">
+            <div class="card h-100" onclick="detail(${item.id})">
+              <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/2.png') }}'">
+              <div class="card-body">
+                <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
+                <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
+                <div class="progress">
+                  <div class="progress-bar bg-danako" role="progressbar" style="width: 10%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="row">
+                  <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+                  <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
                 </div>
               </div>
-            `)
-          });
-          $('#lihat-semua').toggleClass('d-none');
-        },
-        error: function(response){
-          $('#segera').html('Ada kesalahan server')
-        }
-      })
-    });
+            </div>
+          </div>
+        `)
+      });
+      $('#lihat-semua').toggleClass('d-none');
+    },
+    error: function(response){
+      $('#segera').html('Ada kesalahan server')
+    }
+  })
+});
+
+
   </script>
 @endpush
 

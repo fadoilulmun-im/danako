@@ -38,6 +38,9 @@
       </div>
 
     </div>
+
+    <button type="button" class="btn btn-outline-success btn-lg bg-white mt-4">Lanjut</button>
+
   </div>
 </section>
 
