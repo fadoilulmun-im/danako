@@ -7,9 +7,10 @@ use App\Models\CampaignCategory;
 use App\Models\ZakatCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
-
+use Intervention\Image\Facades\Image;
 class CategoryController extends Controller
 {
     protected function rules()
@@ -17,6 +18,7 @@ class CategoryController extends Controller
         return [
             'type' => 'required|in:zakat,campaign,waqaf',
             'name' => 'required|string',
+            'logo' => 'nullable|image',
         ];
     }
 
@@ -24,42 +26,80 @@ class CategoryController extends Controller
     {
         switch ($request->input('type')) {
             case 'zakat':
-                $model = ZakatCategory::select(['id', 'name']);
+                $model = ZakatCategory::select(['id', 'name', 'logo_path']);
                 break;
             
             default:
-                $model = CampaignCategory::select(['id', 'name']);
+                $model = CampaignCategory::select(['id', 'name', 'logo_path']);
                 break;
         };
         return DataTables::of($model)
+            ->editColumn('logo_path', function ($data) {
+                if($data->logo_path && File::exists(public_path('uploads'. $data->logo_path))){
+                    $path = 'uploads'. $data->logo_path;
+                }else{
+                    $path = 'assets/images/image-solid.svg';
+                }
+                return '<img src="'. asset($path) .'" alt="logo" style="width: 100px; height: 100px">';
+            })
             ->addColumn('action', function ($data) {
                 return '
-                    <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning mr-1" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Edit"></span>
+                    <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning me-1" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Edit"></span>
                     <span onclick="destroy('. $data->id .')" class="fas fa-trash-alt text-danger" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Delete"></span>
                 ';
             })
             ->addIndexColumn()
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'logo_path'])
             ->make(true);
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), $this->rules());
+        $rules = $this->rules();
+        $rules['logo'] .= '|required';
+        $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return $this->setResponse(null, $validator->errors(), 422);
+            return $this->setResponse($validator->errors(), null, 422);
         }
 
         DB::beginTransaction();
+        $path = '/category';
         switch ($request->input('type')) {
             case 'zakat':
-                $model = ZakatCategory::create(['name' => $request->input('name')]);
+                $model = new ZakatCategory;
+                $path .= '/zakat';
                 break;
             
             default:
-                $model = CampaignCategory::create(['name' => $request->input('name')]);
+                $model = new CampaignCategory;
+                $path .= '/campaign';
                 break;
         };
+
+        if(!File::exists(public_path('uploads'. $path))){
+            File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+        }
+
+        $model->name = $request->input('name');
+
+        $fileName = time().'.'.$request->file('logo')->extension();
+        $file = $request->file('logo');
+
+        $canvas = Image::canvas(300, 300, '#ffffff');
+        $img = Image::make($file->getRealPath());
+        $height = $img->height();
+        $width = $img->width();
+        $img->resize($width > $height ? 300 : null, $height >= $width ? 300 : null, function ($constraint){
+            $constraint->aspectRatio();
+            $constraint->upsize();
+        });
+        $canvas->insert($img, 'center');
+        $canvas->save(public_path('uploads') . $path . '/' . $fileName);
+
+        $model->logo_path = $path . '/' . $fileName;
+
+        $model->save();
+
         DB::commit();
         return $this->setResponse($model, 'Category created successfully');
     }
@@ -87,23 +127,52 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), $this->rules());
         if ($validator->fails()) {
-            return $this->setResponse(null, $validator->errors(), 422);
+            return $this->setResponse($validator->errors(), null, 422);
         }
         
         DB::beginTransaction();
+        $path = '/category';
         switch ($request->input('type')) {
             case 'zakat':
                 $model = ZakatCategory::find($id);
+                $path .= '/zakat';
                 break;
             
             default:
                 $model = CampaignCategory::find($id);
+                $path .= '/campaign';
                 break;
         };
         if(!$model){
             return $this->setResponse(null, 'Category not found', 404);
         }
-        $model->update(['name' => $request->input('name')]);
+
+        if(!File::exists(public_path('uploads'. $path))){
+            File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+        }
+
+        $model->name = $request->input('name');
+        if($request->hasFile('logo')){
+            $model->deleteLogoFile();
+
+            $fileName = time().'.'.$request->file('logo')->extension();
+            $path = '/category';
+            $file = $request->file('logo');
+    
+            $canvas = Image::canvas(300, 300, '#ffffff');
+            $img = Image::make($file->getRealPath());
+            $height = $img->height();
+            $width = $img->width();
+            $img->resize($width > $height ? 300 : null, $height >= $width ? 300 : null, function ($constraint){
+                $constraint->aspectRatio();
+                $constraint->upsize();
+            });
+            $canvas->insert($img, 'center');
+            $canvas->save(public_path('uploads') . $path . '/' . $fileName);
+            $model->logo_path = $path . '/' . $fileName;
+        }
+
+        $model->save();
         DB::commit();
         return $this->setResponse($model, 'Category updated successfully');
     }
@@ -132,11 +201,11 @@ class CategoryController extends Controller
     {
         switch ($request->input('type')) {
             case 'zakat':
-                $model = ZakatCategory::select(['id', 'name']);
+                $model = ZakatCategory::select(['id', 'name', 'logo_path AS logo_link']);
                 break;
             
             default:
-                $model = CampaignCategory::select(['id', 'name']);
+                $model = CampaignCategory::select(['id', 'name', 'logo_path AS logo_link']);
                 break;
         };
 
@@ -146,6 +215,15 @@ class CategoryController extends Controller
 
         if($request->input('limit')){
             $model->limit($request->input('limit'));
+        }
+
+        if ($request->has('q')) {
+            $search = $request->q;
+            $model->orderby('name', 'asc')
+                ->where('name', 'LIKE', "%$search%")
+                ->get();
+        } else {
+            $model->orderby('name', 'asc')->limit(10)->get();
         }
 
         return $this->setResponse($model->get(), 'Category list retrieved successfully');

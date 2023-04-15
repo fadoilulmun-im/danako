@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -39,4 +41,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(UserImage::class, 'user_id', 'id');
+    }
+
+    public function photoProfile()
+    {
+        return $this->hasOne(UserImage::class, 'user_id', 'id')->where('type', 'profile');
+    }
+
+    public function detail()
+    {
+        return $this->hasOne(UserDetail::class, 'user_id', 'id');
+    }
+    
+    // public function campaign()
+    // {
+    //     return $this->hasMany('App\Models\Campaign', 'id');
+    // }
 }
