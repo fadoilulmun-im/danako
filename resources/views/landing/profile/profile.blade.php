@@ -7,7 +7,7 @@
 
 
 @section('content')
-  <div class="col-md-8">
+  <div class="col-md-19">
                     <div class="account-details">
                         <h3 class="pb-5">Basic Information</h3>
                     

@@ -35,7 +35,7 @@
          ?
        </h2>
        <div class="row pilih-bg">
-         <div class="col-md-4 py-3 px-5">
+         <div class="col-md-4 py-3 px-5 " data-aos="fade-up">
            <div class="card p-2">
              <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
                <div class="icon">
@@ -48,7 +48,7 @@
              </div>
            </div>
          </div>
-         <div class="col-md-4 py-3 px-5">
+         <div class="col-md-4 py-3 px-5"  data-aos="fade-up">
            <div class="card p-2">
              <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
                <div class="icon">
@@ -61,7 +61,7 @@
              </div>
            </div>
          </div>
-         <div class="col-md-4 py-3 px-5">
+         <div class="col-md-4 py-3 px-5"  data-aos="fade-up">
            <div class="card p-2">
              <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
                <div class="icon">
