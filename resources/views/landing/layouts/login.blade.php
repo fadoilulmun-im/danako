@@ -2,15 +2,13 @@
 <html lang="zxx">
 
 <head>
-    @include('landing.includes.meta')
-    <script src="https://kit.fontawesome.com/5fde2fdc76.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap">
-  
-    <title>@yield('title')</title>
-
-</head>
-<style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <script src="https://kit.fontawesome.com/5fde2fdc76.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap">
+  <style>
     html, body {
     height: 100%;
     margin: 0;
@@ -225,7 +223,7 @@
   }
   
   .background-image {
-    background-image: url({{ asset('danako/img/bgcover.png') }});
+    background-image: url("./assets/img/bgcover.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -239,13 +237,15 @@
     opacity: 0.65;
   }
   
-</style>
+  </style>
+
+</head>
 <body>
     
     @yield('content')    
        
     @stack('before-script')
-    @include('landing.includes.script')
+   
     @stack('after-script')
 </body>
 

@@ -58,10 +58,6 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-Route::get('/landing', function () {
-    return view('landing.index');
-});
-
 Route::get('/login', function () {
     return view('landing.auth.login');
 });
@@ -69,6 +65,17 @@ Route::get('/login', function () {
 Route::get('/daftar', function () {
     return view('landing.auth.daftar');
 });
+
+
+Route::get('/landing', function () {
+    return view('landing.index');
+});
+
+Route::get('/utama', function () {
+    return view('landing.utama');
+});
+
+
 
 Route::get('/kategori', function () {
     return view('landing.kategori');
@@ -121,9 +128,6 @@ Route::get('/zakat', function () {
 });
 
 
-Route::get('/utama', function () {
-    return view('landing.utama');
-});
 
 
 

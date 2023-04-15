@@ -35,7 +35,7 @@
          ?
        </h2>
        <div class="row pilih-bg">
-         <div class="col-md-4 py-3 px-5">
+         <div class="col-md-4 py-3 px-5 " data-aos="fade-up">
            <div class="card p-2">
              <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
                <div class="icon">
@@ -48,7 +48,7 @@
              </div>
            </div>
          </div>
-         <div class="col-md-4 py-3 px-5">
+         <div class="col-md-4 py-3 px-5"  data-aos="fade-up">
            <div class="card p-2">
              <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
                <div class="icon">
@@ -61,7 +61,7 @@
              </div>
            </div>
          </div>
-         <div class="col-md-4 py-3 px-5">
+         <div class="col-md-4 py-3 px-5"  data-aos="fade-up">
            <div class="card p-2">
              <div class="card-header bg-white border-0 d-flex align-items-center justify-content-between">
                <div class="icon">
@@ -80,11 +80,11 @@
    </section>
  
    <section class="pb-80">
-     <div class="container" >
-       <h2 class="text-center" style="font-size: 38px ; padding-top: 27px; padding-bottom: 47px;">Mereka yang  <spand class="title-gren">segera</spand> butuh bantuanmu</h2>
-       <div class="container">
+     <div class="container"  >
+       <h2 class="text-center" style="font-size: 38px ; padding-top: 27px; padding-bottom: 47px;" data-aos="fade-left" >Mereka yang  <spand class="title-gren">segera</spand> butuh bantuanmu</h2>
+       <div class="container" >
  
-         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 " data-aos="fade-right">
            <div class="col">
              <div class="card h-100">
                <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
