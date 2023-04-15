@@ -76,7 +76,7 @@ Route::get('/utama', function () {
 });
 
 
-Route::get('/loginuser', function () { return view('landing.login');})->name('login');
+Route::get('/login', function () { return view('landing.login');})->name('login');
 Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
 
 // Route::get('/login', function () {
@@ -184,9 +184,9 @@ Route::get('/awal-kategori', function () {
 
 
 Route::get('/user', function () { return view('landing.index');})->name('landing');
-Route::get('/', function () { return view('landing.page');})->name('index');
-Route::get('/loginuser', function () { return view('landing.login');})->name('login');
-Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
+// Route::get('/', function () { return view('landing.page');})->name('index');
+// Route::get('/loginuser', function () { return view('landing.login');})->name('login');
+// Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
