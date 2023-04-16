@@ -123,7 +123,7 @@ Route::get('/hitung-profesi', function () {
 
 Route::get('/konfirmasi-email', function () {
     return view('landing.konfirmasi_email');
-});
+})->name('konfirmasi-email');
 
 Route::get('/payment-gagal', function () {
     return view('landing.payment_gagal');

@@ -9,16 +9,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap">
     <link rel="stylesheet" href="{{ asset('') }}users/login/style.css">
+    <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
 </head>
 
 <body>
     <div class="left-section">
         <div class="card">
             <img src="{{ asset('users/login/logo.svg') }}" alt="DANAKO">
-            <h2>Masuk</h2>
-            <p>Masuk untuk mulai berbuat kebaikan</p>
+            <h2>Daftar</h2>
+            <p>Daftar akun untuk mulai berbuat kebaikan</p>
             <form action="" method="post" id="register">
-                @csrf
                 <div class="form-group">
                     <label for="nama-pengguna" title="Nama Lengkap">
                         <span class="icon"><i class="fa-solid fa-user"></i></span>
@@ -26,11 +26,17 @@
                     </label>
                 </div>
                 <div class="form-group">
+                    <label for="username" title="Username">
+                        <span class="icon"><i class="fa-sharp fa-solid fa-at"></i></span>
+                        <input type="text" id="username" name="username" placeholder="Username">
+                    </label>
+                </div>
+                {{-- <div class="form-group">
                     <label for="nomor-telepon" title="Nomor Telepon">
                         <span class="icon"><i class="fa-solid fa-phone"></i></span>
                         <input type="text" id="phone_number" name="phone_number" placeholder="Nomor Telepon">
                     </label>
-                </div>
+                </div> --}}
                 <div class="form-group">
                     <label for="email" title="Email address">
                         <span class="icon"><i class="fas fa-envelope"></i></span>
@@ -57,14 +63,15 @@
 
     <div class="right-section shade background-image">
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
-        crossorigin="anonymous"></script>
+
+    <script src="{{ asset('') }}assets/libs/jquery/jquery.min.js"></script>
+    <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#register').submit(function(e) {
                 e.preventDefault();
                 var name = $('input[name="name"]').val();
-                var phone_number = $('input[name="phone_number"]').val();
+                var username = $('input[name="username"]').val();
                 var email = $('input[name="email"]').val();
                 var password = $('input[name="password"]').val();
 
@@ -74,26 +81,28 @@
                     dataType: 'json',
                     data: {
                         name: name,
-                        phone_number: phone_number,
                         email: email,
-                        password: password
+                        username: username,
+                        password: password,
+                        token: "{{ csrf_token() }}"
+                    },
+                    beforeSend: function() {
+                        $('.signup-btn').html(`<i class="fa fa-spinner fa-spin"></i>`);
                     },
                     success: function(response) {
-                        console.log('success', response)
-                        window.location.href = "{{ route('login') }}";
-                        // Handle success response here
+                        window.location.href = "{{ route('konfirmasi-email') }}";
                     },
                     error: function(response) {
-                        $('#btn-login').toggleClass('disabled');
-                        $('#btn-login').html('Log In');
                         let res = response.responseJSON;
-
-                        $('#alert').html(`
-                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        `)
-                    }
+                        Swal.fire({
+                            title: 'ERROR',
+                            text: res.meta.message,
+                            icon: 'error',
+                        })
+                    },
+                    complete: function(response) {
+                        $('.signup-btn').html(`Daftar`);
+                    },
                 });
             });
 

@@ -88,7 +88,7 @@
                         _token: "{{ csrf_token() }}",
                     },
                     beforeSend: function() {
-                        $('.login-btn').html(`Loading...`);
+                        $('.login-btn').html(`<i class="fa fa-spinner fa-spin"></i>`);
                     },
                     success: function(response) {
                         const data = response.data;

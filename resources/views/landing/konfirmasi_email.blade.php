@@ -1,7 +1,7 @@
 @extends('landing.layouts.app')
 
 @section('title')
-    Dashboard
+  Konfirmasi Email
 @endsection
 
 
@@ -23,11 +23,7 @@
 
 
 @push('after-script')
-
-
-
-
-<script>
+  <script>
 
   </script>
 @endpush
