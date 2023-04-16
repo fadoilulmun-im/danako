@@ -69,11 +69,11 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 Route::get('/user', function () { return view('landing.index');})->name('landing');
-Route::get('/', function () { return view('landing.index');})->name('index');
+Route::get('/', function () { return view('landing.index');})->name('home');
 
 Route::get('/utama', function () {
     return view('landing.utama');
-});
+})->name('afterlogin');
 
 
 Route::get('/login', function () { return view('landing.login');})->name('login');
@@ -145,7 +145,7 @@ Route::get('/zakat', function () {
 
 Route::get('/profile', function () {
     return view('landing.profile.profile');
-});
+})->name('profile');
 
 
 Route::get('/profile-campaign', function () {
