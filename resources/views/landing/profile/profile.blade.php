@@ -1,7 +1,7 @@
 @extends('landing.layouts.profile')
 
 @section('title')
-    Campaign
+  Profil
 @endsection
 
 
