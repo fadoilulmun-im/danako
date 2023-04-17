@@ -90,7 +90,7 @@ Route::get('/daftar', function () {
 Route::get('/kategori/{id}', function ($id) {
     $category = CampaignCategory::findOrFail($id);
     return view('landing.kategori', ['id' => $id, 'category' => $category]);
-});
+})->name('kategori');
 
 Route::get('/ajukan-campaign', function () {
     return view('landing.ajukan_campaign');

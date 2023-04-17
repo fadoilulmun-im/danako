@@ -103,7 +103,7 @@
                     <div class="col-md-6 mx-auto p-sm-5 p-md-5 text-right">
                       <h3>${item.name}</h3>
                       <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
-                      <button type="button" class="btn btn-info text-white bg-danako-primary border-0 btn-lg">Donasi</button>
+                      <a href="{{ route('kategori', '') }}/${item.id}" class="btn btn-info text-white bg-danako-primary border-0 btn-lg">Donasi</a>
                     </div>
                   </div>
                 </div>
@@ -115,7 +115,7 @@
                     <div class="col-md-6 mx-auto p-sm-5 p-md-5">
                       <h3>${item.name}</h3>
                       <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
-                      <button type="button" class="btn btn-info text-white bg-danako-primary border-0 btn-lg">Donasi</button>
+                      <a href="{{ route('kategori', '') }}/${item.id}" class="btn btn-info text-white bg-danako-primary border-0 btn-lg">Donasi</a>
                     </div>
                     <div class="col-md-6 ">
                       <img src="${item.logo_link ?? "{{ asset('') }}danako/img/kategori.png"}" class="img-fluid" style="width: 526px; height: 279px; object-fit: cover;">
