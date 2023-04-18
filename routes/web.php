@@ -71,9 +71,14 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('/user', function () { return view('landing.index');})->name('landing');
 Route::get('/', function () { return view('landing.index');})->name('home');
 
-Route::get('/utama', function () {
+Route::get('/Halaman-utama', function () {
     return view('landing.utama');
 })->name('afterlogin');
+
+Route::get('/ziswaf', function () {
+    return view('landing.ziswaf');
+});
+
 
 
 Route::get('/login', function () { return view('landing.login');})->name('login');
@@ -99,6 +104,7 @@ Route::get('/kategori/{id}', function ($id) {
 Route::get('/ajukan-campaign', function () {
     return view('landing.ajukan_campaign');
 });
+
 
 
 Route::get('/campaign-pending', function () {

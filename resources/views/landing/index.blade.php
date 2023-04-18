@@ -12,15 +12,15 @@
      <div class="text-center">
        <div class="text-header">
          <h1 class="color-primary">
-           Lorem ipsum dolor <span class="text-white">sit  amet</span>
+          Satukan kebaikan <span class="text-white">Salurkan </span>
            <br>
-           consectetur
+           Kebermanfaatan
          </h1>
-         <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc</p>
+         <p class="text-white">Tak perlu sejuta untuk berdampak, mulai dari seribu</p>
        </div>
        <div class="btn-header pt-5">
-         <button type="button" class="btn btn-primary btn-lg bg-danako-primary border-0 bt-index mx-5 ">Large button</button>
-         <button type="button" class="btn btn-outline-secondary btn-lg mx-5 border-2 bt-index text-white">Large button</button>
+         <button type="button" class="btn btn-primary btn-lg bg-danako-primary border-0 bt-index mx-5 ">Donasi sekarang</button>
+         <a href="{{ url('ajukan-campaign') }}" class="btn btn-outline-secondary btn-lg mx-5 border-2 bt-index text-white">Ajukan campaign</a>
        </div>
      </div>
     </div>
@@ -44,7 +44,7 @@
                <h5 class="m-0">Cepat dan Tepat</h5>
              </div>
              <div class="card-body text-start text-hero">
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
+              Kami mengutamakan kecepatan dan ketepatan dalam menyalurkan donasi. Hal ini tentunya akan sangat berguna bagi mereka yang saat ini sedang membutuhkan dana darurat.
              </div>
            </div>
          </div>
@@ -54,10 +54,10 @@
                <div class="icon">
                  <img src="{{ asset('') }}custom/icons/Done_all_round_light.svg" alt="">
                </div>
-               <h5 class="m-0">Cepat dan Tepat</h5>
+               <h5 class="m-0">Amanah</h5>
              </div>
              <div class="card-body text-start text-hero">
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
+              Kami berkomitmen untuk menjaga kepercayaan Anda sebagai donatur. Oleh karena itu, kami selalu memastikan transparansi dan akuntabilitas dalam mengelola donasi yang diterima.
              </div>
            </div>
          </div>
@@ -67,10 +67,10 @@
                <div class="icon">
                  <img src="{{ asset('') }}custom/icons/Line_up_light.svg" alt="">
                </div>
-               <h5 class="m-0">Cepat dan Tepat</h5>
+               <h5 class="m-0">Berdampak</h5>
              </div>
              <div class="card-body text-start text-hero">
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
+              Berikan dampak yang positif bagi mereka yang membutuhkan. Jadilah bagian dari perubahan bagi umat yang bermanfaat dan berdampak melalui platform DANAKO.
              </div>
            </div>
          </div>

@@ -9,17 +9,17 @@
 @section('content')
 
 
-<div class="container pt-3 pb-3">
+{{-- <div class="container pt-3 pb-3">
       <img src="{{ asset('') }}danako/img/Expand_left.svg" />
-</div>
+</div> --}}
 
-<section class="c-notverifikasi">
+<section class="c-notverifikasi mb-4 mt-4">
   <div class="d-flex justify-content-center flex-column"> <!-- tambahkan flex-column -->
     <div class="row">
       <div class="col-md-12">
         <div class="title">
-          <h6>Mulai buat campaign di DANAKO</h6>
-          <p>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor</p>
+          <h6>Mulai buat campaign di <span class="color-primary">Danako</span></h6>
+          <p>Dan ringankan beban tanggungan dikala membutuhkan!</p>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
 
     </div>
 
-    <button type="button" class="btn btn-outline-success btn-lg bg-white mt-4">Lanjut</button>
+    <a href="{{ url('buat-campaign') }}" class="btn btn-outline-success text-black btn-lg bg-white mt-4 ">Lanjut</a>
 
   </div>
 </section>

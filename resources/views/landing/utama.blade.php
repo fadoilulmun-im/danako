@@ -13,9 +13,9 @@
         <div class="banner">
             <div class="row ">
                 <div class="col-md-6">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc</p>
-                    <h2 class="pb-3">Lorem ipsum dolor sit  amet consectetur.</h1>
-                    <button type="button" class="btn btn-primary btn-lg">Large button</button>
+                    <p class="text-dark">Tak perlu sejuta untuk berdampak, mulai dari seribu</p>
+                    <h1 class="pb-3 color-primary">Satukan kebaikan<br><span class="text-dark">Salurkan kebermanfaatan.</span> </h1>
+                    <button type="button" class="btn btn-primary btn-lg bg-danako-primary border-0 border-5">Donasi sekarang</button>
                 </div>
                 <div class="col-md-6">
                     <img src="{{ asset('') }}danako/img/campaignunggulan.png" class="img-fluid">
@@ -25,35 +25,37 @@
     </div>
   </section>
 
-  <section class="info-danako">
-    <div class="container">
-        <div class="banner-info">
-            <div class="row container">
-                <h4 class="text-center pt-2">Lorem Ipsum</h4>
-                <div class="col-md-3 text-center py-3 px-5">
-                    <img src="{{ asset('') }}danako/img/Ellipse67.png">
-                    <h5>Zakat</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem nulla</p>
-                </div>
-                <div class="col-md-3 text-center py-3 px-5">
-                    <img src="{{ asset('') }}danako/img/Ellipse67.png">
-                    <h5>Zakat</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem nulla</p>
-                </div>
-                <div class="col-md-3 text-center py-3 px-5">
-                    <img src="{{ asset('') }}danako/img/Ellipse67.png">
-                    <h5>Zakat</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem nulla</p>
-                </div>
-                <div class="col-md-3 text-center py-3 px-5">
-                    <img src="{{ asset('') }}danako/img/Ellipse67.png">
-                    <h5>Zakat</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem nulla</p>
-                </div>
-            </div>
-        </div>
-    </div>
-  </section>
+  <a href="{{ url('ziswaf') }}">
+    <section class="info-danako">
+      <div class="container">
+          <div class="banner-info">
+              <div class="row container">
+                  <h4 class="text-center pt-2 text-black">Lorem Ipsum</h4>
+                  <div class="col-md-3 text-center py-3 px-5">
+                      <img src="{{ asset('') }}danako/img/Ellipse67.png">
+                      <h5>Zakat</h5>
+                      <p>Sedekahkan harta, berbagilah dengan mereka yang membutuhkan.</p>
+                  </div>
+                  <div class="col-md-3 text-center py-3 px-5">
+                      <img src="{{ asset('') }}danako/img/Ellipse67.png">
+                      <h5>Infaq</h5>
+                      <p>Derma dari hati, tak terbatas waktu dan materi, demi kepentingan khalayak umum.</p>
+                  </div>
+                  <div class="col-md-3 text-center py-3 px-5">
+                      <img src="{{ asset('') }}danako/img/Ellipse67.png">
+                      <h5>Sedekah</h5>
+                      <p>Berikanlah bantuan dengan tulus, ringankan beban mereka yang terpuruk.</p>
+                  </div>
+                  <div class="col-md-3 text-center py-3 px-5">
+                      <img src="{{ asset('') }}danako/img/Ellipse67.png">
+                      <h5>Wakaf</h5>
+                      <p>Tanamkan amal jariyah, beri manfaat untuk umat selamanya.</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </section>
+  </a>
 
   <section class="pt-5 pb-5">
     <h1 class="text-center">Kategori lainnya</h1>
