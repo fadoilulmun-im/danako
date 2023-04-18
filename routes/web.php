@@ -82,6 +82,10 @@ Route::get('/daftar', function () {
     return view('landing.auth.daftar');
 });
 
+Route::get('/all-campaign', function () {
+    return view('landing.all_campaign');
+});
+
 Route::get('/kategori/{id}', function ($id) {
     $category = CampaignCategory::findOrFail($id);
     return view('landing.kategori', ['id' => $id, 'category' => $category]);
@@ -162,7 +166,7 @@ Route::get('/pencairan-dana', function () {
 });
 
 
-Route::get('/awal-kategori', function () {
+Route::get('/awal-campaign', function () {
     return view('landing.awal_kategori');
 });
 

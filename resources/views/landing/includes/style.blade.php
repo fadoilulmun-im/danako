@@ -306,4 +306,122 @@ footer.footer{
 
 /* buat campaign */
 
+/* find */
+.find-form {
+  background: #ffffff;
+  padding: 15px;
+  margin-top: 40px;
+  border-radius: 10px;
+  position: relative;
+  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+.find-form .form-group {
+  margin-bottom: 0;
+  line-height: 1;
+  text-align: left;
+  position: relative;
+}
+
+.find-form .form-group label {
+  font-size: 15px;
+  color: #5c5a5a;
+  font-weight: 600;
+  padding-left: 20px;
+}
+
+.find-form .form-group .form-control {
+  height: 40px;
+  border-radius: 10px;
+  padding: 5px 20px 10px;
+}
+
+.find-form .form-group ::-webkit-input-placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8e8d8d;
+}
+
+.find-form .form-group :-ms-input-placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8e8d8d;
+}
+
+.find-form .form-group ::-ms-input-placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8e8d8d;
+}
+
+.find-form .form-group ::placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8e8d8d;
+}
+
+.find-form .form-group i {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  color: #9b9b9b;
+}
+
+.find-form .nice-select {
+  height: 40px;
+  border-radius: 10px;
+  padding: 5px 20px 10px;
+  border: 1px solid #ced4da;
+  width: 100%;
+}
+
+.find-form .nice-select::after {
+  right: 20px;
+  top: 46%;
+  width: 9px;
+  height: 9px;
+}
+
+.find-form .nice-select .current {
+  font-size: 14px;
+  bottom: 5px;
+  position: relative;
+  font-weight: 500;
+  color:#000;
+}
+
+.find-form .nice-select .list {
+  width: 100%;
+  color:#000;
+}
+
+.find-form .find-btn {
+  background: #359085;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+  width: 100%;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 7px 15px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.bg-wytouse {
+  background-color: #515153;
+}
+
+.find-form .find-btn:hover {
+  background: #515153;
+}
+
+.find-form .find-btn i {
+  left: 10px;
+  top: 2px;
+  position: relative;
+}
+
 </style>
