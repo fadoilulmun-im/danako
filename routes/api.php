@@ -22,17 +22,17 @@ use App\Http\Controllers\API\UserController;
 
 
 Route::prefix('auth-user')->group(function () {
-    Route::post('register', [AuthUserController::class, 'register']);
-    Route::post('login', [AuthUserController::class, 'login']);
+    Route::post('register', [AuthUserController::class, 'register'])->name('api.user.register');
+    Route::post('login', [AuthUserController::class, 'login'])->name('api.user.login');
     Route::get('logout', [AuthUserController::class, 'logout'])->name('api.user.logout')->middleware(['auth:sanctum']);
 });
 
 //user authentication
 
 //API route for register user
-Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register'])->name('api.user.register');
+// Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register'])->name('api.user.register');
 //API route for login user
-Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login'])->name('api.user.login');
+// Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login'])->name('api.user.login');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function (Request $request) {
@@ -40,7 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     // API route for logout user
-    Route::post('/logout', [App\Http\Controllers\API\AuthController::class, 'logout'])->name('api.user.logout');
+    // Route::post('/logout', [App\Http\Controllers\API\AuthController::class, 'logout'])->name('api.user.logout');
 });
 //end user authentication
 

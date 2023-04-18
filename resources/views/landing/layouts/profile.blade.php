@@ -70,7 +70,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="#" onclick="logout()">
                                         <i class='bx bx-log-out'></i>
                                         Log Out
                                     </a>

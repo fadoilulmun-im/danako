@@ -232,10 +232,10 @@ text-align: center;
                         <div class="card-text border-bottom info-donatur rounded-3 mt-2">                  
                           <div class="row py-2 px-2">
                             <div class="col-md-6 order-md-2">
-                              <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
+                              <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
                             </div>
                             <div class="col-md-6">
-                              <h3>Lingkungan</h3>
+                              <h3>Pendidikan</h3>
                             </div>
                           </div>
                           
@@ -246,53 +246,34 @@ text-align: center;
                               <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
                             </div>
                             <div class="col-md-6">
-                              <h3>Lingkungan</h3>
+                              <h3>Kesehatan</h3>
                             </div>
                           </div>
                           
                         </div>
+
                         <div class="card-text border-bottom info-donatur rounded-3 mt-2">                  
                           <div class="row py-2 px-2">
                             <div class="col-md-6 order-md-2">
                               <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
                             </div>
                             <div class="col-md-6">
-                              <h3>Lingkungan</h3>
+                              <h3>Bencana</h3>
                             </div>
-                          </div>
+                          </div>    
                         </div>
+
                         <div class="card-text border-bottom info-donatur rounded-3 mt-2">                  
                           <div class="row py-2 px-2">
                             <div class="col-md-6 order-md-2">
                               <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
                             </div>
                             <div class="col-md-6">
-                              <h3>Lingkungan</h3>
+                              <h3>Kemanusian</h3>
                             </div>
-                          </div>
+                          </div>    
                         </div>
-                        <div class="card-text border-bottom info-donatur rounded-3 mt-2">                  
-                          <div class="row py-2 px-2">
-                            <div class="col-md-6 order-md-2">
-                              <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
-                            </div>
-                            <div class="col-md-6">
-                              <h3>Lingkungan</h3>
-                            </div>
-                          </div>
-                          
-                        </div>
-                        <div class="card-text border-bottom info-donatur rounded-3 mt-2">                  
-                          <div class="row py-2 px-2">
-                            <div class="col-md-6 order-md-2">
-                              <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
-                            </div>
-                            <div class="col-md-6">
-                              <h3>Lingkungan</h3>
-                            </div>
-                          </div>
-                          
-                        </div>
+                    
                       </div>
                   </div>
                         <div class="f1-buttons pt-3 pb-3">

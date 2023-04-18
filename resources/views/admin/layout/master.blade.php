@@ -137,9 +137,7 @@
           ajax({
             url: "{{ route('api.admin.logout') }}",
             success: function (response) {
-              localStorage.removeItem('_token');
-              localStorage.removeItem('_user_username');
-              localStorage.removeItem('_user_photo_profile');
+              localStorage.clear();
               window.location.href = "/";
             },
             complete: function () {}

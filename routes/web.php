@@ -4,6 +4,8 @@ use App\Http\Controllers\WEB\VerifyEmailController;
 use App\Models\CampaignCategory;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use App\Http\Controllers\GoogleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +21,9 @@ use Illuminate\Http\Request;
 
 
 Route::get('/verification-email/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::group(['prefix' => 'admin'], function () {
 
@@ -64,14 +69,14 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 Route::get('/user', function () { return view('landing.index');})->name('landing');
-Route::get('/', function () { return view('landing.index');})->name('index');
+Route::get('/', function () { return view('landing.index');})->name('home');
 
 Route::get('/utama', function () {
     return view('landing.utama');
-});
+})->name('afterlogin');
 
 
-Route::get('/loginuser', function () { return view('landing.login');})->name('login');
+Route::get('/login', function () { return view('landing.login');})->name('login');
 Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
 
 // Route::get('/login', function () {
@@ -89,7 +94,7 @@ Route::get('/all-campaign', function () {
 Route::get('/kategori/{id}', function ($id) {
     $category = CampaignCategory::findOrFail($id);
     return view('landing.kategori', ['id' => $id, 'category' => $category]);
-});
+})->name('kategori');
 
 Route::get('/ajukan-campaign', function () {
     return view('landing.ajukan_campaign');
@@ -122,7 +127,7 @@ Route::get('/hitung-profesi', function () {
 
 Route::get('/konfirmasi-email', function () {
     return view('landing.konfirmasi_email');
-});
+})->name('konfirmasi-email');
 
 Route::get('/payment-gagal', function () {
     return view('landing.payment_gagal');
@@ -144,7 +149,7 @@ Route::get('/zakat', function () {
 
 Route::get('/profile', function () {
     return view('landing.profile.profile');
-});
+})->name('profile');
 
 
 Route::get('/profile-campaign', function () {
@@ -168,7 +173,28 @@ Route::get('/pencairan-dana', function () {
 
 Route::get('/awal-campaign', function () {
     return view('landing.awal_kategori');
+
+    Route::get('/campaigns', function () {
+        return view('admin.page.master.campaign');
+    });
+    
+    Route::get('/donations', function () {
+        return view('admin.page.master.donation');
+    });
 });
+
+
+
+
+
+Route::get('/user', function () { return view('landing.index');})->name('landing');
+// Route::get('/', function () { return view('landing.page');})->name('index');
+// Route::get('/loginuser', function () { return view('landing.login');})->name('login');
+// Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
+
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
 
 
 
