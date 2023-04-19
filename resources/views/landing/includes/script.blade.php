@@ -60,7 +60,7 @@
       `)
     }else{
       $('#user-login').html(`
-        <a href="{{ route('login') }}" class="btn btn-primary bg-danako-primary rounded border-0">
+        <a href="{{ route('login') }}" class="btn btn-success bg-danako-primary rounded border-0">
           <i class="fa fa-sign-in"></i>
           Login
         </a>
