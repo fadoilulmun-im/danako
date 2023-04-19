@@ -27,8 +27,8 @@
           </div>
           <h2 class="text-center">Lorem ipsum dolor sit amet</h2>
           <div class="d-flex justify-content-center mt-5 mb-5">
-            <button type="button" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat">Zakat Profesi</button>
-            <button type="button" class="btn btn-secondary btn-lg bg-danako-primary bt-zakat">Zakat Maal</button>
+            <a href="{{ url('hitung-profesi') }}" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat">Zakat Profesi</a>
+            <a href="{{ url('hitung-maal') }}" class="btn btn-secondary btn-lg bg-danako-primary bt-zakat">Zakat Maal</a>
           </div>
         </div>
       </div>
