@@ -190,6 +190,17 @@ Route::get('/awal-campaign', function () {
 });
 
 
+Route::get('/faq', function () {
+    return view('landing.faq');
+});
+
+Route::get('/tentang-kami', function () {
+    return view('landing.abouts');
+});
+
+
+
+
 
 
 

@@ -18,10 +18,10 @@
             <a class="nav-link" href="#">Prosedur</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">FAQs</a>
+            <a class="nav-link" href="{{ url('faq') }}">FAQs</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Tentang Kami</a>
+            <a class="nav-link" href="{{ url('tentang-kami') }}">Tentang Kami</a>
           </li>
           <li class="nav-item dropdown" id="user-login">
             

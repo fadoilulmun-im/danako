@@ -166,7 +166,7 @@
    <div class="container h-100 pt-5 pb-5">
      <div class="row align-items-center h-100">
        <div class="sponsor rounded">
-         <h2 class="text-center">Lebih dari 25 Perusahaan dan Institusi telah mempercayai kami hingga tahun 2023</h2>
+         <h2 class="text-center">Lebih dari 25 <span class="color-primary">Perusahaan</span> dan <span class="color-primary">Institusi</span> telah mempercayai kami hingga tahun 2023</h2>
          <div class="container">
            <div class="slider">
            <div class="logos">

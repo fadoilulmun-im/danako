@@ -424,4 +424,116 @@ footer.footer{
   position: relative;
 }
 
+
+/*faq  */
+
+
+
+
+/* FAQ styles */
+.faq-section .faq-container {
+  margin: 0 auto;
+  max-width: 800px;
+}
+.faq-section .faq-container .faq {
+  margin-bottom: 0px;
+}
+.faq-section .faq-container .question-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #414141;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.7s ease;
+}
+.faq-section .faq-container .question-container:hover {
+  background-color: #373737;
+}
+.faq-section .faq-container .question-container:hover .toggle-btn {
+  background-color: green;
+}
+.faq-section .faq-container .answer {
+  padding: 0px 20px;
+  background-color: darkgreen;
+  color: #fff;
+  overflow: hidden;
+  transition: 0.3s ease, opacity 0.3s ease;
+  max-height: 0;
+}
+.faq-section .faq-container .toggle-btn {
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.6s ease;
+}
+.faq-section .faq-container .toggle-btn p {
+  margin: 0;
+  font-size: 25px;
+  color: #fff;
+  transition: transform 0.3s ease, opacity 0.3s 300ms;
+}
+.faq-section .faq-container .toggle-btn p.rotate {
+  transform: rotate(45deg);
+}
+.faq-section .faq-container .answer.visible {
+  max-height: 200px;
+  opacity: 1;
+  margin: 0;
+  padding: 20px 20px;
+}
+
+
+/* abouts */
+
+.choose-card {
+    border: 1px dashed var(--darkorange);
+    padding: 36px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.choose-card:hover {
+    background:  var(--orange);
+}
+
+.counter-section {
+    background: var(--orange);
+}
+
+.counter-section .counter-text h2 {
+    color: #ffffff;
+    margin-bottom: 0;
+}
+.counter-area .counter-text h2 {
+    color: #ffffff;
+    font-size: 45px;
+    font-weight: 700;
+}
+
+.theme-btn .default-btn {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: "Catamaran", sans-serif;
+    background: #fd1616;
+    color: #ffffff;
+    margin-right: 15px;
+    border: 1px solid transparent;
+    padding: 10px 25px;
+    display: inline-block;
+}
+a {
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+
 </style>
