@@ -145,7 +145,7 @@ Route::get('/payment-sukses', function () {
 
 
 Route::get('/zakat', function () {
-    return view('landing.zakat');
+    return view('landing.ziswaf.zakat');
 });
 
 
