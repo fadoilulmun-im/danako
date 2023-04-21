@@ -93,7 +93,7 @@
         </div>
 
         <div class="d-flex justify-content-end pt-4 d-none" id="lihat-semua">
-          <button type="button" class="btn btn-primary btn-sm ms-auto rounded-3 bg-danako-primary border-0">Lihat semua</button>
+          <a href="{{ url('all-campaign') }}" class="btn btn-primary btn-sm ms-auto rounded-3 bg-danako-primary border-0">Lihat semua</a>
         </div>
       </div>
     </div>
