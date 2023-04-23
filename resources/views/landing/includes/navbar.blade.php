@@ -10,8 +10,8 @@
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <form class="d-flex">
-              <input class="form-control" type="search" placeholder="Search" class="search">   
+            <form class="d-flex" action="{{ url('all-campaigns') }}">
+              <input class="form-control" type="search" placeholder="Search" class="search" name="search">   
             </form>
           </li>
           <li class="nav-item">

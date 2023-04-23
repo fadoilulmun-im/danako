@@ -18,28 +18,26 @@
     <form class="find-form">
         <div class="row">
 
-            <div class="col-lg-3">
+            <div class="col-lg-6">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="search-input" placeholder="Judul">
+                    <input type="text" class="form-control" id="search-input" placeholder="Judul Campaign Anda Cari">
                     <i class="bx bx-search-alt"></i>
                 </div>
             </div>
 
-            <div class="col-lg-3">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Lokasi">
-                    <i class="bx bx-search-alt"></i>
-                </div>
-            </div>
+             {{-- <div class="col-lg-3">
+                <select class="category2">
+                    <option data-display="Category">Category Pencarian</option>
+                    <option value="1">Relevan</option>
+                    <option value="2">Terbaru</option>
+                    <option value="4">Lama</option>
+                </select>
+            </div> --}}
     
-            <div class="col-lg-3">
-                <select class="category">
-                    <option data-display="Category">Category</option>
-                    <option value="1">Web Development</option>
-                    <option value="2">Graphics Design</option>
-                    <option value="4">Data Entry</option>
-                    <option value="5">Visual Editor</option>
-                    <option value="6">Office Assistant</option>
+            <div class="col-lg-4">
+                <select id="category" class="category">
+                    <option data-display="Pilih Kategoru">Category Campaign</option>
+                    
                 </select>
             </div>
     
@@ -49,9 +47,9 @@
             </div> --}}
 
             
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <button type="button" id="search-button" class="find-btn">
-                  Find A Job
+                  Find Campaign
                   <i class='bx bx-search'></i>
               </button>
           </div>
@@ -68,7 +66,7 @@
     <h2 class="text-center" style="font-size: 38px ; padding-top: 27px; padding-bottom: 47px;">Tolong!  <spand class="title-gren">Mereka</spand> segera butuh bantuanmu</h2>
     <div class="container">
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="list">
-        <div class="text-center w-100 pt-2">
+        <div class="text-center w-100 pt-2 pb-5">
           <div class="spinner-border" role="status">
             <span class="visually-hidden">Loading...</span>
           </div>
@@ -104,23 +102,47 @@
 @push('after-script')
 <script>
 
+$(document).ready(function(){
+  $.ajax({
+    url: "{{ route('api.master.categories.list') }}?",
+    type: "GET",
+    dataType: "json",
+    success: function(response){
+      let data = response.data;
+      let select = $('.category');
+      select.empty();
+      select.append('<option value="">Category</option>'); // add default option
+      data.forEach(item => {
+        select.append(`<option value="${item.id}">${item.name}</option>`);
+      });
+    }
+  });
+});
+
+
+
+</script>
+
+<script>
 $('#search-button').click(function() {
     let query = $('#search-input').val().toLowerCase();
     searchCampaigns(query, 1);
   });
   
   function searchCampaigns(query, page) {
-    $.ajax({
-      url: "{{ route('api.master.campaigns.pagination') }}?page=" + page,
-      type: "GET",
-      dataType: "json",
-      success: function(response){
-        let data = response.data.data;
-        let filteredData = data.filter(item => item.title.toLowerCase().includes(query));
-        let pageData = filteredData.slice(0, 8); // batasi hasil yang ditampilkan dalam satu halaman
+  let url = "{{ route('api.master.campaigns.pagination') }}?page=" + page;
 
-        $('#list').html('');
-        pageData.forEach(item => {
+  $.ajax({
+    url: url,
+    type: "GET",
+    dataType: "json",
+    success: function(response){
+      let data = response.data.data;
+      let filteredData = data.filter(item => item.title.toLowerCase().includes(query));
+      let pageData = filteredData.slice(0, 8); // limit results to 8 per page
+
+      $('#list').html('');
+      pageData.forEach(item => {
           let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('danako/img/category/1.png') }}";
           let img_size = item.img_path ? 'width="300" height="200"' : '';
           $('#list').append(`
@@ -142,21 +164,21 @@ $('#search-button').click(function() {
               </div>
             </div>
           `);
-        });
+      });
 
-        // hapus pagination links jika hanya satu halaman yang ditampilkan
-        if (filteredData.length <= 8) {
-          $('#pagination').html('');
-        } else {
-          // render pagination links
-          renderPagination(response.data);
-        }
-      },
-      error: function(response){
-        $('#list').html('Ada kesalahan server')
+      // hide pagination links if only one page of results
+      if (filteredData.length <= 8) {
+        $('#pagination').html('');
+      } else {
+        // render pagination links
+        renderPagination(response.data);
       }
-    });
-  }
+    },
+    error: function(response){
+      $('#list').html('Server error')
+    }
+  });
+}
 
 </script>
 
@@ -164,46 +186,52 @@ $('#search-button').click(function() {
   
 let page = 1;
 let perPage = 8;
+let categoryId = '';
 
 function loadCampaigns() {
-$.ajax({
-url: "{{ route('api.master.campaigns.pagination') }}?page=" + page + "&per_page=" + perPage,
-type: "GET",
-dataType: "json",
-success: function(response){
-let data = response.data.data;
-$('#list').html('');
-data.forEach(item => {
-      let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('danako/img/category/1.png') }}";
-      let img_size = item.img_path ? 'width="300" height="200"' : '';
-      $('#list').append(`
-      <div class="col">
-      <div class="card h-100" onclick="detail(${item.id})">
-        <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
-        <div class="card-body">
-          <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-          <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
-          <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
-          <div class="progress">
-            <div class="progress-bar bg-danako" role="progressbar" style="width: 10%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <div class="row">
-            <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
-            <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    `);
-  });
-// render pagination links
-renderPagination(response.data);
-},
-error: function(response){
-$('#list').html('Ada kesalahan server')
+  $.ajax({
+    url: "{{ route('api.master.campaigns.pagination') }}?page=" + page + "&per_page=" + perPage + "&category_id=" + categoryId,
+    type: "GET",
+    dataType: "json",
+    success: function(response){
+      let data = response.data.data;
+      $('#list').html('');
+      data.forEach(item => {
+        let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('danako/img/category/1.png') }}";
+          let img_size = item.img_path ? 'width="300" height="200"' : '';
+          $('#list').append(`
+            <div class="col">
+              <div class="card h-100" onclick="detail(${item.id})">
+                <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
+                <div class="card-body">
+                  <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                  <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
+                  <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
+                  <div class="progress">
+                    <div class="progress-bar bg-danako" role="progressbar" style="width: 10%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+                    <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `);
+      });
+      // render pagination links
+      renderPagination(response.data);
+    },
+    error: function(response){
+      $('#list').html('Ada kesalahan server')
+    }
+  })
 }
-})
-}
+
+$('#category').change(function() {
+  categoryId = $(this).val();
+  loadCampaigns();
+});
 
 function renderPagination(data) {
 let totalItems = data.total;

@@ -77,7 +77,7 @@ Route::get('/Halaman-utama', function () {
 
 Route::get('/ziswaf', function () {
     return view('landing.ziswaf');
-});
+})->name('ziswaf');
 
 
 
@@ -94,7 +94,7 @@ Route::get('/daftar', function () {
 
 Route::get('/all-campaign', function () {
     return view('landing.all_campaign');
-});
+})->name('all-campaign');
 
 Route::get('/kategori/{id}', function ($id) {
     $category = CampaignCategory::findOrFail($id);
@@ -103,9 +103,12 @@ Route::get('/kategori/{id}', function ($id) {
 
 Route::get('/ajukan-campaign', function () {
     return view('landing.ajukan_campaign');
+})->name('ajukan-campaign');
+
+
+Route::get('/campaign-akun', function () {
+    return view('landing.campaign_akun');
 });
-
-
 
 Route::get('/campaign-pending', function () {
     return view('landing.campaign_pending');
@@ -123,13 +126,6 @@ Route::get('/detail_campaign_pemilik', function () {
     return view('landing.detail_campaign_pemilik');
 });
 
-Route::get('/hitung-maal', function () {
-    return view('landing.hitung_maal');
-});
-
-Route::get('/hitung-profesi', function () {
-    return view('landing.hitung_profesi');
-});
 
 Route::get('/konfirmasi-email', function () {
     return view('landing.konfirmasi_email');
