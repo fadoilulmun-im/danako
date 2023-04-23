@@ -306,4 +306,234 @@ footer.footer{
 
 /* buat campaign */
 
+/* find */
+.find-form {
+  background: #ffffff;
+  padding: 15px;
+  margin-top: 40px;
+  border-radius: 10px;
+  position: relative;
+  -webkit-box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+.find-form .form-group {
+  margin-bottom: 0;
+  line-height: 1;
+  text-align: left;
+  position: relative;
+}
+
+.find-form .form-group label {
+  font-size: 15px;
+  color: #5c5a5a;
+  font-weight: 600;
+  padding-left: 20px;
+}
+
+.find-form .form-group .form-control {
+  height: 40px;
+  border-radius: 10px;
+  padding: 5px 20px 10px;
+}
+
+.find-form .form-group ::-webkit-input-placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8e8d8d;
+}
+
+.find-form .form-group :-ms-input-placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8e8d8d;
+}
+
+.find-form .form-group ::-ms-input-placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8e8d8d;
+}
+
+.find-form .form-group ::placeholder {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8e8d8d;
+}
+
+.find-form .form-group i {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  color: #9b9b9b;
+}
+
+.find-form .nice-select {
+  height: 40px;
+  border-radius: 10px;
+  padding: 5px 20px 10px;
+  border: 1px solid #ced4da;
+  width: 100%;
+}
+
+.find-form .nice-select::after {
+  right: 20px;
+  top: 46%;
+  width: 9px;
+  height: 9px;
+}
+
+.find-form .nice-select .current {
+  font-size: 14px;
+  bottom: 5px;
+  position: relative;
+  font-weight: 500;
+  color:#000;
+}
+
+.find-form .nice-select .list {
+  width: 100%;
+  color:#000;
+}
+
+.find-form .find-btn {
+  background: #359085;
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+  width: 100%;
+  color: #ffffff;
+  border-radius: 10px;
+  padding: 7px 15px;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.bg-wytouse {
+  background-color: #515153;
+}
+
+.find-form .find-btn:hover {
+  background: #515153;
+}
+
+.find-form .find-btn i {
+  left: 10px;
+  top: 2px;
+  position: relative;
+}
+
+
+/*faq  */
+
+
+
+
+/* FAQ styles */
+.faq-section .faq-container {
+  margin: 0 auto;
+  max-width: 800px;
+}
+.faq-section .faq-container .faq {
+  margin-bottom: 0px;
+}
+.faq-section .faq-container .question-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #414141;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.7s ease;
+}
+.faq-section .faq-container .question-container:hover {
+  background-color: #373737;
+}
+.faq-section .faq-container .question-container:hover .toggle-btn {
+  background-color: green;
+}
+.faq-section .faq-container .answer {
+  padding: 0px 20px;
+  background-color: darkgreen;
+  color: #fff;
+  overflow: hidden;
+  transition: 0.3s ease, opacity 0.3s ease;
+  max-height: 0;
+}
+.faq-section .faq-container .toggle-btn {
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.6s ease;
+}
+.faq-section .faq-container .toggle-btn p {
+  margin: 0;
+  font-size: 25px;
+  color: #fff;
+  transition: transform 0.3s ease, opacity 0.3s 300ms;
+}
+.faq-section .faq-container .toggle-btn p.rotate {
+  transform: rotate(45deg);
+}
+.faq-section .faq-container .answer.visible {
+  max-height: 200px;
+  opacity: 1;
+  margin: 0;
+  padding: 20px 20px;
+}
+
+
+/* abouts */
+
+.choose-card {
+    border: 1px dashed var(--darkorange);
+    padding: 36px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+}
+
+.choose-card:hover {
+    background:  var(--orange);
+}
+
+.counter-section {
+    background: var(--orange);
+}
+
+.counter-section .counter-text h2 {
+    color: #ffffff;
+    margin-bottom: 0;
+}
+.counter-area .counter-text h2 {
+    color: #ffffff;
+    font-size: 45px;
+    font-weight: 700;
+}
+
+.theme-btn .default-btn {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: "Catamaran", sans-serif;
+    background: #fd1616;
+    color: #ffffff;
+    margin-right: 15px;
+    border: 1px solid transparent;
+    padding: 10px 25px;
+    display: inline-block;
+}
+a {
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+
 </style>

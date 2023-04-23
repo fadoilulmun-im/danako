@@ -12,15 +12,15 @@
      <div class="text-center">
        <div class="text-header">
          <h1 class="color-primary">
-           Lorem ipsum dolor <span class="text-white">sit  amet</span>
+          Satukan kebaikan <span class="text-white">Salurkan </span>
            <br>
-           consectetur
+           Kebermanfaatan
          </h1>
-         <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc</p>
+         <p class="text-white">Tak perlu sejuta untuk berdampak, mulai dari seribu</p>
        </div>
        <div class="btn-header pt-5">
-         <button type="button" class="btn btn-primary btn-lg bg-danako-primary border-0 bt-index mx-5 ">Large button</button>
-         <button type="button" class="btn btn-outline-secondary btn-lg mx-5 border-2 bt-index text-white">Large button</button>
+         <a href="{{ url('Halaman-utama') }}" class="btn btn-primary btn-lg bg-danako-primary border-0 bt-index mx-5 ">Donasi sekarang</a>
+         <a href="{{ url('ajukan-campaign') }}" class="btn btn-outline-secondary btn-lg mx-5 border-2 bt-index text-white">Ajukan campaign</a>
        </div>
      </div>
     </div>
@@ -44,7 +44,7 @@
                <h5 class="m-0">Cepat dan Tepat</h5>
              </div>
              <div class="card-body text-start text-hero">
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
+              Kami mengutamakan kecepatan dan ketepatan dalam menyalurkan donasi. Hal ini tentunya akan sangat berguna bagi mereka yang saat ini sedang membutuhkan dana darurat.
              </div>
            </div>
          </div>
@@ -54,10 +54,10 @@
                <div class="icon">
                  <img src="{{ asset('') }}custom/icons/Done_all_round_light.svg" alt="">
                </div>
-               <h5 class="m-0">Cepat dan Tepat</h5>
+               <h5 class="m-0">Amanah</h5>
              </div>
              <div class="card-body text-start text-hero">
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
+              Kami berkomitmen untuk menjaga kepercayaan Anda sebagai donatur. Oleh karena itu, kami selalu memastikan transparansi dan akuntabilitas dalam mengelola donasi yang diterima.
              </div>
            </div>
          </div>
@@ -67,10 +67,10 @@
                <div class="icon">
                  <img src="{{ asset('') }}custom/icons/Line_up_light.svg" alt="">
                </div>
-               <h5 class="m-0">Cepat dan Tepat</h5>
+               <h5 class="m-0">Berdampak</h5>
              </div>
              <div class="card-body text-start text-hero">
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, Lorem ipsum dolor sit amet, consectetur 
+              Berikan dampak yang positif bagi mereka yang membutuhkan. Jadilah bagian dari perubahan bagi umat yang bermanfaat dan berdampak melalui platform DANAKO.
              </div>
            </div>
          </div>
@@ -93,7 +93,7 @@
         </div>
 
         <div class="d-flex justify-content-end pt-4 d-none" id="lihat-semua">
-          <button type="button" class="btn btn-primary btn-sm ms-auto rounded-3 bg-danako-primary border-0">Lihat semua</button>
+          <a href="{{ url('all-campaign') }}" class="btn btn-primary btn-sm ms-auto rounded-3 bg-danako-primary border-0">Lihat semua</a>
         </div>
       </div>
     </div>
@@ -166,7 +166,7 @@
    <div class="container h-100 pt-5 pb-5">
      <div class="row align-items-center h-100">
        <div class="sponsor rounded">
-         <h2 class="text-center">Lebih dari 25 Perusahaan dan Institusi telah mempercayai kami hingga tahun 2023</h2>
+         <h2 class="text-center">Lebih dari 25 <span class="color-primary">Perusahaan</span> dan <span class="color-primary">Institusi</span> telah mempercayai kami hingga tahun 2023</h2>
          <div class="container">
            <div class="slider">
            <div class="logos">
@@ -223,7 +223,7 @@ $(document).ready(function(){
         $('#segera').append(`
           <div class="col">
             <div class="card h-100" onclick="detail(${item.id})">
-              <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/2.png') }}'">
+              <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
               <div class="card-body">
                 <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>

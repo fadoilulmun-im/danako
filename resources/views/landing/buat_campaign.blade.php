@@ -328,12 +328,7 @@ text-align: center;
                                       <span class="highlight"></span>
                                       <span class="bar"></span>
                                   </div>
-                                 
-                                   
-
-                                   
-
-                                    
+                                          
                                 </form>
                              </div>
                           </div>
@@ -425,7 +420,7 @@ text-align: center;
                       </div>
                       <div class="f1-buttons">
                           <button type="button" class="btn btn-warning btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
-                          <button type="submit" class="btn btn-primary btn-submit"><i class="fa fa-save"></i> Submit</button>
+                          <a href="{{ url('campaign-pending') }}" class="btn btn-primary btn-submit"><i class="fa fa-save"></i> Submit</a>
                       </div>
                   </fieldset>
           </div>

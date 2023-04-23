@@ -41,21 +41,14 @@
           </div>
         </div>
       </div>
-      <div class="pagination-wrapper">
+       <div class="pagination-wrapper" id="pagination">
         <ul class="pagination modal-3">
-          <li><a href="#" class="prev">&laquo</a></li>
+          {{-- <li><a href="#" class="prev">&laquo</a></li>
           <li><a href="#" class="active">1</a></li>
           <li> <a href="#">2</a></li>
-          <li> <a href="#">3</a></li>
-          <li> <a href="#">4</a></li>
-          <li> <a href="#">5</a></li>
-          <li> <a href="#">6</a></li>
-          <li> <a href="#">7</a></li>
-          <li> <a href="#">8</a></li>
-          <li> <a href="#">9</a></li>
-          <li><a href="#" class="next">&raquo;</a></li>
+          <li><a href="#" class="next">&raquo;</a></li> --}}
         </ul>
-      </div>
+      </div> 
     </div>
   </div>
 </section>
@@ -88,61 +81,164 @@
           $('#highlight').addClass('cards-category');
           $('#highlight').html('');
           data.forEach(item => {
+            let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('danako/img/category/1.png') }}";
+            let img_size = item.img_path ? 'width="300" height="200"' : '';
             $('#highlight').append(`
               <li class="card" onclick="detail(${item.id})">
-                <div>
-                  <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                    <h5 class="card-title">${item.title}</h5>
-                    <p class="card-text">${item.description}</p>
-                    <div class="progress">
-                      <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
-                      <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
-                    </div>
-                  </div>
+                <div class="card h-100" onclick="detail(${item.id})">
+              <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
+              <div class="card-body">
+                <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
+                <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
+                <div class="progress">
+                  <div class="progress-bar bg-danako" role="progressbar" style="width: 10%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
+                <div class="row">
+                  <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+                  <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
+                </div>
+              </div>
+            </div>
               </li>
             `);
           });
         }
       })
 
+
+
+
+     
+
       // bawah
-      $.ajax({
-        url: "{{ route('api.master.campaigns.pagination') }}?category_id={{$id}}",
-        type: "GET",
-        dataType: "json",
-        success: function(response){
-          let data = response.data.data;
-          $('#list').html('');
-          data.forEach(item => {
-            $('#list').append(`
-              <div class="col" onclick="detail(${item.id})">
-                <div class="card h-100">
-                  <img src="{{ asset('') }}danako/img/category/1.png" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                    <h5 class="card-title">${item.title}</h5>
-                    <p class="card-text">${item.description}</p>
-                    <div class="progress">
-                      <div class="progress-bar bg-danako" role="progressbar" style="width: 60%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
-                      <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            `);
-          });
-        }
-      })
+      // $.ajax({
+      //   url: "{{ route('api.master.campaigns.pagination') }}?per_page=8&category_id={{$id}}",
+      //   type: "GET",
+      //   dataType: "json",
+      //   success: function(response){
+      //     let data = response.data.data;
+      //     $('#list').html('');
+      //     data.forEach(item => {
+      //         let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('danako/img/category/1.png') }}";
+      //         let img_size = item.img_path ? 'width="300" height="200"' : '';
+      //         $('#list').append(`
+      //         <div class="col">
+      //         <div class="card h-100" onclick="detail(${item.id})">
+      //           <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
+      //           <div class="card-body">
+      //             <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+      //             <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
+      //             <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
+      //             <div class="progress">
+      //               <div class="progress-bar bg-danako" role="progressbar" style="width: 10%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+      //             </div>
+      //             <div class="row">
+      //               <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+      //               <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
+      //             </div>
+      //           </div>
+      //         </div>
+      //       </div>
+      //       `);
+      //     });
+      //   },
+      //   error: function(response){
+      //   $('#list').html('Ada kesalahan server')
+      // }
+      // })
+
+
     });
+  </script>
+
+  <script>
+    let page = 1;
+  let perPage = 8;
+  
+  function loadCampaigns() {
+  $.ajax({
+  url: "{{ route('api.master.campaigns.pagination') }}?page=" + page + "&per_page=" + perPage + "&category_id={{$id}}",
+  type: "GET",
+  dataType: "json",
+  success: function(response){
+  let data = response.data.data;
+  $('#list').html('');
+  data.forEach(item => {
+        let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('danako/img/category/1.png') }}";
+        let img_size = item.img_path ? 'width="300" height="200"' : '';
+        $('#list').append(`
+        <div class="col">
+        <div class="card h-100" onclick="detail(${item.id})">
+          <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
+          <div class="card-body">
+            <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
+            <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
+            <div class="progress">
+              <div class="progress-bar bg-danako" role="progressbar" style="width: 10%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="row">
+              <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+              <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      `);
+    });
+  // render pagination links
+  renderPagination(response.data);
+  },
+  error: function(response){
+  $('#list').html('Ada kesalahan server')
+  }
+  })
+  }
+  
+  function renderPagination(data) {
+  let totalItems = data.total;
+  let totalPages = Math.ceil(totalItems / perPage);
+  let currentPage = data.current_page;
+  
+  let paginationHtml = '<div class="pagination-wrapper" id="pagination"><ul class="pagination modal-3">';
+  
+  // Previous page button
+  if (currentPage > 1) {
+    paginationHtml += '<li><a href="#" class="prev" onclick="changePage(' + (currentPage - 1) + ')">&laquo;</a></li>';
+  } else {
+    paginationHtml += '<li class="disabled"><a href="#" class="prev">&laquo;</a></li>';
+  }
+  
+  // Page numbers
+  for (let i = 1; i <= totalPages; i++) {
+    if (i == currentPage) {
+      paginationHtml += '<li><a href="#" class="active">' + i + '</a></li>';
+    } else {
+      paginationHtml += '<li><a href="#" onclick="changePage(' + i + ')">' + i + '</a></li>';
+    }
+  }
+  
+  // Next page button
+  if (currentPage < totalPages) {
+    paginationHtml += '<li><a href="#" class="next" onclick="changePage(' + (currentPage + 1) + ')">&raquo;</a></li>';
+  } else {
+    paginationHtml += '<li class="disabled"><a href="#" class="next">&raquo;</a></li>';
+  }
+  
+  paginationHtml += '</ul></div>';
+  
+  $('#pagination').html(paginationHtml);
+}
+  
+  
+  function changePage(newPage) {
+  page = newPage;
+  loadCampaigns();
+  return false;
+  }
+  
+  loadCampaigns();
   </script>
 @endpush
 

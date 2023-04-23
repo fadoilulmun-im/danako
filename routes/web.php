@@ -71,9 +71,14 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('/user', function () { return view('landing.index');})->name('landing');
 Route::get('/', function () { return view('landing.index');})->name('home');
 
-Route::get('/utama', function () {
+Route::get('/Halaman-utama', function () {
     return view('landing.utama');
 })->name('afterlogin');
+
+Route::get('/ziswaf', function () {
+    return view('landing.ziswaf');
+})->name('ziswaf');
+
 
 
 Route::get('/login', function () { return view('landing.login');})->name('login');
@@ -87,6 +92,10 @@ Route::get('/daftar', function () {
     return view('landing.auth.daftar');
 });
 
+Route::get('/all-campaign', function () {
+    return view('landing.all_campaign');
+})->name('all-campaign');
+
 Route::get('/kategori/{id}', function ($id) {
     $category = CampaignCategory::findOrFail($id);
     return view('landing.kategori', ['id' => $id, 'category' => $category]);
@@ -94,8 +103,12 @@ Route::get('/kategori/{id}', function ($id) {
 
 Route::get('/ajukan-campaign', function () {
     return view('landing.ajukan_campaign');
-});
+})->name('ajukan-campaign');
 
+
+Route::get('/campaign-akun', function () {
+    return view('landing.campaign_akun');
+});
 
 Route::get('/campaign-pending', function () {
     return view('landing.campaign_pending');
@@ -113,13 +126,6 @@ Route::get('/detail_campaign_pemilik', function () {
     return view('landing.detail_campaign_pemilik');
 });
 
-Route::get('/hitung-maal', function () {
-    return view('landing.hitung_maal');
-});
-
-Route::get('/hitung-profesi', function () {
-    return view('landing.hitung_profesi');
-});
 
 Route::get('/konfirmasi-email', function () {
     return view('landing.konfirmasi_email');
@@ -135,7 +141,7 @@ Route::get('/payment-sukses', function () {
 
 
 Route::get('/zakat', function () {
-    return view('landing.zakat');
+    return view('landing.ziswaf.zakat');
 });
 
 
@@ -167,7 +173,7 @@ Route::get('/pencairan-dana', function () {
 });
 
 
-Route::get('/awal-kategori', function () {
+Route::get('/awal-campaign', function () {
     return view('landing.awal_kategori');
 
     Route::get('/campaigns', function () {
@@ -178,6 +184,17 @@ Route::get('/awal-kategori', function () {
         return view('admin.page.master.donation');
     });
 });
+
+
+Route::get('/faq', function () {
+    return view('landing.faq');
+});
+
+Route::get('/tentang-kami', function () {
+    return view('landing.abouts');
+});
+
+
 
 
 

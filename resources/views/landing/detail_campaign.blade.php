@@ -81,42 +81,7 @@
                 </div>
                </div>
 
-               <div class="container pt-3">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="{{ asset('') }}danako/img/campaign/Circel.png" alt="Testimoni" class="img-fluid">
-                  </div>
-                  <div class="col-md-10">
-                    <h3>Nama Pelanggan</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus hendrerit rutrum nisl. Duis convallis sapien quis magna volutpat, sit amet bibendum massa euismod. Fusce sed odio in lorem elementum molestie. Sed sagittis libero sed sapien rhoncus, vel fringilla turpis pharetra.</p>
-                  </div>
-                </div>
-               </div>
-
-               <div class="container pt-3">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="{{ asset('') }}danako/img/campaign/Circel.png" alt="Testimoni" class="img-fluid">
-                  </div>
-                  <div class="col-md-10">
-                    <h3>Nama Pelanggan</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus hendrerit rutrum nisl. Duis convallis sapien quis magna volutpat, sit amet bibendum massa euismod. Fusce sed odio in lorem elementum molestie. Sed sagittis libero sed sapien rhoncus, vel fringilla turpis pharetra.</p>
-                  </div>
-                </div>
-               </div>
-
-               <div class="container pt-3">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="{{ asset('') }}danako/img/campaign/Circel.png" alt="Testimoni" class="img-fluid">
-                  </div>
-                  <div class="col-md-10">
-                    <h3>Nama Pelanggan</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus hendrerit rutrum nisl. Duis convallis sapien quis magna volutpat, sit amet bibendum massa euismod. Fusce sed odio in lorem elementum molestie. Sed sagittis libero sed sapien rhoncus, vel fringilla turpis pharetra.</p>
-                  </div>
-                </div>
-               </div>
-
+          
                <div class="pagination-wrapper">
                 <ul class="pagination modal-3">
                   <li><a href="#" class="prev">&laquo</a></li>
@@ -160,67 +125,6 @@
                                   <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
                                 </div> 
                               </div>
-                          </div>
-
-                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                            <div class="row">
-                              <div class="col-9">
-                                <h6 class="text-start">Hamba Allah</h6>
-                                <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                              </div>
-                              <div class="col-3">
-                                <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                              </div> 
-                            </div>
-                          </div>
-
-                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                            <div class="row">
-                              <div class="col-9">
-                                <h6 class="text-start">Hamba Allah</h6>
-                                <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                              </div>
-                              <div class="col-3">
-                                <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                              </div> 
-                            </div>
-                          </div>
-
-                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                            <div class="row">
-                              <div class="col-9">
-                                <h6 class="text-start">Hamba Allah</h6>
-                                <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                              </div>
-                              <div class="col-3">
-                                <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                              </div> 
-                            </div>
-                          </div>
-
-
-                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                            <div class="row">
-                              <div class="col-9">
-                                <h6 class="text-start">Hamba Allah</h6>
-                                <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                              </div>
-                              <div class="col-3">
-                                <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                              </div> 
-                            </div>
-                          </div>
-
-                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                            <div class="row">
-                              <div class="col-9">
-                                <h6 class="text-start">Hamba Allah</h6>
-                                <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                              </div>
-                              <div class="col-3">
-                                <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                              </div> 
-                            </div>
                           </div>
 
                         </div>
