@@ -39,6 +39,13 @@
         @include('landing.includes.footer')
        
  
+    <script>
+        const detail = (id) => {
+        let url = "{{ route('campaigns.detail', ':id') }}";
+        url = url.replace(':id', id);
+        window.location.href = url;
+        }
+    </script>
     @stack('before-script')
     @include('landing.includes.script')
     @stack('after-script')

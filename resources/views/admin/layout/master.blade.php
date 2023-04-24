@@ -14,6 +14,21 @@
 
       <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
 
+      {{-- font size dropify-infos-message --}}
+      <style>
+        .dropify-wrapper .dropify-message span.file-icon p {
+          font-size: 25px;
+        }
+      </style>
+
+      {{-- <style>
+        @media (max-width: 991.98px){
+          .left-side-menu{
+            display: inline;
+            overflow-y: scroll;
+          }
+        }
+      </style> --}}
     </head>
 
     <!-- body start -->
@@ -28,147 +43,172 @@
         </div>
       </div>
 
-        <!-- Begin page -->
-        <div id="wrapper">
+      <!-- Begin page -->
+      <div id="wrapper">
 
 
-            <!-- Topbar Start -->
-              @include('admin.layout.include.navbar')
-            <!-- end Topbar -->
+          <!-- Topbar Start -->
+            @include('admin.layout.include.navbar')
+          <!-- end Topbar -->
 
-            <!-- ========== Left Sidebar Start ========== -->
-              @include('admin.layout.include.leftsidebar')
-            <!-- Left Sidebar End -->
+          <!-- ========== Left Sidebar Start ========== -->
+            @include('admin.layout.include.leftsidebar')
+          <!-- Left Sidebar End -->
 
-            <!-- ============================================================== -->
-            <!-- Start Page Content here -->
-            <!-- ============================================================== -->
-         
-            <div class="content-page">
-                <div class="content">
-
-                  @yield('content')
-
-                </div> <!-- content -->
-
-                <!-- Footer Start -->
-                @include('admin.layout.include.footer')
-                <!-- end Footer -->
-
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Page content -->
-            <!-- ============================================================== -->
-
-
-        </div>
-        <!-- END wrapper -->
-
-        <!-- Right Sidebar -->
-          @include('admin.layout.include.rightsidebar')
-        <!-- /Right-bar -->
-
-        <!-- Right bar overlay-->
-        <div class="rightbar-overlay"></div>
-
-        <!-- Vendor -->
-        <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
-        <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-        <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
-        <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
-        <script src="{{asset('assets/libs/waypoints/lib/jquery.waypoints.min.js')}}"></script>
-        <script src="{{asset('assets/libs/jquery.counterup/jquery.counterup.min.js')}}"></script>
-        <script src="{{asset('assets/libs/feather-icons/feather.min.js')}}"></script>
-        <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
-
-        @yield('third-party-js')
-
-        <!-- init js-->
-        <script>
-          function ajax(setting){
-            setting.headers = {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            };
-
-            if(localStorage.getItem('_token')){
-              setting.headers['Authorization'] = 'Bearer '+localStorage.getItem('_token');
-            }
-
-            if(!setting.beforeSend){
-              setting.beforeSend = function () {
-                $('#loading').modal('show');
-              };
-            }
-            
-            if(!setting.complete){
-              setting.complete = function () {
-                $('#loading').modal('hide');
-              };
-            }
-            
-            if(!setting.error){
-              setting.error = function (response) {
-                let res = response.responseJSON
-                let code = res.meta.code
-
-                switch (code) {
-                  case 401:
-                    Swal.fire({
-                      title: 'Anda Belum Login',
-                      text: "Silahkan login terlebih dahulu untuk melakukan aksi ini",
-                      icon: 'error',
-                      showCancelButton: false,
-                      confirmButtonText: 'LOGIN',
-                      showLoaderOnConfirm: true,
-                      allowOutsideClick: () => !Swal.isLoading(),
-                    }).then((result) => {
-                      if (result.isConfirmed) {
-                        window.location.href = "{{ route('admin.login') }}";
-                      }
-                    })
-                    break;
-                  case 403:
-                    Swal.fire({
-                      title: 'Hak akses',
-                      text: "Anda tidak memiliki hak akses untuk melakukan aksi ini",
-                      icon: 'error',
-                    })
-                  default:
-                    Swal.fire({
-                      title: 'ERROR',
-                      text: res.meta.message,
-                      icon: 'error',
-                    })
-                    break;
-                }
-
-                
-              };
-            }
-
-            $.ajax(setting);
-          }
-
-          function logout(){
-            ajax({
-              url: "{{ route('api.admin.logout') }}",
-              success: function (response) {
-                localStorage.removeItem('_token');
-                window.location.href = "/";
-              },
-              complete: function () {}
-            });
-          }
-
-          document.addEventListener('DOMContentLoaded', function() {
-            $('.pro-user-name').html((localStorage.getItem('_user_username') ?? 'default') + ' <i class="mdi mdi-chevron-down"></i>');
-          });
-        </script>
-        @yield('init-js')
+          <!-- ============================================================== -->
+          <!-- Start Page Content here -->
+          <!-- ============================================================== -->
         
+          <div class="content-page">
+              <div class="content">
 
-        <!-- App js-->
-        <script src="{{asset('assets/js/app.min.js')}}"></script>
+                @yield('content')
+
+              </div> <!-- content -->
+
+              <!-- Footer Start -->
+              @include('admin.layout.include.footer')
+              <!-- end Footer -->
+
+          </div>
+          <!-- ============================================================== -->
+          <!-- End Page content -->
+          <!-- ============================================================== -->
+
+
+      </div>
+      <!-- END wrapper -->
+
+      <!-- Right Sidebar -->
+        @include('admin.layout.include.rightsidebar')
+      <!-- /Right-bar -->
+
+      <!-- Right bar overlay-->
+      <div class="rightbar-overlay"></div>
+
+      <!-- Vendor -->
+      <script src="{{asset('assets/libs/jquery/jquery.min.js')}}"></script>
+      <script src="{{asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+      <script src="{{asset('assets/libs/simplebar/simplebar.min.js')}}"></script>
+      <script src="{{asset('assets/libs/node-waves/waves.min.js')}}"></script>
+      <script src="{{asset('assets/libs/waypoints/lib/jquery.waypoints.min.js')}}"></script>
+      <script src="{{asset('assets/libs/jquery.counterup/jquery.counterup.min.js')}}"></script>
+      <script src="{{asset('assets/libs/feather-icons/feather.min.js')}}"></script>
+      <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
+
+      @yield('third-party-js')
+
+      <!-- init js-->
+      <script>
+        function ajax(setting){
+          setting.headers = {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          };
+
+          if(localStorage.getItem('_token')){
+            setting.headers['Authorization'] = 'Bearer '+localStorage.getItem('_token');
+          }
+
+          if(!setting.beforeSend){
+            setting.beforeSend = function () {
+              $('#loading').modal('show');
+            };
+          }
+          
+          if(!setting.complete){
+            setting.complete = function () {
+              $('#loading').modal('hide');
+            };
+          }
+          
+          if(!setting.error){
+            setting.error = function (response) {
+              let res = response.responseJSON
+              let code = res.meta.code
+
+              handleError(code, res);
+            };
+          }
+
+          $.ajax(setting);
+        }
+
+        function logout(){
+          ajax({
+            url: "{{ route('api.admin.logout') }}",
+            success: function (response) {
+              localStorage.removeItem('_token');
+              localStorage.removeItem('_user_username');
+              localStorage.removeItem('_user_photo_profile');
+              window.location.href = "/";
+            },
+            complete: function () {}
+          });
+        }
+
+        function handleError(code, res){
+          switch (code) {
+            case 401:
+              Swal.fire({
+                title: 'Anda Belum Login',
+                text: "Silahkan login terlebih dahulu untuk melakukan aksi ini",
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonText: 'LOGIN',
+                showLoaderOnConfirm: true,
+                allowOutsideClick: () => !Swal.isLoading(),
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  localStorage.removeItem('_token');
+                  localStorage.removeItem('_user_username');
+                  localStorage.removeItem('_user_photo_profile');
+                  window.location.href = "{{ route('admin.login') }}";
+                }
+              })
+              break;
+            case 403:
+              Swal.fire({
+                title: 'Hak akses',
+                text: "Anda tidak memiliki hak akses untuk melakukan aksi ini",
+                icon: 'error',
+              })
+            case 422:
+              Swal.fire({
+                title: 'ERROR',
+                text: res.meta.message,
+                icon: 'error',
+              })
+              let errors = res.data;
+              $.each(errors, function(key, value){
+                $(`input[name="${key}"]`).addClass('is-invalid');
+                $(`input[name="${key}"]`).next().text(value);
+
+                $(`select[name="${key}"]`).addClass('is-invalid');
+                $(`select[name="${key}"]`).parent().next().text(value);
+
+                $(`textarea[name="${key}"]`).addClass('is-invalid');
+                $(`textarea[name="${key}"]`).next().text(value);
+              });
+              break;
+            default:
+              Swal.fire({
+                title: 'ERROR',
+                text: res.meta.message,
+                icon: 'error',
+              })
+              break;
+          }
+        }
+
+        function loading(){
+          $('#loading').modal('show');
+        }
+      </script>
+      @yield('init-js')
+      
+
+      <!-- App js-->
+      <script src="{{asset('assets/js/app.min.js')}}"></script>
         
     </body>
 </html>

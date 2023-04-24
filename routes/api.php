@@ -24,6 +24,7 @@ use App\Http\Controllers\API\UserController;
 Route::prefix('auth-user')->group(function () {
     Route::post('register', [AuthUserController::class, 'register']);
     Route::post('login', [AuthUserController::class, 'login']);
+    Route::get('logout', [AuthUserController::class, 'logout'])->name('api.user.logout')->middleware(['auth:sanctum']);
 });
 
 //user authentication
@@ -44,9 +45,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 //end user authentication
 
 Route::prefix('auth-admin')->group(function () {
+    Route::post('/', [AuthenticationController::class, 'update'])->name('api.admin.update')->middleware(['auth:sanctum']);
+    Route::post('/change-password', [AuthenticationController::class, 'changePassword'])->name('api.admin.changePassword')->middleware(['auth:sanctum']);
     Route::post('/login', [AuthenticationController::class, 'login'])->name('api.admin.login');
     Route::get('/logout', [AuthenticationController::class, 'logout'])->middleware(['auth:sanctum'])->name('api.admin.logout');
-    Route::get('/me', [AuthenticationController::class, 'me'])->middleware(['auth:sanctum']);
+    Route::get('/me', [AuthenticationController::class, 'me'])->name('api.admin.me')->middleware(['auth:sanctum']);
+    Route::post('/upload-image', [AuthenticationController::class, 'uploadImage'])->name('api.admin.uploadImage')->middleware(['auth:sanctum']);
 });
 
 Route::group(['prefix' => 'master'], function () {
@@ -57,8 +61,7 @@ Route::group(['prefix' => 'master'], function () {
         Route::get('/', [UserController::class, 'index'])->name('api.master.users.index')->middleware(['auth:sanctum']);
         Route::post('/', [UserController::class, 'store'])->name('api.master.users.store')->middleware(['auth:sanctum']);
         Route::get('/{id}', [UserController::class, 'show'])->name('api.master.users.show');
-        Route::post('/{id}', [UserController::class, 'update'])->name('api.master.users.update')->middleware(['auth:sanctum']);
-        Route::delete('/{id}', [UserController::class, 'delete'])->name('api.master.users.delete')->middleware(['auth:sanctum']);
+        Route::put('/{id}/verif', [UserController::class, 'updateVerifiying'])->name('api.master.users.verif')->middleware(['auth:sanctum']);
     });
     
     Route::group(['prefix' => 'categories'], function () {
@@ -70,9 +73,19 @@ Route::group(['prefix' => 'master'], function () {
         Route::delete('/{id}', [CategoryController::class, 'delete'])->name('api.master.categories.delete')->middleware(['auth:sanctum']);
     });
     Route::group(['prefix' => 'campaigns'], function () {
+        Route::get('/pagination', [CampaignController::class, 'pagination'])->name('api.master.campaigns.pagination');
+        Route::get('/list', [CampaignController::class, 'list'])->name('api.master.campaigns.list');
         Route::get('/', [CampaignController::class, 'index'])->name('api.master.campaigns.index');
+        Route::post('/', [CampaignController::class, 'store'])->name('api.master.campaigns.store');
+        Route::get('/{id}', [CampaignController::class, 'show'])->name('api.master.campaigns.show');
+        Route::post('/{id}', [CampaignController::class, 'update'])->name('api.master.campaigns.update');
+        Route::delete('/{id}', [CampaignController::class, 'delete'])->name('api.master.campaigns.delete');
     });
     Route::group(['prefix' => 'donations'], function () {
         Route::get('/', [DonationController::class, 'index'])->name('api.master.donations.index');
+        Route::post('/', [DonationController::class, 'store'])->name('api.master.donations.store');
+        Route::get('/{id}', [DonationController::class, 'show'])->name('api.master.donations.show');
+        Route::post('/{id}', [DonationController::class, 'update'])->name('api.master.donations.update');
+        Route::delete('/{id}', [DonationController::class, 'delete'])->name('api.master.donations.delete');
     });
 });

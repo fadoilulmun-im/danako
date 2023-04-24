@@ -35,7 +35,7 @@ class CategoryController extends Controller
         };
         return DataTables::of($model)
             ->editColumn('logo_path', function ($data) {
-                if(File::exists(public_path('uploads'. $data->logo_path))){
+                if($data->logo_path && File::exists(public_path('uploads'. $data->logo_path))){
                     $path = 'uploads'. $data->logo_path;
                 }else{
                     $path = 'assets/images/image-solid.svg';
@@ -131,17 +131,24 @@ class CategoryController extends Controller
         }
         
         DB::beginTransaction();
+        $path = '/category';
         switch ($request->input('type')) {
             case 'zakat':
                 $model = ZakatCategory::find($id);
+                $path .= '/zakat';
                 break;
             
             default:
                 $model = CampaignCategory::find($id);
+                $path .= '/campaign';
                 break;
         };
         if(!$model){
             return $this->setResponse(null, 'Category not found', 404);
+        }
+
+        if(!File::exists(public_path('uploads'. $path))){
+            File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
         }
 
         $model->name = $request->input('name');
@@ -208,6 +215,15 @@ class CategoryController extends Controller
 
         if($request->input('limit')){
             $model->limit($request->input('limit'));
+        }
+
+        if ($request->has('q')) {
+            $search = $request->q;
+            $model->orderby('name', 'asc')
+                ->where('name', 'LIKE', "%$search%")
+                ->get();
+        } else {
+            $model->orderby('name', 'asc')->limit(10)->get();
         }
 
         return $this->setResponse($model->get(), 'Category list retrieved successfully');

@@ -18,24 +18,21 @@
     <div class="row">
       <div class="col-md-12">
         <div class="title">
-          <h6>Mulai buat campaign di DANAKO</h6>
+          <h6>Mulai buat campaign di <span class="color-primary">DANAKO</span></h6>
           <p>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor</p>
         </div>
       </div>
     </div>
 
-    <div class="row container">
-      <div class="col-md-6 pt-5">
-        <div class="card text-center">
-          <img src="{{ asset('') }}danako/img/campaign/keungulan.png" class="card-img-top mx-auto d-block my-5 konten" alt="Responsive image">
+    <div class="row pt-5">
+      <div class="col-md-12">
+        <div class="konten-verifikasi">
+          <p class="title-pending pt-5">Data Anda Sedang Diverifikasi</p>
+          <p class="title-konten pt-2">Anda sudah melakukan verifikasi akun. Dan sekarang akun anda sedang kami lakukan validasi, silahkan tunggu 3x24 jam</p>
+          <p class="title-konten pt-4" >Jika ada pertanyaan lebih lanjut silahkan <span class="color-primary">Hubungi Kami</span></p>
         </div>
       </div>
-      
-      <div class="col-md-6 pt-5">
-        <div class="card text-center">
-          <img src="{{ asset('') }}danako/img/campaign/langkah.png" class="card-img-top mx-auto d-block my-5 konten" alt="Responsive image" >
-        </div>
-      </div>
+    </div>
 
     </div>
   </div>

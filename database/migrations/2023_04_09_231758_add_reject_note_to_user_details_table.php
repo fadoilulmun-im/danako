@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPhoneNumberToUsersTable extends Migration
+class AddRejectNoteToUserDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPhoneNumberToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('phone_number')->nullable();
+        Schema::table('user_details', function (Blueprint $table) {
+            $table->text('reject_note')->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddPhoneNumberToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('phone_number');
+        Schema::table('user_details', function (Blueprint $table) {
+            $table->dropColumn('reject_note');
         });
     }
 }

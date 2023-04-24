@@ -36,6 +36,7 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Status</th>
+                        <th>Verification</th>
                         <th>Actions</th>
                     </tr>
                   </thead>
@@ -130,6 +131,28 @@
           url: "{{ route('api.master.users.index') }}?type=" + type,
           beforeSend: function (request) {
             request.setRequestHeader("Authorization", 'Bearer '+ localStorage.getItem('_token'));
+          },
+          error: function(response){
+            let res = response.responseJSON;
+            let code = res.meta.code;
+            if(code == 401){
+              Swal.fire({
+                title: 'Anda Belum Login',
+                text: "Silahkan login terlebih dahulu untuk melakukan aksi ini",
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonText: 'LOGIN',
+                showLoaderOnConfirm: true,
+                allowOutsideClick: () => !Swal.isLoading(),
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = "{{ route('admin.login') }}";
+                }
+              })
+            }
+          },
+          complete: function(){
+            $('[data-bs-toggle="tooltip"]').tooltip();
           }
         },
         columns: [
@@ -138,6 +161,7 @@
           {data: 'username', name: 'username'},
           {data: 'email', name: 'email'},
           {data: 'status', name: 'status', searchable: false, orderable: false},
+          {data: 'verification', name: 'verification', searchable: false, orderable: false},
           {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         order: [[0, 'desc']],
@@ -174,7 +198,7 @@
             })
           },
         })
-      })
+      });
 
       $('#form-create').submit(function(e){
         e.preventDefault();
@@ -194,7 +218,7 @@
             table.ajax.reload();
           },
         })
-      })
+      });
     });
     
     function resetPassword(id){

@@ -19,9 +19,11 @@ class AuthenticationController extends Controller
 {
     public function login(Request $request)
     {
-        $request->validate([
-            'username' => 'required|string',
-            'password' => 'required',
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|string|min:10',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
         ]);
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -102,7 +104,7 @@ class AuthenticationController extends Controller
 
     public function uploadImage(Request $request)
     {
-        $user = Auth::user();
+        auth()->user()->token()->delete();
 
         $rules = [
             'image' => 'required|image|mimes:jpeg,png,jpg',

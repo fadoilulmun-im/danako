@@ -34,7 +34,7 @@
             <a href="#">Prosedur</a>
             <a href="#">FAQs</a>
             <a href="#">Tentang Kami</a>
-            <a style="color: white" href="{{route('login')}}"><i class="fa fa-sign-in"></i>Masuk</a>
+            <a href="{{route('login')}}"><i class="fa fa-sign-in"></i>Masuk</a>
         </div>
     </div>
 

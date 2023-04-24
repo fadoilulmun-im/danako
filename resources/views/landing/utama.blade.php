@@ -58,61 +58,14 @@
   <section class="pt-5 pb-5">
     <h1 class="text-center">Kategori lainnya</h1>
 
-    <div class="konten-kanan container pt-5">
-        <div class="row">
-            <div class="col-md-5 ">
-              <img src="{{ asset('') }}danako/img/kategori.png" class="img-fluid">
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-6 mx-auto p-sm-5 p-md-5">
-              <h3>Lingkungan</h3>
-              <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
-              <button type="button" class="btn btn-info">Donasi</button>
-            </div>
+    <div id="kategori">
+      <div class="text-center w-100">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
+      </div>
     </div>
     
-    <div class="konten-kiri container pt-5">
-        <div class="row">
-            <div class="col-md-6 mx-auto p-sm-4 p-md-5">
-                <h3>Lingkungan</h3>
-                <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
-                <button type="button" class="btn btn-info pb">Donasi</button>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <img src="{{ asset('') }}danako/img/kategori.png" class="img-fluid"/>
-            </div>
-        </div>
-    </div>
-
-    <div class="konten-kanan container pt-5">
-        <div class="row">
-            <div class="col-md-5 ">
-              <img src="{{ asset('') }}danako/img/kategori.png" class="img-fluid">
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-6 mx-auto p-sm-5 p-md-5">
-              <h3>Lingkungan</h3>
-              <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
-              <button type="button" class="btn btn-info">Donasi</button>
-            </div>
-        </div>
-    </div>
-    
-    <div class="konten-kiri container pt-5">
-        <div class="row">
-            <div class="col-md-6 mx-auto p-sm-4 p-md-5">
-                <h3>Lingkungan</h3>
-                <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
-                <button type="button" class="btn btn-info pb">Donasi</button>
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <img src="{{ asset('') }}danako/img/kategori.png" class="img-fluid"/>
-            </div>
-        </div>
-    </div>
   </section>
 
   <div class="my-div information-container">
@@ -130,12 +83,52 @@
 
 
 @push('after-script')
-
-
-
-
-<script>
-
+  <script>
+    $(document).ready(function(){
+      $.ajax({
+        url: "{{ route('api.master.categories.list') }}?",
+        type: "GET",
+        dataType: "json",
+        success: function(response){
+          let data = response.data;
+          $('#kategori').html(``);
+          data.forEach((item, index) => {
+            if(index % 2 != 0){
+              $('#kategori').append(`
+                <div class="konten-kanan container pt-5">
+                  <div class="row">
+                    <div class="col-md-6 ">
+                      <img src="${item.logo_link ?? "{{ asset('') }}danako/img/kategori.png"}" class="img-fluid" style="width: 526px; height: 279px; object-fit: cover;">
+                    </div>
+                    <div class="col-md-6 mx-auto p-sm-5 p-md-5 text-right">
+                      <h3>${item.name}</h3>
+                      <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
+                      <button type="button" class="btn btn-info text-white bg-danako-primary border-0 btn-lg">Donasi</button>
+                    </div>
+                  </div>
+                </div>
+              `)
+            }else{
+              $('#kategori').append(`
+                <div class="konten-kanan container pt-5">
+                  <div class="row">
+                    <div class="col-md-6 mx-auto p-sm-5 p-md-5">
+                      <h3>${item.name}</h3>
+                      <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
+                      <button type="button" class="btn btn-info text-white bg-danako-primary border-0 btn-lg">Donasi</button>
+                    </div>
+                    <div class="col-md-6 ">
+                      <img src="${item.logo_link ?? "{{ asset('') }}danako/img/kategori.png"}" class="img-fluid" style="width: 526px; height: 279px; object-fit: cover;">
+                    </div>
+                  </div>
+                </div>
+              `)
+            }
+            
+          });
+        }
+      })
+    })
   </script>
 @endpush
 

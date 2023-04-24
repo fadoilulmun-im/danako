@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
                 [
                     'id' => 1,
                     'role_id' => 1,
+                    'name' => 'Admin',
                     'username' => 'admin',
                     'email' => 'admin@gmail.com',
                     'password' => '123456',
@@ -31,6 +32,7 @@ class UserSeeder extends Seeder
                 foreach($data as $item) {
                     User::updateOrCreate(['id' => $item['id']], [
                         'role_id' => $item['role_id'],
+                        'name' => $item['name'],
                         'username' => $item['username'],
                         'email' => $item['email'],
                         'password' => bcrypt($item['password']),

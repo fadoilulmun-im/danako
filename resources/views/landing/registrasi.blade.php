@@ -14,7 +14,7 @@
 <body>
     <div class="left-section">
         <div class="card">
-            <img src="logo.svg" alt="DANAKO">
+            <img src="{{ asset('users/login/logo.svg') }}" alt="DANAKO">
             <h2>Masuk</h2>
             <p>Masuk untuk mulai berbuat kebaikan</p>
             <form action="" method="post" id="register">

@@ -6,11 +6,6 @@
   <link href="{{asset('')}}assets/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
   <link href="{{asset('')}}assets/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet" type="text/css" />
   <link href="{{asset('')}}assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
-  <style>
-    .dropify-wrapper .dropify-message span.file-icon p {
-      font-size: 25px;
-    }
-  </style>
 @endsection
 
 @section('content')
@@ -77,6 +72,25 @@
           url: "{{ route('api.master.categories.index') }}?type=" + type,
           beforeSend: function (request) {
             request.setRequestHeader("Authorization", 'Bearer '+ localStorage.getItem('_token'));
+          },
+          error: function(response){
+            let res = response.responseJSON;
+            let code = res.meta.code;
+            if(code == 401){
+              Swal.fire({
+                title: 'Anda Belum Login',
+                text: "Silahkan login terlebih dahulu untuk melakukan aksi ini",
+                icon: 'error',
+                showCancelButton: false,
+                confirmButtonText: 'LOGIN',
+                showLoaderOnConfirm: true,
+                allowOutsideClick: () => !Swal.isLoading(),
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = "{{ route('admin.login') }}";
+                }
+              })
+            }
           }
         },
         columns: [

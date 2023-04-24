@@ -86,10 +86,9 @@
             <p>Masuk untuk mulai berbuat kebaikan</p>
             <form action="#" method="post" id="login">
                 <div class="form-group">
-                    <label for="email" title="Email address">
+                    <label for="username" title="Email address">
                         <span class="icon"><i class="fas fa-envelope"></i></span>
-                        <input type="email" id="email" name="email" placeholder="Email" required
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                        <input type="text" id="username" name="username" placeholder="Username orr Email" required>
                     </label>
                 </div>
                 <div class="form-group">

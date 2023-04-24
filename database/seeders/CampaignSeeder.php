@@ -29,6 +29,7 @@ class CampaignSeeder extends Seeder
                     'receiver' => 'Pak Yahya',
                     'purpose' => 'Membeli kebutuhan pokok ditempat pengungsian',
                     'address_receiver' => 'jalan durian runtuh, magelang',
+                    'detail_usage_of_funds' => 'membeli sembako Rp 5.000.000',
                     'start_date' => '2023-04-01',
                     'end_date' => '2023-05-01',
                 ]
@@ -47,9 +48,9 @@ class CampaignSeeder extends Seeder
                         'receiver' => $item['receiver'],
                         'purpose' => $item['purpose'],
                         'address_receiver' => $item['address_receiver'],
+                        'detail_usage_of_funds' => $item['detail_usage_of_funds'],
                         'start_date' => $item['start_date'],
                         'end_date' => $item['end_date'],
-                        'real_time_amount' => $item['real_time_amount'],
                     ]);
                 }
             });
