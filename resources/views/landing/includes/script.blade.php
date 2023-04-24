@@ -57,7 +57,7 @@
           <li><a class="dropdown-item" href="{{ route('ziswaf') }}">Ziswaf</a></li>
           <li><a class="dropdown-item" href="{{ route('all-campaign') }}">All Campaign</a></li>
           <li><hr class="dropdown-divider"></li>
-          <li><a class="dropdown-item" href="{{ route('ajukan-campaign') }}">Buat Campaign</button></li>
+          <li><a class="dropdown-item" href="{{ route('ajukan-campaign') }}">Buat Campaign</a></li>
           <li><hr class="dropdown-divider"></li>
           <li><button id="logout-btn" class="dropdown-item" onclick="logout()">Logout</button></li>
         </ul>
