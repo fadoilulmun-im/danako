@@ -20,9 +20,9 @@
                     <div class="col-md-3">
                         <div class="account-information">
                             <div class="profile-thumb">
-                                <img src="{{ asset('') }}danako/img/akun.png" alt="account holder image">
-                                <h3>John Smith</h3>
-                                <p>Web Developer</p>
+                                <img width="100" src="{{ asset('') }}danako/img/akun.png" alt="account holder image" id="img-profile-now">
+                                <h3 id="name-now">Loading...</h3>
+                                <p id="username-now">Loading..</p>
                             </div>
     
                             <ul>
@@ -93,6 +93,26 @@
     @stack('before-script')
     @include('landing.includes.script')
     @stack('after-script')
+
+    <script>
+        $(document).ready(()=>{
+            $.ajax({
+                url: "{{ route('api.me') }}",
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    'Authorization': 'Bearer ' + localStorage.getItem('_token'),
+                },
+                type: 'GET',
+                dataType: 'json',
+                success: function(response){
+                    const data = response.data;
+                    $('#name-now').text(data.name);
+                    $('#username-now').text(data.username);
+                    $('#img-profile-now').attr('src', data.photo_profile);
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

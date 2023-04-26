@@ -46,10 +46,9 @@
 
 <script>
   $(document).ready(()=>{
-    console.log(localStorage.getItem('_token'));
     if(localStorage.getItem('_token')){
       $('#user-login').html(`
-        <button class="btn btn-primary rounded-circle dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-success bg-danako-primary border-0 rounded-circle dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fas fa-user"></i> <!-- menggunakan ikon akun dari Font Awesome -->
         </button>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

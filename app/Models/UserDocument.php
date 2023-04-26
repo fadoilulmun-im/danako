@@ -5,25 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\File;
 
-class UserDetail extends Model
+class UserDocument extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
-    public function user()
-    {
+    public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function documents()
+    public function deleteFile()
     {
-        return $this->hasMany(UserDocument::class, 'user_detail_id', 'id');
-    }
-
-    public function village()
-    {
-        return $this->belongsTo(Village::class, 'village_id', 'id');
+        if(File::exists(public_path('uploads'. $this->path))){
+            File::delete(public_path('uploads'. $this->path));
+        }
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\API\DonationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthenticationController;
+use App\Http\Controllers\API\LocationController;
 use App\Http\Controllers\API\UserController;
 
 /*
@@ -20,8 +21,17 @@ use App\Http\Controllers\API\UserController;
 |
 */
 
+Route::prefix('list-location')->group(function () {
+    Route::get('province', [LocationController::class, 'listProvince'])->name('api.province.list');
+    Route::get('regency', [LocationController::class, 'listRegency'])->name('api.regency.list');
+    Route::get('subdistrict', [LocationController::class, 'listSubDistrict'])->name('api.subdistrict.list');
+    Route::get('village', [LocationController::class, 'listVillage'])->name('api.village.list');
+});
 
 Route::prefix('auth-user')->group(function () {
+    Route::post('/', [AuthUserController::class, 'update'])->name('api.user.update')->middleware(['auth:sanctum']);
+    Route::get('/me', [AuthUserController::class, 'me'])->name('api.me')->middleware(['auth:sanctum']);
+    Route::get('/detail', [AuthUserController::class, 'userDetail'])->name('api.user.detail')->middleware(['auth:sanctum']);
     Route::post('register', [AuthUserController::class, 'register'])->name('api.user.register');
     Route::post('login', [AuthUserController::class, 'login'])->name('api.user.login');
     Route::get('logout', [AuthUserController::class, 'logout'])->name('api.user.logout')->middleware(['auth:sanctum']);
