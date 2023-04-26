@@ -73,7 +73,7 @@
 
             <div class="row pb-1">
               <div class="col-lg-3">
-                <img src="{{asset('')}}${data.photoProfile ? 'uploads'+ data.photoProfile.path : 'assets/images/users/user-6.jpg'}" alt="image" class="img-fluid rounded">
+                <img src="{{asset('')}}${data.photo_profile ? 'uploads/'+ data.photo_profile.path : 'assets/images/users/user-6.jpg'}" alt="image" class="img-fluid rounded" style="max-width: 200px; max-height: 200px;">
               </div>
             </div>
 
@@ -82,7 +82,7 @@
                 <h5>Nama</h5>
               </div>
               <div class="col-lg-9">
-                <h5>: ${data.name}</h5>
+                <h5>: ${data.name ?? '-'}</h5>
               </div>
             </div>
 
@@ -91,7 +91,7 @@
                 <h5>Username</h5>
               </div>
               <div class="col-lg-9">
-                <h5>: ${data.username}</h5>
+                <h5>: ${data.username ?? '-'}</h5>
               </div>
             </div>
             
@@ -100,7 +100,34 @@
                 <h5>Email</h5>
               </div>
               <div class="col-lg-9">
-                <h5>: ${data.email}</h5>
+                <h5>: ${data.email ?? '-'}</h5>
+              </div>
+            </div>
+            
+            <div class="row pb-1">
+              <div class="col-lg-3">
+                <h5>NIK</h5>
+              </div>
+              <div class="col-lg-9">
+                <h5>: ${data.detail.nik ?? '-'}</h5>
+              </div>
+            </div>
+            
+            <div class="row pb-1">
+              <div class="col-lg-3">
+                <h5>Tanggal Lahir</h5>
+              </div>
+              <div class="col-lg-9">
+                <h5>: ${data.detail.birth_date ?? '-'}</h5>
+              </div>
+            </div>
+            
+            <div class="row pb-1">
+              <div class="col-lg-3">
+                <h5>Jenis Kelamin</h5>
+              </div>
+              <div class="col-lg-9">
+                <h5>: ${data.detail.gender ?? '-'}</h5>
               </div>
             </div>
             
@@ -109,7 +136,7 @@
                 <h5>No HP</h5>
               </div>
               <div class="col-lg-9">
-                <h5>: ${data.detail.phone_number}</h5>
+                <h5>: ${data.detail.phone_number ?? '-'}</h5>
               </div>
             </div>
             
@@ -118,7 +145,56 @@
                 <h5>Alamat</h5>
               </div>
               <div class="col-lg-9">
-                <h5>: ${data.detail.address}</h5>
+                <h5>: ${data.detail.address ?? '-'}</h5>
+              </div>
+            </div>
+            
+            <div class="row pb-1">
+              <div class="col-lg-3">
+                <h5>Kelurahan</h5>
+              </div>
+              <div class="col-lg-9">
+                <h5>: ${data.detail.village.name ?? '-'}</h5>
+              </div>
+            </div>
+            
+            <div class="row pb-1">
+              <div class="col-lg-3">
+                <h5>Kecamatan</h5>
+              </div>
+              <div class="col-lg-9">
+                <h5>: ${data.detail.village.subdistrict.name ?? '-'}</h5>
+              </div>
+            </div>
+            
+            <div class="row pb-1">
+              <div class="col-lg-3">
+                <h5>Kabupaten / Kota</h5>
+              </div>
+              <div class="col-lg-9">
+                <h5>: ${data.detail.village.subdistrict.regency.name ?? '-'}</h5>
+              </div>
+            </div>
+            
+            <div class="row pb-1">
+              <div class="col-lg-3">
+                <h5>Provinsi</h5>
+              </div>
+              <div class="col-lg-9">
+                <h5>: ${data.detail.village.subdistrict.regency.province.name ?? '-'}</h5>
+              </div>
+            </div>
+            
+            <div class="row pb-1">
+              <div class="col-lg-3">
+                <h5>Foto KTP</h5>
+              </div>
+              <div class="col-lg-9">
+                <h5>:
+                  ${(data.detail.documents ?? []).length ?
+                    '<img src="{{asset('')}}uploads/'+data.detail.documents[0].path+'" alt="ktp" class="img-fluid rounded" style="max-width: 200px; max-height: 200px;">'
+                  : '-'}
+                </h5>
               </div>
             </div>
           `);

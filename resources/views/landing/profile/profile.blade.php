@@ -351,6 +351,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             `)
+          }else if(data.detail.status == 'rejected'){
+            $('#alert').html(`
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Akun anda tidak lolos verifikasi dengan alasan: <b>${data.detail.reject_note}</b> silahkan perbaiki data anda dan kirim ulang
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            `)
           }
 
           $('#foto').hide();

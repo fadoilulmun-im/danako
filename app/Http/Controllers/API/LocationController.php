@@ -76,7 +76,7 @@ class LocationController extends Controller
         }
 
         if($request->filled('subdistrict_id')){
-            $model->where('subdistrict_id', $request->input('subdistrict_id'));
+            $model->where('district_id', $request->input('subdistrict_id'));
         }
 
         $model = $model->orderby('name', 'asc');
