@@ -140,13 +140,6 @@ Route::get('/payment-sukses', function () {
 });
 
 
-Route::get('/zakat', function () {
-    return view('landing.ziswaf.zakat');
-});
-
-
-
-
 
 
 Route::get('/profile', function () {
@@ -194,9 +187,18 @@ Route::get('/tentang-kami', function () {
     return view('landing.abouts');
 });
 
+Route::get('/zakat', function () {
+    return view('landing.ziswaf.zakat');
+});
+
+Route::get('/infaq', function () {
+    return view('landing.ziswaf.infaq');
+});
 
 
-
+Route::get('/sedekah', function () {
+    return view('landing.ziswaf.sedekah');
+});
 
 
 

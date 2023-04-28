@@ -39,6 +39,7 @@
           
           
             <div class="col-md-3 mb-4">
+              <a href="{{ url('infaq') }}" class="card-link">
               <div class="card">
                 <div class="container">
                   <img src="{{ asset('') }}danako/img/ziswaf/infaq.png" class="card-img-top" alt="...">
@@ -51,9 +52,11 @@
                   </div>
                 </div>
               </div>
+              </a>
             </div>
 
             <div class="col-md-3 mb-4">
+              <a href="{{ url('sedekah') }}" class="card-link">
                 <div class="card">
                   <div class="container">
                     <div class="card-body">
@@ -68,6 +71,7 @@
                     <img src="{{ asset('') }}danako/img/ziswaf/sedekah.png" class="card-img-top" alt="...">
                   </div>
                 </div>
+              </a>
               </div>
             
               <div class="col-md-3 mb-4">

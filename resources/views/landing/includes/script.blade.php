@@ -53,6 +53,7 @@
         </button>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
           <li><a class="dropdown-item" href="{{ route('profile') }}">Profil</a></li>
+          <li><a class="dropdown-item" href="{{ url('Halaman-utama') }}">Campaign</a></li>
           <li><a class="dropdown-item" href="{{ route('ziswaf') }}">Ziswaf</a></li>
           <li><a class="dropdown-item" href="{{ route('all-campaign') }}">All Campaign</a></li>
           <li><hr class="dropdown-divider"></li>

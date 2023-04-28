@@ -1,7 +1,7 @@
 @extends('landing.layouts.app')
 
 @section('title')
-    Dashboard
+    Infaq
 @endsection
 
 
@@ -12,8 +12,10 @@
 
 <div class="container">
     <div class="title">
+		
         <img src="{{ asset('') }}danako/img/Expand_left.svg" />
-        <span>Zakat</span>
+
+        <span>Infaq</span>
     </div>
   </div>
 
@@ -21,33 +23,37 @@
     <div class="container">
       <div class="row justify-content-center align-items-center">
         <div class="col-lg-12 form-bg">
-          <h2 class="col-md-12 text-center mt-5">Kalkulator Lmi Zakat</h1>
+			<a href="{{ url('zakat') }}">
+			<img src="{{ asset('') }}danako/img/ziswaf/infaq.png" class="card-img-top" alt="...">
+			</a>
           <div class="container">
-            <p class="mb-4 mt-4">Kalkulator zakat adalah layanan untuk mempermudah perhitungan jumlah zakat yang harus ditunaikan oleh setiap umat muslim sesuai ketetapan syariah. Oleh karena itu, bagi Anda yang ingin mengetahui berapa jumlah zakat yang harus ditunaikan, silahkan gunakan fasilitas Kalkulator Zakat BAZNAS dibawah ini.</p>
-          </div>
+            <p class="mb-4 mt-4">infak adalah harta yang dikeluarkan oleh seseorang atau badan usaha di luar zakat untuk kemaslahatan umum (Menurut Undang-Undang Nomor 23 Tahun 2011 tentang Pengelolaan Zakat pada BAB I Pasal 1). infak merupakan amalan yang tak bisa lepas dari kehidupan sehari-hari seorang Muslim. infak berasal dari Bahasa Arab, "anfaqa" yang berarti membelanjakan harta atau memberikan harta. Sedangkan infak berarti keluarkanlah harta.</p>
+			<p class="mb-4 mt-4">Sejatinya infak dibagi menjadi dua, ada infak untuk kebaikan, dan infak untuk keburukan. infak kebaikan ini dilakukan atau dibelanjakan untuk di jalan Allah, yang juga dengan harta berasal dari hal baik.</p>
+			<p class="mb-4 mt-4">Sedangkan infak keburukan contohnya, dijelaskan dalam Surat Al-Anfal Ayat 36, yang artinya sebegai berikut: "Sesungguhnya orang-orang yang kafir menafkahkan harta mereka untuk menghalangi (orang) dari jalan Allah. Mereka akan menafkahkan harta itu, kemudian menjadi sesalan bagi mereka, dan mereka akan dikalahkan. Dan ke dalam Jahannamlah orang-orang yang kafir itu dikumpulkan" (QS. Al-Anfal : 36).</p>
+			<p class="mb-4 mt-4">Allah Subhanahu Wata’ala memerintahkan setiap hambanya agar menyisihkan hartanya untuk berinfak yang hal ini masuk dalam kebaikan, dan Allah mencintai hambanya yang berbuat baik. Hal ini dijelaskan dalam Surat Ali Imran ayat 133-134.</p>
+			<p class="mb-4 mt-4">“Dan bersegeralah kamu kepada keampunan Tuhanmu dan kepada surga yang luasnya seluas langit dan bumi yang disediakan untuk orang-orang yang takwa. Yaitu orang-orang yang menginfakkan (hartanya) baik di waktu senang atau di waktu susah, dan orang-orang yang menahan kemarahannya dan memaafkan kesalahan orang. Allah mencintai orang-orang yang berbuat kebaikan”. (QS. Ali Imran: 133-134).</p>
+			<p class="mb-4 mt-4">infak ternyata memiliki perbedaan dari sedekah, infak sebenarnya dilakukan dengan harta atau material, sedangkan sedekah, bisa dilakukan dengan non-harta atau non-material. Misalnya saja sedekah bisa dilakukan dengan senyuman, “Senyummu terhadap wajah saudaramu adalah sedekah.” (HR. Tirmidzi).</p>
+		</div>
 		  <div class="container my-4 mx-4">
-			<h6 class="text-center">Zakat penghasilan atau yang dikenal juga sebagai zakat profesi adalah bagian dari zakat maal yang wajib dikeluarkan atas harta yang berasal dari pendapatan / penghasilan rutin dari pekerjaan yang tidak melanggar syariah. Nishab zakat penghasilan sebesar 85 gram emas per tahun. Kadar zakat penghasilan senilai 2,5%. Dalam praktiknya, zakat penghasilan dapat ditunaikan setiap bulan dengan nilai nishab per bulannya adalah setara dengan nilai seperduabelas dari 85 gram emas, dengan kadar 2,5%. Jadi apabila penghasilan setiap bulan telah melebihi nilai nishab bulanan, maka wajib dikeluarkan zakatnya sebesar 2,5% dari penghasilannya tersebut. (Sumber: Al Qur'an Surah Al Baqarah ayat 267, Peraturan Menteri Agama Nomer 31 Tahun 2019, Fatwa MUI Nomer 3 Tahun 2003, dan pendapat Shaikh Yusuf Qardawi).</h6>
-			<h6 class="text-center">Zakat maal yang dimaksud dalam perhitungan ini adalah zakat yang dikenakan atas uang, emas, surat berharga, dan aset yang disewakan. Tidak termasuk harta pertanian, pertambangan, dan lain-lain yang diatur dalam UU No.23/2011 tentang pengelolaan zakat. Zakat maal harus sudah mencapai nishab (batas minimum) dan terbebas dari hutang serta kepemilikan telah mencapai 1 tahun (haul). Nishab zakat maal sebesar 85 gram emas. Kadar zakatnya senilai 2,5%. (Sumber: Al Qur'an Surah Al Baqarah ayat 267, Peraturan Menteri Agama Nomer 31 Tahun 2019, Fatwa MUI Nomer 3 Tahun 2003, dan pendapat Shaikh Yusuf Qardawi)..
-			  Standar harga emas yg digunakan untuk 1 gram nya adalah Rp938.099,-. Sementara nishab yang digunakan adalah sebesar 85 gram emas.</h6>
-		  </div>
+			<h5 >Keutamaan Berinfak</h5>
+			<p class="mb-4 mt-4">1. Memperoleh Pahala yang Besar</p>
+			<p>
+				“Berimanlah kamu kepada Allah dan Rasul-Nya dan infakkanlah sebahagian dari hartamu yang Allah menjadikan kamu menguasainya. Maka orang-orang yang beriman di antara kamu dan menginfakkan (sebahagian) dari hartanya memperolehi pahala yang besar”. (QS. Al-Hadid: 7).</p>
+				<p class="mb-4 mt-4">2. Didoakan Malaikat</p>
+				<p>
+					“Ketika hamba berada di setiap pagi, ada dua malaikat yang turun dan berdoa, “Ya Allah berikanlah ganti pada yang gemar berinfak (rajin memberi nafkah pada keluarga).” Malaikat yang lain berdoa, “Ya Allah, berikanlah kebangkrutan bagi yang enggan bersedekah (memberi nafkah).” (HR. Bukhari).</p>
+					<p class="mb-4 mt-4">3. Allah Ganti Harta yang Diinfakkan</p>
+					<p>
+						"Katakanlah: 'Sesungguhnya Tuhanku melapangkan rezeki bagi siapa yang dikehendaki-Nya di antara hamba-hamba-Nya dan menyempitkan bagi (siapa yang dikehendaki-Nya)'. Dan barang apa saja yang kamu nafkahkan (belanjakan), maka Allah akan menggantinya dan Dialah Pemberi rezeki yang sebaik-baiknya. (QS. Saba: 39).
+
+</p>
+			</div>
         
           <div class="d-flex justify-content-center mt-5 mb-5 ">
             <button type="button" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Zakat Profesi
+              Infaq Sekarang
             </button>
-            <button type="button" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-              Zakat Tabungan
-            </button>
-            <button type="button" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-              Zakat Perdangagan
-            </button>
-            <button type="button" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" data-bs-toggle="modal" data-bs-target="#exampleModal4">
-              Zakat Tabungan
-            </button>
-
-			<div class="text-center">
-				<a href="{{ url('') }}"></a>
-			</div>
+           
           </div>
         </div>
       </div>
@@ -56,7 +62,7 @@
   <br>
 
 
-@include('landing.ziswaf.hitung_zakat')
+
 
 
 @endsection

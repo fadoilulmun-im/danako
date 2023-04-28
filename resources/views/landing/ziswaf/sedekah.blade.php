@@ -1,7 +1,7 @@
 @extends('landing.layouts.app')
 
 @section('title')
-    Dashboard
+    Sedekah
 @endsection
 
 
@@ -12,8 +12,10 @@
 
 <div class="container">
     <div class="title">
+		
         <img src="{{ asset('') }}danako/img/Expand_left.svg" />
-        <span>Zakat</span>
+
+        <span>Sedekah</span>
     </div>
   </div>
 
@@ -21,29 +23,55 @@
     <div class="container">
       <div class="row justify-content-center align-items-center">
         <div class="col-lg-12 form-bg">
-          <h2 class="col-md-12 text-center mt-5">Kalkulator Lmi Zakat</h1>
-          <div class="container">
-            <p class="mb-4 mt-4">Kalkulator zakat adalah layanan untuk mempermudah perhitungan jumlah zakat yang harus ditunaikan oleh setiap umat muslim sesuai ketetapan syariah. Oleh karena itu, bagi Anda yang ingin mengetahui berapa jumlah zakat yang harus ditunaikan, silahkan gunakan fasilitas Kalkulator Zakat BAZNAS dibawah ini.</p>
-          </div>
+			<div class="container">
+				<p class="mb-4 mt-4">Sedekah merupakan kata yang sangat familiar di kalangan umat Islam. Sedekah diambil dari kata bahasa Arab yaitu “shadaqah”, berasal dari kata sidq (sidiq) yang berarti “kebenaran”. Menurut peraturan BAZNAS No.2 tahun 2016, sedekah adalah harta atau non harta yang dikeluarkan oleh seseorang atau badan usaha di luar zakat untuk kemaslahatan umum.</p>
+				<p class="mb-4 mt-4">Sedekah merupakan amalan yang dicintai Allah SWT. Hal ini dibuktikan dengan banyaknya ayat Al-Qur’an yang menyebutkan tentang sedekah, salah satunya dalam surat Al-Baqarah ayat 271,</p>
+				<p class="mb-4 mt-4">“Jika kamu menampakkan sedekah (mu), maka itu adalah baik sekali. Dan jika kamu menyembunyikannya dan kamu berikan kepada orang-orang fakir, maka menyembunyikan itu lebih baik bagimu. Dan Allah akan menghapuskan dari kamu sebagian kesalahan-kesalahanmu, dan Allah mengetahui apa yang kamu kerjakan” (QS. Al-Baqarah: 271).
+				</p>
+				
+			</div>
+			<a href="{{ url('') }}">
+			<img src="{{ asset('') }}danako/img/ziswaf/sedekah.png" class="card-img-top" alt="...">
+			</a>
+
 		  <div class="container my-4 mx-4">
-			<h6 class="text-center">Zakat penghasilan atau yang dikenal juga sebagai zakat profesi adalah bagian dari zakat maal yang wajib dikeluarkan atas harta yang berasal dari pendapatan / penghasilan rutin dari pekerjaan yang tidak melanggar syariah. Nishab zakat penghasilan sebesar 85 gram emas per tahun. Kadar zakat penghasilan senilai 2,5%. Dalam praktiknya, zakat penghasilan dapat ditunaikan setiap bulan dengan nilai nishab per bulannya adalah setara dengan nilai seperduabelas dari 85 gram emas, dengan kadar 2,5%. Jadi apabila penghasilan setiap bulan telah melebihi nilai nishab bulanan, maka wajib dikeluarkan zakatnya sebesar 2,5% dari penghasilannya tersebut. (Sumber: Al Qur'an Surah Al Baqarah ayat 267, Peraturan Menteri Agama Nomer 31 Tahun 2019, Fatwa MUI Nomer 3 Tahun 2003, dan pendapat Shaikh Yusuf Qardawi).</h6>
-			<h6 class="text-center">Zakat maal yang dimaksud dalam perhitungan ini adalah zakat yang dikenakan atas uang, emas, surat berharga, dan aset yang disewakan. Tidak termasuk harta pertanian, pertambangan, dan lain-lain yang diatur dalam UU No.23/2011 tentang pengelolaan zakat. Zakat maal harus sudah mencapai nishab (batas minimum) dan terbebas dari hutang serta kepemilikan telah mencapai 1 tahun (haul). Nishab zakat maal sebesar 85 gram emas. Kadar zakatnya senilai 2,5%. (Sumber: Al Qur'an Surah Al Baqarah ayat 267, Peraturan Menteri Agama Nomer 31 Tahun 2019, Fatwa MUI Nomer 3 Tahun 2003, dan pendapat Shaikh Yusuf Qardawi)..
-			  Standar harga emas yg digunakan untuk 1 gram nya adalah Rp938.099,-. Sementara nishab yang digunakan adalah sebesar 85 gram emas.</h6>
-		  </div>
+			<h5 >Keutamaan Sedekah</h5>
+			<p class="mb-4 mt-4">1. Sedekah Tidak Mengurangi Harta</p>
+			<p>
+				“Sedekah adalah ibadah yang tidak akan mengurangi harta, sebagaimana Rasulullah SAW bersabda untuk mengingatkan kita dalam sebuah riwayat Muslim, “sedekah tidaklah mengurangi harta.” (HR. Muslim).  Mengapa sedekah tidak akan mengurangi harta? Karena meskipun secara tersurat harta terlihat berkurang, namun kekurangan tersebut akan ditutup dengan pahala di sisi Allah SWT dan akan terus bertambah kelipatannya menjadi lebih banyak. Hal ini merupakan janji Allah yang termaktub dalam surat Saba “Dan barang apa saja yang kamu nafkahkan, maka Allah akan menggantinya dan Dia-lah pemberi rezeki sebaik-baiknya.” (QS. Saba’: 39).</p>
+				
+			</div>
+
+			<div class="container my-4 mx-4">
+				<p class="mb-4 mt-4">2. Sedekah Menghapus Dosa</p>
+				<p>
+					Sebagai makhluk Allah SWT yang tak luput dari dosa, umat Islam senantiasa diberikan berbagai keistimewaan agar berkesempatan untuk bertaubat dan menghapus dosa-dosanya dengan cara yang yang diridhai oleh Nya. Salah satunya dengan sedekah.</p>
+					<p class="mb-4 mt-4">2. Didoakan Malaikat</p>
+					<p>
+						Sedekah merupakan ibadah yang istimewa, ia dapat memudahkan kita dalam menghapus dosa-dosa. Rasulullah SAW pernah bersabda “Sedekah itu dapat menghapus dosa sebagaimana air itu memadamkan api. (HR. At-Tirmidzi).</p>
+					
+				</div>
+			
+
+				<div class="container my-4 mx-4">
+					<p class="mb-4 mt-4">Sedekah Melipatgandakan Pahala</p>
+					<p>
+						Sedekah memberikan banyak keistimewaan kepada pelakunya, salah satu diantaranya adalah Allah SWT akan memberikan pahala yang banyak untuk orang yang bersedekah. Allah SWT berfiman,</p>
+						<p class="mb-4 mt-4">2. Didoakan Malaikat</p>
+						<p>
+							“Sesungguhnya orang-orang yang bersedekah baik laki-laki maupun perempuan dan meminjamkan kepada Allah pinjaman yang baik, niscaya akan dilipat-gandakan (ganjarannya) kepada mereka; dan bagi mereka pahala yang banyak.” (Qs. Al Hadid: 18)</p>
+							<p class="mb-4 mt-4">Itulah beberapa keistimewaan sedekah. Begitu banyak nikmat Allah dalam bersedekah, semoga kita termasuk ke dalam orang orang yang diringankan dalam melakukan ibadah istimewa ini. Aamiin.</p>
+							<p>
+								Mari salurkan sedekah anda melalui Danako dengan cara klik di bawah ini
+						</p>
+					</div>
+				
         
           <div class="d-flex justify-content-center mt-5 mb-5 ">
             <button type="button" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-              Zakat Profesi
+              Sedekah Sekarang
             </button>
-            <button type="button" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" data-bs-toggle="modal" data-bs-target="#exampleModal2">
-              Zakat Tabungan
-            </button>
-            <button type="button" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" data-bs-toggle="modal" data-bs-target="#exampleModal3">
-              Zakat Perdangagan
-            </button>
-            <button type="button" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" data-bs-toggle="modal" data-bs-target="#exampleModal4">
-              Zakat Tabungan
-            </button>
+           
           </div>
         </div>
       </div>
@@ -52,7 +80,7 @@
   <br>
 
 
-@include('landing.hitung_zakat')
+
 
 
 @endsection
