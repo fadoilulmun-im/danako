@@ -85,6 +85,7 @@ Route::group(['prefix' => 'master'], function () {
     Route::group(['prefix' => 'campaigns'], function () {
         Route::get('/pagination', [CampaignController::class, 'pagination'])->name('api.master.campaigns.pagination');
         Route::get('/list', [CampaignController::class, 'list'])->name('api.master.campaigns.list');
+        Route::post('/store', [CampaignController::class, 'storeUser'])->name('api.campaigns.storeUser')->middleware(['auth:sanctum']);
         Route::get('/', [CampaignController::class, 'index'])->name('api.master.campaigns.index');
         Route::post('/', [CampaignController::class, 'store'])->name('api.master.campaigns.store');
         Route::get('/{id}', [CampaignController::class, 'show'])->name('api.master.campaigns.show');

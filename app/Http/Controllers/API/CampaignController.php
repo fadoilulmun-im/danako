@@ -4,14 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
-use App\Models\CampaignCategory;
+use App\Models\CampaignDocument;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Facades\Image;
-use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Laravel\Sanctum\PersonalAccessToken;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Str;
 
 class CampaignController extends Controller
 {
@@ -196,8 +198,85 @@ class CampaignController extends Controller
             $model->where('category_id', $request->category_id);
         }
 
+        if($request->input('token')){
+            $token = PersonalAccessToken::findToken($request->input('token'));
+            $user = $token->tokenable;
+            $model->where('user_id', $user->id);
+        }
+
         $model->orderby($request->input('order', 'title'), $request->input('sort', 'asc'));
 
         return $this->setResponse($model->paginate($request->input('per_page', 10)), null, 200);
+    }
+
+    public function storeUser(Request $request)
+    {
+        $rules = [
+            'category_id' => 'required|numeric|exists:campaign_categories,id',
+            'title' => 'required|string',
+            'slug' => 'required|string|unique:campaigns,slug|alpha_dash',
+            'img' => 'required|image|mimes:jpeg,png,jpg',
+            'description' => 'required|string',
+            'target_amount' => 'required|numeric',
+            'receiver' => 'required|string',
+            'purpose' => 'required|string',
+            'address_receiver' => 'required|string',
+            'detail_usage_of_funds' => 'required|string',
+            'range_date' => 'required|string',
+            'documents' => 'nullable|array',
+            'documents.*' => 'required|file|mimes:pdf,jpeg,png,jpg',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->setResponse($validator->errors(), $validator->errors()->first() , 422);
+        }
+
+        DB::beginTransaction();
+
+        $campaign = new Campaign();
+        $campaign->user_id = Auth::id();
+        $campaign->category_id = $request->input('category_id');
+        $campaign->title = $request->input('title');
+        $campaign->slug = $request->input('slug', Str::slug($request->input('title')));
+
+        $path = '/campaign';
+        if(!File::exists(public_path('uploads'. $path))){
+            File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+        }
+        $fileName = time().'.'.$request->file('img')->extension();
+        $request->file('img')->move(public_path('uploads'. $path), $fileName);
+
+        $campaign->img_path = $path . '/' . $fileName;
+
+        $campaign->description = $request->input('description');
+        $campaign->target_amount = $request->input('target_amount');
+        $campaign->receiver = $request->input('receiver');
+        $campaign->purpose = $request->input('purpose');
+        $campaign->address_receiver = $request->input('address_receiver');
+        $campaign->detail_usage_of_funds = $request->input('detail_usage_of_funds');
+        $range_date = explode(' to ', $request->input('range_date'));
+        $campaign->start_date = Carbon::parse($range_date[0])->format('Y-m-d');
+        $campaign->end_date = Carbon::parse($range_date[1])->format('Y-m-d');
+        $campaign->verification_status = 'processing';
+        $campaign->save();
+
+        foreach(($request->documents ?? []) as $document){
+            $campaignDocument = new CampaignDocument();
+            $campaignDocument->campaign_id = $campaign->id;
+
+            $path = '/campaign-document';
+            if(!File::exists(public_path('uploads'. $path))){
+                File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+            }
+            $fileName = time().'.'.$document->extension();
+            $document->move(public_path('uploads'. $path), $fileName);
+
+            $campaignDocument->path = $path . '/' . $fileName;
+            $campaignDocument->save();
+        }
+
+        DB::commit();
+        return $this->setResponse(null, 'Campaign created successfully');
     }
 }

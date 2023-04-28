@@ -112,7 +112,7 @@ Route::get('/campaign-akun', function () {
 
 Route::get('/campaign-pending', function () {
     return view('landing.campaign_pending');
-});
+})->name('campaign-pending');
 
 Route::get('/detail-campaign/{id}', function ($id) {
     return view('landing.detail_campaign', ['id' => $id]);

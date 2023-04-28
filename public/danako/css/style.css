@@ -924,7 +924,7 @@
   transition: background-color 0.3s ease;
 }
 
-.border-bottom:hover {
+.card-category:hover {
   background-color: #B8D6A9;
 }
 

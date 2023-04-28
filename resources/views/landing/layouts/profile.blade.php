@@ -27,7 +27,7 @@
     
                             <ul>
                                 <li>
-                                    <a href="/profile" class="<?php echo (request()->is('profile*')) ? 'active' : ''; ?>">
+                                    <a href="/profile" class="<?php echo (request()->is('profile')) ? 'active' : ''; ?>">
                                         <i class='bx bx-heart'></i>
                                         Profile
                                     </a>

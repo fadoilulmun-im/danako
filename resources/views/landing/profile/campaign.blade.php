@@ -1,10 +1,6 @@
 @extends('landing.layouts.profile')
 
-@section('title')
-    Campaign
-@endsection
-
-
+@section('title', 'Campaign')
 
 @section('content')
 <div class="p-5 bg-white rounded shadow mb-5">
@@ -28,163 +24,14 @@
     </ul>
     <div id="myTabContent" class="tab-content">
         <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
-            <div class="container-fluid" style="height: 1500px; overflow-y: scroll;">
+            <div class="container-fluid" style="max-height: 1500px; overflow-y: scroll;" id="list-campaign">
            
-                <div class="row pt-2 pb-2">
-                    <div class="col-md-4">
-                      <img src="{{ asset('') }}danako/img/category/1.png" class="img-thumbnail border-0 pt-5" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">Gemba Cianjur</h6></div>
-                        <div class="col-6 text-end pt-2"><button type="button" class="btn btn-outline-success btn-sm">Aktiv</button></div>
-                      </div>
-                      <p class="card-text pt-2 pb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                      <div class="progress">
-                        <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                        <div class="col-6 text-end pt-2">46 hari lagi</div>
-                      </div>
-                    </div>
+              <div class="d-flex justify-content-center">
+                <div class="spinner-border" role="status">
+                  <span class="visually-hidden">Loading...</span>
                 </div>
-                <div class="row pt-2 pb-2">
-                    <div class="col-md-4">
-                      <img src="{{ asset('') }}danako/img/category/1.png" class="img-thumbnail border-0 pt-5" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">Gemba Cianjur</h6></div>
-                        <div class="col-6 text-end pt-2"><button type="button" class="btn btn-outline-success btn-sm">Aktiv</button></div>
-                      </div>
-                      <p class="card-text pt-2 pb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                      <div class="progress">
-                        <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                        <div class="col-6 text-end pt-2">46 hari lagi</div>
-                      </div>
-                    </div>
-                </div>
-                <div class="row pt-2 pb-2">
-                    <div class="col-md-4">
-                      <img src="{{ asset('') }}danako/img/category/1.png" class="img-thumbnail border-0 pt-5" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">Gemba Cianjur</h6></div>
-                        <div class="col-6 text-end pt-2"><button type="button" class="btn btn-outline-success btn-sm">Aktiv</button></div>
-                      </div>
-                      <p class="card-text pt-2 pb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                      <div class="progress">
-                        <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                        <div class="col-6 text-end pt-2">46 hari lagi</div>
-                      </div>
-                    </div>
-                </div>
-                <div class="row pt-2 pb-2">
-                    <div class="col-md-4">
-                      <img src="{{ asset('') }}danako/img/category/1.png" class="img-thumbnail border-0 pt-5" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">Gemba Cianjur</h6></div>
-                        <div class="col-6 text-end pt-2"><button type="button" class="btn btn-outline-success btn-sm">Aktiv</button></div>
-                      </div>
-                      <p class="card-text pt-2 pb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                      <div class="progress">
-                        <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                        <div class="col-6 text-end pt-2">46 hari lagi</div>
-                      </div>
-                    </div>
-                </div>
-                <div class="row pt-2 pb-2">
-                    <div class="col-md-4">
-                      <img src="{{ asset('') }}danako/img/category/1.png" class="img-thumbnail border-0 pt-5" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">Gemba Cianjur</h6></div>
-                        <div class="col-6 text-end pt-2"><button type="button" class="btn btn-outline-success btn-sm">Aktiv</button></div>
-                      </div>
-                      <p class="card-text pt-2 pb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                      <div class="progress">
-                        <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                        <div class="col-6 text-end pt-2">46 hari lagi</div>
-                      </div>
-                    </div>
-                </div>
-                <div class="row pt-2 pb-2">
-                    <div class="col-md-4">
-                      <img src="{{ asset('') }}danako/img/category/1.png" class="img-thumbnail border-0 pt-5" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">Gemba Cianjur</h6></div>
-                        <div class="col-6 text-end pt-2"><button type="button" class="btn btn-outline-success btn-sm">Aktiv</button></div>
-                      </div>
-                      <p class="card-text pt-2 pb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                      <div class="progress">
-                        <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                        <div class="col-6 text-end pt-2">46 hari lagi</div>
-                      </div>
-                    </div>
-                </div>
-                <div class="row pt-2 pb-2">
-                    <div class="col-md-4">
-                      <img src="{{ asset('') }}danako/img/category/1.png" class="img-thumbnail border-0 pt-5" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">Gemba Cianjur</h6></div>
-                        <div class="col-6 text-end pt-2"><button type="button" class="btn btn-outline-success btn-sm">Aktiv</button></div>
-                      </div>
-                      <p class="card-text pt-2 pb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                      <div class="progress">
-                        <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                        <div class="col-6 text-end pt-2">46 hari lagi</div>
-                      </div>
-                    </div>
-                </div>
-                <div class="row pt-2 pb-2">
-                    <div class="col-md-4">
-                      <img src="{{ asset('') }}danako/img/category/1.png" class="img-thumbnail border-0 pt-5" alt="...">
-                    </div>
-                    <div class="col-md-8">
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">Gemba Cianjur</h6></div>
-                        <div class="col-6 text-end pt-2"><button type="button" class="btn btn-outline-success btn-sm">Aktiv</button></div>
-                      </div>
-                      <p class="card-text pt-2 pb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel</p>
-                      <div class="progress">
-                        <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                      </div>
-                      <div class="row">
-                        <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                        <div class="col-6 text-end pt-2">46 hari lagi</div>
-                      </div>
-                    </div>
-                </div>
+              </div>
                   
-                  
-            
             </div>
         </div>
       <div id="profile" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade px-4 py-5">
@@ -235,6 +82,47 @@
         document.querySelector(target).classList.add('show', 'active')
       })
     })
+
+    $(document).ready(()=>{
+      $.ajax({
+        url: "{{ route('api.master.campaigns.pagination') }}?token="+localStorage.getItem('_token'),
+        // headers: {
+        //   'Authorization': "Bearer " + localStorage.getItem('_token'),
+        // },
+        type: "GET",
+        dataType: "json",
+        success: function (response) {
+          const data = response.data.data;
+          $('#list-campaign').html('');
+          data.forEach((item, index) => {
+            $('#list-campaign').append(`
+              <div class="row pt-2 pb-2" onclick="detail(${item.id})")>
+                <div class="col-md-4">
+                  <img src="{{ asset('') }}${item.img_path ? 'uploads' + item.img_path : 'danako/img/category/1.png'}" class="img-thumbnail border-0 pt-5" alt="image" style="max-height: 200px">
+                </div>
+                <div class="col-md-8">
+                  <div class="row">
+                    <div class="col-9 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">${item.title.slice(0, 30)}...</h6></div>
+                    <div class="col-3 text-end pt-2"><span class="badge bg-success">Active</span></div>
+                  </div>
+                  <p class="card-text pt-2 pb-2">${item.description.slice(0,150)}...</p>
+                  <div class="progress">
+                    <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
+                    <div class="col-6 text-end pt-2">46 hari lagi</div>
+                  </div>
+                </div>
+              </div>
+            `);
+          });
+        },
+        error: function (data) {
+          console.log(data);
+        }
+      });
+    });
   </script>
 @endpush
 
