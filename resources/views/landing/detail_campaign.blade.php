@@ -108,7 +108,7 @@
                     </div>
 
                     <div class="d-grid gap-2 pt-2 pb-3">
-                      <button class="btn btn-primary" type="button">Donasi Sekarang</button>
+                      <a href="{{ url('pencairan-dana') }}" class="btn btn-primary" type="button">Donasi Sekarang</a>
                       <button class="btn btn-primary" type="button">Bagikan campaign</button>
                     </div>
 
