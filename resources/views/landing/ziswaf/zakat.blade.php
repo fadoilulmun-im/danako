@@ -42,7 +42,7 @@
               Zakat Perdangagan
             </button>
             <button type="button" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" data-bs-toggle="modal" data-bs-target="#exampleModal4">
-              Zakat Tabungan
+              Zakat Emas
             </button>
 
 			<div class="text-center">
