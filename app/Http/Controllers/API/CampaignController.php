@@ -54,8 +54,56 @@ class CampaignController extends Controller
                 }
                 return '<img src="'. asset($path) .'" alt="logo" style="width: 100px; height: 100px">';
             })
+            ->editColumn('verification_status', function ($data) {
+                if($data->verification_status){
+                    switch ($data->verification_status) {
+                        case 'processing':
+                            $return  = '<span class="badge p-1 bg-warning">Processing</span>';
+                            break;
+
+                        case 'rejected':
+                            $return  = '<span class="badge p-1 bg-danger">Rejected</span>';
+                            break;
+
+                        case 'verified':
+                            $return  = '<span class="badge p-1 bg-success">Verified</span>';
+                            break;
+                        
+                        default:
+                            $return = '<span class="badge p-1 bg-secondary">Unverified</span>';
+                            break;
+                    }
+                    return $return;
+                }else{
+                    return '<span class="badge p-1 bg-secondary">Unverified</span>';
+                }
+            })
+            ->editColumn('activity', function ($data) {
+                if($data->verification_status){
+                    switch ($data->verification_status) {
+                        case 'sending':
+                            $return  = '<span class="badge p-1 bg-info">Sending</span>';
+                            break;
+
+                        case 'received':
+                            $return  = '<span class="badge p-1 bg-success">Received</span>';
+                            break;
+
+                        case 'closed':
+                            $return  = '<span class="badge p-1 bg-secondary">Closed</span>';
+                            break;
+                        
+                        default:
+                            $return = '<span class="badge p-1 bg-warning">Processing</span>';
+                            break;
+                    }
+                    return $return;
+                }else{
+                    return '<span class="badge p-1 bg-warning">Processing</span>';
+                }
+            })
             ->addIndexColumn()
-            ->rawColumns(['action', 'img_path'])
+            ->rawColumns(['action', 'img_path', 'verification_status', 'activity'])
             ->make(true);
 
 
@@ -207,6 +255,31 @@ class CampaignController extends Controller
         $model->orderby($request->input('order', 'title'), $request->input('sort', 'asc'));
 
         return $this->setResponse($model->paginate($request->input('per_page', 10)), null, 200);
+    }
+
+    public function updateVerifiying($id, Request $request){
+        $validator = Validator::make($request->all(), [
+            'verification_status' => 'required|in:0,1',
+            'note' => 'nullable|required_if:status,0|string',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->setResponse($validator->errors(), 'Silahkan isi form dengan benar', 422);
+        }
+
+        $model = Campaign::where('id', $id)->first();
+
+        if(!$model){
+            return $this->setResponse(null, 'Data not found', 404);
+        }
+
+        DB::beginTransaction();
+        $model->verification_status = $request->verification_status ? 'verified' : 'rejected';
+        $model->reject_note = $request->reject_note;
+        $model->save();
+        DB::commit();
+
+        return $this->setResponse($model, 'Campaign updated', 200);
     }
 
     public function storeUser(Request $request)

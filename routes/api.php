@@ -91,6 +91,7 @@ Route::group(['prefix' => 'master'], function () {
         Route::get('/{id}', [CampaignController::class, 'show'])->name('api.master.campaigns.show');
         Route::post('/{id}', [CampaignController::class, 'update'])->name('api.master.campaigns.update');
         Route::delete('/{id}', [CampaignController::class, 'delete'])->name('api.master.campaigns.delete');
+        Route::put('/verif/{id}', [CampaignController::class, 'updateVerifiying'])->name('api.master.campaigns.verif')->middleware(['auth:sanctum']);
     });
     Route::group(['prefix' => 'donations'], function () {
         Route::get('/', [DonationController::class, 'index'])->name('api.master.donations.index');

@@ -28,7 +28,7 @@
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light"
                             id="addBtn">Create</button>
                     </div>
-                    <table id="datatable" class="w-100 table table-bordered dt-responsive nowrap">
+                    <table id="datatable" class="w-100 table table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -48,6 +48,7 @@
                                 <th>Real Time Amount</th>
                                 <th>Status</th>
                                 <th>Activity</th>
+                                <th>Reject Note</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -196,10 +197,17 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered table-responsive no-margin">
+                <table width="100%" class="table">
                     <tr>
-                        <th>Image</th>
-                        <td id="detail_img"></td>
+                        <td colspan="3" id="detail_img" align=Center></td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td id="detail_status"></td>
+                    </tr>
+                    <tr>
+                        <th>Activity</th>
+                        <td id="detail_activity"></td>
                     </tr>
                     <tr>
                         <th>Campaign ID</th>
@@ -252,14 +260,6 @@
                     <tr>
                         <th>Real time amount</th>
                         <td><span id="detail_realtime_amount"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Status</th>
-                        <td><span id="detail_status"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Activity</th>
-                        <td><span id="detail_activity"></span></td>
                     </tr>
                 </table>
             </div>
@@ -341,6 +341,7 @@
             {data: 'real_time_amount', name: 'real_time_amount'},
             {data: 'verification_status', name: 'verification_status'},
             {data: 'activity', name: 'activity'},
+            {data: 'reject_note', name: 'reject_note'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         order: [[0, 'desc']]
@@ -515,11 +516,170 @@
                     $('#detail_start_date').text(response.data.start_date);
                     $('#detail_end_date').text(response.data.end_date);
                     $('#detail_realtime_amount').text(response.data.real_time_amount);
-                    $('#detail_status').text(response.data.status);
                     $('#detail_activity').text(response.data.activity);
+
+                    let activity_color = '';
+                    switch (response.data.activity) {
+                        case 'closed':
+                        activity_color = 'bg-secondary';
+                        break;
+                        case 'sending':
+                        activity_color = 'bg-info';
+                        break;
+                        case 'received':
+                        activity_color = 'bg-success';
+                        break;
+                    
+                        default:
+                        activity_color = 'bg-warning';
+                        break;
+                    }
+
+                    let status_color = '';
+                    switch (response.data.verification_status) {
+                        case 'processing':
+                        status_color = 'bg-warning';
+                        break;
+                        case 'rejected':
+                        status_color = 'bg-danger';
+                        break;
+                        case 'verified':
+                        status_color = 'bg-success';
+                        break;
+                    
+                        default:
+                        status_color = 'bg-secondary';
+                        break;
+                    }
+
+                    $('#detail_activity').html(`
+                        <div class="d-flex justify-content-between mb-2">
+                        <div id='status-verif'>
+                            <h5 class='m-0 badge p-1 ${activity_color}'>${(response.data.activity).toUpperCase()}</h5>
+                        </div>
+                    `);
+
+                    $('#detail_status').html(`
+                        <div class="d-flex justify-content-between mb-2">
+                        <div id='status-verif'>
+                            <h5 class='m-0 badge p-1 ${status_color}'>${(response.data.verification_status).toUpperCase()}</h5>
+                        </div>
+                        <div id="button">
+                            ${response.data.verification_status == 'processing' ?
+                            '<button type="button" class="btn btn-danger btn-sm rounded" onclick="tolak('+response.data.id+')">Tolak</button>'+
+                            '<button type="button" class="btn btn-success ms-2 rounded btn-sm" onclick="terima('+response.data.id+')">Terima</button>' 
+                            : response.data.verification_status == 'rejected' ?
+                            '<span>Alasan ditolak: '+response.data.reject_note+'</span>'
+                            : ''
+                            } 
+                        </div>
+                        </div>
+                    `);
                 }
             },
         });
+    }
+
+    function tolak(id){
+      Swal.fire({
+        title: 'Apakah anda yakin?',
+        text: "Beri alasan kenapa anda menolak",
+        icon: 'warning',
+        input: 'text',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        showLoaderOnConfirm: true,
+        allowOutsideClick: () => !Swal.isLoading(),
+        preConfirm: (note) => {
+          return fetch("{{route('api.master.campaigns.verif','') }}/" + id, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+              'Authorization': 'Bearer '+localStorage.getItem('_token'),
+            },
+            body: JSON.stringify({
+              verification_status: 0,
+              reject_note: note,
+            })
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(response.statusText)
+            }
+            return response.json()
+          })
+          .catch(error => {
+            Swal.showValidationMessage(
+              `Request failed: ${error}`
+            )
+          })
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let data = result.value.data;
+          Swal.fire({
+            title: `Berhasil`,
+            text: 'Berhasil menolak',
+            icon: 'success',
+          });
+          
+          $('#button').html(`<span>Alasan ditolak: ${data.reject_note}</span>`);
+          $('#detail_status').html(`
+            <h5 class='m-0 badge p-1 bg-danger'>${(data.verification_status).toUpperCase()}</h5>
+          `);
+        }
+      })
+    }
+
+    function terima(id){
+      Swal.fire({
+        title: 'Apakah anda yakin?',
+        text: "Data akan diubah menjadi terverifikasi!",
+        icon: 'warning',
+        showCancelButton: true,
+        showLoaderOnConfirm: true,
+        allowOutsideClick: () => !Swal.isLoading(),
+        preConfirm: () => {
+          return fetch("{{route('api.master.campaigns.verif','') }}/" + id, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+              'Authorization': 'Bearer '+localStorage.getItem('_token'),
+            },
+            body: JSON.stringify({
+              verification_status: 1
+            })
+          })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(response.statusText)
+            }
+            return response.json()
+          })
+          .catch(error => {
+            Swal.showValidationMessage(
+              `Request failed: ${error}`
+            )
+          })
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: `Berhasil`,
+            text: 'Berhasil verifikasi',
+            icon: 'success',
+          });
+          
+          $('#button').html(``);
+          $('#detail_status').html(`
+            <h5 class='m-0 badge p-1 bg-success'>${(result.value.data.verification_status).toUpperCase()}</h5>
+          `);
+        }
+      })
     }
 
 </script>
