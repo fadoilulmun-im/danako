@@ -195,10 +195,15 @@ Route::get('/infaq', function () {
     return view('landing.ziswaf.infaq');
 });
 
-
 Route::get('/sedekah', function () {
     return view('landing.ziswaf.sedekah');
 });
+
+
+Route::get('/bayar', function () {
+    return view('landing.ziswaf.bayar');
+});
+
 
 
 

@@ -23,7 +23,7 @@
     <div class="container">
       <div class="row justify-content-center align-items-center">
         <div class="col-lg-12 form-bg">
-			<a href="{{ url('zakat') }}">
+			<a href="{{ url('bayar') }}">
 			<img src="{{ asset('') }}danako/img/ziswaf/infaq.png" class="card-img-top" alt="...">
 			</a>
           <div class="container">
