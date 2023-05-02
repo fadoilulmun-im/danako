@@ -1,20 +1,57 @@
 <?php
 
+/*
+ * This file is part of the IndoRegion package.
+ *
+ * (c) Azis Hapidin <azishapidin.com | azishapidin@gmail.com>
+ *
+ */
+
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use AzisHapidin\IndoRegion\Traits\RegencyTrait;
 use Illuminate\Database\Eloquent\Model;
 
-class SubDistrict extends Model
+/**
+ * Regency Model.
+ */
+class Regency extends Model
 {
-    use HasFactory;
+    use RegencyTrait;
 
-    protected $table = 'tb_mst_districts';
+    /**
+     * Table name.
+     *
+     * @var string
+     */
+    protected $table = 'regencies';
 
-    protected $guarded = [];
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'province_id'
+    ];
 
-    public function regency()
+    /**
+     * Regency belongs to Province.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function province()
     {
-        return $this->belongsTo(Regency::class, 'regency_id', 'id');
+        return $this->belongsTo(Province::class);
+    }
+
+    /**
+     * Regency has many districts.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function districts()
+    {
+        return $this->hasMany(District::class);
     }
 }
