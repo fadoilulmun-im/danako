@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\UserDocument;
 use App\Models\UserImage;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -103,11 +104,11 @@ class AuthUserController extends Controller
             'username' => 'required|string|alpha_dash|unique:users,username,' . $user->id,
             'email' => 'required|email|unique:users,email,' . $user->id,
             'name' => 'required|string',
-            'nik' => 'required|int|unique:user_details,nik,' . $user->detail->id,
+            'nik' => 'required|int|unique:user_details,nik,' . ($user->detail->id ?? 0),
             'birth_date' => 'required|date',
             'address' => 'required|string',
             'gender' => 'required|in:L,P',
-            'phone_number' => 'required|int|unique:user_details,phone_number,' . $user->detail->id,
+            'phone_number' => 'required|int|unique:user_details,phone_number,' . ($user->detail->id ?? 0),
             'ktp' => 'nullable|image|mimes:jpg,jpeg,png',
             'village' => 'required|exists:tb_mst_villages,id',
         ];

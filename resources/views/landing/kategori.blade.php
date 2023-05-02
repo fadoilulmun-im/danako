@@ -19,7 +19,7 @@
   <!-- slider -->
   <div class="container pb-80">
     <div class="slider">
-      <h2 class="text-center"><spand class="title-gren">Tolong!</spand>Mereka segera butuh bantuanmu</h2>
+      <h2 class="text-center"><span class="title-gren">Tolong!</span>Mereka segera butuh bantuanmu</h2>
       <ul class="" id="highlight">
         <div class="text-center w-100 pt-5">
           <div class="spinner-border" role="status">

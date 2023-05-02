@@ -1,8 +1,6 @@
 @extends('landing.layouts.app')
 
-@section('title')
-    Dashboard
-@endsection
+@section('title', 'Detail Campaign')
 
 
 
@@ -113,26 +111,20 @@
                     </div>
 
                     <div class="card" style="height: 500px; overflow-y: scroll;">
-                        <div class="card-body">
+                        <div class="card-body p-0" id="list-donasi">
 
-                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                              <div class="row">
-                                <div class="col-9">
-                                  <h6 class="text-start">Hamba Allah</h6>
-                                  <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                                </div>
-                                <div class="col-3">
-                                  <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                                </div> 
-                              </div>
+                          <div class="text-center w-100 pt-5">
+                            <div class="spinner-border" role="status">
+                              <span class="visually-hidden">Loading...</span>
+                            </div>
                           </div>
 
                         </div>
                     </div>
 
-                    <div class="d-grid gap-2 col-6 mx-auto pt-3">
+                    {{-- <div class="d-grid gap-2 col-6 mx-auto pt-3">
                       <button type="button" class="btn btn-outline-success">Lihat semua</button>
-                    </div>
+                    </div> --}}
            
                 </div>
             </div>
@@ -155,7 +147,10 @@
 
 
 @push('after-script')
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.5/plugin/relativeTime.min.js"></script>
 <script>
+  dayjs.extend(window.dayjs_plugin_relativeTime);
   function toggleText() {
     var text = document.querySelector('.toggle-text');
     var button = document.querySelector('.toggle-button');
@@ -189,6 +184,47 @@
 
       }
     });
+
+    $.ajax({
+      url: "{{ route('api.master.donations.list') }}?campaign_id={{ $id }}",
+      type: 'GET',
+      success: (response) => {
+        const data = response.data;
+        $('#list-donasi').html('');
+        if(data.length > 0){
+          data.forEach(item => {
+            $('#list-donasi').append(`
+              <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2 px-2">                  
+                <div class="row">
+                  <div class="col-9">
+                    <h6 class="text-start">${item.user.name}</h6>
+                    <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.created_at)).fromNow()}</span></h6>
+                  </div>
+                  <div class="col-3">
+                    <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 
+                  </div> 
+                </div>
+              </div>
+            `);
+          });
+        }else{
+          $('#list-donasi').html(`
+            <div class="card-body">
+              <p class="text-center">Belum ada donasi</p>
+            </div>
+          `);
+        }
+        
+      },
+      error: (response) => {
+        const res = response.responseJSON;
+        $('#list-donasi').html(`
+          <div class="card-body">
+            <p class="text-center">${res.message}</p>
+          </div>
+        `);
+      },
+    })
   });
 </script>
 @endpush
