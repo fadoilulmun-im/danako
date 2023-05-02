@@ -18,10 +18,10 @@
             <img src="{{ asset('') }}danako/img/Expand_left.svg"/>
           </div> --}}
           <img src="{{ asset('') }}danako/img/gagal.png" alt="Image" class="img-fluid pt-3"/>
-          <p class="title-pending pt-2">Data Anda Sedang Diverifikasi</p>
-          <p class="title-konten ">Anda sudah melakukan verifikasi akun. Dan sekarang akun anda sedang kami lakukan validasi, silahkan tunggu 3x24 jam</p>
-          <p class="title-konten" >Jika ada pertanyaan lebih lanjut silahkan Hubungi Kami</p>
-          <button type="button" class="btn btn-outline-success mb-4">Kembali</button>
+          <p class="title-pending pt-2">Pembayaran Anda Gagal</p>
+          {{-- <p class="title-konten ">Anda sudah melakukan verifikasi akun. Dan sekarang akun anda sedang kami lakukan validasi, silahkan tunggu 3x24 jam</p> --}}
+          <p class="title-konten pt-4" >Jika ada pertanyaan lebih lanjut silahkan Hubungi Kami</p>
+          {{-- <button type="button" class="btn btn-outline-success mb-4">Kembali</button> --}}
         </div>
       </div>
     </div>
@@ -31,6 +31,7 @@
     </div>
   </div>
 </section>
+<br>
 
 @endsection
 

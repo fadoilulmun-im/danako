@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthenticationController;
 use App\Http\Controllers\API\LocationController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\XenditController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +21,11 @@ use App\Http\Controllers\API\UserController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::group(['prefix' => 'xendit'], function () {
+    Route::post('invoice', [XenditController::class, 'createInvoice'])->name('api.xendit.invoice.create')->middleware(['auth:sanctum']);
+    Route::post('callback', [XenditController::class, 'callback']);
+});
 
 Route::prefix('list-location')->group(function () {
     Route::get('province', [LocationController::class, 'listProvince'])->name('api.province.list');

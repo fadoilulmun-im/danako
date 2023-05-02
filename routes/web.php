@@ -5,7 +5,7 @@ use App\Models\CampaignCategory;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\GoogleController;
-
+use App\Models\Campaign;
 
 /*
 |--------------------------------------------------------------------------
@@ -163,6 +163,14 @@ Route::get('/buat-campaign', function () {
 
 Route::get('/pencairan-dana', function () {
     return view('landing.pencairan_dana');
+});
+
+Route::get('/donasi/{id}', function ($id) {
+    $campaign = Campaign::findOrFail($id);
+    return view('landing.donasi', [
+        'id' => $id,
+        'campaign' => $campaign,
+    ]);
 });
 
 
