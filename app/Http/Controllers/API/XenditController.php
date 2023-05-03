@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Mail\DonationMail;
 use App\Models\Donation;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Str;
 
@@ -74,9 +76,11 @@ class XenditController extends Controller
         $donation->status = $data['status'];
         $donation->payment_method = $data['payment_method'];
         $donation->payment_channel = $data['payment_channel'];
-        $donation->paid_at = $data['paid_at'];
+        $donation->paid_at = date('Y-m-d H:i:s', strtotime($data['paid_at']));
         $donation->save();
         DB::commit();
+
+        Mail::to($donation->user->email)->send(new DonationMail($donation));
 
         return $this->setResponse($donation, 'Invoice updated successfully');
     }

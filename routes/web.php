@@ -22,6 +22,9 @@ use App\Http\Controllers\WEB\VerifyEmailController;
 |
 */
 
+Route::get('cek-mail', function () {
+    return view('mail.donation');
+});
 
 
 Route::get('/verification-email/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
