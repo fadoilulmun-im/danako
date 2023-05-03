@@ -32,12 +32,12 @@
             <div class="col-lg-6">
                 <div class="about-text">
                     <div class="section-title">
-                        <h2>How We Started</h2>
+                        <h2>Apa itu Danako?</h2>
                     </div>
 
-                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.</p>
-
-                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
+                    <p>Kitabisa.com adalah platform crowdfunding yang didirikan pada tahun 2013 di Indonesia. Platform ini memungkinkan individu, kelompok, maupun organisasi untuk menggalang dana secara online untuk berbagai keperluan seperti pendidikan, kesehatan, bencana alam, sosial, dan lain sebagainya.</p>
+                    <p>Kitabisa.com memberikan kemudahan bagi pengguna untuk membuat kampanye penggalangan dana dengan memilih jenis kampanye yang sesuai dengan kebutuhan dan mengatur target dana yang dibutuhkan. Selain itu, platform ini juga menyediakan fitur-fitur lain seperti dukungan sosial media, laporan perkembangan kampanye, dan pencairan dana secara aman dan mudah.</p>
+                    
                 </div>
             </div>
             <div class="col-lg-6">
@@ -53,67 +53,65 @@
 <section class="why-choose-two my-4 mx-4 pt-3">
     <div class="container">
         <div class="section-title text-center">
-            <h2>Why You Choose Us Among Other Job Site?</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus</p>
+            <h2>Pertanyaan Terkait Apa Sih Danako Itu ?</h2>
+            <p></p>
         </div>
 
         <div class="row">
             <div class="col-lg-4 col-sm-6">
                 <div class="choose-card">
                     <i class="flaticon-resume"></i>
-                    <h3>Advertise Job</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore   </p>
+                    <h3>Apakah aman untuk melakukan donasi melalui Danako?</h3>
+                    <p>Ya, Danako memiliki sistem keamanan yang ketat untuk melindungi data pribadi dan informasi keuangan pengguna. Selain itu, Danako juga bekerja sama dengan lembaga keuangan terpercaya dan memiliki sertifikasi keamanan yang memenuhi standar internasional. </p>
                 </div>
             </div>
 
             <div class="col-lg-4 col-sm-6">
                 <div class="choose-card">
                     <i class="flaticon-recruitment"></i>
-                    <h3>Recruiter Profiles</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore   </p>
+                    <h3>Apakah donasi yang diberikan melalui Danako bisa dikembalikan?</h3>
+                    <p>Tidak, donasi yang telah diberikan melalui Danako tidak dapat dikembalikan kecuali terjadi kesalahan atau kecurangan dari pihak penerima dana. </p>
                 </div>
             </div>
 
             <div class="col-lg-4 col-sm-6 offset-sm-3 offset-lg-0">
                 <div class="choose-card">
                     <i class="flaticon-employee"></i>
-                    <h3>Find Your Dream Job</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore   </p>
+                    <h3>Apakah ada biaya atau potongan tertentu yang dikenakan oleh Danako?</h3>
+                    <p>Ya, Danako akan memotong sejumlah biaya administrasi dan biaya transaksi dari total donasi yang diberikan. Namun, besarnya potongan ini akan tergantung pada jenis kampanye dan metode pembayaran yang dipilih.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<div class="grow-business pn-5">
+
+
+<section class="about-section pt-5">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-md-7">
-                <div class="grow-text">
+            <div class="col-lg-6">
+                <div class="about-text">
                     <div class="section-title">
-                        <h2>Grow Your Business Faster With Premium Advertising</h2>
+                        <h2>Sejarah itu Danako?</h2>
                     </div>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.
-                    </p>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis. Consectetur adipiscing elit.
-                    </p>
-
+                    <p>Sejak didirikan,danako.my.id telah sukses menggalang dana untuk berbagai keperluan mulai dari membantu korban bencana alam hingga membantu pemulihan kesehatan pasien yang membutuhkan biaya pengobatan yang mahal. Platform ini telah diakui oleh berbagai pihak dan meraih beberapa penghargaan termasuk penghargaan "Social Entrepreneur of the Year" dari Ernst & Young pada tahun 2016</p>
+                    <p>Selain itu,danako.my.id juga telah bekerja sama dengan berbagai institusi, perusahaan, dan komunitas dalam menggalang dana untuk berbagai keperluan. Hal ini menunjukkan bahwa platform crowdfunding ini memiliki peran yang penting dalam membantu masyarakat Indonesia dalam mengatasi berbagai tantangan sosial dan ekonomi.</p>
+                    
                     <div class="theme-btn">
-                        <a href="#" class="default-btn">Checkout More</a>
+                        <a href="" class="default-btn bg-primary">Donasi Sekarang</a>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-4">
-                <div class="grow-img">
+            <div class="col-lg-6">
+                <div class="about-img">
                     <img src="{{ asset('') }}danako/img/campaignunggulan.png" alt="about image">
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <div class="counter-section mt-3 mb-3 pt-3 pb-3">
     <div class="container">
