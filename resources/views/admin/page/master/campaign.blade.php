@@ -604,12 +604,16 @@
                         </div>
                     `);
 
-                    $('#detail_document').html(`
-                        ${(response.data.documents ?? []).length ?
-                            '<embed type="application/pdf" src="{{asset('')}}uploads'+response.data.documents[0].path+'" width="600" height="400"></embed>'
-                            : '-'
-                        }
-                    `);
+                    if((response.data.documents ?? []).length){
+                        $('#detail_document').html('');
+                        (response.data.documents).forEach(item => {
+                            $('#detail_document').append(`
+                                <embed type="application/pdf" src="{{asset('')}}uploads${item.path}" width="600" height="400"></embed>
+                            `);
+                        });
+                    }else{
+                        $('#detail_document').html('-');
+                    }
                 }
             },
         });
