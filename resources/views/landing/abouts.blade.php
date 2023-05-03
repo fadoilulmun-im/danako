@@ -88,7 +88,7 @@
 <div class="grow-business pn-5">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-7">
+            <div class="col-md-7">
                 <div class="grow-text">
                     <div class="section-title">
                         <h2>Grow Your Business Faster With Premium Advertising</h2>
@@ -106,7 +106,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-5">
+            <div class="col-md-4">
                 <div class="grow-img">
                     <img src="{{ asset('') }}danako/img/campaignunggulan.png" alt="about image">
                 </div>

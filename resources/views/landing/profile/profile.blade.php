@@ -219,6 +219,7 @@
           cache: true
         }
       });
+      
       $('#subdistrict').select2({
         placeholder: 'Pilih Kecamatan',
         ajax: {

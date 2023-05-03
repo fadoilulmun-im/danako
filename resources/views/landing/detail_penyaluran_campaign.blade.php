@@ -157,7 +157,7 @@
 <div class="my-div information-container">
     <div class="container">
      <h1 class="title pt-5">Download Aplikasi DANAKO!</h1>
-     <h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sem nulla, elementum in diam sit amet, Lorem ipsum dolor sit amet, consectetur adipisci</h6>
+    <h6 class="text-center">Nikmati Kemudahan Beramal dan Salurkan bantuanmu di manapun bersama DANAKO</h6>
      <div class="text-center">
        <img src="{{ asset('') }}danako/img/category/googleplay.png" style="padding-top: 24px; padding-bottom: 41px;" />
      </div>
