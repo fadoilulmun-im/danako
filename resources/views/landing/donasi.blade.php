@@ -226,7 +226,6 @@
           success: function(response){
             const data = response.data;
             window.location.href = data.payment_link;
-            Swal.close();
           },
           error: function(response){
             const res = response.responseJSON;

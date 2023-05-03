@@ -110,7 +110,7 @@ class AuthUserController extends Controller
             'gender' => 'required|in:L,P',
             'phone_number' => 'required|int|unique:user_details,phone_number,' . ($user->detail->id ?? 0),
             'ktp' => 'nullable|image|mimes:jpg,jpeg,png',
-            'village' => 'required|exists:tb_mst_villages,id',
+            'village' => 'required|exists:villages,id',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -199,7 +199,7 @@ class AuthUserController extends Controller
     }
 
     public function userDetail(){
-        $user = User::where('id', Auth::id())->with(['detail.documents', 'detail.village.subdistrict.regency.province', 'photoProfile'])->first();
+        $user = User::where('id', Auth::id())->with(['detail.documents', 'detail.village.district.regency.province', 'photoProfile'])->first();
         return $this->setResponse($user);
     }
 

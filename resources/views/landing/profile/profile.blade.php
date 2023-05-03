@@ -189,7 +189,6 @@
               })
             };
           },
-          cache: true
         }
       });
       $('#regency').select2({
@@ -216,7 +215,6 @@
               })
             };
           },
-          cache: true
         }
       });
       
@@ -244,7 +242,6 @@
               })
             };
           },
-          cache: true
         }
       });
       $('#village').select2({
@@ -272,7 +269,6 @@
               })
             };
           },
-          cache: true
         }
       });
 
@@ -361,31 +357,36 @@
             `)
           }
 
-          $('#foto').hide();
-          $('#img-foto').html(`
-            <img src="{{ asset('uploads') }}${data.photo_profile.path}" alt="foto" class="img-fluid" style="max-width: 200px; max-height: 200px;">
-          `).css('cursor', 'pointer');
-          $('label[for="foto"]').css('position', 'inherit');
+          if(data.photo_profile){
+            $('#foto').hide();
+            $('#img-foto').html(`
+              <img src="{{ asset('uploads') }}${data.photo_profile.path}" alt="foto" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+            `).css('cursor', 'pointer');
+            $('label[for="foto"]').css('position', 'inherit');
+          }
 
           $('#username').val(data.username);
           $('#name').val(data.name);
           $('#email').val(data.email);
-          $('#nik').val(data.detail.nik);
-          $('#birth_date').val(data.detail.birth_date);
-          $('#gender').val(data.detail.gender).change();
-          $('#address').val(data.detail.address);
-          $('#phone_number').val(data.detail.phone_number);
+          $('#nik').val(data.detail?.nik);
+          $('#birth_date').val(data.detail?.birth_date);
+          $('#gender').val(data.detail?.gender).change();
+          $('#address').val(data.detail?.address);
+          $('#phone_number').val(data.detail?.phone_number);
           if(data.detail?.village ?? null){
             $('#village').append(new Option(data.detail.village.name, data.detail.village.id, false, true));
-            $('#subdistrict').append(new Option(data.detail.village.subdistrict.name, data.detail.village.subdistrict.id, false, true));
-            $('#regency').append(new Option(data.detail.village.subdistrict.regency.name, data.detail.village.subdistrict.regency.id, false, true));
-            $('#province').append(new Option(data.detail.village.subdistrict.regency.province.name, data.detail.village.subdistrict.regency.province.id, false, true));
+            $('#subdistrict').append(new Option(data.detail.village.district.name, data.detail.village.district.id, false, true));
+            $('#regency').append(new Option(data.detail.village.district.regency.name, data.detail.village.district.regency.id, false, true));
+            $('#province').append(new Option(data.detail.village.district.regency.province.name, data.detail.village.district.regency.province.id, false, true));
           }
-          $('#ktp').hide();
-          $('#img-ktp').html(`
-            <img src="{{ asset('uploads') }}${data.detail.documents[0].path}" alt="KTP" class="img-fluid" style="max-width: 200px; max-height: 200px;">
-          `).css('cursor', 'pointer');
-          $('label[for="ktp"]').css('position', 'inherit');
+          if((data.detail?.documents ?? []).length){
+            $('#ktp').hide();
+            $('#img-ktp').html(`
+              <img src="{{ asset('uploads') }}${data.detail.documents[0].path}" alt="KTP" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+            `).css('cursor', 'pointer');
+            $('label[for="ktp"]').css('position', 'inherit');
+          }
+          
         },
         error: (response)=>{
           const res = response.responseJSON;

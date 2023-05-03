@@ -10,77 +10,71 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 ">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="job-details-text">
-                            <div class="job-card">
-                                <div class="row align-items-center">
-                                    <div class="col-md-2">
-                                        <div class="company-logo">
-                                            <img src="{{ asset('') }}danako/img/Expand_left.svg" alt="logo" /> 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-10">
-                                        <div class="job-info">
-                                            <h1 id="title">Loading... </h1>
-                                            
-                                            <span id="deadline">
-                                              {{-- <i class='bx bx-paper-plane'></i> --}}
-                                              Loading...
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <img id="image" src="{{ asset('') }}danako/img/campaign/detail-campaign.png" class="img-fluid" alt="Responsive image">
-
-                            <h6 class="pt-3">Pencairan dana Rp 1.500.000 ke rekening *****11321412 a.n. SITI</h6>
-
-                            <div class="border-bottom border-3 pt-2"></div>
-                              
-                            <div class="details-text pt-2">
-                              <h3>Description</h3>
-                              <div id="content">
-                                <div class="text-center w-100">
-                                  <div class="spinner-border" role="status">
-                                    <span class="visually-hidden">Loading...</span>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="job-details-text">
+                      <div class="job-card mb-0">
+                          <div class="row align-items-center">
+                              <div class="col-md-2">
+                                  <div class="company-logo">
+                                      <img src="{{ asset('') }}danako/img/Expand_left.svg" alt="logo" /> 
                                   </div>
-                                </div>
                               </div>
-                              
-                              {{-- <button class="toggle-button readmore" onclick="toggleText()">Baca Selengkapnya</button> --}}
-                            </div>
-                        
-                        </div>
-                    </div>
-                </div>
-                <div class="border-bottom border-3 pt-2"></div>
+                              <div class="col-md-10">
+                                  <div class="job-info">
+                                    <h1 id="title">Loading... </h1>
+                                    
+                                    <div id="count-donasi">
+                                    </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="border-bottom border-3 pt-2"></div>
 
-               <div class="kontak-campaign pt-3 pb-3">
+                      <img id="image" src="{{ asset('assets/images/image-solid.svg') }}" class="img-fluid" alt="Responsive image" style="max-height: 500px">
+
+                      {{-- <h6 class="pt-3">Pencairan dana Rp 1.500.000 ke rekening *****11321412 a.n. SITI</h6> --}}
+
+                        
+                      <div class="details-text pt-2">
+                        <h3>Description</h3>
+                        <div id="content">
+                          <div class="text-center w-100">
+                            <div class="spinner-border" role="status">
+                              <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {{-- <button class="toggle-button readmore" onclick="toggleText()">Baca Selengkapnya</button> --}}
+                      </div>
+                  
+                  </div>
+                </div>
+              </div>
+              <div class="border-bottom border-3 pt-2"></div>
+
+              <div class="kontak-campaign pt-3 pb-3">
                 <div class="d-flex align-items-center">
                   <img id="image-campaigner" src="{{ asset('') }}danako/img/campaign/Circel.png" alt="LMI ZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
                   <h4 class="ms-3 m-0" id="name-campaigner">Loading...</h4>
                 </div>
                 <p style="margin-top: 5px;">Penggalang Dana <span class="color-primary">Lihat</span></p>
-               </div>
+              </div>
 
-               <div class="border-bottom border-3 "></div>
-
-               <div class="container pt-3">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="{{ asset('') }}danako/img/campaign/Circel.png" alt="Testimoni" class="img-fluid">
-                  </div>
-                  <div class="col-md-10">
-                    <h3>Nama Pelanggan</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus hendrerit rutrum nisl. Duis convallis sapien quis magna volutpat, sit amet bibendum massa euismod. Fusce sed odio in lorem elementum molestie. Sed sagittis libero sed sapien rhoncus, vel fringilla turpis pharetra.</p>
+              
+              <div class="border-bottom border-3" ></div>
+              <div class="container p-0 pt-3" id="list-hope">
+                <div class="text-center w-100">
+                  <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
                   </div>
                 </div>
-               </div>
+              </div>
 
           
-               <div class="pagination-wrapper">
+              {{-- <div class="pagination-wrapper">
                 <ul class="pagination modal-3">
                   <li><a href="#" class="prev">&laquo</a></li>
                   <li><a href="#" class="active">1</a></li>
@@ -94,7 +88,7 @@
                   <li> <a href="#">9</a></li>
                   <li><a href="#" class="next">&raquo;</a></li>
                 </ul>
-               </div>
+              </div> --}}
 
             </div>
 
@@ -172,12 +166,11 @@
         let data = response.data;
         $('#title').text(data.title);
         if(data.img_path){
-          $('#image').attr('src', `{{ asset('uploads${data.img_path}')}}`);
+          $('#image').attr('src', data.img_path);
         }
         $('#content').html(data.description);
 
         $('#name-campaigner').text(data.user.name);
-        $('#deadline').html(`Apply before <b>${new Date(data.end_date).toLocaleDateString("id", { year: 'numeric', month: 'long', day: 'numeric' })}</b>`);
         if(data.user?.photo_profile?.path ?? null){
           $('#image-campaigner').attr('src', `{{ asset('uploads${data.user.photo_profile.path}')}}`);
         }
@@ -191,7 +184,11 @@
       success: (response) => {
         const data = response.data;
         $('#list-donasi').html('');
+        $('#list-hope').html('');
         if(data.length > 0){
+          $('#count-donasi').html(`<b>${new Intl.NumberFormat().format(data.length)}</b> orang baik telah berdonasi untuk campaign ini`);
+          
+          $('#list-hope').append(`<h5 class="mb-4">Pesan dari orang baik (${data.length})</h5>`);
           data.forEach(item => {
             $('#list-donasi').append(`
               <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2 px-2">                  
@@ -200,9 +197,21 @@
                     <h6 class="text-start">${item.user.name}</h6>
                     <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.created_at)).fromNow()}</span></h6>
                   </div>
-                  <div class="col-3">
+                  <div class="col-3 pe-0">
                     <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 
                   </div> 
+                </div>
+              </div>
+            `);
+
+            $('#list-hope').append(`
+              <div class="row mb-4 ps-1">
+                <div class="col-md-1">
+                  <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
+                </div>
+                <div class="col-md-11">
+                  <h6>${item.user.name}</h6>
+                  <p>${item.hope}</p>
                 </div>
               </div>
             `);
