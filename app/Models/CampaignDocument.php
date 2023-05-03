@@ -12,10 +12,17 @@ class CampaignDocument extends Model
 
     protected $guarded = ['id'];
 
+    protected $fillable = ['campaign_id', 'path'];
+
     public function deleteFile()
     {
         if(File::exists(public_path('uploads'. $this->path))){
             File::delete(public_path('uploads'. $this->path));
         }
+    }
+
+    public function campaign()
+    {
+        return $this->belongsTo(Campaign::class);
     }
 }

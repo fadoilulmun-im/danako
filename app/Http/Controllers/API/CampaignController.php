@@ -32,6 +32,8 @@ class CampaignController extends Controller
             'detail_usage_of_funds' => 'required|string',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
+            'documents' => 'nullable|array',
+            'documents.*' => 'required|file|mimes:pdf,jpeg,png,jpg',
         ];
     }
 
@@ -137,9 +139,23 @@ class CampaignController extends Controller
             }
             $fileName = time().'.'.$request->file('image')->extension();
             $request->file('image')->move(public_path('uploads'. $path), $fileName);
-
             $campaign->img_path = $path . '/' . $fileName;
             $campaign->save();
+
+            foreach(($request->documents ?? []) as $document){
+                $campaignDocument = new CampaignDocument();
+                $campaignDocument->campaign_id = $campaign->id;
+    
+                $path = '/campaign-document';
+                if(!File::exists(public_path('uploads'. $path))){
+                    File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+                }
+                $fileName = time().rand(1,99).'.'.$document->extension();
+                $document->move(public_path('uploads'. $path), $fileName);
+    
+                $campaignDocument->path = $path . '/' . $fileName;
+                $campaignDocument->save();
+            }
 
             DB::commit();
             return $this->setResponse($campaign, 'Campaign created successfully');
@@ -148,7 +164,7 @@ class CampaignController extends Controller
 
     public function show($id)
     {
-        $campaign = Campaign::with(['user.photoProfile', 'category'])->find($id);
+        $campaign = Campaign::where('id', $id)->with(['user.photoProfile', 'category', 'documents'])->first();
 
         if(!$campaign){
             return $this->setResponse(null, 'Campaign not found', 404);
@@ -342,7 +358,7 @@ class CampaignController extends Controller
             if(!File::exists(public_path('uploads'. $path))){
                 File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
             }
-            $fileName = time().'.'.$document->extension();
+            $fileName = time().rand(1,99).'.'.$document->extension();
             $document->move(public_path('uploads'. $path), $fileName);
 
             $campaignDocument->path = $path . '/' . $fileName;

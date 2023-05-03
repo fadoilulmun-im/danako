@@ -30,7 +30,7 @@
       <div class="container">
           <div class="banner-info">
               <div class="row container">
-                  <h4 class="text-center pt-2 text-black">Lorem Ipsum</h4>
+                  <h4 class="text-center pt-2 text-black">Ziswaf</h4>
                   <div class="col-md-3 text-center py-3 px-5">
                       <img src="{{ asset('') }}danako/img/Ellipse67.png">
                       <h5>Zakat</h5>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="col-md-6 mx-auto p-sm-5 p-md-5 text-right">
                       <h3>${item.name}</h3>
-                      <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
+                      <p>Ini adalah kampanye untuk mengumpulkan dana untuk tujuan ${item.name} yang lebih mulia untuk membantu kemanusia. Dengan melakukan donasi, Anda akan mendukung inisiatif yang akan memiliki dampak positif bagi umat manusia kedepanyan.</p>
                       <a href="{{ route('kategori', '') }}/${item.id}" class="btn btn-info text-white bg-danako-primary border-0 btn-lg">Donasi</a>
                     </div>
                   </div>
@@ -116,7 +116,7 @@
                   <div class="row">
                     <div class="col-md-6 mx-auto p-sm-5 p-md-5">
                       <h3>${item.name}</h3>
-                      <p>Donate to our Environment Cause to reduce plastic pollution, fight climate change, protect our planet’s wildlife, and fund our collective dream of a sustainable future.</p>
+                      <p>Ini adalah kampanye untuk mengumpulkan dana untuk tujuan ${item.name} yang lebih mulia untuk membantu kemanusia. Dengan melakukan donasi, Anda akan mendukung inisiatif yang akan memiliki dampak positif bagi umat manusia.</p>
                       <a href="{{ route('kategori', '') }}/${item.id}" class="btn btn-info text-white bg-danako-primary border-0 btn-lg">Donasi</a>
                     </div>
                     <div class="col-md-6 ">
