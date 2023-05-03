@@ -34,4 +34,9 @@ class Campaign extends Model
     {
         return $this->belongsTo(CampaignCategory::class);
     }
+
+    public function documents()
+    {
+        return $this->hasMany(CampaignDocument::class, 'campaign_id', 'id');
+    }
 }

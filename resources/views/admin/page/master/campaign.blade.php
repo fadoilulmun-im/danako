@@ -178,6 +178,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="mb-2">
+                        <label for="documents" class="form-label">Upload Document</label>
+                        <div class="input-group increment">
+                            <input type="file" class="form-control" multiple name="documents[]">
+                            <button class="btn btn-success add-document" type="button">Add</button>
+                        </div>
+                        <div class="invalid-feedback"></div>
+                        <div class="clone d-none">
+                            <div class="input-group xpress">
+                                <input type="file" class="form-control" multiple name="documents[]">
+                                <button class="btn btn-danger remove-document" type="button">Remove</button>
+                            </div>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -260,6 +275,10 @@
                     <tr>
                         <th>Real time amount</th>
                         <td><span id="detail_realtime_amount"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Campaign Document</th>
+                        <td id="detail_document"></td>
                     </tr>
                 </table>
             </div>
@@ -404,6 +423,15 @@
         $('#formCampaign').trigger("reset");
         $('#campaignModal').modal('show');
         $('#saveBtn').val("create");
+    });
+
+    $('.add-document').click(function(e){
+        var htmlData = $('.clone').html();
+        $('.increment').after(htmlData);
+    });
+
+    $('.remove-document').click(function(e){
+        $(this).fint('.xpress').remove();
     });
 
     function edit(id){
@@ -574,6 +602,13 @@
                             } 
                         </div>
                         </div>
+                    `);
+
+                    $('#detail_document').html(`
+                        ${(response.data.documents ?? []).length ?
+                            '<embed type="application/pdf" src="{{asset('')}}uploads'+response.data.documents[0].path+'" width="600" height="400"></embed>'
+                            : '-'
+                        }
                     `);
                 }
             },
