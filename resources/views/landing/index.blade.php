@@ -218,12 +218,12 @@ $(document).ready(function(){
       let data = response.data.data;
       $('#segera').html('');
       data.forEach(item => {
-        let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('danako/img/category/1.png') }}";
+        let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('assets/images/image-solid.svg') }}";
         let img_size = item.img_path ? 'width="300" height="200"' : '';
         $('#segera').append(`
           <div class="col">
             <div class="card h-100" onclick="detail(${item.id})">
-              <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
+              <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('assets/images/image-solid.svg') }}'">
               <div class="card-body">
                 <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>

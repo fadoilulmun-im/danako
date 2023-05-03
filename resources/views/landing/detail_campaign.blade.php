@@ -166,7 +166,7 @@
         let data = response.data;
         $('#title').text(data.title);
         if(data.img_path){
-          $('#image').attr('src', data.img_path);
+          $('#image').attr('src',  "{{ asset('uploads') }}" + data.img_path);
         }
         $('#content').html(data.description);
 
