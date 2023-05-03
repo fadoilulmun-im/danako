@@ -1,11 +1,15 @@
 <?php
 
-use App\Http\Controllers\WEB\VerifyEmailController;
+use App\Models\Campaign;
+use Illuminate\Http\Request;
 use App\Models\CampaignCategory;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\GoogleController;
-use App\Models\Campaign;
+use App\Http\Controllers\RegencyController;
+use App\Http\Controllers\VillageController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\WEB\VerifyEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -215,6 +219,7 @@ Route::get('/bayar', function () {
 
 
 
+
 Route::get('/user', function () { return view('landing.index');})->name('landing');
 // Route::get('/', function () { return view('landing.page');})->name('index');
 // Route::get('/loginuser', function () { return view('landing.login');})->name('login');
@@ -222,6 +227,12 @@ Route::get('/user', function () { return view('landing.index');})->name('landing
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
+Route::get('provinces/select2', [ProvinceController::class, 'select2']);
+Route::get('regencies/select2', [RegencyController::class, 'select2']);
+Route::get('districts/select2', [DistrictController::class, 'select2']);
+Route::get('villages/select2', [VillageController::class, 'select2']);
+
 
 
 
