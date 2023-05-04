@@ -138,6 +138,14 @@ Route::get('/konfirmasi-email', function () {
     return view('landing.konfirmasi_email');
 })->name('konfirmasi-email');
 
+Route::get('/konfirmasi-sukses', function () {
+    return view('landing.konfirmasi_email_sukses');
+})->name('konfirmasi-sukses');
+
+Route::get('/konfiramsi-gagal', function () {
+    return view('landing.konfirmasi_email_gagal');
+})->name('konfirmasi-gagal');
+
 Route::get('/payment-gagal', function () {
     return view('landing.payment_gagal');
 });
