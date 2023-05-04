@@ -40,6 +40,13 @@ class CampaignController extends Controller
     public function index(Request $request)
     {
         $campaign = Campaign::with(['user', 'category']);
+
+        if ($request->filled('verif')) {
+            $campaign->where('verification_status', $request->get('verif'));
+        }
+        if ($request->filled('status')) {
+            $campaign->where('activity', $request->get('status'));
+        }
         return DataTables::of($campaign)
             ->addColumn('action', function ($data) {
                 return '
@@ -309,7 +316,7 @@ class CampaignController extends Controller
         $rules = [
             'category_id' => 'required|numeric|exists:campaign_categories,id',
             'title' => 'required|string',
-            'slug' => 'required|string|unique:campaigns,slug|alpha_dash',
+            // 'slug' => 'required|string|unique:campaigns,slug|alpha_dash',
             'img' => 'required|image|mimes:jpeg,png,jpg',
             'description' => 'required|string',
             'target_amount' => 'required|numeric',

@@ -28,6 +28,26 @@
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light"
                             id="addBtn">Create</button>
                     </div>
+                    <div class="row" style="padding-bottom: 15px">
+                        <div class="col-sm-12 col-md-2">Status
+                            <select class="form-select form-select-sm" name="status" id="status-filter">
+                              <option value="">All</option>
+                              <option value="processing">Processing</option>
+                              <option value="sending">Sending</option>
+                              <option value="received">Received</option>
+                              <option value="closed">Closed</option>
+                            </select>
+                          </div>
+                        <div class="col-sm-12 col-md-2">Verification
+                          <select class="form-select form-select-sm" name="verif" id="verif-filter">
+                            <option value="">All</option>
+                            <option value="unverified">Unverified</option>
+                            <option value="processing">Processing</option>
+                            <option value="verified">Verified</option>
+                            <option value="rejected">Rejected</option>
+                          </select>
+                        </div>
+                      </div>
                     <table id="datatable" class="w-100 table table-bordered table-responsive">
                         <thead>
                             <tr>
@@ -37,7 +57,7 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Image</th>
-                                <th>Slug</th>
+                                <th>Verification</th>
                                 <th>Target Amount</th>
                                 <th>Start</th>
                                 <th>End</th>
@@ -46,9 +66,9 @@
                                 <th>Address Receiver</th>
                                 <th>Detail Usage of Funds</th>
                                 <th>Real Time Amount</th>
-                                <th>Status</th>
-                                <th>Activity</th>
                                 <th>Reject Note</th>
+                                <th>Status</th>
+                                <th>Slug</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -341,7 +361,13 @@
         lengthChange: true,
         processing: true,
         serverSide: true,
-        ajax: "{{ route('api.master.campaigns.index') }}",
+        ajax: {
+            url: "{{ route('api.master.campaigns.index') }}",
+            data: function (d) {
+                d.verif = $('#verif-filter').val(),
+                d.status = $('#status-filter').val()
+            }
+        },
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
             {data: 'user.username', name: 'user.username'},
@@ -349,7 +375,7 @@
             {data: 'title', name: 'title'},
             {data: 'description', name: 'description'},
             {data: 'img_path', name: 'img_path'},
-            {data: 'slug', name: 'slug'},
+            {data: 'verification_status', name: 'verification_status'},
             {data: 'target_amount', name: 'target_amount'},
             {data: 'start_date', name: 'start_date'},
             {data: 'end_date', name: 'end_date'},
@@ -358,13 +384,21 @@
             {data: 'address_receiver', name: 'address_receiver'},
             {data: 'detail_usage_of_funds', name: 'detail_usage_of_funds'},
             {data: 'real_time_amount', name: 'real_time_amount'},
-            {data: 'verification_status', name: 'verification_status'},
-            {data: 'activity', name: 'activity'},
             {data: 'reject_note', name: 'reject_note'},
+            {data: 'activity', name: 'activity'},
+            {data: 'slug', name: 'slug'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         order: [[0, 'desc']]
     });
+
+    $('#verif-filter').change(function(){
+        table.ajax.reload();
+    });
+
+    $('#status-filter').change(function(){
+        table.ajax.reload();
+      });
 
     var sel_user = $('.select2User').select2({
         placeholder: {value: '',text: 'None Selected'},

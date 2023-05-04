@@ -143,7 +143,7 @@
                     <h5 class="card-title pt-2">Lihat semua</h5>
                     <div class="d-grid gap-2">
                       <button class="btn btn-primary" type="button">Donasi Sekarang</button>
-                      <button class="btn btn-primary" type="button">Bagikan campaign</button>
+                      <button class="btn btn-primary" id="bagikan" type="button">Bagikan campaign</button>
                     </div>
                 </div>
 

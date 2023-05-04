@@ -27,7 +27,24 @@
                   <a href="#user" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">User</a>
                   <a href="#admin" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Admin</a>
                 </div>
-
+                <div class="row" style="padding-bottom: 15px">
+                  <div class="col-sm-12 col-md-2">Status
+                    <select class="form-select form-select-sm" name="status" id="status-filter">
+                        <option value="">All</option>
+                        <option value="1">Active</option>
+                        <option value="0">Not Active</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-12 col-md-2">Verification
+                    <select class="form-select form-select-sm" name="verif" id="verif-filter">
+                      <option value="">All</option>
+                      <option value="unverified">Unverified</option>
+                      <option value="processing">Processing</option>
+                      <option value="verified">Verified</option>
+                      <option value="rejected">Rejected</option>
+                    </select>
+                  </div>
+                </div>
                 <table id="datatable" class="w-100 table table-bordered dt-responsive table-responsive nowrap">
                   <thead>
                     <tr>
@@ -129,6 +146,10 @@
         serverSide: true,
         ajax: {
           url: "{{ route('api.master.users.index') }}?type=" + type,
+          data: function (d) {
+                d.status = $('#status-filter').val(),
+                d.verif = $('#verif-filter').val()
+          },
           beforeSend: function (request) {
             request.setRequestHeader("Authorization", 'Bearer '+ localStorage.getItem('_token'));
           },
@@ -198,6 +219,14 @@
             })
           },
         })
+      });
+
+      $('#status-filter').change(function(){
+        table.ajax.reload();
+      });
+
+      $('#verif-filter').change(function(){
+        table.ajax.reload();
       });
 
       $('#form-create').submit(function(e){

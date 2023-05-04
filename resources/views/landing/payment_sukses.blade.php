@@ -11,7 +11,7 @@
         <div class="col-lg-12">
           <div class="konten-verifikasi">
             {{-- <div class="col-1 pt-2">
-              <img src="{{ asset('') }}danako/img/Expand_left.svg" />
+             
             </div> --}}
             <img src="{{ asset('') }}danako/img/sukses.png" alt="Image"  class="pt-3"/>
             <p class="title-pending pt-3">Pembayaran Anda Berhasil</p>
