@@ -107,7 +107,6 @@
 
     $(document).ready(()=>{
       $.ajax({
-<<<<<<< HEAD
         url: "{{ route('api.master.campaigns.pagination') }}?token="+localStorage.getItem('_token') ,
         type: "GET",
         dataType: "json",
@@ -147,9 +146,6 @@
     $(document).ready(()=>{
       $.ajax({
         url: "{{ route('api.master.campaigns.pagination') }}?token="+localStorage.getItem('_token') + "&verification_status=verified" ,
-=======
-        url: "{{ route('api.master.campaigns.pagination') }}?token="+localStorage.getItem('_token'),
->>>>>>> develop-ardi
         // headers: {
         //   'Authorization': "Bearer " + localStorage.getItem('_token'),
         // },
@@ -157,15 +153,9 @@
         dataType: "json",
         success: function (response) {
           const data = response.data.data;
-<<<<<<< HEAD
           $('#list-aktiv').html('');
           data.forEach((item, index) => {
             $('#list-aktiv').append(`
-=======
-          $('#list-campaign').html('');
-          data.forEach((item, index) => {
-            $('#list-campaign').append(`
->>>>>>> develop-ardi
               <div class="row pt-2 pb-2" onclick="detail(${item.id})")>
                 <div class="col-md-4">
                   <img src="{{ asset('') }}${item.img_path ? 'uploads' + item.img_path : 'danako/img/category/1.png'}" class="img-thumbnail border-0 pt-5" alt="image" style="max-height: 200px">
@@ -196,7 +186,6 @@
 
     $(document).ready(()=>{
       $.ajax({
-<<<<<<< HEAD
         url: "{{ route('api.master.campaigns.pagination') }}?token="+localStorage.getItem('_token') + "&verification_status=rejected" ,
         type: "GET",
         dataType: "json",
@@ -236,9 +225,6 @@
     $(document).ready(()=>{
       $.ajax({
         url: "{{ route('api.master.campaigns.pagination') }}?token="+localStorage.getItem('_token') + "&verification_status=processing" ,
-=======
-        url: "{{ route('api.master.campaigns.pagination') }}?token="+localStorage.getItem('_token'),
->>>>>>> develop-ardi
         // headers: {
         //   'Authorization': "Bearer " + localStorage.getItem('_token'),
         // },
@@ -276,10 +262,7 @@
         }
       });
     });
-<<<<<<< HEAD
 
-=======
->>>>>>> develop-ardi
   </script>
 @endpush
 
