@@ -10,7 +10,7 @@
 
 
 <div class="container pt-3 pb-3">
-      <img src="{{ asset('') }}danako/img/Expand_left.svg" />
+     
 </div>
 
 <section class="c-notverifikasi">

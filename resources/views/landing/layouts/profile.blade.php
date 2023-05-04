@@ -14,7 +14,7 @@
 <body>
 
         @include('landing.includes.navbar')
-        <section class="account-section pt-3">
+        <section class="account-section pt-5 pb-5">
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
@@ -45,19 +45,8 @@
                                         Campaign Anda
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        <i class='bx bx-envelope'></i>
-                                        Messages
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class='bx bx-heart'></i>
-                                        Saved Jobs
-                                    </a>
-                                </li>
-                                <li>
+                                
+                                {{-- <li>
                                     <a href="#">
                                         <i class='bx bx-lock-alt' ></i>
                                         Change Password
@@ -68,7 +57,8 @@
                                         <i class='bx bx-coffee-togo'></i>
                                         Delete Account
                                     </a>
-                                </li>
+                                </li> --}}
+                                
                                 <li>
                                     <a href="#" onclick="logout()">
                                         <i class='bx bx-log-out'></i>

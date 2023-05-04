@@ -130,7 +130,7 @@ $('#search-button').click(function() {
   });
   
   function searchCampaigns(query, page) {
-  let url = "{{ route('api.master.campaigns.pagination') }}?page=" + page;
+  let url = "{{ route('api.master.campaigns.pagination') }}?page=" + page + "&verification_status=verified";
 
   $.ajax({
     url: url,
@@ -190,7 +190,7 @@ let categoryId = '';
 
 function loadCampaigns() {
   $.ajax({
-    url: "{{ route('api.master.campaigns.pagination') }}?page=" + page + "&per_page=" + perPage + "&category_id=" + categoryId,
+    url: "{{ route('api.master.campaigns.pagination') }}?page=" + page + "&per_page=" + perPage + "&verification_status=verified&category_id=" + categoryId,
     type: "GET",
     dataType: "json",
     success: function(response){

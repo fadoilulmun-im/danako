@@ -8,6 +8,7 @@
 
 <section class="job-details pt-5 pb-5">
     <div class="container">
+      <div class="notif"></div>
         <div class="row">
             <div class="col-lg-8 ">
               <div class="row">
@@ -101,7 +102,7 @@
 
                     <div class="d-grid gap-2 pt-2 pb-3">
                       <a href="{{ url('donasi').'/'.$id }}" class="btn btn-primary" type="button">Donasi Sekarang</a>
-                      <button class="btn btn-primary" type="button">Bagikan campaign</button>
+                      <button class="btn btn-primary" id="bagikan" type="button">Bagikan campaign</button>
                     </div>
 
                     <div class="card" style="height: 500px; overflow-y: scroll;">
@@ -144,6 +145,27 @@
 <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.5/plugin/relativeTime.min.js"></script>
 <script>
+$(document).ready(function() {
+  $('#bagikan').click(function() {
+    // membuat link bagikan campaign
+    var shareLink = window.location.href;
+
+    // copy link ke clipboard
+    var tempInput = document.createElement('input');
+    tempInput.style = 'position: absolute; left: -1000px; top: -1000px';
+    tempInput.value = shareLink;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+
+    // menampilkan alert
+    var alertHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">Link campaign berhasil disalin! <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    $('.notif').prepend(alertHTML);
+  });
+});
+
+
   dayjs.extend(window.dayjs_plugin_relativeTime);
   function toggleText() {
     var text = document.querySelector('.toggle-text');

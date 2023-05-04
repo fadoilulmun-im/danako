@@ -260,25 +260,30 @@ class CampaignController extends Controller
     public function pagination(Request $request)
     {
         $model = Campaign::query();
-
+    
         if($request->filled('search')){
             $model->where(DB::raw('LOWER(title)'), 'like', '%' . strtolower($request->input('search')) . '%');
         }
-
+    
         if($request->filled('category_id')){
             $model->where('category_id', $request->category_id);
         }
-
+    
         if($request->input('token')){
             $token = PersonalAccessToken::findToken($request->input('token'));
             $user = $token->tokenable;
             $model->where('user_id', $user->id);
         }
-
+        
+        if($request->filled('verification_status')){
+            $model->where('verification_status', $request->verification_status);
+        }
+    
         $model->orderby($request->input('order', 'title'), $request->input('sort', 'asc'));
-
+    
         return $this->setResponse($model->paginate($request->input('per_page', 10)), null, 200);
     }
+    
 
     public function updateVerifiying($id, Request $request){
         $validator = Validator::make($request->all(), [
@@ -305,12 +310,13 @@ class CampaignController extends Controller
         return $this->setResponse($model, 'Campaign updated', 200);
     }
 
+
     public function storeUser(Request $request)
     {
         $rules = [
             'category_id' => 'required|numeric|exists:campaign_categories,id',
             'title' => 'required|string',
-            'slug' => 'required|string|unique:campaigns,slug|alpha_dash',
+            // 'slug' => 'required|string|unique:campaigns,slug|alpha_dash',
             'img' => 'required|image|mimes:jpeg,png,jpg',
             'description' => 'required|string',
             'target_amount' => 'required|numeric',

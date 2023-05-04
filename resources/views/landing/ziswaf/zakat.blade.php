@@ -12,7 +12,7 @@
 
 <div class="container">
     <div class="title">
-        <img src="{{ asset('') }}danako/img/Expand_left.svg" />
+       
         <span>Zakat</span>
     </div>
   </div>
