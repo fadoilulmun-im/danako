@@ -73,7 +73,7 @@
     $(document).ready(function(){
       // atas
       $.ajax({
-        url: "{{ route('api.master.campaigns.pagination') }}?per_page=7&category_id={{$id}}",
+        url: "{{ route('api.master.campaigns.pagination') }}?per_page=7&category_id={{$id}}&verification_status=verified",
         type: "GET",
         dataType: "json",
         success: function(response){
@@ -107,48 +107,6 @@
       })
 
 
-
-
-     
-
-      // bawah
-      // $.ajax({
-      //   url: "{{ route('api.master.campaigns.pagination') }}?per_page=8&category_id={{$id}}",
-      //   type: "GET",
-      //   dataType: "json",
-      //   success: function(response){
-      //     let data = response.data.data;
-      //     $('#list').html('');
-      //     data.forEach(item => {
-      //         let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('danako/img/category/1.png') }}";
-      //         let img_size = item.img_path ? 'width="300" height="200"' : '';
-      //         $('#list').append(`
-      //         <div class="col">
-      //         <div class="card h-100" onclick="detail(${item.id})">
-      //           <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
-      //           <div class="card-body">
-      //             <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-      //             <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
-      //             <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
-      //             <div class="progress">
-      //               <div class="progress-bar bg-danako" role="progressbar" style="width: 10%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-      //             </div>
-      //             <div class="row">
-      //               <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
-      //               <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
-      //             </div>
-      //           </div>
-      //         </div>
-      //       </div>
-      //       `);
-      //     });
-      //   },
-      //   error: function(response){
-      //   $('#list').html('Ada kesalahan server')
-      // }
-      // })
-
-
     });
   </script>
 
@@ -158,7 +116,8 @@
   
   function loadCampaigns() {
   $.ajax({
-  url: "{{ route('api.master.campaigns.pagination') }}?page=" + page + "&per_page=" + perPage + "&category_id={{$id}}",
+  url: "{{ route('api.master.campaigns.pagination') }}?page=" + page + "&per_page=" + perPage + "&category_id={{$id}}&verification_status=verified",
+
   type: "GET",
   dataType: "json",
   success: function(response){

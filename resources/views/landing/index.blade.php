@@ -212,7 +212,7 @@
   <script>
 $(document).ready(function(){
   $.ajax({
-    url: "{{ route('api.master.campaigns.pagination') }}?per_page=4",
+    url: "{{ route('api.master.campaigns.pagination') }}?per_page=4&verification_status=verified",
     type: "GET",
     success: function(response){
       let data = response.data.data;
