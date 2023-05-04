@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Models\UserDetail;
 use App\Models\UserDocument;
@@ -70,9 +69,6 @@ class AuthUserController extends Controller
         }
 
         $user = auth()->user();
-        // if (!$user->hasVerifiedEmail()) {
-        //     return $this->setResponse(null, 'Email not verified', 401);
-        // }
         // if (!$user->hasVerifiedEmail()) {
         //     return $this->setResponse(null, 'Email not verified', 401);
         // }
