@@ -218,6 +218,7 @@ $(document).ready(function(){
       let data = response.data.data;
       $('#segera').html('');
       data.forEach(item => {
+        let progress = item.real_time_amount / item.target_amount * 100;
         let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('assets/images/image-solid.svg') }}";
         let img_size = item.img_path ? 'width="300" height="200"' : '';
         $('#segera').append(`
@@ -229,7 +230,7 @@ $(document).ready(function(){
                 <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
                 <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
                 <div class="progress">
-                  <div class="progress-bar bg-danako" role="progressbar" style="width: 10%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                  <div class="progress-bar bg-danako" role="progressbar" style="width: ${progress}%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <div class="row">
                   <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>

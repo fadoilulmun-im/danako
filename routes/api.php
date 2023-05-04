@@ -10,6 +10,7 @@ use App\Http\Controllers\API\AuthenticationController;
 use App\Http\Controllers\API\LocationController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\XenditController;
+use App\Http\Controllers\API\WithdrawalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,10 @@ use App\Http\Controllers\API\XenditController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::group(['prefix' => 'withdrawal'], function () {
+    Route::post('/', [WithdrawalController::class, 'store'])->name('api.withdrawal.store')->middleware(['auth:sanctum']);
+});
 
 Route::group(['prefix' => 'xendit'], function () {
     Route::post('invoice', [XenditController::class, 'createInvoice'])->name('api.xendit.invoice.create')->middleware(['auth:sanctum']);

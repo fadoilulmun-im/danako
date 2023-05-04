@@ -21,6 +21,7 @@ class CreateWithdrawalsTable extends Migration
             $table->float('amount');
             $table->enum('status', ['processing', 'done', 'rejected'])->default('processing');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
