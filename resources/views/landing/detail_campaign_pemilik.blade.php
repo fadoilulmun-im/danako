@@ -1,8 +1,6 @@
 @extends('landing.layouts.app')
 
-@section('title')
-    Dashboard
-@endsection
+@section('title', 'Detail Campaign')
 
 
 
@@ -13,149 +11,71 @@
       <div class="notif"></div>
         <div class="row">
             <div class="col-lg-8 ">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="job-details-text">
-                            <div class="job-card">
-                                <div class="row align-items-center">
-                                    <div class="col-md-2">
-                                        <div class="company-logo">
-                                            <img src="{{ asset('') }}danako/img/Expand_left.svg" alt="logo" /> 
-                                        </div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="job-details-text">
+                      <div class="job-card mb-0">
+                          <div class="row align-items-center">
+                              <div class="col-md-2">
+                                  <div class="company-logo">
+                                      <img src="{{ asset('') }}danako/img/Expand_left.svg" alt="logo" /> 
+                                  </div>
+                              </div>
+                              <div class="col-md-10">
+                                  <div class="job-info">
+                                    <h1 id="title">Loading... </h1>
+                                    
+                                    <div id="count-donasi">
                                     </div>
-                                    <div class="col-md-10">
-                                        <div class="job-info">
-                                            <h1>Penyaluran Dana Gempa Cianjur </h1>
-                                            
-                                            <span>
-                                                <i class='bx bx-paper-plane' ></i>
-                                                Apply Before: June 01,2021
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <img src="{{ asset('') }}danako/img/campaign/detail-campaign.png" class="img-fluid" alt="Responsive image">
-
-                            <h6 class="pt-3">Pencairan dana Rp 1.500.000 ke rekening *****11321412 a.n. SITI</h6>
-
-                            <div class="border-bottom border-3 pt-2"></div>
-
-                              
-                            <div class="details-text pt-2">
-                              <h3>Description</h3>
-                              <p class="truncate">Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.</p>
-                              <div class="toggle-text hide">
-                                Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.
-                                <div class="details-text pt-2">
-                                  <h3>Detail 2</h3>
-                                 <p> Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.</p>
-
-                                  <ul>
-                                      <li>
-                                          <i class='bx bx-check'></i>
-                                          Work experience
-                                      </li>
-                                      <li>
-                                          <i class='bx bx-check'></i>
-                                          Skills (soft skills and/or technical skills)
-                                      </li>
-                                      <li>
-                                          <i class='bx bx-check'></i>
-                                          WPersonal qualities and attributes.
-                                      </li>
-                                      <li>
-                                          <i class='bx bx-check'></i>
-                                          Support software roll-outs to production.
-                                      </li>
-                                      <li>
-                                          <i class='bx bx-check'></i>
-                                          Guide and mentor junior engineers. Serve as team lead if appropriate.
-
-                                      </li>
-                                  </ul>
+                                  </div>
                               </div>
+                          </div>
+                      </div>
+                      <div class="border-bottom border-3 pt-2"></div>
 
-                              <img src="{{ asset('') }}danako/img/campaign/detail-campaign3.png" class="img-fluid" alt="Responsive image">
+                      <img id="image" src="{{ asset('assets/images/image-solid.svg') }}" class="img-fluid" alt="Responsive image" style="max-height: 500px">
 
-                              <div class="details-text pt-2">
-                                  <h3>Detail 3</h3>
-                                 <p> Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.Pencairan dana dilakukan pada tanggal 30 februari 2022 menuju rekening a.n. SITI. uang yang diperoleh melalui pencairan ini digunakan untuk membeli kebutuhan pangan pokok yang telah dibagikan kepada 50 kepala keluarga di desa lorem ipsum kabupaten dolor sit.</p>
-                              </div>
-                              </div>
-                              
-                              <button class="toggle-button readmore" onclick="toggleText()">Baca Selengkapnya</button>
-                            </div>
-                           
-                           
-                            
+                      {{-- <h6 class="pt-3">Pencairan dana Rp 1.500.000 ke rekening *****11321412 a.n. SITI</h6> --}}
 
                         
+                      <div class="details-text pt-2">
+                        <h3>Description</h3>
+                        <div id="content">
+                          <div class="text-center w-100">
+                            <div class="spinner-border" role="status">
+                              <span class="visually-hidden">Loading...</span>
+                            </div>
+                          </div>
                         </div>
-                    </div>
+                        
+                        {{-- <button class="toggle-button readmore" onclick="toggleText()">Baca Selengkapnya</button> --}}
+                      </div>
+                  
+                  </div>
                 </div>
-                <div class="border-bottom border-3 pt-2"></div>
+              </div>
+              <div class="border-bottom border-3 pt-2"></div>
 
-               <div class="kontak-campaign pt-3 pb-3">
+              <div class="kontak-campaign pt-3 pb-3">
                 <div class="d-flex align-items-center">
-                  <img src="{{ asset('') }}danako/img/campaign/Circel.png" alt="LMI ZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
-                  <h4 class="ms-3 m-0">LMI ZAKAT</h4>
+                  <img id="image-campaigner" src="{{ asset('') }}danako/img/campaign/Circel.png" alt="LMI ZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
+                  <h4 class="ms-3 m-0" id="name-campaigner">Loading...</h4>
                 </div>
                 <p style="margin-top: 5px;">Penggalang Dana <span class="color-primary">Lihat</span></p>
-               </div>
+              </div>
 
-               <div class="border-bottom border-3 "></div>
-
-               <div class="container pt-3">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="{{ asset('') }}danako/img/campaign/Circel.png" alt="Testimoni" class="img-fluid">
-                  </div>
-                  <div class="col-md-10">
-                    <h3>Nama Pelanggan</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus hendrerit rutrum nisl. Duis convallis sapien quis magna volutpat, sit amet bibendum massa euismod. Fusce sed odio in lorem elementum molestie. Sed sagittis libero sed sapien rhoncus, vel fringilla turpis pharetra.</p>
+              
+              <div class="border-bottom border-3" ></div>
+              <div class="container p-0 pt-3" id="list-hope">
+                <div class="text-center w-100">
+                  <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
                   </div>
                 </div>
-               </div>
+              </div>
 
-               <div class="container pt-3">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="{{ asset('') }}danako/img/campaign/Circel.png" alt="Testimoni" class="img-fluid">
-                  </div>
-                  <div class="col-md-10">
-                    <h3>Nama Pelanggan</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus hendrerit rutrum nisl. Duis convallis sapien quis magna volutpat, sit amet bibendum massa euismod. Fusce sed odio in lorem elementum molestie. Sed sagittis libero sed sapien rhoncus, vel fringilla turpis pharetra.</p>
-                  </div>
-                </div>
-               </div>
-
-               <div class="container pt-3">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="{{ asset('') }}danako/img/campaign/Circel.png" alt="Testimoni" class="img-fluid">
-                  </div>
-                  <div class="col-md-10">
-                    <h3>Nama Pelanggan</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus hendrerit rutrum nisl. Duis convallis sapien quis magna volutpat, sit amet bibendum massa euismod. Fusce sed odio in lorem elementum molestie. Sed sagittis libero sed sapien rhoncus, vel fringilla turpis pharetra.</p>
-                  </div>
-                </div>
-               </div>
-
-               <div class="container pt-3">
-                <div class="row">
-                  <div class="col-md-2">
-                    <img src="{{ asset('') }}danako/img/campaign/Circel.png" alt="Testimoni" class="img-fluid">
-                  </div>
-                  <div class="col-md-10">
-                    <h3>Nama Pelanggan</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus hendrerit rutrum nisl. Duis convallis sapien quis magna volutpat, sit amet bibendum massa euismod. Fusce sed odio in lorem elementum molestie. Sed sagittis libero sed sapien rhoncus, vel fringilla turpis pharetra.</p>
-                  </div>
-                </div>
-               </div>
-
-               <div class="pagination-wrapper">
+          
+              {{-- <div class="pagination-wrapper">
                 <ul class="pagination modal-3">
                   <li><a href="#" class="prev">&laquo</a></li>
                   <li><a href="#" class="active">1</a></li>
@@ -169,7 +89,7 @@
                   <li> <a href="#">9</a></li>
                   <li><a href="#" class="next">&raquo;</a></li>
                 </ul>
-               </div>
+              </div> --}}
 
             </div>
 
@@ -181,96 +101,25 @@
                     </div>
 
                     <div class="d-grid gap-2 pt-2 pb-3">
-                        <button class="btn btn-primary bg-danako-primary border-0" type="button" id="bagikan">Bagikan campaign</button>
-                        <button class="btn btn-outline-success " type="button">Cairkan Dana</button>
-                      </div>
+                      <button class="btn btn-primary bg-danako-primary border-0" type="button" id="bagikan">Bagikan campaign</button>
+                      <a href="{{ url('pencairan-dana').'/'.$id }}" class="btn btn-outline-success " type="button">Cairkan Dana</a>
+                    </div>
 
                     <div class="card" style="height: 500px; overflow-y: scroll;">
-                        <div class="card-body">
+                        <div class="card-body p-0" id="list-donasi">
 
-                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                              <div class="row">
-                                <div class="col-9">
-                                  <h6 class="text-start">Hamba Allah</h6>
-                                  <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                                </div>
-                                <div class="col-3">
-                                  <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                                </div> 
-                              </div>
-                          </div>
-
-                          <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                            <div class="row">
-                              <div class="col-9">
-                                <h6 class="text-start">Hamba Allah</h6>
-                                <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                              </div>
-                              <div class="col-3">
-                                <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                              </div> 
+                          <div class="text-center w-100 pt-5">
+                            <div class="spinner-border" role="status">
+                              <span class="visually-hidden">Loading...</span>
                             </div>
-                        </div>
-
-                        <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                          <div class="row">
-                            <div class="col-9">
-                              <h6 class="text-start">Hamba Allah</h6>
-                              <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                            </div>
-                            <div class="col-3">
-                              <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                            </div> 
                           </div>
-                      </div>
-
-                      <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                        <div class="row">
-                          <div class="col-9">
-                            <h6 class="text-start">Hamba Allah</h6>
-                            <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                          </div>
-                          <div class="col-3">
-                            <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                          </div> 
-                        </div>
-                    </div>
-
-
-                    <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                      <div class="row">
-                        <div class="col-9">
-                          <h6 class="text-start">Hamba Allah</h6>
-                          <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                        </div>
-                        <div class="col-3">
-                          <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                        </div> 
-                      </div>
-                  </div>
-
-                  <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2">                  
-                    <div class="row">
-                      <div class="col-9">
-                        <h6 class="text-start">Hamba Allah</h6>
-                        <h6 class="text-start" >Rp 10.00000 <span class="text-end">5 menit now</span></h6>
-                      </div>
-                      <div class="col-3">
-                        <img src="{{ asset('') }}danako/img/campaign/icon_akun.png" class="img-thumbnail"> 
-                      </div> 
-                    </div>
-                </div>
-
-                          
-
-                      
 
                         </div>
                     </div>
 
-                    <div class="d-grid gap-2 col-6 mx-auto pt-3">
+                    {{-- <div class="d-grid gap-2 col-6 mx-auto pt-3">
                       <button type="button" class="btn btn-outline-success">Lihat semua</button>
-                    </div>
+                    </div> --}}
            
                 </div>
             </div>
@@ -282,7 +131,7 @@
 <div class="my-div information-container">
     <div class="container">
      <h1 class="title pt-5">Download Aplikasi DANAKO!</h1>
-    <h6 class="text-center">Nikmati Kemudahan Beramal dan Salurkan bantuanmu di manapun bersama DANAKO</h6>
+     <h6>LNikmati Kemudahan Beramal di manapun bersama Danako</h6>
      <div class="text-center">
        <img src="{{ asset('') }}danako/img/category/googleplay.png" style="padding-top: 24px; padding-bottom: 41px;" />
      </div>
@@ -293,8 +142,9 @@
 
 
 @push('after-script')
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.5/plugin/relativeTime.min.js"></script>
 <script>
-
 $(document).ready(function() {
   $('#bagikan').click(function() {
     // membuat link bagikan campaign
@@ -316,7 +166,8 @@ $(document).ready(function() {
 });
 
 
-function toggleText() {
+  dayjs.extend(window.dayjs_plugin_relativeTime);
+  function toggleText() {
     var text = document.querySelector('.toggle-text');
     var button = document.querySelector('.toggle-button');
     if (text.classList.contains('hide')) {
@@ -327,7 +178,86 @@ function toggleText() {
       button.innerHTML = 'Baca Selengkapnya';
     }
   }
-  </script>
+
+  $(document).ready(function() {
+    let url = "{{ route('api.master.campaigns.show', $id) }}";
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function(response) {
+        let data = response.data;
+        $('#title').text(data.title);
+        if(data.img_path){
+          $('#image').attr('src',  "{{ asset('uploads') }}" + data.img_path);
+        }
+        $('#content').html(data.description);
+
+        $('#name-campaigner').text(data.user.name);
+        if(data.user?.photo_profile?.path ?? null){
+          $('#image-campaigner').attr('src', `{{ asset('uploads${data.user.photo_profile.path}')}}`);
+        }
+
+      }
+    });
+
+    $.ajax({
+      url: "{{ route('api.master.donations.list') }}?campaign_id={{ $id }}",
+      type: 'GET',
+      success: (response) => {
+        const data = response.data;
+        $('#list-donasi').html('');
+        $('#list-hope').html('');
+        if(data.length > 0){
+          $('#count-donasi').html(`<b>${new Intl.NumberFormat().format(data.length)}</b> orang baik telah berdonasi untuk campaign ini`);
+          
+          $('#list-hope').append(`<h5 class="mb-4">Pesan dari orang baik (${data.length})</h5>`);
+          data.forEach(item => {
+            $('#list-donasi').append(`
+              <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2 px-2">                  
+                <div class="row">
+                  <div class="col-9">
+                    <h6 class="text-start">${item.user.name}</h6>
+                    <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.created_at)).fromNow()}</span></h6>
+                  </div>
+                  <div class="col-3 pe-0">
+                    <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 
+                  </div> 
+                </div>
+              </div>
+            `);
+
+            $('#list-hope').append(`
+              <div class="row mb-4 ps-1">
+                <div class="col-md-1">
+                  <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
+                </div>
+                <div class="col-md-11">
+                  <h6>${item.user.name}</h6>
+                  <p>${item.hope}</p>
+                </div>
+              </div>
+            `);
+          });
+        }else{
+          $('#list-donasi').html(`
+            <div class="card-body">
+              <p class="text-center">Belum ada donasi</p>
+            </div>
+          `);
+        }
+        
+      },
+      error: (response) => {
+        const res = response.responseJSON;
+        $('#list-donasi').html(`
+          <div class="card-body">
+            <p class="text-center">${res.message}</p>
+          </div>
+        `);
+      },
+    })
+  });
+</script>
 @endpush
 
 

@@ -126,9 +126,9 @@ Route::get('/detail-penyaluran-campaign', function () {
     return view('landing.detail_penyaluran_campaign');
 });
 
-Route::get('/detail_campaign_pemilik', function () {
-    return view('landing.detail_campaign_pemilik');
-});
+Route::get('/detail_campaign_pemilik/{id}', function ($id) {
+    return view('landing.detail_campaign_pemilik', ['id' => $id]);
+})->name('campaigns.pemilik');
 
 
 Route::get('/konfirmasi-email', function () {
@@ -173,9 +173,18 @@ Route::get('/buat-campaign', function () {
 });
 
 
-Route::get('/pencairan-dana', function () {
-    return view('landing.pencairan_dana');
+// Route::get('/pencairan-dana', function () {
+//     return view('landing.pencairan_dana');
+// });
+
+Route::get('/pencairan-dana/{id}', function ($id) {
+    $campaign = Campaign::findOrFail($id);
+    return view('landing.pencairan_dana', [
+        'id' => $id,
+        'campaign' => $campaign,
+    ]);
 });
+
 
 Route::get('/donasi/{id}', function ($id) {
     $campaign = Campaign::findOrFail($id);
