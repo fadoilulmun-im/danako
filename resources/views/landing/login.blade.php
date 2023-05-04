@@ -48,7 +48,7 @@
             <p>atau lanjutkan dengan</p>
             <div class="circle-buttons">
                 <a href="{{route('google.login') }}" class="google"><i class="fab fa-google"></i></a>
-                <a href="#" class="facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="{{route('facebook.login') }}" class="facebook"><i class="fa-brands fa-facebook"></i></a>
             </div>
         </div>
     </div>

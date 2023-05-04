@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\CampaignCategory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\FacebookController;
 use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\VillageController;
 use App\Http\Controllers\DistrictController;
@@ -237,6 +238,9 @@ Route::get('/user', function () {
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
+
+Route::get('auth/facebook', [FacebookController::class, 'redirectToFacebook'])->name('facebook.login');
+Route::get('auth/facebook/callback', [FacebookController::class, 'handleFacebookCallback'])->name('facebook.callback');
 
 Route::get('provinces/select2', [ProvinceController::class, 'select2']);
 Route::get('regencies/select2', [RegencyController::class, 'select2']);
