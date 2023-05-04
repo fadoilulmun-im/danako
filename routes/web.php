@@ -190,10 +190,7 @@ Route::get('/pencairan-dana/{id}', function ($id) {
 
 Route::get('/verifikasi-pencairan', function () {
     return view('landing.verifikasi_pencairan');
-});
-
-
-
+})->name('verifikasi-pencairan');
 
 Route::get('/donasi/{id}', function ($id) {
     $campaign = Campaign::findOrFail($id);

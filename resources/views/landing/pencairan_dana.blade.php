@@ -262,11 +262,12 @@
           },
           success: (response) => {
             const data = response.data;
-            console.log(data);
             Swal.fire({
               icon: 'success',
               title: 'Berhasil',
               text: 'Berhasil mengajukan pencairan dana',
+            }).then(() => {
+              window.location.href = "{{ route('verifikasi-pencairan') }}";
             });
           },
           error: (response) => {
