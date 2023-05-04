@@ -61,7 +61,11 @@
               </div>
 
               <div class="group">
+<<<<<<< HEAD
                 <select class="form-control" id="gender" name="gender" required>
+=======
+                <select class="form-control" id="gender" name="gender">
+>>>>>>> develop-ardi
                   <option value="" disabled selected>Jenis Kelamin</option>
                   <option value="L">Laki-Laki</option>
                   <option value="P">Perempuan</option>
@@ -71,6 +75,7 @@
               </div>
 
               <div class="group form-group">      
+<<<<<<< HEAD
                 <input type="number" class="form-control" id="phone_number" name="phone_number" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
@@ -90,10 +95,37 @@
                 <select class="form-control select2" id="province" name="province">
                 </select>
                 {{-- <label for="select">Pilih Provinsi</label> --}}
+=======
+                <input type="text" class="form-control" id="address" name="address" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Alamat</label>
+              </div>
+
+              <div class="group">
+                <select class="form-control select2" id="province" name="province">
+                </select>
+                {{-- <label for="select">Pilih Provinsi</label> --}}
                 <div class="bar"></div>
               </div>
 
               <div class="group">
+                <select class="form-control select2" id="regency" name="regency">
+                </select>
+                {{-- <label for="select">Pilih Kabupaten/Kota</label> --}}
+                <div class="bar"></div>
+              </div>
+
+              <div class="group">
+                <select class="form-control" id="subdistrict" name="subdistrict">
+                </select>
+                {{-- <label for="select">Pilih Kecamatan</label> --}}
+>>>>>>> develop-ardi
+                <div class="bar"></div>
+              </div>
+
+              <div class="group">
+<<<<<<< HEAD
                 <select class="form-control select2" id="regency" name="regency">
                 </select>
                 {{-- <label for="select">Pilih Kabupaten/Kota</label> --}}
@@ -149,6 +181,29 @@
                 </label>
               </div>
 
+=======
+                <select class="form-control" id="village" name="village" required>
+                </select>
+                {{-- <label for="select">Pilih Kelurahan</label> --}}
+                <div class="bar"></div>
+              </div>
+
+              <div class="group form-group">      
+                <input type="number" class="form-control" id="phone_number" name="phone_number" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Nomor Handphone</label>
+              </div>
+              
+              <div class="group form-group">      
+                <input type="file" class="form-control" id="ktp" name="ktp">
+                <label for="ktp" style="pointer-events: auto">
+                  Foto KTP
+                  <div id="img-ktp"></div>
+                </label>
+              </div>
+
+>>>>>>> develop-ardi
               <button type="submit" id="submit" name="submit" class="btn btn-primary col-md-12">Simpan</button>              
             </form>
           </div>

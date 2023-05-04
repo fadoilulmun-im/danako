@@ -10,7 +10,6 @@ use App\Http\Controllers\API\AuthenticationController;
 use App\Http\Controllers\API\LocationController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\XenditController;
-use App\Http\Controllers\API\WithdrawalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,10 +21,6 @@ use App\Http\Controllers\API\WithdrawalController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::group(['prefix' => 'withdrawal'], function () {
-    Route::post('/', [WithdrawalController::class, 'store'])->name('api.withdrawal.store')->middleware(['auth:sanctum']);
-});
 
 Route::group(['prefix' => 'xendit'], function () {
     Route::post('invoice', [XenditController::class, 'createInvoice'])->name('api.xendit.invoice.create')->middleware(['auth:sanctum']);
@@ -84,7 +79,7 @@ Route::group(['prefix' => 'master'], function () {
         Route::get('/{id}', [UserController::class, 'show'])->name('api.master.users.show');
         Route::put('/{id}/verif', [UserController::class, 'updateVerifiying'])->name('api.master.users.verif')->middleware(['auth:sanctum']);
     });
-    
+
     Route::group(['prefix' => 'categories'], function () {
         Route::get('/list', [CategoryController::class, 'list'])->name('api.master.categories.list');
         Route::get('/', [CategoryController::class, 'index'])->name('api.master.categories.index')->middleware(['auth:sanctum']);
