@@ -11,7 +11,7 @@
   <div id="alert"></div>
   <div class="col-md-19">
     <div class="account-details">
-      <h3 class="pb-5">Basic Information</h3>
+      <h3 class="pb-3">Data Pribadi</h3>
   
       <div class="contact">
         <div class="col-md-12 col-md-offset-3">
@@ -61,7 +61,7 @@
               </div>
 
               <div class="group">
-                <select class="form-control" id="gender" name="gender">
+                <select class="form-control" id="gender" name="gender" required>
                   <option value="" disabled selected>Jenis Kelamin</option>
                   <option value="L">Laki-Laki</option>
                   <option value="P">Perempuan</option>
@@ -69,6 +69,15 @@
                 <label for="select">Pilih Jenis Kelamin</label>
                 <div class="bar"></div>
               </div>
+
+              <div class="group form-group">      
+                <input type="number" class="form-control" id="phone_number" name="phone_number" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Nomor Handphone</label>
+              </div>
+
+              <h3 class="pt-3 pb-4">Alamat Domisili</h5>
 
               <div class="group form-group">      
                 <input type="text" class="form-control" id="address" name="address" required>
@@ -104,14 +113,34 @@
                 {{-- <label for="select">Pilih Kelurahan</label> --}}
                 <div class="bar"></div>
               </div>
+              
+              <h3 class="pt-3 pb-4">Informasi Pencairan Dana</h3>
+
+              <div class="group">
+                <select class="form-control" id="bank_name" name="bank_name" required>
+                  <option selected disabled>Nama Bank</option>
+                  <option value="BCA">BCA</option>
+                  <option value="BRI">BRI</option>
+                  <option value="MANDIRI">MANDIRI</option>
+                </select>
+                <label for="select">Pilih Nama Bank</label>
+                <div class="bar"></div>
+              </div>
 
               <div class="group form-group">      
-                <input type="number" class="form-control" id="phone_number" name="phone_number" required>
+                <input type="text" class="form-control" id="rek_name" name="rek_name" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
-                <label>Nomor Handphone</label>
+                <label>Nama Rekening</label>
               </div>
-              
+
+              <div class="group form-group">      
+                <input type="number" class="form-control" id="rek_number" name="rek_number" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Nomor Rekening</label>
+              </div>
+
               <div class="group form-group">      
                 <input type="file" class="form-control" id="ktp" name="ktp">
                 <label for="ktp" style="pointer-events: auto">
