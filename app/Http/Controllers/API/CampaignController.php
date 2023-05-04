@@ -40,6 +40,13 @@ class CampaignController extends Controller
     public function index(Request $request)
     {
         $campaign = Campaign::with(['user', 'category']);
+
+        if ($request->filled('verif')) {
+            $campaign->where('verification_status', $request->get('verif'));
+        }
+        if ($request->filled('status')) {
+            $campaign->where('activity', $request->get('status'));
+        }
         return DataTables::of($campaign)
             ->addColumn('action', function ($data) {
                 return '
