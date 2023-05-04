@@ -30,12 +30,12 @@
                     <div class="widget-chart-1">
 
                         <div class="widget-detail-1 text-end">
-                            <h2 class="fw-normal pt-2 mb-1">Rp {{ $Totaldonasi ?? '' }} </h2>
+                            <h2 class="fw-normal pt-2 mb-1">Rp {{ $Totaldonasi }} </h2>
                             <p class="text-muted mb-1">Donasi</p>
                         </div>
 
                         <div class="widget-detail-1 text-end">
-                            <h2 class="fw-normal pt-2 mb-1">Rp {{ $Totaltarget ?? '' }} </h2>
+                            <h2 class="fw-normal pt-2 mb-1">Rp {{ $Totaltarget }} </h2>
                             <p class="text-muted mb-1">Target</p>
                         </div>
 
@@ -67,8 +67,8 @@
 
                     <div class="widget-box-2">
                         <div class="widget-detail-2 text-end">
-                            <span class="badge bg-success rounded-pill float-start mt-3">{{ $percentage ?? '' }}% <i class="mdi mdi-trending-up"></i> </span>
-                            <h2 class="fw-normal mb-1"> {{ $percentage ?? '' }} %</h2>
+                            <span class="badge bg-success rounded-pill float-start mt-3">{{ $percentage }}% <i class="mdi mdi-trending-up"></i> </span>
+                            <h2 class="fw-normal mb-1"> {{ $percentage }} %</h2>
                             <p class="text-muted mb-3">Target</p>
                         </div>
                         <div class="progress progress-bar-alt-success progress-sm">
@@ -93,12 +93,12 @@
                     <div class="widget-chart-1">
                         <div class="widget-chart-box-1 float-start" dir="ltr">
                             <input data-plugin="knob" data-width="70" data-height="70" data-fgColor="#ffbd4a"
-                                    data-bgColor="#FFE6BA" value="{{ $User ?? '' }}"
+                                    data-bgColor="#FFE6BA" value="{{ $User }}"
                                     data-skin="tron" data-angleOffset="180" data-readOnly=true
                                     data-thickness=".15"/>
                         </div>
                         <div class="widget-detail-1 text-end">
-                            <h2 class="fw-normal pt-2 mb-1"> {{ $User ?? '' }} </h2>
+                            <h2 class="fw-normal pt-2 mb-1"> {{ $User }} </h2>
                             <p class="text-muted mb-1">User</p>
                         </div>
                     </div>
@@ -116,12 +116,12 @@
                     <div class="widget-chart-1">
                         <div class="widget-chart-box-1 float-start" dir="ltr">
                             <input data-plugin="knob" data-width="70" data-height="70" data-fgColor="#ffbd4a"
-                                    data-bgColor="#FFE6BA" value="{{ $Donation ?? '' }}"
+                                    data-bgColor="#FFE6BA" value="{{ $Donation }}"
                                     data-skin="tron" data-angleOffset="180" data-readOnly=true
                                     data-thickness=".15"/>
                         </div>
                         <div class="widget-detail-1 text-end">
-                            <h2 class="fw-normal pt-2 mb-1"> {{ $Donation ?? '' }} </h2>
+                            <h2 class="fw-normal pt-2 mb-1"> {{ $Donation }} </h2>
                             <p class="text-muted mb-1">Donatur</p>
                         </div>
                     </div>
@@ -138,14 +138,14 @@
 
                     <div class="widget-box-2">
                         <div class="widget-detail-2 text-end">
-                            <h2 class="fw-normal mb-1"> {{ $Campaign ?? '' }} </h2>
+                            <h2 class="fw-normal mb-1"> {{ $Campaign }} </h2>
                             <p class="text-muted mb-3">Campaign</p>
                         </div>
                         <div class="progress progress-bar-alt-pink progress-sm">
                             <div class="progress-bar bg-pink" role="progressbar"
                                     aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"
-                                    style="width:  {{ $Campaign ?? ''}}%;">
-                                <span class="visually-hidden"> {{ $Campaign ?? ''}}% Complete</span>
+                                    style="width:  {{ $Campaign }}%;">
+                                <span class="visually-hidden"> {{ $Campaign }}% Complete</span>
                             </div>
                         </div>
                     </div>
@@ -348,8 +348,8 @@
       this.createDonutChart(
         "morris-donut-example",
         [
-          { label: "Terkumpul", value: {{ $percentage ?? '' }} },
-          { label: "Belum", value: {{ $percentage_remaining ?? '' }} },
+          { label: "Terkumpul", value: {{ $percentage }} },
+          { label: "Belum", value: {{ $percentage_remaining }} },
         ],
         ["#ff8acc", "#5b69bc", "#35b8e0"]
       );
