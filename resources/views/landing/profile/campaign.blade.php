@@ -115,7 +115,7 @@
           $('#list-campaign').html('');
           data.forEach((item, index) => {
             $('#list-campaign').append(`
-              <div class="row pt-2 pb-2" onclick="detail(${item.id})")>
+              <div class="row pt-2 pb-2" onclick="pemilik(${item.id})")>
                 <div class="col-md-4">
                   <img src="{{ asset('') }}${item.img_path ? 'uploads' + item.img_path : 'danako/img/category/1.png'}" class="img-thumbnail border-0 pt-5" alt="image" style="max-height: 200px">
                 </div>

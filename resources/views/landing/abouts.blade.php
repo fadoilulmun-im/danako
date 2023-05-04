@@ -87,7 +87,7 @@
 
 
 
-<section class="about-section pt-5">
+<section class="about-section pt-5 pb-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
@@ -113,43 +113,6 @@
     </div>
 </section>
 
-<div class="counter-section mt-3 mb-3 pt-3 pb-3">
-    <div class="container">
-        <div class="row counter-area pt-2">
-            <div class="col-lg-3 col-6">
-                <div class="counter-text">
-                    <i class="flaticon-resume"></i>
-                    <h2><span>1225</span></h2>
-                    <p>Job Posted</p>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-6">
-                <div class="counter-text">
-                    <i class="flaticon-recruitment"></i>
-                    <h2><span>145</span></h2>
-                    <p>Job Filed</p>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-6">
-                <div class="counter-text">
-                    <i class="flaticon-portfolio"></i>
-                    <h2><span>170</span></h2>
-                    <p>Company</p>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-6">
-                <div class="counter-text">
-                    <i class="flaticon-employee"></i>
-                    <h2><span>125</span></h2>
-                    <p>Members</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
