@@ -95,9 +95,9 @@
 
             <div class="col-lg-4">
                 <div class="job-sidebar">
-                    <h3>Total dana masuk: <span class="color-primary">Rp 34.567.890</span></h3>
+                    <h3>Total dana masuk: <span class="color-primary" id="total-dana-masuk">Rp 0</span></h3>
                     <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
                     <div class="d-grid gap-2 pt-2 pb-3">
@@ -189,6 +189,9 @@ $(document).ready(function() {
         $('#title').text(data.title);
         if(data.img_path){
           $('#image').attr('src',  "{{ asset('uploads') }}" + data.img_path);
+          $('#image').on('error', function(e){
+            $(this).attr('src', "{{ asset('assets/images/image-solid.svg') }}");
+          })
         }
         $('#content').html(data.description);
 
@@ -197,11 +200,15 @@ $(document).ready(function() {
           $('#image-campaigner').attr('src', `{{ asset('uploads${data.user.photo_profile.path}')}}`);
         }
 
+        $('#total-dana-masuk').html(`Rp ${new Intl.NumberFormat().format(data.real_time_amount)}`);
+        $('.progress-bar').css({
+          'width': `${data.real_time_amount / data.target_amount * 100}%`
+        });
       }
     });
 
     $.ajax({
-      url: "{{ route('api.master.donations.list') }}?campaign_id={{ $id }}",
+      url: "{{ route('api.master.donations.list') }}?campaign_id={{ $id }}&status=paid",
       type: 'GET',
       success: (response) => {
         const data = response.data;

@@ -108,14 +108,17 @@ class AuthUserController extends Controller
             'birth_date' => 'required|date',
             'address' => 'required|string',
             'gender' => 'required|in:L,P',
-            'phone_number' => 'required|int|unique:user_details,phone_number,' . ($user->detail->id ?? 0),
+            'phone_number' => 'required|numeric|unique:user_details,phone_number,' . ($user->detail->id ?? 0),
             'ktp' => 'nullable|image|mimes:jpg,jpeg,png',
             'village' => 'required|exists:villages,id',
+            'bank_name' => 'required|string',
+            'rek_name' => 'required|string',
+            'rek_number' => 'required|string',
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return $this->setResponse($validator->errors(), 'Silahkan isi form dengan benar', 422);
+            return $this->setResponse($validator->errors(), $validator->errors()->first(), 422);
         }
 
         DB::beginTransaction();
@@ -141,6 +144,9 @@ class AuthUserController extends Controller
         $detail->address = $request->address;
         $detail->village_id = $request->village;
         $detail->status = 'processing';
+        $detail->bank_name = $request->bank_name;
+        $detail->rek_name = $request->rek_name;
+        $detail->rek_number = $request->rek_number;
         $detail->save();
 
         if($request->hasFile('foto')) {

@@ -163,7 +163,7 @@
                 <h5>Kecamatan</h5>
               </div>
               <div class="col-lg-9">
-                <h5>: ${data.detail.village.subdistrict.name ?? '-'}</h5>
+                <h5>: ${data.detail.village.district.name ?? '-'}</h5>
               </div>
             </div>
             
@@ -172,7 +172,7 @@
                 <h5>Kabupaten / Kota</h5>
               </div>
               <div class="col-lg-9">
-                <h5>: ${data.detail.village.subdistrict.regency.name ?? '-'}</h5>
+                <h5>: ${data.detail.village.district.regency.name ?? '-'}</h5>
               </div>
             </div>
             
@@ -181,7 +181,7 @@
                 <h5>Provinsi</h5>
               </div>
               <div class="col-lg-9">
-                <h5>: ${data.detail.village.subdistrict.regency.province.name ?? '-'}</h5>
+                <h5>: ${data.detail.village.district.regency.province.name ?? '-'}</h5>
               </div>
             </div>
             

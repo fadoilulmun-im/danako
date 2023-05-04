@@ -18,7 +18,7 @@
                           <div class="row align-items-center">
                               <div class="col-md-2">
                                   <div class="company-logo">
-                                      <img src="{{ asset('') }}danako/img/Expand_left.svg" alt="logo" /> 
+                                    <img src="{{ asset('') }}danako/img/Expand_left.svg" alt="logo" /> 
                                   </div>
                               </div>
                               <div class="col-md-10">
@@ -95,9 +95,9 @@
 
             <div class="col-lg-4">
                 <div class="job-sidebar">
-                    <h3>Total dana masuk: <span class="color-primary">Rp 34.567.890</span></h3>
+                    <h3>Total dana masuk: <span class="color-primary" id="total-dana-masuk">Rp 0</span></h3>
                     <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                      <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
 
                     <div class="d-grid gap-2 pt-2 pb-3">
@@ -197,6 +197,10 @@ $(document).ready(function() {
           $('#image-campaigner').attr('src', `{{ asset('uploads${data.user.photo_profile.path}')}}`);
         }
 
+        $('#total-dana-masuk').html(`Rp ${new Intl.NumberFormat().format(data.real_time_amount)}`);
+        $('.progress-bar').css({
+          'width': `${data.real_time_amount / data.target_amount * 100}%`
+        });
       }
     });
 

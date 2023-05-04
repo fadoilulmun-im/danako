@@ -24,6 +24,9 @@ use App\Http\Controllers\WEB\VerifyEmailController;
 |
 */
 
+Route::get('cek-mail', function () {
+    return view('mail.donation');
+});
 
 
 Route::get('/verification-email/{id}', [VerifyEmailController::class, 'verify'])->name('verification.verify');
@@ -202,10 +205,7 @@ Route::get('/pencairan-dana/{id}', function ($id) {
 
 Route::get('/verifikasi-pencairan', function () {
     return view('landing.verifikasi_pencairan');
-});
-
-
-
+})->name('verifikasi-pencairan');
 
 Route::get('/donasi/{id}', function ($id) {
     $campaign = Campaign::findOrFail($id);

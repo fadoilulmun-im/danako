@@ -32,7 +32,7 @@ class Campaign extends Model
 
     public function category()
     {
-        return $this->belongsTo(CampaignCategory::class);
+        return $this->belongsTo(CampaignCategory::class, 'category_id', 'id');
     }
 
     // public function getImgPathAttribute($value){

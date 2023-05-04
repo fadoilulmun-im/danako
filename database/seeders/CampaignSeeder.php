@@ -32,6 +32,7 @@ class CampaignSeeder extends Seeder
                     'detail_usage_of_funds' => 'membeli sembako Rp 5.000.000',
                     'start_date' => '2023-04-01',
                     'end_date' => '2023-05-01',
+                    'verification_status' => 'processing',
                 ]
             ];
 
@@ -51,6 +52,7 @@ class CampaignSeeder extends Seeder
                         'detail_usage_of_funds' => $item['detail_usage_of_funds'],
                         'start_date' => $item['start_date'],
                         'end_date' => $item['end_date'],
+                        'verification_status' => $item['verification_status'],
                     ]);
                 }
             });

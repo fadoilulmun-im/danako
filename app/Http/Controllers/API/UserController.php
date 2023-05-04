@@ -168,7 +168,7 @@ class UserController extends Controller
     }
 
     public function show($id){
-        $model = User::with(['detail.documents', 'detail.village.subdistrict.regency.province', 'photoProfile'])->find($id);
+        $model = User::with(['detail.documents', 'detail.village.district.regency.province', 'photoProfile'])->find($id);
 
         if(!$model){
             return $this->setResponse(null, 'Data not found', 404);
