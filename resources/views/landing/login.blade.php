@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
@@ -12,6 +11,12 @@
     <link rel="stylesheet" href="{{ asset('') }}users/login/style.css">
     <meta name="robots" content="noindex, follow">
     <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
+    @if (isset($access_token))
+        <script>
+            localStorage.setItem('_token', '{{$access_token}}');
+            window.location.href = "{{ route('afterlogin') }}";
+        </script>
+    @endif
 </head>
 
 <body style="background-color: #666666;">

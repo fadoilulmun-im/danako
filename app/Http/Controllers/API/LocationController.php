@@ -48,32 +48,32 @@ class LocationController extends Controller
         return $this->setResponse($model->get());
     }
     
-public function listSubDistrict(Request $request){
-    $model = District::select(['id', 'name']);
+    public function listSubDistrict(Request $request){
+        $model = District::select(['id', 'name']);
 
-    if($request->filled('search')){
-        $model->where(DB::raw('LOWER(name)'), 'like', '%' . strtolower($request->input('search')) . '%');
+        if($request->filled('search')){
+            $model->where(DB::raw('LOWER(name)'), 'like', '%' . strtolower($request->input('search')) . '%');
+        }
+
+        if($request->filled('regency_id')){
+            $model->where('regency_id', $request->input('regency_id'));
+        }
+
+        // tambahkan kondisi where untuk memfilter SubDistrict sesuai dengan Regency
+        if($request->filled('province_id')){
+            $model->whereHas('regency', function ($query) use ($request) {
+                $query->where('province_id', $request->input('province_id'));
+            });
+        }
+
+        $model = $model->orderby('name', 'asc');
+
+        if($request->filled('limit')){
+            $model = $model->limit($request->input('limit'));
+        }
+
+        return $this->setResponse($model->get());
     }
-
-    if($request->filled('regency_id')){
-        $model->where('regency_id', $request->input('regency_id'));
-    }
-
-    // tambahkan kondisi where untuk memfilter SubDistrict sesuai dengan Regency
-    if($request->filled('province_id')){
-        $model->whereHas('regency', function ($query) use ($request) {
-            $query->where('province_id', $request->input('province_id'));
-        });
-    }
-
-    $model = $model->orderby('name', 'asc');
-
-    if($request->filled('limit')){
-        $model = $model->limit($request->input('limit'));
-    }
-
-    return $this->setResponse($model->get());
-}
 
     
     public function listVillage(Request $request){

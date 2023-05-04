@@ -1,10 +1,6 @@
 @extends('landing.layouts.app')
 
-@section('title')
-    Dashboard
-@endsection
-
-
+@section('title', 'Payment Sukses')
 
 @section('content')
 

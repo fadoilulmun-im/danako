@@ -31,8 +31,8 @@ class DonationController extends Controller
     public function rules()
     {
         return [
-            'user_id' => 'required',
-            'campaign_id' => 'required',
+            'user_id' => 'required|exists:users,id',
+            'campaign_id' => 'required|exists:campaigns,id',
             'amount_donations' => 'required|numeric',
             'hope' => 'nullable|string',
         ];
@@ -102,15 +102,14 @@ class DonationController extends Controller
 
     public function list(Request $request)
     {
-        $model = Donation::select(['campaigns.id as id', 'campaigns.title as title', 'campaigns.category_id', 'campaign_categories.name as category_name'])
-            ->join('campaign_categories', 'campaign_categories.id', '=', 'campaigns.category_id');
+        $model = Donation::with(['user.photoProfile']);
 
-        if($request->filled('category')){
-            $model->where('category_id', $request->category);
+        if($request->filled('campaign_id')){
+            $model->where('campaign_id', $request->campaign_id);
         }
 
-        if($request->filled('search')){
-            $model->where(DB::raw('LOWER(title)'), 'like', '%' . strtolower($request->input('search')) . '%');
+        if($request->filled('status')){
+            $model->where('status', strtoupper($request->status));
         }
 
         return $this->setResponse($model->get(), null, 200);
