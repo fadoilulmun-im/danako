@@ -25,7 +25,7 @@
                         <h4 class="mt-0 header-title">Donations</h4>
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" id="addBtn">Create</button>
                     </div>
-                    <table id="datatable" class="table table-bordered dt-responsive table-responsive nowrap">
+                    <table id="datatable" class="w-100 table table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -33,6 +33,11 @@
                                 <th>Campaign</th>
                                 <th>Amount Donation</th>
                                 <th>Hope</th>
+                                <th>Status</th>
+                                <th>Payment Method</th>
+                                <th>Payment Link</th>
+                                <th>Paid at</th>
+                                <th>External Id</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -98,15 +103,19 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered table-responsive no-margin">
+                <table class="mb-2">
                     <tr>
-                        <th>Donation ID</th>
-                        <td><span id="detail_id"></span></td>
+                        <th>Donation Id</th>
+                        <th>:</th>
+                        <th id="detail_id"></th>
                     </tr>
                     <tr>
                         <th>Username</th>
-                        <td><span id="detail_user"></span></td>
+                        <th>:</th>
+                        <th id="detail_user"></th>
                     </tr>
+                </table>
+                <table class="table table-bordered table-responsive no-margin">
                     <tr>
                         <th>Campaign</th>
                         <td><span id="detail_campaign"></span></td>
@@ -118,6 +127,30 @@
                     <tr>
                         <th>Hope</th>
                         <td><span id="detail_hope"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td><span id="detail_status"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Payment method</th>
+                        <td><span id="detail_payment_method"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Payment channel</th>
+                        <td><span id="detail_payment_channel"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Payment link</th>
+                        <td><span id="detail_payment_link"></span></td>
+                    </tr>
+                    <tr>
+                        <th>Paid at</th>
+                        <td><span id="detail_paid_at"></span></td>
+                    </tr>
+                    <tr>
+                        <th>External id</th>
+                        <td><span id="detail_external_id"></span></td>
                     </tr>
                 </table>
             </div>
@@ -182,6 +215,11 @@
             {data: 'campaign.title', name: 'campaign.title'},
             {data: 'amount_donations', name: 'amount_donations'},
             {data: 'hope', name: 'hope'},
+            {data: 'status', name: 'status'},
+            {data: 'payment_method', name: 'payment_method'},
+            {data: 'payment_link', name: 'payment_link'},
+            {data: 'paid_at', name: 'paid_at'},
+            {data: 'external_id', name: 'external_id'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         order: [[0, 'desc']]
@@ -335,6 +373,12 @@
                     $('#detail_campaign').text(response.data.campaign.title);
                     $('#detail_amount_donations').text(formatRupiah(response.data.amount_donations));
                     $('#detail_hope').text(response.data.hope);
+                    $('#detail_status').text(response.data.status);
+                    $('#detail_payment_method').text(response.data.user.payment_method);
+                    $('#detail_payment_channel').text(response.data.campaign.payment_channel);
+                    $('#detail_payment_link').text(response.data.payment_link);
+                    $('#detail_paid_at').text(response.data.pait_at);
+                    $('#detail_external_id').text(response.data.external_id);
                 }
             },
         });
