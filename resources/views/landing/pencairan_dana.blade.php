@@ -16,7 +16,7 @@
 <body style="text-align: center;">
   <div class="container">
     <div class="title text-start">
-        <img src="{{ asset('') }}danako/img/Expand_left.svg" />
+       
         <span>Lingkungan</span>
     </div>
   </div>

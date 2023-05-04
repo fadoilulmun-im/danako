@@ -46,7 +46,7 @@
                                     </a>
                                 </li>
                                 
-                                <li>
+                                {{-- <li>
                                     <a href="#">
                                         <i class='bx bx-lock-alt' ></i>
                                         Change Password
@@ -57,7 +57,8 @@
                                         <i class='bx bx-coffee-togo'></i>
                                         Delete Account
                                     </a>
-                                </li>
+                                </li> --}}
+                                
                                 <li>
                                     <a href="#" onclick="logout()">
                                         <i class='bx bx-log-out'></i>

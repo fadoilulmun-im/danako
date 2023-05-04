@@ -195,7 +195,7 @@
 <body style="text-align: center;">
   <div class="container">
     <div class="title text-start">
-      <img src="{{ asset('') }}danako/img/Expand_left.svg" />
+     
       <span>Buat Campaign</span>
     </div>
   </div>
@@ -228,7 +228,7 @@
         </div>
         <div class="col-md-10 box-input p-3">
           <!-- step 1 -->
-          <fieldset>
+          <fieldset id="step-1" >
             <input type="hidden" name="category_id" id="category_id">
             <h1 class="text-center pb-3">Pilih Kategori</h1>
             <div class="card" style="min-height: 300px">
@@ -248,7 +248,7 @@
           </fieldset>
 
           <!-- step 2 -->
-          <fieldset>
+          <fieldset id="step-2" >
             <h1 class="text-center pb-3">Cerita Campaign</h1>
               
             <div class="container pt-3">
@@ -295,7 +295,7 @@
           </fieldset>
 
           <!-- step 3 -->
-          <fieldset>
+          <fieldset id="step-3">
             <h1 class="text-center pb-3">Detail Penerima</h1>
             <div class="container pt-3">
               <div class="contact pt-3">
@@ -356,7 +356,7 @@
           </fieldset>
 
           <!-- step 4 -->
-          <fieldset>
+          <fieldset id="step-4">
             <h1 class="text-center pb-3">Dokumen Pendukung</h1>
             <div class="container">
               <h6>Tambahkan Dokumen Pendukung</h6>
@@ -386,6 +386,25 @@
   {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
   <script src="{{ asset('') }}assets/libs/flatpickr/flatpickr.min.js"></script>
   <script >
+
+$(document).ready(function() {
+  $('.f1-step').click(function() {
+    // menghilangkan kelas active dari langkah sebelumnya
+    $('.f1-step.active').removeClass('active');
+    // menambahkan kelas active pada langkah yang dipilih
+    $(this).addClass('active');
+    // menentukan nomor langkah saat ini
+    var currentStep = $(this).index() + 0;
+    // mengubah lebar progress line sesuai dengan nomor langkah saat ini
+    $('.f1-progress-line').css('width', (currentStep * 25) + '%');
+    // menyembunyikan semua langkah
+    $('fieldset').hide();
+    // menampilkan langkah yang sedang dipilih
+    $('#step-' + currentStep).show();
+  });
+});
+
+    
     function scroll_to_class(element_class, removed_height) {
       var scroll_to = $(element_class).offset().top - removed_height;
       if($(window).scrollTop() != scroll_to) {

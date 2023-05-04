@@ -10,6 +10,7 @@
 
 <section class="job-details pt-5 pb-5">
     <div class="container">
+      <div class="notif"></div>
         <div class="row">
             <div class="col-lg-8 ">
                 <div class="row">
@@ -180,8 +181,8 @@
                     </div>
 
                     <div class="d-grid gap-2 pt-2 pb-3">
-                        <button class="btn btn-primary" type="button">Donasi Sekarang</button>
-                        <button class="btn btn-outline-success" type="button">Bagikan campaign</button>
+                        <button class="btn btn-primary bg-danako-primary border-0" type="button" id="bagikan">Bagikan campaign</button>
+                        <button class="btn btn-outline-success " type="button">Cairkan Dana</button>
                       </div>
 
                     <div class="card" style="height: 500px; overflow-y: scroll;">
@@ -292,7 +293,30 @@
 
 
 @push('after-script')
-<script>function toggleText() {
+<script>
+
+$(document).ready(function() {
+  $('#bagikan').click(function() {
+    // membuat link bagikan campaign
+    var shareLink = window.location.href;
+
+    // copy link ke clipboard
+    var tempInput = document.createElement('input');
+    tempInput.style = 'position: absolute; left: -1000px; top: -1000px';
+    tempInput.value = shareLink;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+
+    // menampilkan alert
+    var alertHTML = '<div class="alert alert-success alert-dismissible fade show" role="alert">Link campaign berhasil disalin! <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>';
+    $('.notif').prepend(alertHTML);
+  });
+});
+
+
+function toggleText() {
     var text = document.querySelector('.toggle-text');
     var button = document.querySelector('.toggle-button');
     if (text.classList.contains('hide')) {

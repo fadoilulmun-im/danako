@@ -158,6 +158,10 @@
   background-image: url({{ asset('danako/img/bgindex.png') }});
 }
 
+.btn-header{
+  padding-top: 5rem;
+}
+
 .text-header{
   padding-top: 15vh;
   
@@ -245,6 +249,10 @@ footer.footer{
 
 /* CSS untuk layar dengan lebar kurang dari atau sama dengan 768 piksel */
 @media (max-width: 768px) {
+  .btn-header{
+  padding-top: 1px;
+  }
+
   .header{
     height: 400px; /* Mengurangi tinggi header */
   }

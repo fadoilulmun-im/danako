@@ -309,7 +309,7 @@ class CampaignController extends Controller
         $rules = [
             'category_id' => 'required|numeric|exists:campaign_categories,id',
             'title' => 'required|string',
-            'slug' => 'required|string|unique:campaigns,slug|alpha_dash',
+            // 'slug' => 'required|string|unique:campaigns,slug|alpha_dash',
             'img' => 'required|image|mimes:jpeg,png,jpg',
             'description' => 'required|string',
             'target_amount' => 'required|numeric',

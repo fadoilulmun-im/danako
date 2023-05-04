@@ -18,7 +18,7 @@
          </h1>
          <p class="text-white">Tak perlu sejuta untuk berdampak, mulai dari seribu</p>
        </div>
-       <div class="btn-header pt-5">
+       <div class="btn-header">
          <a href="{{ url('Halaman-utama') }}" class="btn btn-primary btn-lg bg-danako-primary border-0 bt-index mx-5 ">Donasi sekarang</a>
          <a href="{{ url('ajukan-campaign') }}" class="btn btn-outline-secondary btn-lg mx-5 border-2 bt-index text-white">Ajukan campaign</a>
        </div>
