@@ -14,6 +14,12 @@
     window.location.href = url;
   }
 
+  const pemilik = (id) => {
+    let url = "{{ route('campaigns.pemilik', ':id') }}";
+    url = url.replace(':id', id);
+    window.location.href = url;
+  }
+
   const logout = () => {
     $.ajax({
       url: "{{ route('api.user.logout') }}",
