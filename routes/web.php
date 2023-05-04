@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Campaign;
+use App\Models\User;
+use App\Models\Donation;
 use Illuminate\Http\Request;
 use App\Models\CampaignCategory;
 use Illuminate\Support\Facades\Route;
@@ -31,13 +33,26 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
 
+    Route::get('/', function (Request $request) {
+        $Campaign = Campaign::count();
+        $Donation = Donation::count();
+        $User = User::count();
+        $Totaldonasi = Campaign::sum('real_time_amount');
+        $Totaltarget = Campaign::sum('target_amount');
+        $percentage = number_format(($Totaldonasi / $Totaltarget) * 100, 2);
+        $percentage_remaining = number_format((( $Totaltarget - $Totaldonasi ) / $Totaltarget ) * 100, 2);
+
+
+        
+
+
+
+        return view('admin.page.index', compact('Campaign','Donation','Totaldonasi','percentage','Totaltarget','percentage_remaining','User'));
+    })->name('admin.dashboard');
+
     Route::get('/login', function () {
         return view('admin.page.login');
     })->name('admin.login');
-
-    Route::get('/', function () {
-        return view('admin.page.index');
-    })->name('admin.dashboard');
 
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
@@ -238,6 +253,8 @@ Route::get('/sedekah', function () {
 Route::get('/bayar', function () {
     return view('landing.ziswaf.bayar');
 });
+
+
 
 
 
