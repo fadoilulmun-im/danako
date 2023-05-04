@@ -100,7 +100,7 @@
   </section>
  
  
-   <section class="container"  style="background-color: #EEF4E6" >
+   {{-- <section class="container"  style="background-color: #EEF4E6" >
      <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel">
        <div class="carousel-inner container">
          <div class="carousel-item pt-5 pb-5 active">
@@ -161,7 +161,7 @@
          <span class="visually-hidden">Next</span>
        </button>
      </div>
-   </section>
+   </section> --}}
  
    <div class="container h-100 pt-5 pb-5">
      <div class="row align-items-center h-100">
@@ -170,35 +170,16 @@
          <div class="container">
            <div class="slider">
            <div class="logos">
-             <i class="fab fa-js fa-4x"></i>
-             <i class="fab fa-linkedin-in fa-4x"></i>
-             <i class="fab fa-dribbble fa-4x"></i>
-             <i class="fab fa-medium-m fa-4x"></i>
-             <i class="fab fa-github fa-4x"></i>
+             <img src="{{ asset('danako/img/mitra/logo.svg') }}" />
+             
            </div>
-           <div class="logos">
-             <i class="fab fa-js fa-4x"></i>
-             <i class="fab fa-linkedin-in fa-4x"></i>
-             <i class="fab fa-dribbble fa-4x"></i>
-             <i class="fab fa-medium-m fa-4x"></i>
-             <i class="fab fa-github fa-4x"></i>
-           </div>
+           
          </div>
          <div class="slider">
            <div class="logos">
-             <i class="fab fa-js fa-4x"></i>
-             <i class="fab fa-linkedin-in fa-4x"></i>
-             <i class="fab fa-dribbble fa-4x"></i>
-             <i class="fab fa-medium-m fa-4x"></i>
-             <i class="fab fa-github fa-4x"></i>
+            <img src="{{ asset('danako/img/mitra/logo2.svg') }}" />
            </div>
-           <div class="logos">
-             <i class="fab fa-js fa-4x"></i>
-             <i class="fab fa-linkedin-in fa-4x"></i>
-             <i class="fab fa-dribbble fa-4x"></i>
-             <i class="fab fa-medium-m fa-4x"></i>
-             <i class="fab fa-github fa-4x"></i>
-           </div>
+           
          </div>
          </div>
        </div>

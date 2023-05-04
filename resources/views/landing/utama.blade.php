@@ -30,26 +30,32 @@
       <div class="container">
           <div class="banner-info">
               <div class="row container">
-                  <h4 class="text-center pt-2 text-black">Ziswaf</h4>
+                  <h4 class="text-center pt-2 text-dark">Ziswaf</h4>
                   <div class="col-md-3 text-center py-3 px-5">
-                      <img src="{{ asset('') }}danako/img/Ellipse67.png">
-                      <h5>Zakat</h5>
-                      <p>Sedekahkan harta, berbagilah dengan mereka yang membutuhkan.</p>
+                      
+                    <i class="fa-solid fa-hand-holding-heart fa-2xl" style="color: #1c913c;"></i>
+
+                      <h5 class="text-dark pt-2">Zakat</h5>
+                      <p class="text-dark">Sedekahkan harta, berbagilah dengan mereka yang membutuhkan.</p>
                   </div>
                   <div class="col-md-3 text-center py-3 px-5">
-                      <img src="{{ asset('') }}danako/img/Ellipse67.png">
-                      <h5>Infaq</h5>
-                      <p>Derma dari hati, tak terbatas waktu dan materi, demi kepentingan khalayak umum.</p>
+                   
+                  <i class="fa-solid fa-star-and-crescent fa-2xl" style="color: #1c913c;"></i>
+                    
+                   
+                      <h5 class="text-dark pt-2">Infaq</h5>
+                      <p class="text-dark">Derma dari hati, tak terbatas waktu dan materi, demi kepentingan khalayak umum.</p>
                   </div>
                   <div class="col-md-3 text-center py-3 px-5">
-                      <img src="{{ asset('') }}danako/img/Ellipse67.png">
-                      <h5>Sedekah</h5>
-                      <p>Berikanlah bantuan dengan tulus, ringankan beban mereka yang terpuruk.</p>
+                <i class="fa-solid fa-hand-holding-droplet fa-2xl" style="color: #1c913c;"></i>
+                    
+                      <h5 class="text-dark pt-2">Sedekah</h5>
+                      <p class="text-dark">Berikanlah bantuan dengan tulus, ringankan beban mereka yang terpuruk.</p>
                   </div>
                   <div class="col-md-3 text-center py-3 px-5">
-                      <img src="{{ asset('') }}danako/img/Ellipse67.png">
-                      <h5>Wakaf</h5>
-                      <p>Tanamkan amal jariyah, beri manfaat untuk umat selamanya.</p>
+                   <i class="fa-solid fa-building fa-2xl" style="color: #1c913c;"></i>
+                      <h5 class="text-dark pt-2">Wakaf</h5>
+                      <p class="text-dark">Tanamkan amal jariyah, beri manfaat untuk umat selamanya.</p>
                   </div>
               </div>
           </div>

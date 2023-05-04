@@ -262,12 +262,12 @@
                       <label>Beri judul campaign</label>
                     </div>
                     
-                    <div class="group form-group">      
+                    {{-- <div class="group form-group">      
                       <input type="text" class="form-control" id="slug" name="slug" placeholder="Contoh: sedekah-untuk-anak-yatim">
                       <span class="highlight"></span>
                       <span class="bar"></span>
                       <label>Tentukan tautan untuk campaign</label>
-                    </div>
+                    </div> --}}
 
                     <h6>Tambahkan foto campaign</h6>
                     <div class="form-group files">
