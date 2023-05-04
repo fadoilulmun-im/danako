@@ -25,6 +25,7 @@ use App\Http\Controllers\API\WithdrawalController;
 
 Route::group(['prefix' => 'withdrawal'], function () {
     Route::post('/', [WithdrawalController::class, 'store'])->name('api.withdrawal.store')->middleware(['auth:sanctum']);
+    Route::get('/', [WithdrawalController::class, 'index'])->name('api.master.withdrawals.index');
 });
 
 Route::group(['prefix' => 'xendit'], function () {

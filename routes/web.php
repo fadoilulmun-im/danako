@@ -69,6 +69,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/donations', function () {
         return view('admin.page.master.donation');
     });
+
+    Route::get('/withdrawals', function () {
+        return view('admin.page.master.withdrawal');
+    });
 });
 
 
