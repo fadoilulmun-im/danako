@@ -570,14 +570,14 @@
                     $('#detail_category').text(response.data.category.name);
                     $('#detail_title').text(response.data.title);
                     $('#detail_description').text(response.data.description);
-                    $('#detail_target_amount').text(response.data.target_amount);
+                    $('#detail_target_amount').text(formatRupiah(response.data.target_amount));
                     $('#detail_receiver').text(response.data.receiver);
                     $('#detail_purpose').text(response.data.purpose);
                     $('#detail_address_receiver').text(response.data.address_receiver);
                     $('#detail_usage').text(response.data.detail_usage_of_funds);
                     $('#detail_start_date').text(response.data.start_date);
                     $('#detail_end_date').text(response.data.end_date);
-                    $('#detail_realtime_amount').text(response.data.real_time_amount);
+                    $('#detail_realtime_amount').text(formatRupiah(response.data.real_time_amount));
                     $('#detail_activity').text(response.data.activity);
 
                     let activity_color = '';
@@ -755,5 +755,10 @@
       })
     }
 
+    function formatRupiah(money) {
+        return new Intl.NumberFormat('id-ID',
+            { style: 'currency', currency: 'IDR' }
+        ).format(money);
+    }
 </script>
 @endsection

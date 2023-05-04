@@ -9,4 +9,5 @@
 
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
+<script src="https://kit.fontawesome.com/5fde2fdc76.js" crossorigin="anonymous"></script>
 
