@@ -17,13 +17,38 @@ use Illuminate\Support\Facades\File;
 
 class AuthenticationController extends Controller
 {
-    public function login(Request $request)
+    public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'phone_number' => 'required|string|min:10',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'phone_number' => $request->phone_number,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role_id' => 2 // Assign role_id value
+        ]);
+
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()
+            ->json(['data' => $user, 'access_token' => $token, 'token_type' => 'Bearer',]);
+    }
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required',
         ]);
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -104,7 +129,7 @@ class AuthenticationController extends Controller
 
     public function uploadImage(Request $request)
     {
-        auth()->user()->token()->delete();
+        $user = Auth::user();
 
         $rules = [
             'image' => 'required|image|mimes:jpeg,png,jpg',

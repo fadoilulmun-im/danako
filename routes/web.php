@@ -1,11 +1,15 @@
 <?php
 
-use App\Http\Controllers\WEB\VerifyEmailController;
+use App\Models\Campaign;
+use Illuminate\Http\Request;
 use App\Models\CampaignCategory;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\GoogleController;
-
+use App\Http\Controllers\RegencyController;
+use App\Http\Controllers\VillageController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\WEB\VerifyEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,7 +62,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/campaigns', function () {
         return view('admin.page.master.campaign');
     });
-    
+
     Route::get('/donations', function () {
         return view('admin.page.master.donation');
     });
@@ -68,16 +72,29 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-Route::get('/user', function () { return view('landing.index');})->name('landing');
-Route::get('/', function () { return view('landing.index');})->name('index');
+Route::get('/user', function () {
+    return view('landing.index');
+})->name('landing');
+Route::get('/', function () {
+    return view('landing.index');
+})->name('home');
 
-Route::get('/utama', function () {
+Route::get('/Halaman-utama', function () {
     return view('landing.utama');
-});
+})->name('afterlogin');
+
+Route::get('/ziswaf', function () {
+    return view('landing.ziswaf');
+})->name('ziswaf');
 
 
-Route::get('/loginuser', function () { return view('landing.login');})->name('login');
-Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
+
+Route::get('/login', function () {
+    return view('landing.login');
+})->name('login');
+Route::get('/registrasi', function () {
+    return view('landing.registrasi');
+})->name('register');
 
 // Route::get('/login', function () {
 //     return view('landing.auth.login');
@@ -87,19 +104,27 @@ Route::get('/daftar', function () {
     return view('landing.auth.daftar');
 });
 
+Route::get('/all-campaign', function () {
+    return view('landing.all_campaign');
+})->name('all-campaign');
+
 Route::get('/kategori/{id}', function ($id) {
     $category = CampaignCategory::findOrFail($id);
     return view('landing.kategori', ['id' => $id, 'category' => $category]);
-});
+})->name('kategori');
 
 Route::get('/ajukan-campaign', function () {
     return view('landing.ajukan_campaign');
-});
+})->name('ajukan-campaign');
 
+
+Route::get('/campaign-akun', function () {
+    return view('landing.campaign_akun');
+});
 
 Route::get('/campaign-pending', function () {
     return view('landing.campaign_pending');
-});
+})->name('campaign-pending');
 
 Route::get('/detail-campaign/{id}', function ($id) {
     return view('landing.detail_campaign', ['id' => $id]);
@@ -113,17 +138,10 @@ Route::get('/detail_campaign_pemilik', function () {
     return view('landing.detail_campaign_pemilik');
 });
 
-Route::get('/hitung-maal', function () {
-    return view('landing.hitung_maal');
-});
-
-Route::get('/hitung-profesi', function () {
-    return view('landing.hitung_profesi');
-});
 
 Route::get('/konfirmasi-email', function () {
     return view('landing.konfirmasi_email');
-});
+})->name('konfirmasi-email');
 
 Route::get('/payment-gagal', function () {
     return view('landing.payment_gagal');
@@ -134,18 +152,11 @@ Route::get('/payment-sukses', function () {
 });
 
 
-Route::get('/zakat', function () {
-    return view('landing.zakat');
-});
-
-
-
-
 
 
 Route::get('/profile', function () {
     return view('landing.profile.profile');
-});
+})->name('profile');
 
 
 Route::get('/profile-campaign', function () {
@@ -166,34 +177,68 @@ Route::get('/pencairan-dana', function () {
     return view('landing.pencairan_dana');
 });
 
+Route::get('/donasi/{id}', function ($id) {
+    $campaign = Campaign::findOrFail($id);
+    return view('landing.donasi', [
+        'id' => $id,
+        'campaign' => $campaign,
+    ]);
+});
 
-Route::get('/awal-kategori', function () {
+
+Route::get('/awal-campaign', function () {
     return view('landing.awal_kategori');
 
     Route::get('/campaigns', function () {
         return view('admin.page.master.campaign');
     });
-    
+
     Route::get('/donations', function () {
         return view('admin.page.master.donation');
     });
 });
 
 
+Route::get('/faq', function () {
+    return view('landing.faq');
+});
+
+Route::get('/tentang-kami', function () {
+    return view('landing.abouts');
+});
+
+Route::get('/zakat', function () {
+    return view('landing.ziswaf.zakat');
+});
+
+Route::get('/infaq', function () {
+    return view('landing.ziswaf.infaq');
+});
+
+Route::get('/sedekah', function () {
+    return view('landing.ziswaf.sedekah');
+});
+
+
+Route::get('/bayar', function () {
+    return view('landing.ziswaf.bayar');
+});
 
 
 
-Route::get('/user', function () { return view('landing.index');})->name('landing');
-Route::get('/', function () { return view('landing.page');})->name('index');
-Route::get('/loginuser', function () { return view('landing.login');})->name('login');
-Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
+
+
+Route::get('/user', function () {
+    return view('landing.index');
+})->name('landing');
+// Route::get('/', function () { return view('landing.page');})->name('index');
+// Route::get('/loginuser', function () { return view('landing.login');})->name('login');
+// Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
 
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('google.callback');
 
-
-
-
-
-
-
+Route::get('provinces/select2', [ProvinceController::class, 'select2']);
+Route::get('regencies/select2', [RegencyController::class, 'select2']);
+Route::get('districts/select2', [DistrictController::class, 'select2']);
+Route::get('villages/select2', [VillageController::class, 'select2']);

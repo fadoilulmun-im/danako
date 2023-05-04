@@ -14,37 +14,99 @@
 @section('content')
 
 <body style="text-align: center;">
-<div class="container">
+  <div class="container">
     <div class="title text-start">
         <img src="{{ asset('') }}danako/img/Expand_left.svg" />
         <span>Lingkungan</span>
     </div>
-    </div>
+  </div>
 
   
     <div class="container pt-4"> 
-        <form action="" method="post" class="f1">
-           <div class="row">
-            <div class="col-md-2 ">
+      <form action="" method="post" class="f1">
+          <div class="row">
+          <div class="col-md-2 ">
             <div class="f1-steps">
               <div class="f1-progress">
-                  <div class="f1-progress-line" data-now-value="25" data-number-of-steps="4" style="width: 25%;"></div>
+                <div class="f1-progress-line" data-now-value="25" data-number-of-steps="4" style="width: 25%;"></div>
               </div>
-                    <div class="f1-step active">
-                        <div class="f1-step-icon"><i class="fa fa-user"></i></div>
-                        <p>Pilih Kategori</p>
-                    </div>
+              <div class="f1-step active">
+                <div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                <p>Formulir</p>
+              </div>
               <div class="f1-step">
                 <div class="f1-step-icon"><i class="fa fa-home"></i></div>
-                <p>Detail Campaign</p>
+                <p>Metode Pembayaran</p>
               </div>
-             
             </div>
           </div>
           <div class="col-md-10 box-input">
-                     <!-- step 1 -->
+            <!-- step 1 -->
+            <fieldset>
+              <h4>Silahkan lengkapi data di bawah ini:</h4>
+                
+                <div class="container">
+                  <div class="contact pt-3">
+                    <div class="col-md-12 col-md-offset-3">
+                        <div class="form-area">
+                          
+                        <div class="row">
+                          <div class="col-md-6">
+                            
+                            <h6>Masukkan nominal donasi </h6>
+                            <div class="card-text border info-donatur rounded-3 mt-2">                  
+                              <div class="row py-2 px-2">
+                                <h5 class="text-center">Rp 10.000</h5>
+                              </div>
+                            </div>
+                            <div class="card-text border info-donatur rounded-3 mt-2">                  
+                              <div class="row py-2 px-2">
+                                <h5 class="text-center">Rp 40.000</h5>
+                              </div>
+                            </div>
+                            <div class="card-text border info-donatur rounded-3 mt-2">                  
+                              <div class="row py-2 px-2">
+                                <h5 class="text-center">Rp 80.000</h5>
+                              </div>
+                            </div>
+                            <div class="card-text border info-donatur rounded-3 mt-2 mb-5">                  
+                              <div class="row py-2 px-2">
+                                <h5 class="text-center">Rp 100.000</h5>
+                              </div>
+                            </div>
+
+                            <div class="group form-group">      
+                              <input type="text" class="form-control" id="name" required>
+                              <span class="highlight"></span>
+                              <span class="bar"></span>
+                              <label>Atau masukkan nominal lainnya</label>
+                            </div>
+                            
+                          </div>
+
+                          <div class="col-md-6">
+                            <div class="form-group group">
+                              <div class="text-group">
+                                <textarea required="required" class="form-control" rows="6"></textarea>
+                                <label for="textarea" class="input-label">Tuliskan do’a untuk penerima (opsional)</label><i class="bar"></i>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+      
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="f1-buttons">
+                  <button type="button" class="btn btn-primary btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
+                </div>
+            </fieldset>
+
                   <fieldset>
-                    <h4>Pilih Kategori</h4>
+                    <h4>Pilih Metode Pembayaran</h4>
                     <div class="card" style="height: 500px; overflow-y: scroll;">
                       <div class="card-body">
 
@@ -54,136 +116,22 @@
                               <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
                             </div>
                             <div class="col-md-6">
-                              <h3>Lingkungan</h3>
+                              <h3>Bca</h3>
                             </div>
                           </div>
                           
                         </div>
-                        <div class="card-text border-bottom info-donatur rounded-3 mt-2">                  
-                          <div class="row py-2 px-2">
-                            <div class="col-md-6 order-md-2">
-                              <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
-                            </div>
-                            <div class="col-md-6">
-                              <h3>Lingkungan</h3>
-                            </div>
-                          </div>
-                          
-                        </div>
-                        <div class="card-text border-bottom info-donatur rounded-3 mt-2">                  
-                          <div class="row py-2 px-2">
-                            <div class="col-md-6 order-md-2">
-                              <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
-                            </div>
-                            <div class="col-md-6">
-                              <h3>Lingkungan</h3>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="card-text border-bottom info-donatur rounded-3 mt-2">                  
-                          <div class="row py-2 px-2">
-                            <div class="col-md-6 order-md-2">
-                              <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
-                            </div>
-                            <div class="col-md-6">
-                              <h3>Lingkungan</h3>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="card-text border-bottom info-donatur rounded-3 mt-2">                  
-                          <div class="row py-2 px-2">
-                            <div class="col-md-6 order-md-2">
-                              <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
-                            </div>
-                            <div class="col-md-6">
-                              <h3>Lingkungan</h3>
-                            </div>
-                          </div>
-                          
-                        </div>
-                        <div class="card-text border-bottom info-donatur rounded-3 mt-2">                  
-                          <div class="row py-2 px-2">
-                            <div class="col-md-6 order-md-2">
-                              <img src="assets/img/campaign/icon_akun.png" class="img-thumbnail float-md-end" alt="Lingkungan">
-                            </div>
-                            <div class="col-md-6">
-                              <h3>Lingkungan</h3>
-                            </div>
-                          </div>
-                          
-                        </div>
+                       
                       </div>
                   </div>
                         <div class="f1-buttons pt-3 pb-3">
+                          <button type="button" class="btn btn-warning btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
                             <button type="button" class="btn btn-primary btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
                         </div>
                 </fieldset>
                   <!-- step 2 -->
                   
-                  <fieldset>
-                    <h4>Cerita Campaign</h4>
-                      
-                      <div class="container">
-                        <div class="contact pt-3">
-                          <div class="col-md-12 col-md-offset-3">
-                             <div class="form-area">
-                               
-                                <form>
-                                   <div class="group form-group">      
-                                      <input type="text" class="form-control" id="name" required>
-                                      <span class="highlight"></span>
-                                      <span class="bar"></span>
-                                      <label>Name</label>
-                                   </div>
-
-                                   <div class="group form-group">      
-                                      <input type="text" class="form-control" id="name" required>
-                                      <span class="highlight"></span>
-                                      <span class="bar"></span>
-                                      <label>NIK</label>
-                                  </div>
-
-                                  <h6>Tambahkan foto campaign</h6>
-                                   <div class="form-group files">
-                                    
-                                      <input type="file" class="form-control" multiple="">
-                                      <span class="highlight"></span>
-                                      <span class="bar"></span>
-                                  </div>
-
-
-                                   <div class="form-group group">
-                                    <div class="text-group">
-                                       <textarea required="required" class="form-control" rows="6"></textarea>
-                                       <label for="textarea" class="input-label">Textarea</label><i class="bar"></i>
-                                    </div>
-                                 </div>
-
-                                 <h6>Tambahkan foto campaign</h6>
-                                   <div class="form-group files">
-                                    
-                                      <input type="file" class="form-control" multiple="">
-                                      <span class="highlight"></span>
-                                      <span class="bar"></span>
-                                  </div>
-                                 
-                                   
-
-                                   
-
-                                    
-                                </form>
-                             </div>
-                          </div>
-                       </div>
-                      </div>
-
-                      <div class="f1-buttons">
-                          <button type="button" class="btn btn-warning btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
-                          <button type="button" class="btn btn-primary btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
-                      </div>
-                  </fieldset>
-                  
+                   
                  
           </div>
         </div>                     

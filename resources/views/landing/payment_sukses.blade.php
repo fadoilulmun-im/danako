@@ -1,10 +1,6 @@
 @extends('landing.layouts.app')
 
-@section('title')
-    Dashboard
-@endsection
-
-
+@section('title', 'Payment Sukses')
 
 @section('content')
 
@@ -14,12 +10,12 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="konten-verifikasi">
-            <div class="col-1 pt-2">
+            {{-- <div class="col-1 pt-2">
               <img src="{{ asset('') }}danako/img/Expand_left.svg" />
-            </div>
+            </div> --}}
             <img src="{{ asset('') }}danako/img/sukses.png" alt="Image"  class="pt-3"/>
-            <p class="title-pending pt-3">Data Anda Sedang Diverifikasi</p>
-            <p class="title-konten pt-2">Anda sudah melakukan verifikasi akun. Dan sekarang akun anda sedang kami lakukan validasi, silahkan tunggu 3x24 jam</p>
+            <p class="title-pending pt-3">Pembayaran Anda Berhasil</p>
+            {{-- <p class="title-konten pt-2">Anda sudah melakukan verifikasi akun. Dan sekarang akun anda sedang kami lakukan validasi, silahkan tunggu 3x24 jam</p> --}}
             <p class="title-konten pt-4" >Jika ada pertanyaan lebih lanjut silahkan Hubungi Kami</p>
           </div>
         </div>
