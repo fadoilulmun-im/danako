@@ -161,12 +161,13 @@ Route::get('/konfiramsi-gagal', function () {
     return view('landing.konfirmasi_email_gagal');
 })->name('konfirmasi-gagal');
 
-Route::get('/payment-gagal', function () {
-    return view('landing.payment_gagal');
+Route::get('/payment-gagal/{external_id}', function ($external_id) {
+    return view('landing.payment_gagal', ['external_id' => $external_id]);
 });
 
-Route::get('/payment-sukses', function () {
-    return view('landing.payment_sukses');
+Route::get('/payment-sukses/{external_id}', function ($external_id) {
+    Donation::where('external_id', $external_id)->update(['status' => 'PAID']);
+    return view('landing.payment_sukses', ['external_id' => $external_id]);
 });
 
 

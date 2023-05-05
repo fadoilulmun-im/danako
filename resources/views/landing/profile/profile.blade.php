@@ -62,7 +62,7 @@
 
               <div class="group">
                 <select class="form-control" id="gender" name="gender" required>
-                  <option value="" disabled selected>Jenis Kelamin</option>
+                  <option disabled selected>Jenis Kelamin</option>
                   <option value="L">Laki-Laki</option>
                   <option value="P">Perempuan</option>
                 </select>
@@ -415,7 +415,9 @@
             `).css('cursor', 'pointer');
             $('label[for="ktp"]').css('position', 'inherit');
           }
-          
+          $('#bank_name').val(data.detail?.bank_name).change();
+          $('#rek_name').val(data.detail?.rek_name);
+          $('#rek_number').val(data.detail?.rek_number);
         },
         error: (response)=>{
           const res = response.responseJSON;

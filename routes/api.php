@@ -42,6 +42,7 @@ Route::prefix('list-location')->group(function () {
 Route::prefix('auth-user')->group(function () {
     Route::post('/', [AuthUserController::class, 'update'])->name('api.user.update')->middleware(['auth:sanctum']);
     Route::get('/me', [AuthUserController::class, 'me'])->name('api.me')->middleware(['auth:sanctum']);
+    Route::get('/cek-verified', [AuthUserController::class, 'cekVerified'])->name('api.user.cekVerified')->middleware(['auth:sanctum']);
     Route::get('/detail', [AuthUserController::class, 'userDetail'])->name('api.user.detail')->middleware(['auth:sanctum']);
     Route::post('register', [AuthUserController::class, 'register'])->name('api.user.register');
     Route::post('login', [AuthUserController::class, 'login'])->name('api.user.login');

@@ -114,6 +114,21 @@
           const data = response.data.data;
           $('#list-campaign').html('');
           data.forEach((item, index) => {
+            let progress = item.real_time_amount / item.target_amount * 100;
+            let bg = '';
+            switch (item.verification_status) {
+              case 'processing':
+                bg = 'warning';
+                break;
+              case 'verified':
+                bg = 'success';
+                break;
+              case 'rejected':
+                bg = 'danger';
+                break;
+              default:
+                break;
+            }
             $('#list-campaign').append(`
               <div class="row pt-2 pb-2" onclick="pemilik(${item.id})")>
                 <div class="col-md-4">
@@ -122,15 +137,15 @@
                 <div class="col-md-8">
                   <div class="row">
                     <div class="col-9 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">${item.title.slice(0, 30)}...</h6></div>
-                    <div class="col-3 text-end pt-2"><span class="badge bg-success">${item.verification_status}</span></div>
+                    <div class="col-3 text-end pt-2"><span class="badge bg-${bg}">${item.verification_status}</span></div>
                   </div>
                   <p class="card-text pt-2 pb-2">${item.description.slice(0,150)}...</p>
                   <div class="progress">
-                    <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-danako" role="progressbar" style="width: ${progress}%; border-radius: 100px;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                   <div class="row">
-                    <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                    <div class="col-6 text-end pt-2">46 hari lagi</div>
+                    <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+                    <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
                   </div>
                 </div>
               </div>
@@ -155,6 +170,7 @@
           const data = response.data.data;
           $('#list-aktiv').html('');
           data.forEach((item, index) => {
+            let progress = item.real_time_amount / item.target_amount * 100;
             $('#list-aktiv').append(`
               <div class="row pt-2 pb-2" onclick="detail(${item.id})")>
                 <div class="col-md-4">
@@ -167,11 +183,11 @@
                   </div>
                   <p class="card-text pt-2 pb-2">${item.description.slice(0,150)}...</p>
                   <div class="progress">
-                    <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-danako" role="progressbar" style="width: ${progress}%; border-radius: 100px;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                   <div class="row">
-                    <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                    <div class="col-6 text-end pt-2">46 hari lagi</div>
+                    <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+                    <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
                   </div>
                 </div>
               </div>
@@ -193,6 +209,7 @@
           const data = response.data.data;
           $('#list-tolak').html('');
           data.forEach((item, index) => {
+            let progress = item.real_time_amount / item.target_amount * 100;
             $('#list-tolak').append(`
               <div class="row pt-2 pb-2" onclick="detail(${item.id})")>
                 <div class="col-md-4">
@@ -201,15 +218,15 @@
                 <div class="col-md-8">
                   <div class="row">
                     <div class="col-9 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">${item.title.slice(0, 30)}...</h6></div>
-                    <div class="col-3 text-end pt-2"><span class="badge bg-success">${item.verification_status}</span></div>
+                    <div class="col-3 text-end pt-2"><span class="badge bg-danger">${item.verification_status}</span></div>
                   </div>
                   <p class="card-text pt-2 pb-2">${item.description.slice(0,150)}...</p>
                   <div class="progress">
-                    <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-danako" role="progressbar" style="width: ${progress}%; border-radius: 100px;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                   <div class="row">
-                    <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                    <div class="col-6 text-end pt-2">46 hari lagi</div>
+                    <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+                    <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
                   </div>
                 </div>
               </div>
@@ -234,6 +251,7 @@
           const data = response.data.data;
           $('#list-proses').html('');
           data.forEach((item, index) => {
+            let progress = item.real_time_amount / item.target_amount * 100;
             $('#list-proses').append(`
               <div class="row pt-2 pb-2" onclick="detail(${item.id})")>
                 <div class="col-md-4">
@@ -242,15 +260,15 @@
                 <div class="col-md-8">
                   <div class="row">
                     <div class="col-9 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">${item.title.slice(0, 30)}...</h6></div>
-                    <div class="col-3 text-end pt-2"><span class="badge bg-success">${item.verification_status}</span></div>
+                    <div class="col-3 text-end pt-2"><span class="badge bg-warning">${item.verification_status}</span></div>
                   </div>
                   <p class="card-text pt-2 pb-2">${item.description.slice(0,150)}...</p>
                   <div class="progress">
-                    <div class="progress-bar bg-danako" role="progressbar" style="width: 60%; border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-danako" role="progressbar" style="width: ${progress}%; border-radius: 100px;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                   <div class="row">
-                    <div class="col-6 text-start text-success pt-2">Rp 34.567.890</div>
-                    <div class="col-6 text-end pt-2">46 hari lagi</div>
+                    <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+                    <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
                   </div>
                 </div>
               </div>

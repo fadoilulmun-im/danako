@@ -18,6 +18,15 @@ use Illuminate\Support\Facades\File;
 
 class AuthUserController extends Controller
 {
+    public function cekVerified(){
+        $user = Auth::user();
+        if($user->detail && $user->detail->status == 'verified'){
+            return $this->setResponse(['status' => true], null, 200);
+        }
+        
+        return $this->setResponse(['status' => false], null, 200);
+    }
+
     public function register(Request $request)
     {
         $rules = [
@@ -29,7 +38,7 @@ class AuthUserController extends Controller
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return $this->setResponse($validator->errors(), null, 422);
+            return $this->setResponse($validator->errors(), $validator->errors()->first(), 422);
         }
 
         DB::beginTransaction();
@@ -69,9 +78,9 @@ class AuthUserController extends Controller
         }
 
         $user = auth()->user();
-        // if (!$user->hasVerifiedEmail()) {
-        //     return $this->setResponse(null, 'Email not verified', 401);
-        // }
+        if (!$user->hasVerifiedEmail()) {
+            return $this->setResponse(null, 'Email not verified', 401);
+        }
 
         return $this->setResponse([
             'access_token' => $user->createToken($user->username)->plainTextToken,

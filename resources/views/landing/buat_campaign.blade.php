@@ -385,24 +385,38 @@
   {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
   {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
   <script src="{{ asset('') }}assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
   <script >
 
-$(document).ready(function() {
-  $('.f1-step').click(function() {
-    // menghilangkan kelas active dari langkah sebelumnya
-    $('.f1-step.active').removeClass('active');
-    // menambahkan kelas active pada langkah yang dipilih
-    $(this).addClass('active');
-    // menentukan nomor langkah saat ini
-    var currentStep = $(this).index() + 0;
-    // mengubah lebar progress line sesuai dengan nomor langkah saat ini
-    $('.f1-progress-line').css('width', (currentStep * 25) + '%');
-    // menyembunyikan semua langkah
-    $('fieldset').hide();
-    // menampilkan langkah yang sedang dipilih
-    $('#step-' + currentStep).show();
-  });
-});
+    $(document).ready(function() {
+      CKEDITOR.replace( 'description' );
+      CKEDITOR.replace( 'purpose' );
+      CKEDITOR.replace( 'detail_usage_of_funds' );
+
+      CKEDITOR.on('instanceReady', function(){
+        $.each( CKEDITOR.instances, function(instance) {
+          CKEDITOR.instances[instance].on("change", function(e) {
+              for ( instance in CKEDITOR.instances )
+              CKEDITOR.instances[instance].updateElement();
+          });
+        });
+      });
+
+      $('.f1-step').click(function() {
+        // menghilangkan kelas active dari langkah sebelumnya
+        $('.f1-step.active').removeClass('active');
+        // menambahkan kelas active pada langkah yang dipilih
+        $(this).addClass('active');
+        // menentukan nomor langkah saat ini
+        var currentStep = $(this).index() + 0;
+        // mengubah lebar progress line sesuai dengan nomor langkah saat ini
+        $('.f1-progress-line').css('width', (currentStep * 25) + '%');
+        // menyembunyikan semua langkah
+        $('fieldset').hide();
+        // menampilkan langkah yang sedang dipilih
+        $('#step-' + currentStep).show();
+      });
+    });
 
     
     function scroll_to_class(element_class, removed_height) {

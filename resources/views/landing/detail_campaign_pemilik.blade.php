@@ -101,8 +101,11 @@
                     </div>
 
                     <div class="d-grid gap-2 pt-2 pb-3">
-                      <button class="btn btn-primary bg-danako-primary border-0" type="button" id="bagikan">Bagikan campaign</button>
-                      <a href="{{ url('pencairan-dana').'/'.$id }}" class="btn btn-outline-success " type="button">Cairkan Dana</a>
+                      <button class="btn btn-secondary disabled border-0" type="button" id="bagikan">Bagikan campaign</button>
+                     
+                      <a
+                        href="{{ url('pencairan-dana').'/'.$id }}" class="btn btn-outline-secondary disabled" type="button" id="btn-cairkan"
+                        >Cairkan Dana</a>
                     </div>
 
                     <div class="card" style="height: 500px; overflow-y: scroll;">
@@ -201,6 +204,24 @@ $(document).ready(function() {
         $('.progress-bar').css({
           'width': `${data.real_time_amount / data.target_amount * 100}%`
         });
+
+        if(data.verification_status == 'verified'){
+          $('#btn-cairkan').toggleClass('btn-outline-secondary disabled btn-outline-success');
+          $('#bagikan').toggleClass('btn-secondary disabled btn-primary bg-danako-primary');
+        }else{
+          // $('#btn-cairkan').addClass('btn-outline-secondary disabled');
+          // $('#bagikan').addClass('btn-secondary disabled');
+        }
+
+        if(data.verification_status == 'rejected'){
+          $('.notif').html(`
+            <div class="alert alert-danger" role="alert">Campaign anda ditolak dengan alasan : <b>${data.reject_note}</b></div>
+          `);
+        }else if(data.verification_status == 'processing'){
+          $('.notif').html(`
+            <div class="alert alert-warning" role="alert">Campaign anda sedang dalam proses verifikasi, harap bersabar</div>
+          `);
+        }
       }
     });
 

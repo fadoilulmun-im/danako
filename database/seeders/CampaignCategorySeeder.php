@@ -20,6 +20,10 @@ class CampaignCategorySeeder extends Seeder
                 [
                     'id' => 1,
                     'name' => 'Bencana alam',
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'Kemanusiaan',
                 ]
             ];
 

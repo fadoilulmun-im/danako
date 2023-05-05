@@ -8,6 +8,7 @@ use App\Models\Campaign;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Laravel\Sanctum\PersonalAccessToken;
 use Yajra\DataTables\DataTables;
 
 class DonationController extends Controller
@@ -102,7 +103,13 @@ class DonationController extends Controller
 
     public function list(Request $request)
     {
-        $model = Donation::with(['user.photoProfile']);
+        $model = Donation::with(['user.photoProfile', 'campaign']);
+
+        if($request->filled('token')){
+            $token = PersonalAccessToken::findToken($request->input('token'));
+            $user = $token->tokenable;
+            $model->where('user_id', $user->id);
+        }
 
         if($request->filled('campaign_id')){
             $model->where('campaign_id', $request->campaign_id);

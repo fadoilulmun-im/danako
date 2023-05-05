@@ -52,23 +52,23 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>User</th>
-                                <th>Category</th>
+                                {{-- <th>User</th>
+                                <th>Category</th> --}}
                                 <th>Title</th>
-                                <th>Description</th>
+                                {{-- <th>Description</th> --}}
                                 <th>Image</th>
                                 <th>Verification</th>
                                 <th>Target Amount</th>
                                 <th>Start</th>
                                 <th>End</th>
-                                <th>Receiver</th>
+                                {{-- <th>Receiver</th>
                                 <th>Purpose</th>
-                                <th>Address Receiver</th>
-                                <th>Detail Usage of Funds</th>
-                                <th>Real Time Amount</th>
-                                <th>Reject Note</th>
-                                <th>Status</th>
-                                <th>Slug</th>
+                                <th>Address Receiver</th> --}}
+                                {{-- <th>Detail Usage of Funds</th> --}}
+                                {{-- <th>Real Time Amount</th>
+                                <th>Reject Note</th> --}}
+                                {{-- <th>Status</th> --}}
+                                {{-- <th>Slug</th> --}}
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -240,14 +240,14 @@
                         <th>Status</th>
                         <td id="detail_status"></td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th>Activity</th>
                         <td id="detail_activity"></td>
-                    </tr>
-                    <tr>
+                    </tr> --}}
+                    {{-- <tr>
                         <th>Campaign ID</th>
                         <td><span id="detail_id"></span></td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <th>Username</th>
                         <td><span id="detail_user"></span></td>
@@ -370,23 +370,23 @@
         },
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
-            {data: 'user.username', name: 'user.username'},
-            {data: 'category.name', name: 'category.name'},
+            // {data: 'user.username', name: 'user.username'},
+            // {data: 'category.name', name: 'category.name'},
             {data: 'title', name: 'title'},
-            {data: 'description', name: 'description'},
+            // {data: 'description', name: 'description'},
             {data: 'img_path', name: 'img_path'},
             {data: 'verification_status', name: 'verification_status'},
             {data: 'target_amount', name: 'target_amount'},
             {data: 'start_date', name: 'start_date'},
             {data: 'end_date', name: 'end_date'},
-            {data: 'receiver', name: 'receiver'},
-            {data: 'purpose', name: 'purpose'},
-            {data: 'address_receiver', name: 'address_receiver'},
-            {data: 'detail_usage_of_funds', name: 'detail_usage_of_funds'},
-            {data: 'real_time_amount', name: 'real_time_amount'},
-            {data: 'reject_note', name: 'reject_note'},
-            {data: 'activity', name: 'activity'},
-            {data: 'slug', name: 'slug'},
+            // {data: 'receiver', name: 'receiver'},
+            // {data: 'purpose', name: 'purpose'},
+            // {data: 'address_receiver', name: 'address_receiver'},
+            // {data: 'detail_usage_of_funds', name: 'detail_usage_of_funds'},
+            // {data: 'real_time_amount', name: 'real_time_amount'},
+            // {data: 'reject_note', name: 'reject_note'},
+            // {data: 'activity', name: 'activity'},
+            // {data: 'slug', name: 'slug'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         order: [[0, 'desc']]
@@ -565,20 +565,20 @@
             success: function(response){
                 if(response.meta.status == 'OK'){
                     $('#detail_img').append('<img src="{{ asset('uploads') }}' + response.data.img_path + '" alt="logo" style="width: 100px; height: 100px">');
-                    $('#detail_id').text(response.data.id);
+                    // $('#detail_id').text(response.data.id);
                     $('#detail_user').text(response.data.user.username);
                     $('#detail_category').text(response.data.category.name);
                     $('#detail_title').text(response.data.title);
-                    $('#detail_description').text(response.data.description);
+                    $('#detail_description').html(response.data.description);
                     $('#detail_target_amount').text(formatRupiah(response.data.target_amount));
                     $('#detail_receiver').text(response.data.receiver);
-                    $('#detail_purpose').text(response.data.purpose);
+                    $('#detail_purpose').html(response.data.purpose);
                     $('#detail_address_receiver').text(response.data.address_receiver);
-                    $('#detail_usage').text(response.data.detail_usage_of_funds);
+                    $('#detail_usage').html(response.data.detail_usage_of_funds);
                     $('#detail_start_date').text(response.data.start_date);
                     $('#detail_end_date').text(response.data.end_date);
                     $('#detail_realtime_amount').text(formatRupiah(response.data.real_time_amount));
-                    $('#detail_activity').text(response.data.activity);
+                    // $('#detail_activity').text(response.data.activity);
 
                     let activity_color = '';
                     switch (response.data.activity) {

@@ -46,8 +46,8 @@ class XenditController extends Controller
                     'surname' => $user->username ?? null,
                     'email' => $user->email ?? null,
                 ],
-                'success_redirect_url' => url('payment-sukses'),
-                'failure_redirect_url' => url('payment-gagal'),
+                'success_redirect_url' => url('payment-sukses/'.$external_id),
+                'failure_redirect_url' => url('payment-gagal/'.$external_id),
             ],
         ]);
 
@@ -83,13 +83,35 @@ class XenditController extends Controller
 
         if($donation->status == 'PAID'){
             $campaign = $donation->campaign;
-            $campaign->real_time_amount += $donation->amount_donations;
+            $campaign->real_time_amount += $campaign->donations->where('status', 'PAID')->sum('amount');
             $campaign->save();
         }
+        
+        if(($donation->user->email ?? false) && ($donation->status == 'PAID')){
+            Mail::to($donation->user->email)->send(new DonationMail($donation));
+        }
+
+        if(($donation->user->detail->phone_number ?? false) && ($donation->status == 'PAID')){
+            $client = new Client();
+            $data_request = $client->request('POST', 'https://broadcast.kamiberbagi.id/index.php/api/send_message', [
+                'json' => [
+                    'token' => config('env.token_api_wa'),
+                    'number' => $donation->user->detail->phone_number,
+                    'message' => "
+                        Assalamualaikum Warahmatullahi Wabarakatuh
+                
+                        Bapak/Ibu/Sdr ".$donation->user->name."
+                        telah bertransaksi di danako.my.id
+                        pada tanggal ".date('Y-m-d H:i:s', $donation->paid_at)."
+                        sebesar ".$donation->amount_donations."
+                        Semoga apa yang anda berikan menjadi keberkahan dan bertambahnya kebahagiaan dunia akhirat anda
+                    ",
+                ],
+            ]);
+        }
+        
 
         DB::commit();
-
-        Mail::to($donation->user->email)->send(new DonationMail($donation));
 
         return $this->setResponse($donation, 'Invoice updated successfully');
     }
