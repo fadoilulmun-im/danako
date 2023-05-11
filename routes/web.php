@@ -1,8 +1,9 @@
 <?php
 
-use App\Models\Campaign;
 use App\Models\User;
+use App\Models\Campaign;
 use App\Models\Donation;
+use Jorenvh\Share\Share;
 use Illuminate\Http\Request;
 use App\Models\CampaignCategory;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,7 @@ use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\VillageController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\API\CampaignController;
 use App\Http\Controllers\WEB\VerifyEmailController;
 
 /*
@@ -137,7 +139,19 @@ Route::get('/campaign-pending', function () {
 })->name('campaign-pending');
 
 Route::get('/detail-campaign/{id}', function ($id) {
-    return view('landing.detail_campaign', ['id' => $id]);
+    $currentUrl = url()->current(); // Dapatkan URL saat ini dari permintaan
+    $shareButtons1 = \Share::page(
+        $currentUrl
+  )
+  ->facebook()
+  ->twitter()
+  ->linkedin()
+  ->telegram()
+  ->whatsapp() 
+  ->reddit();
+
+
+    return view('landing.detail_campaign', compact('id','shareButtons1','currentUrl'));
 })->name('campaigns.detail');
 
 Route::get('/detail-penyaluran-campaign', function () {
@@ -253,6 +267,12 @@ Route::get('/sedekah', function () {
 Route::get('/bayar', function () {
     return view('landing.ziswaf.bayar');
 });
+
+
+
+
+
+
 
 
 
