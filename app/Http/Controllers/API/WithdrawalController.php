@@ -13,14 +13,25 @@ class WithdrawalController extends Controller
 {
     public function index(Request $request)
     {
-        $model = Withdrawal::select(['campaign_id', 'title', 'description', 'amount', 'status']);
+        $model = Withdrawal::with(['campaign']);
 
         return DataTables::of($model)
-            // ->addColumn('action', function ($data) {
-            //     return '
-            //         <span onclick="detail('. $data->id .')" class="fas fa-eye text-primary me-1" style="font-size: 1.2rem; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"></span>
-            //     ';
-            // })
+            ->addColumn('action', function ($data) {
+                $html = '';
+                $html .= '
+                    <span onclick="detail('. $data->id .')" class="fas fa-eye text-primary me-1" style="font-size: 1.2rem; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Show"></span>
+                ';
+                // if(!$data->distributionReport){
+                //     $html .= '
+                //         <span onclick="report('. $data->id .')" class="fas fa-info-circle text-secondary me-1" style="font-size: 1.2rem"></span>
+                //     ';
+                // }else{
+                //     $html .= '
+                //         <a href="'. route('admin.user.detail', $data->id) .'" onclick="loading()" class="fas fa-info-circle text-primary me-1" style="font-size: 1.2rem" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"></a>
+                //     ';
+                // }
+                return $html;
+            })
             ->editColumn('status', function ($data) {
                 if($data->status){
                     switch ($data->status) {
@@ -46,7 +57,7 @@ class WithdrawalController extends Controller
                 }
             })
             ->addIndexColumn()
-            ->rawColumns(['status'])
+            ->rawColumns(['action', 'status'])
             ->make(true);
     }
 
@@ -76,5 +87,16 @@ class WithdrawalController extends Controller
         DB::commit();
 
         return $this->setResponse(null, 'Withdrawal created successfully');
+    }
+
+    public function show($id)
+    {
+        $model = Withdrawal::where('id', $id)->with('campaign')->first();
+
+        if(!$model){
+            return $this->setResponse(null, 'Withdrawal not found', 404);
+        }
+
+        return $this->setResponse($model, 'Withdrawal retrieved successfully');
     }
 }

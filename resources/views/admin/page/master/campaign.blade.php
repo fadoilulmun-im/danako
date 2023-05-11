@@ -11,10 +11,15 @@
     type="text/css" />
 <link href="{{ asset('assets') }}/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets') }}/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
+
+<link href="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.css" rel="stylesheet">
 <!-- Responsive Table css -->
 <link href="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.css" rel="stylesheet">
 <!-- Select css -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<!-- Datepicker css -->
+<link href="{{ asset('assets') }}/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -29,23 +34,30 @@
                             id="addBtn">Create</button>
                     </div>
                     <div class="row" style="padding-bottom: 15px">
-                        <div class="col-sm-12 col-md-2">Status
+                        {{-- <div class="col-sm-12 col-md-3">
+                            <input type="text" id="range_date" name="range_date" class="form-control form-control-sm" placeholder="Range date">
+                        </div> --}}
+                        <div class="col-sm-12 col-md-2">
+                            <select class="form-select form-select-sm" name="category" id="category-filter">
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
                             <select class="form-select form-select-sm" name="status" id="status-filter">
-                              <option value="">All</option>
+                              <option value="">Status all</option>
                               <option value="processing">Processing</option>
                               <option value="sending">Sending</option>
                               <option value="received">Received</option>
                               <option value="closed">Closed</option>
                             </select>
-                          </div>
-                        <div class="col-sm-12 col-md-2">Verification
-                          <select class="form-select form-select-sm" name="verif" id="verif-filter">
-                            <option value="">All</option>
-                            <option value="unverified">Unverified</option>
-                            <option value="processing">Processing</option>
-                            <option value="verified">Verified</option>
-                            <option value="rejected">Rejected</option>
-                          </select>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <select class="form-select form-select-sm" name="verif" id="verif-filter">
+                                <option value="">Verification all</option>
+                                <option value="unverified">Unverified</option>
+                                <option value="processing">Processing</option>
+                                <option value="verified">Verified</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
                         </div>
                       </div>
                     <table id="datatable" class="w-100 table table-bordered table-responsive">
@@ -346,10 +358,14 @@
 <script src="{{ asset('assets') }}/libs/datatables.net-select/js/dataTables.select.min.js"></script>
 <script src="{{ asset('assets') }}/libs/dropzone/min/dropzone.min.js"></script>
 <script src="{{ asset('assets') }}/libs/dropify/js/dropify.min.js"></script>
+<script src="{{ asset('assets') }}/libs/selectize/js/standalone/selectize.min.js"></script>
 <!-- Responsive Table js -->
 <script src="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
 <!-- Select2 js -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<!-- Datepicker js -->
+<script src="{{ asset('assets') }}/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.js"></script>
 @endsection
 
 @section('init-js')
@@ -365,7 +381,8 @@
             url: "{{ route('api.master.campaigns.index') }}",
             data: function (d) {
                 d.verif = $('#verif-filter').val(),
-                d.status = $('#status-filter').val()
+                d.status = $('#status-filter').val(),
+                d.category = $('#category-filter').val()
             }
         },
         columns: [
@@ -398,7 +415,28 @@
 
     $('#status-filter').change(function(){
         table.ajax.reload();
-      });
+    });
+
+    $('#category-filter').change(function(){
+        table.ajax.reload();
+    });
+
+    $(document).ready(function(){
+        $.ajax({
+            url: "{{ route('api.master.categories.list') }}?",
+            type: "GET",
+            dataType: "json",
+            success: function(response){
+            let data = response.data;
+            let select = $('#category-filter');
+            select.empty();
+            select.append('<option value="" disabled selected hidden>Category all</option>'); // add default option
+            data.forEach(item => {
+                select.append(`<option value="${item.id}">${item.name}</option>`);
+            });
+            }
+        });
+    });
 
     var sel_user = $('.select2User').select2({
         placeholder: {value: '',text: 'None Selected'},
@@ -760,5 +798,88 @@
             { style: 'currency', currency: 'IDR' }
         ).format(money);
     }
+
+    // const fp = flatpickr("#range_date", {
+    //     mode:"range",
+    //     altInput: true,
+    //     altFormat: "F j, Y",
+    //     dateFormat: "Y-m-d",
+    // });
+    
+    // var opt =  { 
+    //         mode:"range",
+    //         altInput: true,
+    //         altFormat: "F j, Y",
+    //         dateFormat: "Y-m-d",
+    //     };
+    // $('#range_date').flatpickr({mode:"range"});
+
+    // var minDate, maxDate;
+  
+    // // Custom filtering function which will search data in column four between two values
+    // $.fn.dataTable.ext.search.push(
+    //     function( settings, data, dataIndex ) {
+    //         var min = minDate;
+    //         var max = maxDate;
+    //         var date = new Date(data[8]);
+     
+    //         if (
+    //             ( min === null && max === null ) ||
+    //             ( min === null && date <= max ) ||
+    //             ( min <= date   && max === null ) ||
+    //             ( min <= date   && date <= max )
+    //         ) {
+    //             return true;
+    //         }
+    //         return false;
+    //     }
+    // );
+ 
+    // //Flat Picker Date
+    // flatpickr('#range_date', {
+    //     "allowInput":true,
+    //     mode:"range",
+    //     altInput: true,
+    //     altFormat: "F j, Y",
+    //     dateFormat: "Y-m-d",
+ 
+    //     onChange:
+    //     function (selectedDates, dateStr, instance) {
+
+    //     },
+    //     onReady: function(selectedDates, dateStr, instance){
+
+    //     }, 
+    //     onClose: function(selectedDates, dateStr, instance) {
+    //         var minDate  =  Date(selectedDates[0]);
+    //         var maxDate  =  Date(selectedDates[1]);
+    //         table.draw();  
+    //         console.log(minDate,"to",maxDate);
+    //     }
+    // });
+
+    // // Extend dataTables search
+    // $.fn.dataTable.ext.search.push(
+    // function(settings, data, dataIndex) {
+    //     var min = $('#min-date').val();
+    //     var max = $('#max-date').val();
+    //     var createdAt = data[8] || 0; // Our date column in the table
+
+    //     if (
+    //     (min == "" || max == "") ||
+    //     (moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max))
+    //     ) {
+    //     return true;
+    //     }
+    //     return false;
+    // }
+    // );
+
+    // // Re-draw the table when the a date range filter changes
+    // $('.date-range-filter').change(function() {
+    // table.draw();
+    // });
+
+    // $('#my-table_filter').hide();
 </script>
 @endsection

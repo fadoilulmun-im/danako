@@ -47,24 +47,27 @@ class CampaignController extends Controller
         if ($request->filled('status')) {
             $campaign->where('activity', $request->get('status'));
         }
+        if ($request->filled('category')) {
+            $campaign->where('category_id', $request->get('category'));
+        }
         return DataTables::of($campaign)
             ->addColumn('action', function ($data) {
                 return '
-                    <span onclick="detail('. $data->id .')" class="fas fa-eye text-primary me-1" style="font-size: 1.2rem; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"></span>
+                    <span onclick="detail(' . $data->id . ')" class="fas fa-eye text-primary me-1" style="font-size: 1.2rem; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"></span>
                 ';
                 // <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning me-1" style="font-size: 1.2rem; cursor: pointer" title="Edit"></span>
                 // <span onclick="destroy('. $data->id .')" class="fas fa-trash-alt text-danger" style="font-size: 1.2rem; cursor: pointer" title="Delete"></span>
             })
             ->editColumn('img_path', function ($data) {
-                if(File::exists(public_path('uploads'. $data->img_path))){
-                    $path = 'uploads'. $data->img_path;
-                }else{
+                if (File::exists(public_path('uploads' . $data->img_path))) {
+                    $path = 'uploads' . $data->img_path;
+                } else {
                     $path = 'assets/images/image-solid.svg';
                 }
-                return '<img src="'. asset($path) .'" alt="logo" style="width: 100px; height: 100px">';
+                return '<img src="' . asset($path) . '" alt="logo" style="width: 100px; height: 100px">';
             })
             ->editColumn('verification_status', function ($data) {
-                if($data->verification_status){
+                if ($data->verification_status) {
                     switch ($data->verification_status) {
                         case 'processing':
                             $return  = '<span class="badge p-1 bg-warning">Processing</span>';
@@ -77,18 +80,18 @@ class CampaignController extends Controller
                         case 'verified':
                             $return  = '<span class="badge p-1 bg-success">Verified</span>';
                             break;
-                        
+
                         default:
                             $return = '<span class="badge p-1 bg-secondary">Unverified</span>';
                             break;
                     }
                     return $return;
-                }else{
+                } else {
                     return '<span class="badge p-1 bg-secondary">Unverified</span>';
                 }
             })
             ->editColumn('activity', function ($data) {
-                if($data->activity){
+                if ($data->activity) {
                     switch ($data->activity) {
                         case 'sending':
                             $return  = '<span class="badge p-1 bg-info">Sending</span>';
@@ -101,21 +104,19 @@ class CampaignController extends Controller
                         case 'closed':
                             $return  = '<span class="badge p-1 bg-secondary">Closed</span>';
                             break;
-                        
+
                         default:
                             $return = '<span class="badge p-1 bg-warning">Processing</span>';
                             break;
                     }
                     return $return;
-                }else{
+                } else {
                     return '<span class="badge p-1 bg-warning">Processing</span>';
                 }
             })
             ->addIndexColumn()
             ->rawColumns(['action', 'img_path', 'verification_status', 'activity'])
             ->make(true);
-
-
     }
 
     public function store(Request $request)
@@ -141,25 +142,25 @@ class CampaignController extends Controller
             $campaign->end_date = $request->input('end_date');
 
             $path = '/campaign';
-            if(!File::exists(public_path('uploads'. $path))){
-                File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+            if (!File::exists(public_path('uploads' . $path))) {
+                File::makeDirectory(public_path('uploads' . $path), 0777, true, true);
             }
-            $fileName = time().'.'.$request->file('image')->extension();
-            $request->file('image')->move(public_path('uploads'. $path), $fileName);
+            $fileName = time() . '.' . $request->file('image')->extension();
+            $request->file('image')->move(public_path('uploads' . $path), $fileName);
             $campaign->img_path = $path . '/' . $fileName;
             $campaign->save();
 
-            foreach(($request->documents ?? []) as $document){
+            foreach (($request->documents ?? []) as $document) {
                 $campaignDocument = new CampaignDocument();
                 $campaignDocument->campaign_id = $campaign->id;
-    
+
                 $path = '/campaign-document';
-                if(!File::exists(public_path('uploads'. $path))){
-                    File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+                if (!File::exists(public_path('uploads' . $path))) {
+                    File::makeDirectory(public_path('uploads' . $path), 0777, true, true);
                 }
-                $fileName = time().rand(1,99).'.'.$document->extension();
-                $document->move(public_path('uploads'. $path), $fileName);
-    
+                $fileName = time() . rand(1, 99) . '.' . $document->extension();
+                $document->move(public_path('uploads' . $path), $fileName);
+
                 $campaignDocument->path = $path . '/' . $fileName;
                 $campaignDocument->save();
             }
@@ -173,7 +174,7 @@ class CampaignController extends Controller
     {
         $campaign = Campaign::where('id', $id)->with(['user.photoProfile', 'category', 'documents'])->first();
 
-        if(!$campaign){
+        if (!$campaign) {
             return $this->setResponse(null, 'Campaign not found', 404);
         }
 
@@ -200,16 +201,16 @@ class CampaignController extends Controller
             $campaign->start_date = $request->input('start_date');
             $campaign->end_date = $request->input('end_date');
 
-            if($request->hasFile('image')){
+            if ($request->hasFile('image')) {
                 $campaign->deleteImageFile();
                 $path = '/campaign';
-                
-                if(!File::exists(public_path('uploads'. $path))){
-                    File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+
+                if (!File::exists(public_path('uploads' . $path))) {
+                    File::makeDirectory(public_path('uploads' . $path), 0777, true, true);
                 }
-        
-                $fileName = time().'.'.$request->file('image')->extension();
-                $request->file('image')->move(public_path('uploads'. $path), $fileName);
+
+                $fileName = time() . '.' . $request->file('image')->extension();
+                $request->file('image')->move(public_path('uploads' . $path), $fileName);
                 $campaign->img_path = $path . '/' . $fileName;
             }
 
@@ -223,10 +224,9 @@ class CampaignController extends Controller
     {
         $campaign = Campaign::findOrFail($id);
 
-        if(!$campaign){
+        if (!$campaign) {
             return $this->setResponse(null, 'Campaign not found', 404);
-        }
-        else {
+        } else {
             $campaign->delete();
             return $this->setResponse(null, 'Campaign deleted successfully');
         }
@@ -234,14 +234,18 @@ class CampaignController extends Controller
 
     public function list(Request $request)
     {
-        $model = Campaign::select(['campaigns.id as id', 'campaigns.title as title', 'campaigns.category_id', 'campaign_categories.name as category_name'])
+        $model = Campaign::select([
+            'campaigns.id', 'campaigns.title as title', 'campaigns.user_id', 'slug', 'img_path', 'description', 'target_amount', 'receiver', 
+            'purpose', 'address_receiver', 'detail_usage_of_funds', 'start_date', 'end_date', 'real_time_amount', 'verification_status', 
+            'activity', 'reject_note', 'campaign_categories.name as category_name'
+        ])
             ->join('campaign_categories', 'campaign_categories.id', '=', 'campaigns.category_id');
 
-        if($request->filled('category')){
+        if ($request->filled('category')) {
             $model->where('category_id', $request->category);
         }
 
-        if($request->filled('search')){
+        if ($request->filled('search')){
             $model->where(DB::raw('LOWER(title)'), 'like', '%' . strtolower($request->input('search')) . '%');
         }
 
@@ -261,21 +265,21 @@ class CampaignController extends Controller
     {
         $model = Campaign::query();
     
-        if($request->filled('search')){
+        if ($request->filled('search')) {
             $model->where(DB::raw('LOWER(title)'), 'like', '%' . strtolower($request->input('search')) . '%');
         }
     
-        if($request->filled('category_id')){
+        if ($request->filled('category_id')) {
             $model->where('category_id', $request->category_id);
         }
     
-        if($request->input('token')){
+        if ($request->input('token')) {
             $token = PersonalAccessToken::findToken($request->input('token'));
             $user = $token->tokenable;
             $model->where('user_id', $user->id);
         }
         
-        if($request->filled('verification_status')){
+        if ($request->filled('verification_status')) {
             $model->where('verification_status', $request->verification_status);
         }
     
@@ -297,7 +301,7 @@ class CampaignController extends Controller
 
         $model = Campaign::where('id', $id)->first();
 
-        if(!$model){
+        if (!$model) {
             return $this->setResponse(null, 'Data not found', 404);
         }
 
@@ -343,11 +347,11 @@ class CampaignController extends Controller
         $campaign->slug = $request->input('slug', Str::slug($request->input('title')));
 
         $path = '/campaign';
-        if(!File::exists(public_path('uploads'. $path))){
-            File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+        if (!File::exists(public_path('uploads' . $path))) {
+            File::makeDirectory(public_path('uploads' . $path), 0777, true, true);
         }
-        $fileName = time().'.'.$request->file('img')->extension();
-        $request->file('img')->move(public_path('uploads'. $path), $fileName);
+        $fileName = time() . '.' . $request->file('img')->extension();
+        $request->file('img')->move(public_path('uploads' . $path), $fileName);
 
         $campaign->img_path = $path . '/' . $fileName;
 
@@ -368,11 +372,11 @@ class CampaignController extends Controller
             $campaignDocument->campaign_id = $campaign->id;
 
             $path = '/campaign-document';
-            if(!File::exists(public_path('uploads'. $path))){
-                File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+            if (!File::exists(public_path('uploads' . $path))) {
+                File::makeDirectory(public_path('uploads' . $path), 0777, true, true);
             }
-            $fileName = time().rand(1,99).'.'.$document->extension();
-            $document->move(public_path('uploads'. $path), $fileName);
+            $fileName = time() . rand(1, 99) . '.' . $document->extension();
+            $document->move(public_path('uploads' . $path), $fileName);
 
             $campaignDocument->path = $path . '/' . $fileName;
             $campaignDocument->save();

@@ -14,7 +14,13 @@ class Withdrawal extends Model
 
     protected $guarded = [];
 
-    public function distributionReport(){
+    public function distributionReport()
+    {
         return $this->hasOne(DistributionReport::class, 'withdrawal_id', 'id');
+    }
+
+    public function campaign()
+    {
+        return $this->belongsTo(Campaign::class);
     }
 }

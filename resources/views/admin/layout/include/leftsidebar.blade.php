@@ -44,7 +44,7 @@
                         <span> Withdrawals </span>
                     </a>
                 </li>
-                {{-- <li>
+                <li>
                     <a href="#contacts" data-bs-toggle="collapse">
                         <i class="mdi mdi-book-open-page-variant-outline"></i>
                         <span> Report </span>
@@ -60,7 +60,7 @@
                             </li>
                         </ul>
                     </div>
-                </li> --}}
+                </li>
             </ul>
 
         </div>

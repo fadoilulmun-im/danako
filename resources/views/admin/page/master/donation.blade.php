@@ -201,7 +201,6 @@
 @endsection
 
 @section('init-js')
-<script src="{{ asset('assets') }}/js/pages/datatables.init.js"></script>
 <script>
     let table = $('#datatable').DataTable({
         processing: true,

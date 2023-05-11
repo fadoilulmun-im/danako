@@ -34,7 +34,7 @@
                                 <th>Description</th>
                                 <th>Amount</th>
                                 <th>Status</th>
-                                {{-- <th>Action</th> --}}
+                                <th>Action</th>
                             </tr>
                         </thead>
                     </table>
@@ -64,13 +64,13 @@
                     <tr>
                         <th>Campaign Id</th>
                         <th>:</th>
-                        <th id="campaign_id"></th>
+                        <th id="detail_campaign_id"></th>
                     </tr>
                 </table>
                 <table class="table table-bordered table-responsive no-margin">
                     <tr>
                         <th>Title</th>
-                        <td><span id="detail_campaign"></span></td>
+                        <td><span id="detail_title"></span></td>
                     </tr>
                     <tr>
                         <th>Description</th>
@@ -78,27 +78,11 @@
                     </tr>
                     <tr>
                         <th>Amount</th>
-                        <td><span id="detail_amount_donations"></span></td>
+                        <td><span id="detail_amount"></span></td>
                     </tr>
                     <tr>
-                        <th>Payment method</th>
-                        <td><span id="detail_payment_method"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Payment channel</th>
-                        <td><span id="detail_payment_channel"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Payment link</th>
-                        <td><span id="detail_payment_link"></span></td>
-                    </tr>
-                    <tr>
-                        <th>Paid at</th>
-                        <td><span id="detail_paid_at"></span></td>
-                    </tr>
-                    <tr>
-                        <th>External id</th>
-                        <td><span id="detail_external_id"></span></td>
+                        <th>Status</th>
+                        <td id="detail_status"></td>
                     </tr>
                 </table>
             </div>
@@ -133,17 +117,60 @@
         serverSide: true,
         responsive: true,
         lengthChange: true,
-        ajax: "{{ route('api.master.withdrawals.index') }}",
+        ajax: "{{ route('api.master.withdrawal.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
-            {data: 'campaign_id', name: 'campaign_id'},
+            {data: 'campaign.title', name: 'campaign.title'},
             {data: 'title', name: 'title'},
             {data: 'description', name: 'description'},
             {data: 'amount', name: 'amount'},
             {data: 'status', name: 'status'},
-            // {data: 'action', name: 'action', orderable: false, searchable: false}
+            {data: 'action', name: 'action', orderable: false, searchable: false}
         ],
         order: [[0, 'desc']]
     });
+
+    function detail(id){
+        $('#detailModal').modal('show');
+        ajax({
+            url: "{{ route('api.master.withdrawal.show','') }}/" + id,
+            type: "GET",
+            success: function(response){
+                if(response.meta.status == 'OK'){
+                    $('#detail_id').text(response.data.id);
+                    $('#detail_campaign_id').text(response.data.campaign_id);
+                    $('#detail_title').text(response.data.title);
+                    $('#detail_desc').text(response.data.description);
+                    $('#detail_amount').text(response.data.amount);
+                }
+
+                let status_color = '';
+                    switch (response.data.status) {
+                        case 'processing':
+                        status_color = 'bg-warning';
+                        break;
+                        case 'rejected':
+                        status_color = 'bg-danger';
+                        break;
+                        case 'done':
+                        status_color = 'bg-success';
+                        break;
+                    
+                        default:
+                        status_color = 'bg-secondary';
+                        break;
+                    }
+                
+                    $('#detail_status').html(`
+                        <h5 class='m-0 badge p-1 ${status_color}'>${(response.data.status).toUpperCase()}</h5>
+                    `);
+
+            },
+            error: function(response){
+            const res = response.responseJSON;
+            console.log(res);
+          },
+        });
+    }
 </script>
 @endsection
