@@ -89,7 +89,6 @@
 
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-   
 <div style="background:#fff;width:100%;max-width:400px;padding:20px;display:block;margin:auto;">
     <div class="container_fluid_invoice" >
         <!-- logo -->
@@ -98,16 +97,6 @@
             width = 200    
             height = 46.5
             />
-        </div>
-        
-        <!-- tulisan rahasia -->
-        <div class="secret_label">
-            <p class="private_label">
-                <span class="dot1">
-                    RAHASIA / PRIBADI<br>
-                    PRIVATE / CONFIDENTAL
-                </span>
-            </p>
         </div>
         
         <!-- judul invoice -->
@@ -137,12 +126,6 @@
             <table>
                 <tr>                           
                     <th>Pembayaran DANAKO</th>
-                    <th>&emsp;&emsp;&emsp;</th>
-                    <th>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-                    <th>&emsp;&emsp;</th>
-                </tr>
-                <th> </th>
-                <tr>
                 </tr>
                 <tr>
                     <th>Tanggal Pembayaran</th>

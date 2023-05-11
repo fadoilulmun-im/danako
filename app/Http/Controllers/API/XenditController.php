@@ -73,6 +73,9 @@ class XenditController extends Controller
         $data = request()->all();
         DB::beginTransaction();
         $donation = Donation::where('external_id', $data['external_id'])->first();
+        if(!$donation){
+            return $this->setResponse(null, 'Donation not found', 404);
+        }
         $donation->status = $data['status'];
         $donation->payment_method = $data['payment_method'];
         $donation->payment_channel = $data['payment_channel'];
@@ -83,7 +86,8 @@ class XenditController extends Controller
 
         if($donation->status == 'PAID'){
             $campaign = $donation->campaign;
-            $campaign->real_time_amount += $campaign->donations->where('status', 'PAID')->sum('amount');
+            // $campaign->real_time_amount += $campaign->donations->where('status', 'PAID')->sum('amount');
+            $campaign->real_time_amount += Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('amount');
             $campaign->save();
         }
         
@@ -97,22 +101,26 @@ class XenditController extends Controller
                 'json' => [
                     'token' => config('env.token_api_wa'),
                     'number' => $donation->user->detail->phone_number,
-                    'message' => "
-                        Assalamualaikum Warahmatullahi Wabarakatuh
-                
-                        Bapak/Ibu/Sdr ".$donation->user->name."
-                        telah bertransaksi di danako.my.id
-                        pada tanggal ".date('Y-m-d H:i:s', $donation->paid_at)."
-                        sebesar ".$donation->amount_donations."
-                        Semoga apa yang anda berikan menjadi keberkahan dan bertambahnya kebahagiaan dunia akhirat anda
+                    'message' => "Assalamualaikum Warahmatullahi Wabarakatuh
+
+Bapak/Ibu/Sdr ".$donation->user->name."
+telah bertransaksi di danako.my.id
+pada tanggal ".date('Y-m-d H:i:s', strtotime($donation->paid_at))."
+sebesar ".$donation->amount_donations."
+Semoga apa yang anda berikan menjadi keberkahan dan bertambahnya kebahagiaan dunia akhirat anda
                     ",
                 ],
             ]);
+
+            $response_wa = json_decode($data_request->getBody());
         }
         
 
         DB::commit();
 
-        return $this->setResponse($donation, 'Invoice updated successfully');
+        return $this->setResponse([
+            'donation' => $donation,
+            'response_wa' => $response_wa ?? null,
+        ], 'Invoice updated successfully');
     }
 }
