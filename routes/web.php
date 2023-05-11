@@ -159,7 +159,18 @@ Route::get('/detail-penyaluran-campaign', function () {
 });
 
 Route::get('/detail_campaign_pemilik/{id}', function ($id) {
-    return view('landing.detail_campaign_pemilik', ['id' => $id]);
+    $currentUrl = url()->current(); // Dapatkan URL saat ini dari permintaan
+    $shareButtons1 = \Share::page(
+        $currentUrl
+  )
+  ->facebook()
+  ->twitter()
+  ->linkedin()
+  ->telegram()
+  ->whatsapp() 
+  ->reddit();
+
+    return view('landing.detail_campaign_pemilik',  compact('id','shareButtons1','currentUrl'));
 })->name('campaigns.pemilik');
 
 
