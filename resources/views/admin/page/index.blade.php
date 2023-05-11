@@ -15,26 +15,22 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Another action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Something else</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="showWidget()">Donasi</a>
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="showTarget()">Target</a>
+
                         </div>
                     </div>
 
-                    <h4 class="header-title mt-0 mb-4">Total Donasi</h4>
+                    <h4 id="headerTitle" class="header-title mt-0 mb-4">Total Donasi</h4>
 
                     <div class="widget-chart-1">
 
-                        <div class="widget-detail-1 text-end">
-                            <h2 class="fw-normal pt-2 mb-1">Rp {{ $Totaldonasi }} </h2>
+                        <div id="widget" class="widget-detail-1 text-end">
+                            <h2 class="fw-normal pt-2 mb-1">Rp <?php echo $Totaldonasi; ?> </h2>
                             <p class="text-muted mb-1">Donasi</p>
                         </div>
 
-                        <div class="widget-detail-1 text-end">
+                        <div id="target" class="widget-detail-1 text-end" style="display: none;">
                             <h2 class="fw-normal pt-2 mb-1">Rp {{ $Totaltarget }} </h2>
                             <p class="text-muted mb-1">Target</p>
                         </div>
@@ -47,37 +43,17 @@
         <div class="col-xl-3 col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <div class="dropdown float-end">
-                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-vertical"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Another action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Something else</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
-                        </div>
-                    </div>
+                    
 
-                    <h4 class="header-title mt-0 mb-3">Realisasi Target Danako</h4>
+                    <h4 class="header-title mt-0 mb-3 mt-2">Realisasi Target Danako</h4>
 
                     <div class="widget-box-2">
                         <div class="widget-detail-2 text-end">
                             <span class="badge bg-success rounded-pill float-start mt-3">{{ $percentage }}% <i class="mdi mdi-trending-up"></i> </span>
-                            <h2 class="fw-normal mb-1"> {{ $percentage }} %</h2>
-                            <p class="text-muted mb-3">Target</p>
+                            <h2 class="fw-normal mb-2"> {{ $percentage }} %</h2>
+                            <p class="text-muted mb-2">Target</p>
                         </div>
-                        <div class="progress progress-bar-alt-success progress-sm">
-                            <div class="progress-bar bg-success" role="progressbar"
-                                    aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"
-                                    style="width: 77%;">
-                                <span class="visually-hidden">77% Complete</span>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -86,22 +62,49 @@
         <div class="col-xl-3 col-md-6">
             <div class="card">
                 <div class="card-body">
-                    
 
-                    <h4 class="header-title mt-0 mb-4">Jumlah User</h4>
+                    <div class="dropdown float-end">
+                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="mdi mdi-dots-vertical"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="Showuser()">Total Pengguna</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="Showadmin()">Total Admin</a>
+                          
+                        </div>
+                    </div>
 
-                    <div class="widget-chart-1">
+
+                    <h4 id="juduluser" class="header-title mt-0 mb-4">User</h4>
+
+                    <div id="user" class="widget-chart-1">
                         <div class="widget-chart-box-1 float-start" dir="ltr">
                             <input data-plugin="knob" data-width="70" data-height="70" data-fgColor="#ffbd4a"
-                                    data-bgColor="#FFE6BA" value="{{ $User }}"
+                                    data-bgColor="#FFE6BA" value="{{ $roleOneUserCount }}"
                                     data-skin="tron" data-angleOffset="180" data-readOnly=true
                                     data-thickness=".15"/>
                         </div>
                         <div class="widget-detail-1 text-end">
-                            <h2 class="fw-normal pt-2 mb-1"> {{ $User }} </h2>
+                            <h2 class="fw-normal pt-2 mb-1"> {{ $roleOneUserCount }} </h2>
                             <p class="text-muted mb-1">User</p>
                         </div>
                     </div>
+
+                    <div id="admin" class="widget-chart-1" style="display: none;">
+                        <div class="widget-chart-box-1 float-start" dir="ltr">
+                            <input data-plugin="knob" data-width="70" data-height="70" data-fgColor="#ffbd4a"
+                                    data-bgColor="#FFE6BA" value="{{ $roleOneUserCount }}"
+                                    data-skin="tron" data-angleOffset="180" data-readOnly=true
+                                    data-thickness=".15"/>
+                        </div>
+                        <div class="widget-detail-1 text-end">
+                            <h2 class="fw-normal pt-2 mb-1"> {{ $roleOneAdminCount }} </h2>
+                            <p class="text-muted mb-1">Admin</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -129,10 +132,45 @@
             </div>
         </div>
 
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="header-title mt-0 mb-3"> Campaign Category</h4>
+
+                    <div class="widget-box-2">
+                        <div class="widget-detail-2 text-end">
+                            <h2 class="fw-normal mb-1"> {{ $CampaignCategory }} </h2>
+                            <p class="text-muted mb-3">Campaign</p>
+                        </div>
+                        <div class="progress progress-bar-alt-pink progress-sm">
+                            <div class="progress-bar bg-pink" role="progressbar"
+                                    aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"
+                                    style="width:  {{ $CampaignCategory }}%;">
+                                <span class="visually-hidden"> {{ $CampaignCategory }}% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>       
+        </div>
+
 
         <div class="col-xl-3 col-md-6">
             <div class="card">
                 <div class="card-body">
+                    <div class="dropdown float-end">
+                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="mdi mdi-dots-vertical"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="Showuser()">Total Pengguna</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="Showadmin()">Total Admin</a>
+                          
+                        </div>
+                    </div>
 
                     <h4 class="header-title mt-0 mb-3">Jumlah Campaign</h4>
 
@@ -161,22 +199,7 @@
         <div class="col-xl-4">
             <div class="card">
                 <div class="card-body">
-                    <div class="dropdown float-end">
-                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-vertical"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Another action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Something else</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
-                        </div>
-                    </div>
-
+                  
                     <h4 class="header-title mt-0">Donasi yang Terkumpul</h4>
 
                     <div class="widget-chart text-center">
@@ -194,25 +217,16 @@
             </div>
         </div><!-- end col -->
 
-        <div class="col-xl-4">
+        <div class="col-xl-8">
             <div class="card">
                 <div class="card-body">
-                    <div class="dropdown float-end">
-                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="mdi mdi-dots-vertical"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Another action</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Something else</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item">Separated link</a>
-                        </div>
-                    </div>
-                    <h4 class="header-title mt-0">Statistics</h4>
+                    
+                    
+                    <h4 class="header-title mt-0">Donasi Per Bulan</h4>
+                    {{-- @foreach($monthlyDonations as $month => $totalAmount)
+                    <p>Total amount for month {{ $month }}: {{ $totalAmount }}</p>
+                @endforeach --}}
+                    
                     <div id="morris-bar-example" dir="ltr" style="height: 280px;" class="morris-chart"></div>
                 </div>
             </div>
@@ -257,6 +271,38 @@
   <script src="{{asset('assets/libs/morris.js06/morris.min.js')}}"></script>
   <script src="{{asset('assets/libs/raphael/raphael.min.js')}}"></script>
   <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
+
+  <script>
+    function showWidget() {
+        document.getElementById("widget").style.display = "block";
+        document.getElementById("target").style.display = "none";
+        document.getElementById("headerTitle").innerHTML = "Total Donasi";
+    }
+
+    function showTarget() {
+        document.getElementById("widget").style.display = "none";
+        document.getElementById("target").style.display = "block";
+        document.getElementById("headerTitle").innerHTML = "Total Target";
+    }
+
+    function Showuser() {
+        document.getElementById("user").style.display = "block";
+        document.getElementById("admin").style.display = "none";
+        document.getElementById("juduluser").innerHTML = "User";
+    }
+
+    function Showadmin() {
+        document.getElementById("user").style.display = "none";
+        document.getElementById("admin").style.display = "block";
+        document.getElementById("juduluser").innerHTML = "Admin";
+        
+    }
+
+    
+
+
+</script>
+
   <script>
     "use strict";
 !(function (e) {
@@ -310,21 +356,23 @@
       e("#morris-bar-example").empty(),
         e("#morris-line-example").empty(),
         e("#morris-donut-example").empty();
-      this.createBarChart(
-        "morris-bar-example",
-        [
-          { y: "2010", a: 75 },
-          { y: "2011", a: 42 },
-          { y: "2012", a: 75 },
-          { y: "2013", a: 38 },
-          { y: "2014", a: 19 },
-          { y: "2015", a: 93 },
-        ],
-        "y",
-        ["a"],
-        ["Statistics"],
-        ["#188ae2"]
-      );
+        var monthlyDonations = @json($monthlyDonations);
+
+        var chartData = Object.keys(monthlyDonations).map(function (month) {
+            var label = "bulan " + month; // Tambahkan teks di depan nilai bulan
+            return { y: label, a: monthlyDonations[month] };
+        });
+
+
+        this.createBarChart(
+            "morris-bar-example",
+            chartData,
+            "y",
+            ["a"],
+            ["Statistics"],
+            ["#188ae2"]
+        );
+
       this.createLineChart(
         "morris-line-example",
         [

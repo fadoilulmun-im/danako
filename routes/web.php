@@ -1,11 +1,13 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Jorenvh\Share\Share;
 use Illuminate\Http\Request;
 use App\Models\CampaignCategory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\RegencyController;
@@ -41,18 +43,33 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', function (Request $request) {
         $Campaign = Campaign::count();
         $Donation = Donation::count();
-        $User = User::count();
+        $roleOneAdminCount = User::where('role_id', 1)->count();
+        $roleOneUserCount = User::where('role_id', 2)->count();
+        $CampaignCategory = CampaignCategory::count();
         $Totaldonasi = Campaign::sum('real_time_amount');
         $Totaltarget = Campaign::sum('target_amount');
         $percentage = number_format(($Totaldonasi / $Totaltarget) * 100, 2);
         $percentage_remaining = number_format((( $Totaltarget - $Totaldonasi ) / $Totaltarget ) * 100, 2);
-
-
+    
+        $currentYear = Carbon::now()->format('Y');
+        $monthlyDonations = [];
+    
+        // Loop through each month in a year
+        for ($month = 1; $month <= 12; $month++) {
+            // Get total donations for the current month
+            $result = Donation::select(DB::raw('SUM(amount_donations) as total_amount'))
+                ->whereRaw('MONTH(created_at) = ?', [$month])
+                ->whereRaw('YEAR(created_at) = ?', [$currentYear])
+                ->get();
         
-
-
-
-        return view('admin.page.index', compact('Campaign','Donation','Totaldonasi','percentage','Totaltarget','percentage_remaining','User'));
+            // Extract the total amount from the result
+            $totalAmount = $result[0]->total_amount;
+    
+            // Store the total amount for the current month
+            $monthlyDonations[$month] = $totalAmount;
+        }
+    
+        return view('admin.page.index', compact('monthlyDonations', 'Campaign', 'Donation', 'Totaldonasi', 'percentage', 'Totaltarget', 'percentage_remaining', 'roleOneUserCount', 'roleOneAdminCount', 'CampaignCategory'));
     })->name('admin.dashboard');
 
     Route::get('/login', function () {
@@ -148,6 +165,7 @@ Route::get('/detail-campaign/{id}', function ($id) {
   ->linkedin()
   ->telegram()
   ->whatsapp() 
+  ->instagram()
   ->reddit();
 
 
@@ -167,7 +185,7 @@ Route::get('/detail_campaign_pemilik/{id}', function ($id) {
   ->twitter()
   ->linkedin()
   ->telegram()
-  ->whatsapp() 
+  ->whatsapp()
   ->reddit();
 
     return view('landing.detail_campaign_pemilik',  compact('id','shareButtons1','currentUrl'));

@@ -41,6 +41,12 @@
           color: #0088cc;
      }
 
+     #social-links .fa-instagram{
+          color: #FF4500;
+     }
+
+
+
 .modal-footer {
 display: block
 }
@@ -200,6 +206,7 @@ color: #ee5535
                               <!-- Social Share buttons 1 -->
                               <div class="social-btn-sp">
                                     {!! $shareButtons1 !!}
+                                    
                               </div> 
                          </div>
                        
