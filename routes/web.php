@@ -52,6 +52,8 @@ Route::group(['prefix' => 'admin'], function () {
         $percentage_remaining = number_format((( $Totaltarget - $Totaldonasi ) / $Totaltarget ) * 100, 2);
     
         $currentYear = Carbon::now()->format('Y');
+        $currentMonth = Carbon::now()->month;
+        $mingguDonations = [];
         $monthlyDonations = [];
     
         // Loop through each month in a year
@@ -68,8 +70,28 @@ Route::group(['prefix' => 'admin'], function () {
             // Store the total amount for the current month
             $monthlyDonations[$month] = $totalAmount;
         }
+
+        $firstDayOfMonth = Carbon::createFromDate($currentYear, $currentMonth, 1);
+        $lastDayOfMonth = $firstDayOfMonth->endOfMonth();
+        
+        $mingguDonations = [];
+        
+        for ($week = 1; $week <= $lastDayOfMonth->weekOfMonth; $week++) {
+            $startOfWeek = $firstDayOfMonth->copy()->startOfWeek()->addWeeks($week - 5);
+            $endOfWeek = $startOfWeek->copy()->endOfWeek();
+        
+            $result = Donation::select(DB::raw('COALESCE(SUM(amount_donations), 0) as total_amount'))
+                ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                ->get();
+        
+            $totalAmount = $result[0]->total_amount;
+        
+            $mingguDonations[$week] = $totalAmount;
+        }
+        
+        
     
-        return view('admin.page.index', compact('monthlyDonations', 'Campaign', 'Donation', 'Totaldonasi', 'percentage', 'Totaltarget', 'percentage_remaining', 'roleOneUserCount', 'roleOneAdminCount', 'CampaignCategory'));
+        return view('admin.page.index', compact('mingguDonations','monthlyDonations', 'Campaign', 'Donation', 'Totaldonasi', 'percentage', 'Totaltarget', 'percentage_remaining', 'roleOneUserCount', 'roleOneAdminCount', 'CampaignCategory'));
     })->name('admin.dashboard');
 
     Route::get('/login', function () {
