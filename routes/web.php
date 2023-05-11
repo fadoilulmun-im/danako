@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
 use App\Models\Campaign;
+use App\Models\Donation;
+use Jorenvh\Share\Share;
 use Illuminate\Http\Request;
 use App\Models\CampaignCategory;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +12,7 @@ use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\VillageController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ProvinceController;
+use App\Http\Controllers\API\CampaignController;
 use App\Http\Controllers\WEB\VerifyEmailController;
 
 /*
@@ -34,13 +38,26 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
 
+    Route::get('/', function (Request $request) {
+        $Campaign = Campaign::count();
+        $Donation = Donation::count();
+        $User = User::count();
+        $Totaldonasi = Campaign::sum('real_time_amount');
+        $Totaltarget = Campaign::sum('target_amount');
+        $percentage = number_format(($Totaldonasi / $Totaltarget) * 100, 2);
+        $percentage_remaining = number_format((( $Totaltarget - $Totaldonasi ) / $Totaltarget ) * 100, 2);
+
+
+        
+
+
+
+        return view('admin.page.index', compact('Campaign','Donation','Totaldonasi','percentage','Totaltarget','percentage_remaining','User'));
+    })->name('admin.dashboard');
+
     Route::get('/login', function () {
         return view('admin.page.login');
     })->name('admin.login');
-
-    Route::get('/', function () {
-        return view('admin.page.index');
-    })->name('admin.dashboard');
 
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
@@ -126,7 +143,19 @@ Route::get('/campaign-pending', function () {
 })->name('campaign-pending');
 
 Route::get('/detail-campaign/{id}', function ($id) {
-    return view('landing.detail_campaign', ['id' => $id]);
+    $currentUrl = url()->current(); // Dapatkan URL saat ini dari permintaan
+    $shareButtons1 = \Share::page(
+        $currentUrl
+  )
+  ->facebook()
+  ->twitter()
+  ->linkedin()
+  ->telegram()
+  ->whatsapp() 
+  ->reddit();
+
+
+    return view('landing.detail_campaign', compact('id','shareButtons1','currentUrl'));
 })->name('campaigns.detail');
 
 Route::get('/detail-penyaluran-campaign', function () {
@@ -134,7 +163,18 @@ Route::get('/detail-penyaluran-campaign', function () {
 });
 
 Route::get('/detail_campaign_pemilik/{id}', function ($id) {
-    return view('landing.detail_campaign_pemilik', ['id' => $id]);
+    $currentUrl = url()->current(); // Dapatkan URL saat ini dari permintaan
+    $shareButtons1 = \Share::page(
+        $currentUrl
+  )
+  ->facebook()
+  ->twitter()
+  ->linkedin()
+  ->telegram()
+  ->whatsapp() 
+  ->reddit();
+
+    return view('landing.detail_campaign_pemilik',  compact('id','shareButtons1','currentUrl'));
 })->name('campaigns.pemilik');
 
 
@@ -242,6 +282,14 @@ Route::get('/sedekah', function () {
 Route::get('/bayar', function () {
     return view('landing.ziswaf.bayar');
 });
+
+
+
+
+
+
+
+
 
 
 
