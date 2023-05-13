@@ -17,7 +17,7 @@
         <div class="card">
             <img src="{{ asset('users/login/logo.svg') }}" alt="DANAKO">
             <h2>Daftar</h2>
-            <p>Daftar akun untuk mulai berbuat kebaikan</p>
+            <div>Daftar akun untuk mulai berbuat kebaikan</div>
             <form action="" method="post" id="register">
                 <div class="form-group">
                     <label for="nama-pengguna" title="Nama Lengkap">

@@ -25,12 +25,12 @@
     @endif
 </head>
 
-<body style="background-color: #666666;">
+<body>
     <div class="left-section">
         <div class="card">
             <img src="{{ asset('') }}users/login/logo.svg" alt="DANAKO">
             <h2>Masuk</h2>
-            <p>Masuk untuk mulai berbuat kebaikan</p>
+            <div>Masuk untuk mulai berbuat kebaikan</div>
             <form action="#" method="post" id="login">
                 <div class="form-group">
                     <label for="username" title="Username">
