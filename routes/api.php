@@ -28,7 +28,7 @@ Route::group(['prefix' => 'withdrawal'], function () {
 });
 
 Route::group(['prefix' => 'xendit'], function () {
-    Route::post('invoice', [XenditController::class, 'createInvoice'])->name('api.xendit.invoice.create')->middleware(['auth:sanctum']);
+    Route::post('invoice', [XenditController::class, 'createInvoice'])->name('api.xendit.invoice.create');
     Route::post('callback', [XenditController::class, 'callback']);
 });
 

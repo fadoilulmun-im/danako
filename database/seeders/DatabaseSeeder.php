@@ -19,8 +19,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             CampaignCategorySeeder::class,
-            CampaignSeeder::class,
-            DonationSeeder::class,
+            // CampaignSeeder::class,
+            // DonationSeeder::class,
+            IndoRegionSeeder::class,
         ]);
     }
 }

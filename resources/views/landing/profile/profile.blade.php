@@ -114,24 +114,19 @@
                 <div class="bar"></div>
               </div>
               
-              <h3 class="pt-3 pb-4">Informasi Pencairan Dana</h3>
-
+              <h3 class="pt-3 pb-4 m-0">Informasi Pencairan Dana</h3>
+              <div id="alert-rek" class="text-secondary pb-3"></div>
+              
               <div class="group">
                 <select class="form-control" id="bank_name" name="bank_name" required>
                   <option selected disabled>Nama Bank</option>
-                  <option value="BCA">BCA</option>
-                  <option value="BRI">BRI</option>
-                  <option value="MANDIRI">MANDIRI</option>
+                  <option value="bca">BCA</option>
+                  <option value="bri">BRI</option>
+                  <option value="mandiri">MANDIRI</option>
+                  <option value="bni">BNI</option>
                 </select>
                 <label for="select">Pilih Nama Bank</label>
                 <div class="bar"></div>
-              </div>
-
-              <div class="group form-group">      
-                <input type="text" class="form-control" id="rek_name" name="rek_name" required>
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label>Nama Rekening</label>
               </div>
 
               <div class="group form-group">      
@@ -139,6 +134,13 @@
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>Nomor Rekening</label>
+              </div>
+
+              <div class="group form-group">      
+                <input type="text" class="form-control" id="rek_name" name="rek_name" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Nama Rekening</label>
               </div>
 
               <div class="group form-group">      
@@ -324,6 +326,9 @@
             $('#username-now').text(data.username);
             $('#img-profile-now').attr('src', data.photo_profile);
 
+            delete data.detail;
+            localStorage.setItem('user', JSON.stringify(data));
+
             Swal.fire({
               title: 'Berhasil!',
               text: 'Data berhasil disimpan',
@@ -436,6 +441,53 @@
       $('#foto').change(function () {
         $('#img-foto img').attr('src', URL.createObjectURL(this.files[0]));
       });
+
+      // cek rekening (masih belum bisa)
+      // var timer, delay = 1000;
+      // $('#rek_number').bind('change', function(e) {
+      //   if($('#bank_name').val() && $('#rek_number').val()){
+      //     clearTimeout(timer);
+      //     timer = setTimeout(function() {
+      //       $.ajax({
+      //         headers: {
+      //           'Access-Control-Allow-Origin': '*'
+      //         },
+      //         url: "https://irfan.co.id/nama-rek/api",
+      //         type: 'POST',
+      //         data: {
+      //           code: $('#bank_name').val(),
+      //           nomer: $('#rek_number').val(),
+      //         },
+      //         beforeSend: function () {
+      //           $('#alert-rek').html(`
+      //             <div class="d-flex align-items-center">
+      //               <strong>Loading...</strong>
+      //               <div class="spinner-border spinner-border-sm ms-auto" role="status" aria-hidden="true"></div>
+      //             </div>
+      //           `);
+      //         },
+      //         success: function (response) {
+      //           if(!response.status){
+      //             $('#alert-rek').html(`
+      //               <div class="alert alert-danger" role="alert">
+      //                 ${response.error}
+      //               </div>
+      //             `)
+      //           }else{
+      //             $('#rek_name').val(response.data.name);
+      //           }
+      //         },
+      //         error: function (response) {
+      //           $('#alert-rek').html(`
+      //             <div class="alert alert-danger" role="alert">
+      //               ${response.error}
+      //             </div>
+      //           `)
+      //         }
+      //       });
+      //     }, delay );
+      //   }
+      // });
     })
   </script>
 @endpush
