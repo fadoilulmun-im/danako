@@ -2,6 +2,82 @@
 
 @section('title', 'Detail Campaign')
 
+@push('after-style')
+<style>
+ #social-links ul {
+        padding-left: 0;
+    }
+    #social-links ul li {
+        display: inline-block;
+    }
+    #social-links ul li a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px; /* Ubah sesuai ukuran yang Anda inginkan */
+        height: 50px; /* Ubah sesuai ukuran yang Anda inginkan */
+        border-radius: 50%; /* Membuat ikon menjadi lingkaran */
+        margin: 5px; /* Ubah sesuai jarak antara ikon */
+        font-size: 25px;
+        background-color: #ccc;
+        color: #fff;
+    }
+     #social-links .fa-facebook{
+           color: #0d6efd;
+     }
+     #social-links .fa-twitter{
+           color: deepskyblue;
+     }
+     #social-links .fa-linkedin{
+           color: #0e76a8;
+     }
+     #social-links .fa-whatsapp{
+          color: #25D366
+     }
+     #social-links .fa-reddit{
+          color: #FF4500;;
+     }
+     #social-links .fa-telegram{
+          color: #0088cc;
+     }
+
+.modal-footer {
+display: block
+}
+
+.ur {
+border: none;
+background-color: #e6e2e2;
+border-bottom-left-radius: 4px;
+border-top-left-radius: 4px
+}
+
+.cpy {
+border: none;
+background-color: #e6e2e2;
+border-bottom-right-radius: 4px;
+border-top-right-radius: 4px;
+cursor: pointer
+}
+
+button.focus,
+button:focus {
+outline: 0;
+box-shadow: none !important
+}
+
+.ur.focus,
+.ur:focus {
+outline: 0;
+box-shadow: none !important
+}
+
+.message {
+font-size: 11px;
+color: #ee5535
+}
+</style>
+@endpush
 
 
 @section('content')
@@ -101,11 +177,37 @@
                     </div>
 
                     <div class="d-grid gap-2 pt-2 pb-3">
-                      <button class="btn btn-secondary disabled border-0" type="button" id="bagikan">Bagikan campaign</button>
-                     
-                      <a
-                        href="{{ url('pencairan-dana').'/'.$id }}" class="btn btn-outline-secondary disabled" type="button" id="btn-cairkan"
-                        >Cairkan Dana</a>
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Bagikan
+                      </button>
+                      <a href="{{ url('pencairan-dana').'/'.$id }}" class="btn btn-outline-success " type="button">Cairkan Dana</a>
+                    </div>
+
+
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Bagikan Campaign Ke Social Media</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <div class='row'>
+                                         
+                              <!-- Social Share buttons 1 -->
+                              <div class="social-btn-sp">
+                                    {!! $shareButtons1 !!}
+                              </div> 
+                         </div>
+
+                          </div>
+
+                          <div class="modal-footer">
+                            <div class="row"> <input class="col-md-10 ur" type="url" placeholder="{{ $currentUrl }}" readonly id="myInput" aria-describedby="inputGroup-sizing-default" style="height: 40px;"> <button class=" col-2 cpy" onclick="myFunction()"><i class="far fa-clone"></i></button></div> 
+                      
+                          </div>
+                        </div>
+                      </div>
                     </div>
 
                     <div class="card" style="height: 500px; overflow-y: scroll;">

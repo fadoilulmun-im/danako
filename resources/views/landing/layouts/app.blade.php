@@ -36,6 +36,7 @@
 
     @include('landing.includes.navbar')
     @yield('content')    
+    
     @include('landing.includes.footer')
        
     @stack('before-script')
