@@ -406,7 +406,7 @@
           $('#birth_date').val(data.detail?.birth_date);
           $('#gender').val(data.detail?.gender).change();
           $('#address').val(data.detail?.address);
-          $('#phone_number').val(data.detail?.phone_number);
+          $('#phone_number').val(data.phone_number);
           if(data.detail?.village ?? null){
             $('#village').append(new Option(data.detail.village.name, data.detail.village.id, false, true));
             $('#subdistrict').append(new Option(data.detail.village.district.name, data.detail.village.district.id, false, true));

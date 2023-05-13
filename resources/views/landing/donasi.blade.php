@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="group form-group mt-5">      
-                          <input type="number" class="form-control" id="amount" name="amount" required>
+                          <input type="number" class="form-control" id="amount" name="amount_donations" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Atau masukkan nominal lainnya</label>
@@ -72,7 +72,7 @@
 
                       <div class="col-md-6">
                         <div class="group form-group">      
-                          <input type="text" class="form-control" id="donatur" name="donatur" required>
+                          <input type="text" class="form-control" id="name" name="name" required>
                           <span class="highlight"></span>
                           <span class="bar"></span>
                           <label>Nama anda (donatur)</label>
@@ -94,7 +94,7 @@
 
                         <div class="form-group group">
                           <div class="text-group">
-                            <textarea required="required" class="form-control" rows="6" name="hope"></textarea>
+                            <textarea class="form-control" rows="6" name="hope"></textarea>
                             <label for="textarea" class="input-label">Tuliskan do’a untuk penerima (opsional)</label><i class="bar"></i>
                           </div>
                         </div>
@@ -153,40 +153,40 @@
       });
       
       // step selanjutnya (ketika klik tombol selanjutnya)
-      $('.f1 .btn-next').on('click', function() {
-        var parent_fieldset = $(this).parents('fieldset');
-        var next_step = true;
-        // navigation steps / progress steps
-        var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-        var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+      // $('.f1 .btn-next').on('click', function() {
+      //   var parent_fieldset = $(this).parents('fieldset');
+      //   var next_step = true;
+      //   // navigation steps / progress steps
+      //   var current_active_step = $(this).parents('.f1').find('.f1-step.active');
+      //   var progress_line = $(this).parents('.f1').find('.f1-progress-line');
 
         
-        // validasi form
-        parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
-          if( $(this).val() == "" ) {
-            $(this).addClass('input-error');
-            next_step = false;
-          }
-          else {
-            $(this).removeClass('input-error');
-          }
-        });
+      //   // validasi form
+      //   parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
+      //     if( $(this).val() == "" ) {
+      //       $(this).addClass('input-error');
+      //       next_step = false;
+      //     }
+      //     else {
+      //       $(this).removeClass('input-error');
+      //     }
+      //   });
 
 
         
-        if( next_step ) {
-          parent_fieldset.fadeOut(400, function() {
-            // change icons
-            current_active_step.removeClass('active').addClass('activated').next().addClass('active');
-            // progress bar
-            bar_progress(progress_line, 'right');
-            // show next step
-            $(this).next().fadeIn();
-            // scroll window to beginning of the form
-            scroll_to_class( $('.f1'), 20 );
-          });
-        }
-      });
+      //   if( next_step ) {
+      //     parent_fieldset.fadeOut(400, function() {
+      //       // change icons
+      //       current_active_step.removeClass('active').addClass('activated').next().addClass('active');
+      //       // progress bar
+      //       bar_progress(progress_line, 'right');
+      //       // show next step
+      //       $(this).next().fadeIn();
+      //       // scroll window to beginning of the form
+      //       scroll_to_class( $('.f1'), 20 );
+      //     });
+      //   }
+      // });
       
       // step sbelumnya (ketika klik tombol sebelumnya)
       $('.f1 .btn-previous').on('click', function() {
@@ -207,19 +207,19 @@
       });
       
       // submit (ketika klik tombol submit diakhir wizard)
-      $('.f1').on('submit', function(e) {
-        // validasi form
-        e.preventDefault();
-        $(this).find('input, textarea').each(function() {
-          if( $(this).val() == "" ) {
-            e.preventDefault();
-            $(this).addClass('input-error');
-          }
-          else {
-            $(this).removeClass('input-error');
-          }
-        });
-      });
+      // $('.f1').on('submit', function(e) {
+      //   // validasi form
+      //   e.preventDefault();
+      //   $(this).find('input, textarea').each(function() {
+      //     if( $(this).val() == "" ) {
+      //       e.preventDefault();
+      //       $(this).addClass('input-error');
+      //     }
+      //     else {
+      //       $(this).removeClass('input-error');
+      //     }
+      //   });
+      // });
 
       $('#form-donasi').submit(function(e){
         e.preventDefault();
@@ -229,7 +229,7 @@
             'X-CSRF-TOKEN': "{{ csrf_token() }}",
             'Authorization': 'Bearer '+ localStorage.getItem('_token'),
           },
-          url: "{{ route('api.xendit.invoice.create') }}",
+          url: "{{ route('api.master.donations.store') }}",
           type: "POST",
           data: formData,
           cache: false,
@@ -271,11 +271,9 @@
 
       const user = JSON.parse(localStorage.getItem('user'));
       if(user){
-        if(user.name) $('#donatur').val(user.name).attr('readonly', true).attr('disabled', true);
+        if(user.name) $('#name').val(user.name).attr('readonly', true).attr('disabled', true);
         if(user.email) $('#email').val(user.email).attr('readonly', true).attr('disabled', true);
         if(user.phone_number) $('#phone_number').val(user.phone_number).attr('readonly', true).attr('disabled', true);
-        // $('#email').val(user.email);
-        // $('#phone').val(user.phone);
       }
   });
 

@@ -187,7 +187,7 @@ Route::get('/detail-campaign/{id}', function ($id) {
   ->linkedin()
   ->telegram()
   ->whatsapp() 
-  ->instagram()
+//   ->instagram()
   ->reddit();
 
 
@@ -202,7 +202,7 @@ Route::get('/detail_campaign_pemilik/{id}', function ($id) {
     $currentUrl = url()->current(); // Dapatkan URL saat ini dari permintaan
     $shareButtons1 = \Share::page(
         $currentUrl
-  )
+    )
   ->facebook()
   ->twitter()
   ->linkedin()
