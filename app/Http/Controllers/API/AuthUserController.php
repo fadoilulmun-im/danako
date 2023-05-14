@@ -30,10 +30,14 @@ class AuthUserController extends Controller
     public function register(Request $request)
     {
         $rules = [
-            'name' => 'required|string',
+            'nama' => 'required|string',
             'username' => 'required|string|unique:users,username|alpha_dash|min:3',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:6',
+
+            'nomor_telepon' => 'required|numeric|digits_between:10,13',
+            'type' => 'nullable|string|in:personal,kelompok',
+            'group' => 'nullable|string|in:komunitas,perusahaan,organisasi,lembaga|required_if:type,kelompok',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -43,11 +47,15 @@ class AuthUserController extends Controller
 
         DB::beginTransaction();
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->nama,
             'username' => strtolower($request->username),
             'email' => strtolower($request->email),
             'password' => bcrypt($request->password),
             'role_id' => config('env.role.user'),
+
+            'phone_number' => $request->nomor_telepon,
+            'type' => $request->type ?? 'personal',
+            'group' => $request->group ?? null,
         ]);
         $user->sendEmailVerificationNotification();
         DB::commit();

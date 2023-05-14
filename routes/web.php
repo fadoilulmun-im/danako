@@ -145,7 +145,8 @@ Route::get('/ziswaf', function () {
 
 
 Route::get('/login', function () { return view('landing.login');})->name('login');
-Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
+// Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
+Route::get('/register', function () { return view('landing.register');})->name('register');
 
 // Route::get('/login', function () {
 //     return view('landing.auth.login');

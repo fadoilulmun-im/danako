@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label for="nama-pengguna" title="Nama Lengkap">
                         <span class="icon"><i class="fa-solid fa-user"></i></span>
-                        <input type="text" id="name" name="name" placeholder="Nama Lengkap">
+                        <input type="text" id="name" name="nama" placeholder="Nama Lengkap">
                     </label>
                 </div>
                 <div class="form-group">
