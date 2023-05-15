@@ -128,6 +128,7 @@ class UserController extends Controller
             'name' => 'required|string',
             'username' => 'required|string|unique:users,username|alpha_dash|min:3',
             'email' => 'required|email|unique:users,email',
+            'phone_number' => 'nullable|numeric',
         ]);
 
         if ($validator->fails()) {
@@ -139,6 +140,7 @@ class UserController extends Controller
         $model->name = $request->name;
         $model->username = strtolower($request->username);
         $model->email = $request->email;
+        $model->phone_number = $request->phone_number;
         $model->password = bcrypt(config('env.default_password'));
         $model->role_id = strtolower($request->input('type', 'user')) == 'admin' ? config('env.role.admin') : config('env.role.user');
         $model->email_verified_at = now();

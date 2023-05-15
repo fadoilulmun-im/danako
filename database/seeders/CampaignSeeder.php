@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Campaign;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CampaignSeeder extends Seeder
 {
@@ -24,15 +25,14 @@ class CampaignSeeder extends Seeder
                     'title' => 'Merapi Erupsi',
                     'description' => 'Kawasan magelang turut terdampak letusan gunung merapi',
                     'target_amount' => 500000.00,
-                    'slug' => 'sajsffjafk',
                     'img_path' => 'zfkgjdgsgad',
                     'receiver' => 'Pak Yahya',
                     'purpose' => 'Membeli kebutuhan pokok ditempat pengungsian',
                     'address_receiver' => 'jalan durian runtuh, magelang',
                     'detail_usage_of_funds' => 'membeli sembako Rp 5.000.000',
-                    'start_date' => '2023-04-01',
-                    'end_date' => '2023-05-01',
-                    'verification_status' => 'processing',
+                    'start_date' => date('Y-m-d'),
+                    'end_date' => date("Y-m-d", strtotime("+1 month")),
+                    'verification_status' => 'verified',
                 ]
             ];
 
@@ -44,7 +44,7 @@ class CampaignSeeder extends Seeder
                         'title' => $item['title'],
                         'description' => $item['description'],
                         'target_amount' => $item['target_amount'],
-                        'slug' => $item['slug'],
+                        'slug' => Str::slug($item['title']),
                         'img_path' => $item['img_path'],
                         'receiver' => $item['receiver'],
                         'purpose' => $item['purpose'],

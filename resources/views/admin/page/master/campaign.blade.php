@@ -1,19 +1,15 @@
 @extends('admin.layout.master')
 
 @section('third-party-css')
-<link href="{{ asset('assets') }}/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
-<link href="{{ asset('assets') }}/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
-<link href="{{ asset('assets') }}/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
-<link href="{{ asset('assets') }}/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets') }}/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets') }}/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
-<!-- Responsive Table css -->
+<link href="{{ asset('assets') }}/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.css" rel="stylesheet">
 <link href="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.css" rel="stylesheet">
-<!-- Select css -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 
@@ -28,8 +24,23 @@
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light"
                             id="addBtn">Create</button>
                     </div>
-                    <div class="row" style="padding-bottom: 15px">
-                        <div class="col-sm-12 col-md-2">Status
+                    <div class="row" style="padding-bottom: 20px">
+                        <div class="col-sm-12 col-md-4">
+                            <label class="form-label">Date Range</label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" id="date_range" name="date_range" class="form-control form-control-sm" placeholder="yyyy-mm-dd">
+                                <a class="input-group-text" title="clear" type="button" id="clear-date">
+                                    <i class="mdi mdi-close-thick"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label class="form-label">Category</label>
+                            <select class="form-select form-select-sm" name="category" id="category-filter">
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label class="form-label">Status</label>
                             <select class="form-select form-select-sm" name="status" id="status-filter">
                               <option value="">All</option>
                               <option value="processing">Processing</option>
@@ -37,38 +48,39 @@
                               <option value="received">Received</option>
                               <option value="closed">Closed</option>
                             </select>
-                          </div>
-                        <div class="col-sm-12 col-md-2">Verification
-                          <select class="form-select form-select-sm" name="verif" id="verif-filter">
-                            <option value="">All</option>
-                            <option value="unverified">Unverified</option>
-                            <option value="processing">Processing</option>
-                            <option value="verified">Verified</option>
-                            <option value="rejected">Rejected</option>
-                          </select>
                         </div>
-                      </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label class="form-label">Verification</label>
+                            <select class="form-select form-select-sm" name="verif" id="verif-filter">
+                                <option value="">All</option>
+                                <option value="unverified">Unverified</option>
+                                <option value="processing">Processing</option>
+                                <option value="verified">Verified</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                    </div>
                     <table id="datatable" class="w-100 table table-bordered table-responsive">
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>User</th>
-                                <th>Category</th>
+                                {{-- <th>User</th>
+                                <th>Category</th> --}}
                                 <th>Title</th>
-                                <th>Description</th>
+                                {{-- <th>Description</th> --}}
                                 <th>Image</th>
                                 <th>Verification</th>
                                 <th>Target Amount</th>
                                 <th>Start</th>
                                 <th>End</th>
-                                <th>Receiver</th>
+                                {{-- <th>Receiver</th>
                                 <th>Purpose</th>
-                                <th>Address Receiver</th>
-                                <th>Detail Usage of Funds</th>
-                                <th>Real Time Amount</th>
-                                <th>Reject Note</th>
-                                <th>Status</th>
-                                <th>Slug</th>
+                                <th>Address Receiver</th> --}}
+                                {{-- <th>Detail Usage of Funds</th> --}}
+                                {{-- <th>Real Time Amount</th>
+                                <th>Reject Note</th> --}}
+                                {{-- <th>Status</th> --}}
+                                {{-- <th>Slug</th> --}}
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -240,14 +252,14 @@
                         <th>Status</th>
                         <td id="detail_status"></td>
                     </tr>
-                    <tr>
+                    {{-- <tr>
                         <th>Activity</th>
                         <td id="detail_activity"></td>
-                    </tr>
-                    <tr>
+                    </tr> --}}
+                    {{-- <tr>
                         <th>Campaign ID</th>
                         <td><span id="detail_id"></span></td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <th>Username</th>
                         <td><span id="detail_user"></span></td>
@@ -346,16 +358,18 @@
 <script src="{{ asset('assets') }}/libs/datatables.net-select/js/dataTables.select.min.js"></script>
 <script src="{{ asset('assets') }}/libs/dropzone/min/dropzone.min.js"></script>
 <script src="{{ asset('assets') }}/libs/dropify/js/dropify.min.js"></script>
-<!-- Responsive Table js -->
+<script src="{{ asset('assets') }}/libs/selectize/js/standalone/selectize.min.js"></script>
 <script src="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
-<!-- Select2 js -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.js"></script>
 @endsection
 
 @section('init-js')
 <script src="{{ asset('assets') }}/js/pages/datatables.init.js"></script>
 <script src="{{ asset('assets') }}/js/pages/form-fileuploads.init.js"></script>
 <script>
+    var minDate, maxDate;
+
     let table = $('#datatable').DataTable({
         responsive: true,
         lengthChange: true,
@@ -365,40 +379,111 @@
             url: "{{ route('api.master.campaigns.index') }}",
             data: function (d) {
                 d.verif = $('#verif-filter').val(),
-                d.status = $('#status-filter').val()
+                d.status = $('#status-filter').val(),
+                d.category = $('#category-filter').val(),
+                d.from = minDate,
+                d.to = maxDate
+            },
+            complete: function(){
+                $('[data-bs-toggle="tooltip"]').tooltip();
             }
         },
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
-            {data: 'user.username', name: 'user.username'},
-            {data: 'category.name', name: 'category.name'},
+            // {data: 'user.username', name: 'user.username'},
+            // {data: 'category.name', name: 'category.name'},
             {data: 'title', name: 'title'},
-            {data: 'description', name: 'description'},
+            // {data: 'description', name: 'description'},
             {data: 'img_path', name: 'img_path'},
             {data: 'verification_status', name: 'verification_status'},
             {data: 'target_amount', name: 'target_amount'},
             {data: 'start_date', name: 'start_date'},
             {data: 'end_date', name: 'end_date'},
-            {data: 'receiver', name: 'receiver'},
-            {data: 'purpose', name: 'purpose'},
-            {data: 'address_receiver', name: 'address_receiver'},
-            {data: 'detail_usage_of_funds', name: 'detail_usage_of_funds'},
-            {data: 'real_time_amount', name: 'real_time_amount'},
-            {data: 'reject_note', name: 'reject_note'},
-            {data: 'activity', name: 'activity'},
-            {data: 'slug', name: 'slug'},
+            // {data: 'receiver', name: 'receiver'},
+            // {data: 'purpose', name: 'purpose'},
+            // {data: 'address_receiver', name: 'address_receiver'},
+            // {data: 'detail_usage_of_funds', name: 'detail_usage_of_funds'},
+            // {data: 'real_time_amount', name: 'real_time_amount'},
+            // {data: 'reject_note', name: 'reject_note'},
+            // {data: 'activity', name: 'activity'},
+            // {data: 'slug', name: 'slug'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         order: [[0, 'desc']]
     });
 
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            console.log(data);
+            var min = minDate;
+            var max = maxDate;
+            var startDate = new Date(data[8]);
+            if (min == null && max == null) { 
+                return true;
+            }
+            if (min == null && startDate <= max) {
+                return true;
+            }
+            if (max == null && startDate >= min) {
+                return true;
+            }
+            if (startDate <= max && startDate >= min) {
+                return true;
+            }
+            return false;
+        }
+    );
+
+    // Flat Picker Date
+    $('#date_range').flatpickr({
+        mode: "range",
+        allowInput: true,
+        altInput: true,
+        onClose: function(selectedDates, dateStr, instance) {
+            var inpDate = dateStr.split(' to ');
+            minDate  =  (inpDate[0]);
+            maxDate  =  (inpDate[1] ?? inpDate[0]);
+            // console.log(minDate,"to",maxDate);
+            // console.log(dateStr);
+            table.draw();
+        }
+    });
+
+    $("#clear-date").click(function() {
+        $('#date_range').flatpickr().clear();
+        minDate = null;
+        maxDate = null;
+        table.draw();
+    });
+
     $('#verif-filter').change(function(){
-        table.ajax.reload();
+        table.draw();
     });
 
     $('#status-filter').change(function(){
-        table.ajax.reload();
-      });
+        table.draw();
+    });
+
+    $('#category-filter').change(function(){
+        table.draw();
+    });
+
+    $(document).ready(function(){
+        $.ajax({
+            url: "{{ route('api.master.categories.list') }}?",
+            type: "GET",
+            dataType: "json",
+            success: function(response){
+            let data = response.data;
+            let select = $('#category-filter');
+            select.empty();
+            select.append('<option value="">All</option>'); // add default option
+            data.forEach(item => {
+                select.append(`<option value="${item.id}">${item.name}</option>`);
+            });
+            }
+        });
+    });
 
     var sel_user = $('.select2User').select2({
         placeholder: {value: '',text: 'None Selected'},
@@ -565,20 +650,20 @@
             success: function(response){
                 if(response.meta.status == 'OK'){
                     $('#detail_img').append('<img src="{{ asset('uploads') }}' + response.data.img_path + '" alt="logo" style="width: 100px; height: 100px">');
-                    $('#detail_id').text(response.data.id);
+                    // $('#detail_id').text(response.data.id);
                     $('#detail_user').text(response.data.user.username);
                     $('#detail_category').text(response.data.category.name);
                     $('#detail_title').text(response.data.title);
-                    $('#detail_description').text(response.data.description);
+                    $('#detail_description').html(response.data.description);
                     $('#detail_target_amount').text(formatRupiah(response.data.target_amount));
                     $('#detail_receiver').text(response.data.receiver);
-                    $('#detail_purpose').text(response.data.purpose);
+                    $('#detail_purpose').html(response.data.purpose);
                     $('#detail_address_receiver').text(response.data.address_receiver);
-                    $('#detail_usage').text(response.data.detail_usage_of_funds);
+                    $('#detail_usage').html(response.data.detail_usage_of_funds);
                     $('#detail_start_date').text(response.data.start_date);
                     $('#detail_end_date').text(response.data.end_date);
                     $('#detail_realtime_amount').text(formatRupiah(response.data.real_time_amount));
-                    $('#detail_activity').text(response.data.activity);
+                    // $('#detail_activity').text(response.data.activity);
 
                     let activity_color = '';
                     switch (response.data.activity) {

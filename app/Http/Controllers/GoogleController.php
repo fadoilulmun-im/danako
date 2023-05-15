@@ -26,14 +26,18 @@ class GoogleController extends Controller
                 'username' => Str::slug($user->getName()),
                 'email' => $user->getEmail(),
                 'google_id' => $user->getId(),
-                'password' => bcrypt(config('env.default_password')),
-                'role_id' => 2
+                // 'password' => bcrypt(config('env.default_password')),
+                'role_id' => config('env.role.user'),
+                'email_verified_at' => date('Y-m-d H:i:s'),
             ]);
         }
 
         // Auth::login($newuser);
         // return redirect()->intended('user');
 
-        return view('landing.login', ['access_token' => $finduser->createToken($finduser->username)->plainTextToken]);
+        return view('landing.login', [
+            'access_token' => $finduser->createToken($finduser->username)->plainTextToken,
+            'user' => $finduser,
+        ]);
     }
 }

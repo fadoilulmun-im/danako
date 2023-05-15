@@ -1,18 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>{{ config('env.app_name') }}</title>
-</head>
-<body>
-  @if ($status == 'ok')
-    <h1>Verifikasi Email Berhasil</h1>
-    <p>{{ $message }}</p>
-  @else
-    <h1>Verifikasi Email Gagal</h1>
-    <p>{{ $message }}</p>
-  @endif
-</body>
-</html>
+@extends('landing.layouts.app')
+
+@section('title', 'Verifikasi Email')
+
+@section('content')
+
+  <section class="email-confirm">
+    <div class="card">
+      @if ($status == 'ok')
+        <img src="{{ asset('') }}danako/img/sukses.png" alt="Image"  class="pt-3"/>
+        <h2 class="title">Berhasil Verifikasi Email</h1>
+        <p>{{ $message }}</p>
+      @else
+        <img src="{{ asset('') }}danako/img/gagal.png" alt="Image" class="img-fluid pt-3"/>
+        <h2 class="title text-danger">Gagal Verifikasi Email</h1>
+        <p>{{ $message }}</p>
+      @endif
+    </div>
+  </section>
+
+@endsection
+
+

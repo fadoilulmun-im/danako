@@ -183,7 +183,9 @@ color: #ee5535
                     </div>
 
                     <div class="d-grid gap-2 pt-2 pb-3">
-                      <a href="{{ url('donasi').'/'.$id }}" class="btn btn-primary" type="button">Donasi Sekarang</a>
+                      <a href="#" class="btn btn-primary" type="button" id="donasi">Donasi Sekarang</a>
+                      {{-- <button class="btn btn-primary" id="bagikan" type="button">Bagikan campaign</button>
+                      <a href="{{ url('donasi').'/'.$id }}" class="btn btn-primary" type="button">Donasi Sekarang</a> --}}
                       {{-- <button class="btn btn-primary" id="bagikan" type="button" onclick="openSharePopup()">Bagikan campaign</button> --}}
                       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Bagikan
@@ -366,6 +368,31 @@ color: #ee5535
           </div>
         `);
       },
+    })
+
+    $('#donasi').click((e) => {
+      e.preventDefault();
+      if(!localStorage.getItem('_token')){
+        Swal.fire({
+          icon: 'warning',
+          title: 'Anda belum login',
+          text: 'Apakah anda ingin login supaya data donasi tersimpan di aku anda',
+          showCancelButton: false,
+          confirmButtonText: 'Ya, login',
+          showDenyButton: true,
+          denyButtonText: 'Tidak, lanjutkan',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            sessionStorage.setItem('redirect', "{{ url('donasi').'/'.$id }}");
+            window.location.href = "{{ route('login') }}";
+          }
+          else if(result.isDenied){
+            window.location.href = "{{ url('donasi').'/'.$id }}";
+          }
+        })
+      }else{
+        window.location.href = "{{ url('donasi').'/'.$id }}";
+      }
     })
   });
 </script>

@@ -25,10 +25,12 @@ use App\Http\Controllers\API\WithdrawalController;
 
 Route::group(['prefix' => 'withdrawal'], function () {
     Route::post('/', [WithdrawalController::class, 'store'])->name('api.withdrawal.store')->middleware(['auth:sanctum']);
+    Route::get('/', [WithdrawalController::class, 'index'])->name('api.master.withdrawal.index');
+    Route::get('/{id}', [WithdrawalController::class, 'show'])->name('api.master.withdrawal.show');
 });
 
 Route::group(['prefix' => 'xendit'], function () {
-    Route::post('invoice', [XenditController::class, 'createInvoice'])->name('api.xendit.invoice.create')->middleware(['auth:sanctum']);
+    Route::post('invoice', [XenditController::class, 'createInvoice'])->name('api.xendit.invoice.create');
     Route::post('callback', [XenditController::class, 'callback']);
 });
 
@@ -42,6 +44,7 @@ Route::prefix('list-location')->group(function () {
 Route::prefix('auth-user')->group(function () {
     Route::post('/', [AuthUserController::class, 'update'])->name('api.user.update')->middleware(['auth:sanctum']);
     Route::get('/me', [AuthUserController::class, 'me'])->name('api.me')->middleware(['auth:sanctum']);
+    Route::get('/cek-verified', [AuthUserController::class, 'cekVerified'])->name('api.user.cekVerified')->middleware(['auth:sanctum']);
     Route::get('/detail', [AuthUserController::class, 'userDetail'])->name('api.user.detail')->middleware(['auth:sanctum']);
     Route::post('register', [AuthUserController::class, 'register'])->name('api.user.register');
     Route::post('login', [AuthUserController::class, 'login'])->name('api.user.login');

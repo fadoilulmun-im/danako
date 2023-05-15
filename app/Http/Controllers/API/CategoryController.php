@@ -59,7 +59,7 @@ class CategoryController extends Controller
         $rules['logo'] .= '|required';
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return $this->setResponse($validator->errors(), null, 422);
+            return $this->setResponse($validator->errors(), $validator->errors()->first(), 422);
         }
 
         DB::beginTransaction();
@@ -127,7 +127,7 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($request->all(), $this->rules());
         if ($validator->fails()) {
-            return $this->setResponse($validator->errors(), null, 422);
+            return $this->setResponse($validator->errors(), $validator->errors()->first(), 422);
         }
         
         DB::beginTransaction();

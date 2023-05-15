@@ -18,27 +18,44 @@ use Illuminate\Support\Facades\File;
 
 class AuthUserController extends Controller
 {
+    public function cekVerified(){
+        $user = Auth::user();
+        if($user->detail && $user->detail->status == 'verified'){
+            return $this->setResponse(['status' => true], null, 200);
+        }
+        
+        return $this->setResponse(['status' => false], null, 200);
+    }
+
     public function register(Request $request)
     {
         $rules = [
-            'name' => 'required|string',
+            'nama' => 'required|string',
             'username' => 'required|string|unique:users,username|alpha_dash|min:3',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:6',
+
+            'nomor_telepon' => 'required|numeric|digits_between:10,13',
+            'type' => 'nullable|string|in:personal,kelompok',
+            'group' => 'nullable|string|in:komunitas,perusahaan,organisasi,lembaga|required_if:type,kelompok',
         ];
 
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
-            return $this->setResponse($validator->errors(), null, 422);
+            return $this->setResponse($validator->errors(), $validator->errors()->first(), 422);
         }
 
         DB::beginTransaction();
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->nama,
             'username' => strtolower($request->username),
             'email' => strtolower($request->email),
             'password' => bcrypt($request->password),
             'role_id' => config('env.role.user'),
+
+            'phone_number' => $request->nomor_telepon,
+            'type' => $request->type ?? 'personal',
+            'group' => $request->group ?? null,
         ]);
         $user->sendEmailVerificationNotification();
         DB::commit();
@@ -53,9 +70,9 @@ class AuthUserController extends Controller
             'password' => 'required|string',
         ];
 
-        $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules, [], ['username' => 'username atau email']);
         if ($validator->fails()) {
-            return $this->setResponse($validator->errors(), null, 422);
+            return $this->setResponse($validator->errors(), $validator->errors()->first(), 422);
         }
 
         $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
@@ -64,14 +81,20 @@ class AuthUserController extends Controller
             $fieldType => $request->username,
             'password' => $request->password
         ];
-        if (!auth()->attempt($credentials)) {
-            return $this->setResponse(null, 'Username or Password Wrong', 401);
+
+        $user = User::where($fieldType, $request->username)->where('role_id', config('env.role.user'))->first();
+        if($user && $user->google_id && !$user->password){
+            return $this->setResponse(null, 'Akun ini hanya bisa login menggunakan google', 401);
+        }
+
+        if (!auth('web')->attempt($credentials)) {
+            return $this->setResponse(null, 'Username atau password salah', 401);
         }
 
         $user = auth()->user();
-        // if (!$user->hasVerifiedEmail()) {
-        //     return $this->setResponse(null, 'Email not verified', 401);
-        // }
+        if (!$user->hasVerifiedEmail()) {
+            return $this->setResponse(null, 'Email belum di verifikasi', 401);
+        }
 
         return $this->setResponse([
             'access_token' => $user->createToken($user->username)->plainTextToken,
@@ -108,7 +131,8 @@ class AuthUserController extends Controller
             'birth_date' => 'required|date',
             'address' => 'required|string',
             'gender' => 'required|in:L,P',
-            'phone_number' => 'required|numeric|unique:user_details,phone_number,' . ($user->detail->id ?? 0),
+            // 'phone_number' => 'required|numeric|unique:user_details,phone_number,' . ($user->detail->id ?? 0),
+            'phone_number' => 'required|numeric',
             'ktp' => 'nullable|image|mimes:jpg,jpeg,png',
             'village' => 'required|exists:villages,id',
             'bank_name' => 'required|string',
@@ -126,6 +150,7 @@ class AuthUserController extends Controller
         $user->username = $request->username;
         $user->email = $request->email;
         $user->name = $request->name;
+        $user->phone_number = $request->phone_number;
         $user->save();
 
         $detail = $user->detail;
@@ -135,7 +160,6 @@ class AuthUserController extends Controller
             $detail->user_id = $user->id;
         }
 
-        $detail->phone_number = $request->phone_number;
         $detail->address = $request->address;
         $detail->village_id = $request->village_id;
         $detail->nik = $request->nik;

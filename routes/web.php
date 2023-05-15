@@ -101,6 +101,20 @@ Route::group(['prefix' => 'admin'], function () {
             $mingguDonations[$week] = $totalAmount;
         }
 
+        $currentDate = Carbon::now()->format('Y-m-d');
+
+        // Ambil waktu awal dan akhir hari ini
+        $startOfDay = Carbon::parse($currentDate)->startOfDay();
+        $endOfDay = Carbon::parse($currentDate)->endOfDay();
+        
+        // Ambil daftar pengguna yang dibuat pada hari ini, batasi hanya 10 terbaru
+        $usersCreated = User::whereBetween('created_at', [$startOfDay, $endOfDay])
+                            ->orderBy('created_at', 'desc')
+                            ->take(10)
+                            ->get();
+
+         $userCount = $usersCreated->count();
+
       
         
     
@@ -218,7 +232,7 @@ Route::group(['prefix' => 'admin'], function () {
                             ->get();
 
          $userCount = $usersCreated->count();
-        return view('admin.page.master.donation',compact('usersCreated','userCount'));
+        return view('admin.page.master.donation',compact('userCount','usersCreated'));
     });
 });
 

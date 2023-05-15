@@ -27,38 +27,22 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#campaigns" data-bs-toggle="collapse">
+                    <a href="/admin/campaigns">
                         <i class="mdi mdi-heart-outline"></i>
                         <span> Campaigns </span>
-                        <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="campaigns">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="/admin/campaigns">Campaigns</a>
-                            </li>
-                            <li>
-                                <a href="#">Funds Disbursement</a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
                 <li>
-                    <a href="#donations" data-bs-toggle="collapse">
+                    <a href="/admin/donations">
                         <i class="dripicons-wallet"></i>
                         <span> Donations </span>
-                        <span class="menu-arrow"></span>
                     </a>
-                    <div class="collapse" id="donations">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="/admin/donations">Donations</a>
-                            </li>
-                            <li>
-                                <a href="#">Payments</a>
-                            </li>
-                        </ul>
-                    </div>
+                </li>
+                <li>
+                    <a href="/admin/withdrawals">
+                        <i class="mdi mdi-bank-transfer-out mdi-24px"></i>
+                        <span> Withdrawals </span>
+                    </a>
                 </li>
                 <li>
                     <a href="#contacts" data-bs-toggle="collapse">
