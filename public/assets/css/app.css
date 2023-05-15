@@ -22073,3 +22073,11 @@ body[data-layout-color=dark] .datepicker tfoot tr th:hover {
   border-radius: 3px;
   font-weight: 500;
 }
+
+
+    .hidden {
+      display: none;
+    }
+    .visible {
+      display: block;
+    }

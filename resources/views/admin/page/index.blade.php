@@ -95,7 +95,7 @@
                     <div id="admin" class="widget-chart-1" style="display: none;">
                         <div class="widget-chart-box-1 float-start" dir="ltr">
                             <input data-plugin="knob" data-width="70" data-height="70" data-fgColor="#ffbd4a"
-                                    data-bgColor="#FFE6BA" value="{{ $roleOneUserCount }}"
+                                    data-bgColor="#FFE6BA" value="{{ $roleOneAdminCount }}"
                                     data-skin="tron" data-angleOffset="180" data-readOnly=true
                                     data-thickness=".15"/>
                         </div>
@@ -203,6 +203,61 @@
             
         </div><!-- end col -->
 
+        <div class="col-xl-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+
+                    <div class="dropdown float-end">
+                        <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="mdi mdi-dots-vertical"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="Dnatur()">Total Dnatur</a>
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="Campainer()">Total Campainer</a>
+                            <a href="{{ url('admin/users') }}" class="dropdown-item" >Lihat Data</a>
+                        </div>
+                    </div>
+
+
+                    <h4 id="juduldonatur" class="header-title mt-0 mb-4">Donatur</h4>
+
+                    <div id="donatur" class="widget-chart-1">
+                        <div class="widget-chart-box-1 float-start" dir="ltr">
+                            <input data-plugin="knob" data-width="70" data-height="70" data-fgColor="#ffbd4a"
+                                    data-bgColor="#FFE6BA" value="{{ $donatur }}"
+                                    data-skin="tron" data-angleOffset="180" data-readOnly=true
+                                    data-thickness=".15"/>
+                        </div>
+                        <div class="widget-detail-1 text-end">
+                            <h2 class="fw-normal pt-2 mb-1"> {{ $donatur }} </h2>
+                            <p class="text-muted mb-1">Donatur</p>
+                        </div>
+                    </div>
+
+                    <div id="campainer" class="widget-chart-1" style="display: none;">
+                        <div class="widget-chart-box-1 float-start" dir="ltr">
+                            <input data-plugin="knob" data-width="70" data-height="70" data-fgColor="#ffbd4a"
+                                    data-bgColor="#FFE6BA" value="{{ $campainer }}"
+                                    data-skin="tron" data-angleOffset="180" data-readOnly=true
+                                    data-thickness=".15"/>
+                        </div>
+                        <div class="widget-detail-1 text-end">
+                            <h2 class="fw-normal pt-2 mb-1"> {{ $campainer }} </h2>
+                            <p class="text-muted mb-1">Campainer</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        
+
+
+
     </div>
     <!-- end row -->
 
@@ -226,7 +281,35 @@
                     </div>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="card-body">
+                    
+
+                    <h4 class="header-title mb-3">10 Pengguna Terbaru Hari ini</h4>
+
+                    <div class="inbox-widget">
+                        
+                        @foreach ($usersCreated as $user)
+                        <div class="inbox-item">
+                            <a href="#">
+                                <div class="inbox-item-img"><img src="assets/images/users/user-1.jpg" class="rounded-circle" alt=""></div>
+                                <h5 class="inbox-item-author mt-0 mb-1">{{ $user->name ?? '' }}</h5>
+                                <p class="inbox-item-text">{{ $user->email }}</p>
+                                <p class="inbox-item-date">{{ $user->created_at->format('H:i:s') }}</p>
+                            </a>
+                        </div>
+                        @endforeach
+                        
+                    
+                    </div>
+                </div>
+            </div>
+
         </div><!-- end col -->
+        
+
+
 
         <div class="col-xl-8">
             <div class="card">
@@ -236,27 +319,20 @@
                             <i class="mdi mdi-dots-vertical"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a href="javascript:void(0);" class="dropdown-item" onclick="Bulanshwo()">Berdasarkan Bulan</a>
-                            <a href="javascript:void(0);" class="dropdown-item" onclick="Tahunshow()">Berdasarkan Minggu</a>
-                            <a href="javascript:void(0);" class="dropdown-item">Berdasarkan Hari</a>
+                            <button class="dropdown-item" onclick="toggleChartVisibility('morris-bar-example')">Sembunyikan Bulanan</button>
+                            <button class="dropdown-item" onclick="toggleChartVisibility('morris-bar-example2')">Sembunyikana Mingguan</button>
+                            <button  class="dropdown-item" onclick="toggleChartVisibility('morris-donut-example')">Toggle Donut Chart</button>
+
                         </div>
                     </div>
                     
-                   <div class="container-fluid" id="bulan" >
-                    <h4 class="header-title mt-0">Donasi Per Bulan</h4>
+                  
+                    <h4 class="header-title mt-0 bulana">Donasi Per Bulan</h4>
                     <div id="morris-bar-example" dir="ltr" style="height: 280px;" class="morris-chart"></div>
-                   </div>
-                    
-                   <div class="container mt-3" id="tahun" >
-                    <h4 class="header-title mt-0">Donasi Per Minggu</h4>
-                    <div id="morris-bar-example2" dir="ltr" style="height: 280px" class="morris-chart"></div>
-                   </div>
                    
-
-                    {{-- @foreach($mingguDonations  as $week  => $total)
-                    <p>Total amount for week {{ $week   }}: {{ $total }}</p>
-                @endforeach --}}
-                
+                        <h4 class="header-title mt-0 mingguan pt-3">Donasi Per Minggu</h4>
+                        <div id="morris-bar-example2" dir="ltr" style="height: 280px;" class="morris-chart"></div>
+                    </div>
                 </div>
             </div>
         </div><!-- end col -->
@@ -278,7 +354,16 @@
   <script src="{{asset('assets/libs/raphael/raphael.min.js')}}"></script>
   <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
 
+  
+
   <script>
+
+function toggleChartVisibility(elementId) {
+  var chartElement = document.getElementById(elementId);
+  chartElement.classList.toggle("d-none");
+}
+
+
     function showWidget() {
         document.getElementById("widget").style.display = "block";
         document.getElementById("target").style.display = "none";
@@ -304,19 +389,23 @@
         
     }
 
-    function Bulanshwo() {
-        // Hide Donasi Per Minggu section
-        document.getElementById("tahun").style.display = "none";
-        // Show Donasi Per Bulan section
-        document.getElementById("bulan").style.display = "block";
-    }
+    function Dnatur() {
+  document.getElementById("juduldonatur").textContent = "Donatur";
+  document.getElementById("donatur").style.display = "block";
+  document.getElementById("campainer").style.display = "none";
+}
 
-    function Tahunshow() {
-        // Show Donasi Per Minggu section
-        document.getElementById("tahun").style.display = "block";
-        // Hide Donasi Per Bulan section
-        document.getElementById("bulan").style.display = "none";
-    }
+function Campainer() {
+  document.getElementById("juduldonatur").textContent = "Campainer";
+  document.getElementById("donatur").style.display = "none";
+  document.getElementById("campainer").style.display = "block";
+}
+
+
+
+
+
+    
 
     
 
@@ -387,51 +476,54 @@
         backgroundColor: "transparent",
       });
     }),
-    (a.prototype.init = function () {
-      e("#morris-bar-example").empty(),
-      e("#morris-bar-example2").empty(),
-        e("#morris-donut-example").empty();
+    (a.prototype.init = function() {
+  e("#morris-bar-example").empty();
+  e("#morris-bar-example2").empty();
+  e("#morris-donut-example").empty();
 
-        var monthlyDonations = @json($monthlyDonations);
+  var monthlyDonations = @json($monthlyDonations);
+  var chartData = Object.keys(monthlyDonations).map(function(month) {
+    return { y: month, a: monthlyDonations[month] };
+  });
 
-        var chartData = Object.keys(monthlyDonations).map(function (month) {
-            return { y: month, a: monthlyDonations[month] };
-        });
+  var mingguDonations = @json($mingguDonations);
+  var chartData2 = Object.keys(mingguDonations).map(function(week) {
+    return { y: week, a: mingguDonations[week] };
+  });
 
-        var mingguDonations = @json($mingguDonations);
+  var chart1 = this.createBarChart(
+    "morris-bar-example",
+    chartData,
+    "y",
+    ["a"],
+    ["Statistics"],
+    ["#188ae2"]
+  );
 
-        var chartData2 = Object.keys(mingguDonations).map(function (week) {
-            return { y: week, a: mingguDonations[week] };
-        });
+  var chart2 = this.createBarChart2(
+    "morris-bar-example2",
+    chartData2,
+    "y",
+    ["a"],
+    ["Statistics"],
+    ["#188ae2"]
+  );
 
-        this.createBarChart(
-            "morris-bar-example",
-            chartData,
-            "y",
-            ["a"],
-            ["Statistics"],
-            ["#188ae2"]
-        );
+  var donutChart = this.createDonutChart(
+    "morris-donut-example",
+    [
+      { label: "Terkumpul", value: {{ $percentage }} },
+      { label: "Belum", value: {{ $percentage_remaining }} },
+    ],
+    ["#ff8acc", "#5b69bc", "#35b8e0"]
+  );
 
-        this.createBarChart2(
-            "morris-bar-example2",
-            chartData2,
-            "y",
-            ["a"],
-            ["Statistics"],
-            ["#188ae2"]
-        );
+  // Mengatur class "d-none" pada elemen grafik
+  e(chart1.el).addClass("d-none");
+  e(chart2.el).addClass("d-none");
+  e(donutChart.el).addClass("d-none");
+}),
 
-    
-      this.createDonutChart(
-        "morris-donut-example",
-        [
-          { label: "Terkumpul", value: {{ $percentage }} },
-          { label: "Belum", value: {{ $percentage_remaining }} },
-        ],
-        ["#ff8acc", "#5b69bc", "#35b8e0"]
-      );
-    }),
     (e.Dashboard1 = new a()),
     (e.Dashboard1.Constructor = a);
 })(window.jQuery),
