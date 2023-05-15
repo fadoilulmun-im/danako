@@ -41,6 +41,9 @@ class CampaignController extends Controller
     {
         $campaign = Campaign::with(['user', 'category']);
 
+        $startDate = $request->get('from');
+        $endDate = $request->get('to');
+
         if ($request->filled('verif')) {
             $campaign->where('verification_status', $request->get('verif'));
         }
@@ -50,10 +53,14 @@ class CampaignController extends Controller
         if ($request->filled('category')) {
             $campaign->where('category_id', $request->get('category'));
         }
+        if($startDate && $endDate) {
+            $campaign->whereBetween('campaigns.start_date', [$startDate, $endDate])->orWhereBetween('campaigns.end_date', [$startDate, $endDate]);
+        }
         return DataTables::of($campaign)
             ->addColumn('action', function ($data) {
                 return '
-                    <span onclick="detail(' . $data->id . ')" class="fas fa-eye text-primary me-1" style="font-size: 1.2rem; cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" title="Detail"></span>
+                    <span onclick="detail(' . $data->id . ')" onclick="loading()" class="fas fa-eye text-primary me-1" style="font-size: 1.2rem; cursor: pointer" 
+                    data-bs-toggle="tooltip" data-bs-placement="top" title="Show" data-bs-original-title="Show" aria-label="Show"></span>
                 ';
                 // <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning me-1" style="font-size: 1.2rem; cursor: pointer" title="Edit"></span>
                 // <span onclick="destroy('. $data->id .')" class="fas fa-trash-alt text-danger" style="font-size: 1.2rem; cursor: pointer" title="Delete"></span>
@@ -70,24 +77,24 @@ class CampaignController extends Controller
                 if ($data->verification_status) {
                     switch ($data->verification_status) {
                         case 'processing':
-                            $return  = '<span class="badge p-1 bg-warning">Processing</span>';
+                            $return  = '<h5><span class="badge p-1 bg-warning">Processing</span></h5>';
                             break;
 
                         case 'rejected':
-                            $return  = '<span class="badge p-1 bg-danger">Rejected</span>';
+                            $return  = '<h5><span class="badge p-1 bg-danger">Rejected</span></h5>';
                             break;
 
                         case 'verified':
-                            $return  = '<span class="badge p-1 bg-success">Verified</span>';
+                            $return  = '<h5><span class="badge p-1 bg-success">Verified</span></h5>';
                             break;
 
                         default:
-                            $return = '<span class="badge p-1 bg-secondary">Unverified</span>';
+                            $return = '<h5><span class="badge p-1 bg-secondary">Unverified</span></h5>';
                             break;
                     }
                     return $return;
                 } else {
-                    return '<span class="badge p-1 bg-secondary">Unverified</span>';
+                    return '<h5><span class="badge p-1 bg-secondary">Unverified</span></h5>';
                 }
             })
             ->editColumn('activity', function ($data) {

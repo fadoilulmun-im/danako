@@ -1,25 +1,16 @@
 @extends('admin.layout.master')
 
 @section('third-party-css')
-<link href="{{ asset('assets') }}/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
-<link href="{{ asset('assets') }}/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
-<link href="{{ asset('assets') }}/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
-<link href="{{ asset('assets') }}/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets') }}/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets') }}/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets') }}/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css" />
-
 <link href="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.css" rel="stylesheet">
-<!-- Responsive Table css -->
 <link href="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.css" rel="stylesheet">
-<!-- Select css -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-<!-- Datepicker css -->
-<link href="{{ asset('assets') }}/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('content')
@@ -33,17 +24,25 @@
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light"
                             id="addBtn">Create</button>
                     </div>
-                    <div class="row" style="padding-bottom: 15px">
-                        {{-- <div class="col-sm-12 col-md-3">
-                            <input type="text" id="range_date" name="range_date" class="form-control form-control-sm" placeholder="Range date">
-                        </div> --}}
+                    <div class="row" style="padding-bottom: 20px">
+                        <div class="col-sm-12 col-md-4">
+                            <label class="form-label">Date Range</label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" id="date_range" name="date_range" class="form-control form-control-sm" placeholder="yyyy-mm-dd">
+                                <a class="input-group-text" title="clear" type="button" id="clear-date">
+                                    <i class="mdi mdi-close-thick"></i>
+                                </a>
+                            </div>
+                        </div>
                         <div class="col-sm-12 col-md-2">
+                            <label class="form-label">Category</label>
                             <select class="form-select form-select-sm" name="category" id="category-filter">
                             </select>
                         </div>
                         <div class="col-sm-12 col-md-2">
+                            <label class="form-label">Status</label>
                             <select class="form-select form-select-sm" name="status" id="status-filter">
-                              <option value="">Status all</option>
+                              <option value="">All</option>
                               <option value="processing">Processing</option>
                               <option value="sending">Sending</option>
                               <option value="received">Received</option>
@@ -51,15 +50,16 @@
                             </select>
                         </div>
                         <div class="col-sm-12 col-md-2">
+                            <label class="form-label">Verification</label>
                             <select class="form-select form-select-sm" name="verif" id="verif-filter">
-                                <option value="">Verification all</option>
+                                <option value="">All</option>
                                 <option value="unverified">Unverified</option>
                                 <option value="processing">Processing</option>
                                 <option value="verified">Verified</option>
                                 <option value="rejected">Rejected</option>
                             </select>
                         </div>
-                      </div>
+                    </div>
                     <table id="datatable" class="w-100 table table-bordered table-responsive">
                         <thead>
                             <tr>
@@ -359,12 +359,8 @@
 <script src="{{ asset('assets') }}/libs/dropzone/min/dropzone.min.js"></script>
 <script src="{{ asset('assets') }}/libs/dropify/js/dropify.min.js"></script>
 <script src="{{ asset('assets') }}/libs/selectize/js/standalone/selectize.min.js"></script>
-<!-- Responsive Table js -->
 <script src="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
-<!-- Select2 js -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<!-- Datepicker js -->
-<script src="{{ asset('assets') }}/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 <script src="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.js"></script>
 @endsection
 
@@ -372,6 +368,8 @@
 <script src="{{ asset('assets') }}/js/pages/datatables.init.js"></script>
 <script src="{{ asset('assets') }}/js/pages/form-fileuploads.init.js"></script>
 <script>
+    var minDate, maxDate;
+
     let table = $('#datatable').DataTable({
         responsive: true,
         lengthChange: true,
@@ -382,7 +380,12 @@
             data: function (d) {
                 d.verif = $('#verif-filter').val(),
                 d.status = $('#status-filter').val(),
-                d.category = $('#category-filter').val()
+                d.category = $('#category-filter').val(),
+                d.from = minDate,
+                d.to = maxDate
+            },
+            complete: function(){
+                $('[data-bs-toggle="tooltip"]').tooltip();
             }
         },
         columns: [
@@ -409,16 +412,60 @@
         order: [[0, 'desc']]
     });
 
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            console.log(data);
+            var min = minDate;
+            var max = maxDate;
+            var startDate = new Date(data[8]);
+            if (min == null && max == null) { 
+                return true;
+            }
+            if (min == null && startDate <= max) {
+                return true;
+            }
+            if (max == null && startDate >= min) {
+                return true;
+            }
+            if (startDate <= max && startDate >= min) {
+                return true;
+            }
+            return false;
+        }
+    );
+
+    // Flat Picker Date
+    $('#date_range').flatpickr({
+        mode: "range",
+        allowInput: true,
+        altInput: true,
+        onClose: function(selectedDates, dateStr, instance) {
+            var inpDate = dateStr.split(' to ');
+            minDate  =  (inpDate[0]);
+            maxDate  =  (inpDate[1] ?? inpDate[0]);
+            // console.log(minDate,"to",maxDate);
+            // console.log(dateStr);
+            table.draw();
+        }
+    });
+
+    $("#clear-date").click(function() {
+        $('#date_range').flatpickr().clear();
+        minDate = null;
+        maxDate = null;
+        table.draw();
+    });
+
     $('#verif-filter').change(function(){
-        table.ajax.reload();
+        table.draw();
     });
 
     $('#status-filter').change(function(){
-        table.ajax.reload();
+        table.draw();
     });
 
     $('#category-filter').change(function(){
-        table.ajax.reload();
+        table.draw();
     });
 
     $(document).ready(function(){
@@ -430,7 +477,7 @@
             let data = response.data;
             let select = $('#category-filter');
             select.empty();
-            select.append('<option value="" disabled selected hidden>Category all</option>'); // add default option
+            select.append('<option value="">All</option>'); // add default option
             data.forEach(item => {
                 select.append(`<option value="${item.id}">${item.name}</option>`);
             });
@@ -798,88 +845,5 @@
             { style: 'currency', currency: 'IDR' }
         ).format(money);
     }
-
-    // const fp = flatpickr("#range_date", {
-    //     mode:"range",
-    //     altInput: true,
-    //     altFormat: "F j, Y",
-    //     dateFormat: "Y-m-d",
-    // });
-    
-    // var opt =  { 
-    //         mode:"range",
-    //         altInput: true,
-    //         altFormat: "F j, Y",
-    //         dateFormat: "Y-m-d",
-    //     };
-    // $('#range_date').flatpickr({mode:"range"});
-
-    // var minDate, maxDate;
-  
-    // // Custom filtering function which will search data in column four between two values
-    // $.fn.dataTable.ext.search.push(
-    //     function( settings, data, dataIndex ) {
-    //         var min = minDate;
-    //         var max = maxDate;
-    //         var date = new Date(data[8]);
-     
-    //         if (
-    //             ( min === null && max === null ) ||
-    //             ( min === null && date <= max ) ||
-    //             ( min <= date   && max === null ) ||
-    //             ( min <= date   && date <= max )
-    //         ) {
-    //             return true;
-    //         }
-    //         return false;
-    //     }
-    // );
- 
-    // //Flat Picker Date
-    // flatpickr('#range_date', {
-    //     "allowInput":true,
-    //     mode:"range",
-    //     altInput: true,
-    //     altFormat: "F j, Y",
-    //     dateFormat: "Y-m-d",
- 
-    //     onChange:
-    //     function (selectedDates, dateStr, instance) {
-
-    //     },
-    //     onReady: function(selectedDates, dateStr, instance){
-
-    //     }, 
-    //     onClose: function(selectedDates, dateStr, instance) {
-    //         var minDate  =  Date(selectedDates[0]);
-    //         var maxDate  =  Date(selectedDates[1]);
-    //         table.draw();  
-    //         console.log(minDate,"to",maxDate);
-    //     }
-    // });
-
-    // // Extend dataTables search
-    // $.fn.dataTable.ext.search.push(
-    // function(settings, data, dataIndex) {
-    //     var min = $('#min-date').val();
-    //     var max = $('#max-date').val();
-    //     var createdAt = data[8] || 0; // Our date column in the table
-
-    //     if (
-    //     (min == "" || max == "") ||
-    //     (moment(createdAt).isSameOrAfter(min) && moment(createdAt).isSameOrBefore(max))
-    //     ) {
-    //     return true;
-    //     }
-    //     return false;
-    // }
-    // );
-
-    // // Re-draw the table when the a date range filter changes
-    // $('.date-range-filter').change(function() {
-    // table.draw();
-    // });
-
-    // $('#my-table_filter').hide();
 </script>
 @endsection

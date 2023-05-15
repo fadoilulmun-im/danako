@@ -15,6 +15,14 @@ class DonationController extends Controller
     public function index(Request $request)
     {
         $donation = Donation::with(['user', 'campaign']);
+
+        $startDate = $request->get('from');
+        $endDate = $request->get('to');
+
+        if($startDate && $endDate) {
+            $donation->whereDate('donations.created_at', '>=', $startDate)->whereDate('donations.created_at', '<=', $endDate);
+        }
+
         return DataTables::of($donation)
             ->addColumn('action', function ($data) {
                 return '
@@ -23,8 +31,45 @@ class DonationController extends Controller
                 // <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning me-1" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Edit"></span>
                 // <span onclick="destroy('. $data->id .')" class="fas fa-trash-alt text-danger" style="font-size: 1.2rem; cursor: pointer" data-toggle="tooltip" title="Delete"></span>
             })
+            ->editColumn('payment_link', function($data){
+                $html = '';
+                if ($data->payment_link != null){
+                    $html .= '<a href="'. $data->payment_link .'" onclick="loading()" class="fas fa-link text-primary me-1" style="font-size: 1.2rem" 
+                    data-bs-toggle="tooltip" title="Payment link" data-bs-original-title="Payment link" aria-label="Payment link"></a>';
+                } else {
+                    $html .= '<span align=Center>Not found</span>';
+                }  
+                return $html;
+            })
+            ->editColumn('status', function($data){
+                if ($data->status) {
+                    switch ($data->status) {
+                        case 'PAID':
+                            $return  = '<h5><span class="badge p-1 badge-soft-success">PAID</span></h5>';
+                            break;
+
+                        case 'PENDING':
+                            $return  = '<h5><span class="badge p-1 badge-soft-warning">PENDING</span></h5>';
+                            break;
+
+                        default:
+                            $return = '<h5><span class="badge p-1 badge-soft-danger">'. $data->status .'</span></h5>';
+                            break;
+                    }
+                    return $return;
+                } else {
+                    return '<h5><span class="badge p-1 badge-soft-danger">UNPAID</span></h5>';
+                }
+                // if ($data->status == 'PAID'){
+                //     return '
+                //     <h5><span class="badge p-1 badge-soft-success">Paid</span></h5>
+                //     '; 
+                // } else {
+                //     return '<h5><span class="badge p-1 badge-soft-warning">'. $data->id .'</span></h5>';
+                // }   
+            })
             ->addIndexColumn()
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'payment_link', 'status'])
             ->make(true);
     }
 

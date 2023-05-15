@@ -1,17 +1,12 @@
 @extends('admin.layout.master')
 
 @section('third-party-css')
-<link href="{{ asset('assets') }}/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
-<link href="{{ asset('assets') }}/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
-<link href="{{ asset('assets') }}/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
-<link href="{{ asset('assets') }}/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet"
-    type="text/css" />
-<!-- Responsive Table css -->
+<link href="{{ asset('assets') }}/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-buttons-bs5/css/buttons.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('assets') }}/libs/datatables.net-select-bs5/css//select.bootstrap5.min.css" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.css" rel="stylesheet">
-<!-- Select2 css -->
+<link href="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endsection
 
@@ -24,6 +19,17 @@
                     <div class="d-flex justify-content-between mb-2">
                         <h4 class="mt-0 header-title">Donations</h4>
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" id="addBtn">Create</button>
+                    </div>
+                    <div class="row" style="padding-bottom: 20px">
+                        <div class="col-sm-12 col-md-4">
+                            <label class="form-label">Date Range</label>
+                            <div class="input-group input-group-sm">
+                                <input type="text" id="date_range" name="date_range" class="form-control form-control-sm" placeholder="yyyy-mm-dd">
+                                <a class="input-group-text" title="clear" type="button" id="clear-date">
+                                    <i class="mdi mdi-close-thick"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <table id="datatable" class="w-100 table table-bordered table-responsive">
                         <thead>
@@ -38,6 +44,7 @@
                                 <th>Payment Link</th>
                                 <th>Paid at</th>
                                 <th>External Id</th>
+                                <th>Created at</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -142,7 +149,7 @@
                     </tr>
                     <tr>
                         <th>Payment link</th>
-                        <td><span id="detail_payment_link"></span></td>
+                        <td id="detail_payment_link"></td>
                     </tr>
                     <tr>
                         <th>Paid at</th>
@@ -194,20 +201,31 @@
 <script src="{{ asset('assets') }}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="{{ asset('assets') }}/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
 <script src="{{ asset('assets') }}/libs/datatables.net-select/js/dataTables.select.min.js"></script>
- <!-- Responsive Table js -->
- <script src="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
- <!-- Select2 js -->
+<script src="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
+<script src="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @endsection
 
 @section('init-js')
+<script src="{{ asset('assets') }}/js/pages/datatables.init.js"></script>
 <script>
+    var minDate, maxDate;
+
     let table = $('#datatable').DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
         lengthChange: true,
-        ajax: "{{ route('api.master.donations.index') }}",
+        ajax: {
+            url: "{{ route('api.master.donations.index') }}",
+            data: function (d) {
+                d.from = minDate,
+                d.to = maxDate
+            },
+            complete: function(){
+                $('[data-bs-toggle="tooltip"]').tooltip();
+            }
+        },
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
             {data: 'user.username', name: 'user.username'},
@@ -219,10 +237,56 @@
             {data: 'payment_link', name: 'payment_link'},
             {data: 'paid_at', name: 'paid_at'},
             {data: 'external_id', name: 'external_id'},
+            {data: 'created_at', name: 'created_at'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         order: [[0, 'desc']]
     });
+
+    // Flat Picker Date
+    $('#date_range').flatpickr({
+        mode: "range",
+        allowInput: true,
+        altInput: true,
+        dateFormat: "Y-m-d",
+        onClose: function(selectedDates, dateStr, instance) {
+            inpDate = dateStr.split(' to ');
+            minDate  =  (inpDate[0]);
+            maxDate  =  (inpDate[1] ?? inpDate[0]);
+            // console.log(minDate,"to",maxDate);
+            // console.log(dateStr);
+            table.draw();
+        }
+    });
+
+    $("#clear-date").click(function() {
+        $('#date_range').flatpickr().clear();
+        minDate = null;
+        maxDate = null;
+        table.ajax.reload();
+    });
+
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            console.log(data);
+            var min = minDate;
+            var max = maxDate;
+            var startDate = new Date(data[10]);
+            if (min == null && max == null) { 
+                return true;
+            }
+            if (min == null && startDate <= max) {
+                return true;
+            }
+            if (max == null && startDate >= min) {
+                return true;
+            }
+            if (startDate <= max && startDate >= min) {
+                return true;
+            }
+            return false;
+        }
+    );
 
     $('.select2User').select2({
         placeholder: {value: '',text: 'None Selected'},
@@ -372,12 +436,39 @@
                     $('#detail_campaign').text(response.data.campaign.title);
                     $('#detail_amount_donations').text(formatRupiah(response.data.amount_donations));
                     $('#detail_hope').text(response.data.hope);
-                    $('#detail_status').text(response.data.status);
-                    $('#detail_payment_method').text(response.data.user.payment_method);
-                    $('#detail_payment_channel').text(response.data.campaign.payment_channel);
-                    $('#detail_payment_link').text(response.data.payment_link);
-                    $('#detail_paid_at').text(response.data.pait_at);
+                    $('#detail_payment_method').text(response.data.payment_method);
+                    $('#detail_payment_channel').text(response.data.payment_channel);
+                    $('#detail_paid_at').text(response.data.paid_at);
                     $('#detail_external_id').text(response.data.external_id);
+
+                    if (response.data.payment_link != null){
+                        $('#detail_payment_link').html(`
+                            <a class="btn btn-sm btn-primary" href="${response.data.payment_link}"><i class="fas fa-link"></i> Payment link</a>
+                        `);
+                    } else {
+                        $('#detail_payment_link').html(`
+                            <a class="btn btn-sm btn-primary" href="#"><i class="mdi mdi-link"> Payment link</i></a>
+                        `);
+                    }
+
+                    let status_color = '';
+                    switch (response.data.status) {
+                        case 'PAID':
+                            status_color = 'badge-soft-success';
+                        break;
+
+                        case 'PENDING':
+                            status_color = 'badge-soft-warning';
+                        break;
+                    
+                        default:
+                            status_color = 'badge-soft-danger';
+                        break;
+                    }
+
+                    $('#detail_status').html(`
+                        <h5 class='badge p-1 ${status_color}'>${(response.data.status).toUpperCase()}</h5>
+                    `);
                 }
             },
         });
