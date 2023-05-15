@@ -198,7 +198,7 @@ Route::group(['prefix' => 'admin'], function () {
                             ->get();
 
          $userCount = $usersCreated->count();
-        return view('admin.page.master.category');
+        return view('admin.page.master.category',compact('usersCreated','userCount'));
     });
 
     Route::get('/campaigns', function () {
