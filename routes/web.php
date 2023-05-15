@@ -1,11 +1,13 @@
 <?php
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Campaign;
 use App\Models\Donation;
 use Jorenvh\Share\Share;
 use Illuminate\Http\Request;
 use App\Models\CampaignCategory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\RegencyController;
@@ -41,18 +43,55 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', function (Request $request) {
         $Campaign = Campaign::count();
         $Donation = Donation::count();
-        $User = User::count();
+        $roleOneAdminCount = User::where('role_id', 1)->count();
+        $roleOneUserCount = User::where('role_id', 2)->count();
+        $CampaignCategory = CampaignCategory::count();
         $Totaldonasi = Campaign::sum('real_time_amount');
         $Totaltarget = Campaign::sum('target_amount');
         $percentage = number_format(($Totaldonasi / $Totaltarget) * 100, 2);
         $percentage_remaining = number_format((( $Totaltarget - $Totaldonasi ) / $Totaltarget ) * 100, 2);
-
-
+    
+        $currentYear = Carbon::now()->format('Y');
+        $currentMonth = Carbon::now()->month;
+        $mingguDonations = [];
+        $monthlyDonations = [];
+    
+        // Loop through each month in a year
+        for ($month = 1; $month <= 12; $month++) {
+            // Get total donations for the current month
+            $result = Donation::select(DB::raw('SUM(amount_donations) as total_amount'))
+                ->whereRaw('MONTH(created_at) = ?', [$month])
+                ->whereRaw('YEAR(created_at) = ?', [$currentYear])
+                ->get();
         
+            // Extract the total amount from the result
+            $totalAmount = $result[0]->total_amount;
+    
+            // Store the total amount for the current month
+            $monthlyDonations[$month] = $totalAmount;
+        }
 
-
-
-        return view('admin.page.index', compact('Campaign','Donation','Totaldonasi','percentage','Totaltarget','percentage_remaining','User'));
+        $firstDayOfMonth = Carbon::createFromDate($currentYear, $currentMonth, 1);
+        $lastDayOfMonth = $firstDayOfMonth->endOfMonth();
+        
+        $mingguDonations = [];
+        
+        for ($week = 1; $week <= $lastDayOfMonth->weekOfMonth; $week++) {
+            $startOfWeek = $firstDayOfMonth->copy()->startOfWeek()->addWeeks($week - 5);
+            $endOfWeek = $startOfWeek->copy()->endOfWeek();
+        
+            $result = Donation::select(DB::raw('COALESCE(SUM(amount_donations), 0) as total_amount'))
+                ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+                ->get();
+        
+            $totalAmount = $result[0]->total_amount;
+        
+            $mingguDonations[$week] = $totalAmount;
+        }
+        
+        
+    
+        return view('admin.page.index', compact('mingguDonations','monthlyDonations', 'Campaign', 'Donation', 'Totaldonasi', 'percentage', 'Totaltarget', 'percentage_remaining', 'roleOneUserCount', 'roleOneAdminCount', 'CampaignCategory'));
     })->name('admin.dashboard');
 
     Route::get('/login', function () {
@@ -110,7 +149,8 @@ Route::get('/ziswaf', function () {
 
 
 Route::get('/login', function () { return view('landing.login');})->name('login');
-Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
+// Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
+Route::get('/register', function () { return view('landing.register');})->name('register');
 
 // Route::get('/login', function () {
 //     return view('landing.auth.login');
@@ -152,6 +192,7 @@ Route::get('/detail-campaign/{id}', function ($id) {
   ->linkedin()
   ->telegram()
   ->whatsapp() 
+//   ->instagram()
   ->reddit();
 
 
@@ -166,12 +207,12 @@ Route::get('/detail_campaign_pemilik/{id}', function ($id) {
     $currentUrl = url()->current(); // Dapatkan URL saat ini dari permintaan
     $shareButtons1 = \Share::page(
         $currentUrl
-  )
+    )
   ->facebook()
   ->twitter()
   ->linkedin()
   ->telegram()
-  ->whatsapp() 
+  ->whatsapp()
   ->reddit();
 
     return view('landing.detail_campaign_pemilik',  compact('id','shareButtons1','currentUrl'));
@@ -190,12 +231,13 @@ Route::get('/konfiramsi-gagal', function () {
     return view('landing.konfirmasi_email_gagal');
 })->name('konfirmasi-gagal');
 
-Route::get('/payment-gagal', function () {
-    return view('landing.payment_gagal');
+Route::get('/payment-gagal/{external_id}', function ($external_id) {
+    return view('landing.payment_gagal', ['external_id' => $external_id]);
 });
 
-Route::get('/payment-sukses', function () {
-    return view('landing.payment_sukses');
+Route::get('/payment-sukses/{external_id}', function ($external_id) {
+    Donation::where('external_id', $external_id)->update(['status' => 'PAID']);
+    return view('landing.payment_sukses', ['external_id' => $external_id]);
 });
 
 

@@ -79,7 +79,7 @@
  
    </section>
  
-  <section class="pb-80">
+  <section class="pb-80" id="section-segera">
     <div class="container" >
       <h2 class="text-center" style="font-size: 38px ; padding-top: 27px; padding-bottom: 47px;">Mereka yang  <spand class="title-gren">segera</spand> butuh bantuanmu</h2>
       <div class="container">
@@ -204,7 +204,7 @@ $(document).ready(function(){
         let img_size = item.img_path ? 'width="300" height="200"' : '';
         $('#segera').append(`
           <div class="col">
-            <div class="card h-100" onclick="detail(${item.id})">
+            <div class="card hover h-100" onclick="detail(${item.id})">
               <img src="${img_src}" class="card-img-top" width="300" height="200" alt="..." onerror="this.src='{{ asset('assets/images/image-solid.svg') }}'">
               <div class="card-body">
                 <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
@@ -223,6 +223,10 @@ $(document).ready(function(){
         `)
       });
       $('#lihat-semua').toggleClass('d-none');
+
+      if(!data.length){
+        $('#section-segera').toggleClass('d-none');
+      }
     },
     error: function(response){
       $('#segera').html('Ada kesalahan server')

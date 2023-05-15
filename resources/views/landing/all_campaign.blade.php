@@ -147,7 +147,7 @@ $('#search-button').click(function() {
           let img_size = item.img_path ? 'width="300" height="200"' : '';
           $('#list').append(`
             <div class="col">
-              <div class="card h-100" onclick="detail(${item.id})">
+              <div class="card hover h-100" onclick="detail(${item.id})">
                 <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
                 <div class="card-body">
                   <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
@@ -198,27 +198,36 @@ function loadCampaigns() {
       $('#list').html('');
       data.forEach(item => {
         let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('danako/img/category/1.png') }}";
-          let img_size = item.img_path ? 'width="300" height="200"' : '';
-          $('#list').append(`
-            <div class="col">
-              <div class="card h-100" onclick="detail(${item.id})">
-                <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
-                <div class="card-body">
-                  <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                  <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
-                  <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
-                  <div class="progress">
-                    <div class="progress-bar bg-danako" role="progressbar" style="width: 10%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
-                    <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
-                  </div>
+        let img_size = item.img_path ? 'width="300" height="200"' : '';
+        $('#list').append(`
+          <div class="col">
+            <div class="card h-100" onclick="detail(${item.id})">
+              <img src="${img_src}" class="card-img-top ${img_size}" alt="..." onerror="this.src='{{ asset('danako/img/category/1.png') }}'">
+              <div class="card-body">
+                <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
+                <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
+                <div class="progress">
+                  <div class="progress-bar bg-danako" role="progressbar" style="width: 10%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="row">
+                  <div class="col-6 text-start text-success pt-2">Rp ${new Intl.NumberFormat().format(item.target_amount)}</div>
+                  <div class="col-6 text-end pt-2">${days(new Date(item.end_date), new Date())} hari lagi</div>
                 </div>
               </div>
             </div>
-          `);
+          </div>
+        `);
       });
+
+      if(!data.length){
+        $('#list').html(`
+          <div class="text-center w-100 pt-5">
+            <h3 class="text-center">Belum ada data</h3>
+          </div>
+        `);
+      }
+
       // render pagination links
       renderPagination(response.data);
     },

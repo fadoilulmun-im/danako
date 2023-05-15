@@ -34,11 +34,16 @@
       error: (response) => {
         let res = response.responseJSON;
         let code = res.meta.code;
-        Swal.fire({
+        if(code == 401){
+          localStorage.clear();
+          window.location.href = "{{ route('home') }}";
+        }else{
+          Swal.fire({
             title: 'ERROR',
             text: res.meta.message,
             icon: 'error',
-        })
+          })
+        }
       }
     })
   }

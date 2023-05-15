@@ -306,6 +306,24 @@ $(document).ready(function() {
         $('.progress-bar').css({
           'width': `${data.real_time_amount / data.target_amount * 100}%`
         });
+
+        if(data.verification_status == 'verified'){
+          $('#btn-cairkan').toggleClass('btn-outline-secondary disabled btn-outline-success');
+          $('#bagikan').toggleClass('btn-secondary disabled btn-primary bg-danako-primary');
+        }else{
+          // $('#btn-cairkan').addClass('btn-outline-secondary disabled');
+          // $('#bagikan').addClass('btn-secondary disabled');
+        }
+
+        if(data.verification_status == 'rejected'){
+          $('.notif').html(`
+            <div class="alert alert-danger" role="alert">Campaign anda ditolak dengan alasan : <b>${data.reject_note}</b></div>
+          `);
+        }else if(data.verification_status == 'processing'){
+          $('.notif').html(`
+            <div class="alert alert-warning" role="alert">Campaign anda sedang dalam proses verifikasi, harap bersabar</div>
+          `);
+        }
       }
     });
 

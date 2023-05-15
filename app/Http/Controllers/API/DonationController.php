@@ -5,10 +5,16 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Donation;
 use App\Models\Campaign;
+use App\Models\User;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Laravel\Sanctum\PersonalAccessToken;
 use Yajra\DataTables\DataTables;
+use \Str;
+use GuzzleHttp\Psr7;
 
 class DonationController extends Controller
 {
@@ -76,30 +82,124 @@ class DonationController extends Controller
     public function rules()
     {
         return [
-            'user_id' => 'required|exists:users,id',
+            'user_id' => 'nullable|exists:users,id',
             'campaign_id' => 'required|exists:campaigns,id',
             'amount_donations' => 'required|numeric',
             'hope' => 'nullable|string',
+            'name' => 'nullable|string',
+            'email' => 'nullable|email|string',
+            'phone_number' => 'nullable|numeric',
         ];
     }
 
     public function store(Request $request)
     {
-        $rules = $this->rules();
-        $validator = Validator::make($request->all(), $rules);
-        if ($validator->fails()) {
-            return $this->setResponse($validator->errors(), 'Silahkan isi form dengan benar', 422);
-        } else {
-            DB::beginTransaction();
-            $donation = new Donation;
-            $donation->user_id = $request->input('user_id');
-            $donation->campaign_id = $request->input('campaign_id');
-            $donation->amount_donations = $request->input('amount_donations');
-            $donation->hope = $request->input('hope');
-            $donation->save();
-            DB::commit();
-            return $this->setResponse($donation, 'Donation created successfully');
+        if($request->filled('user_id')){
+            $user = User::find($request->input('user_id'));
+        }else{
+            $user = auth()->user();
         }
+
+        DB::beginTransaction();
+
+        if($user){
+            $request->request->add(['user_id' => $user->id]);
+            if($user->name){
+                $request->request->add(['name' => $user->name]);
+            }else{
+                $user->name = $request->input('name');
+            }
+
+            if($user->email){
+                $request->request->add(['email' => $user->email]);
+            }else{
+                $user->email = $request->input('email');
+            }
+
+            if($user->phone_number){
+                $request->request->add(['phone_number' => $user->phone_number]);
+            }else{
+                $user->phone_number = $request->input('phone_number');
+            }
+
+            $user->save();
+        }
+
+        $rules = $this->rules();
+        $validator = Validator::make($request->all(), $rules, [], ['amount_donations' => 'nominal donasi']);
+        if ($validator->fails()) {
+            return $this->setResponse($validator->errors(), $validator->errors()->first(), 422);
+        }
+
+        $external_id = 'DA-' . strtoupper(Str::random(10));
+        while (Donation::where('external_id', $external_id)->first()) {
+            $external_id = 'DA-' . strtoupper(Str::random(10));
+        }
+
+        $customer = [
+            'given_names' => $request->name,
+            'email' => $request->email,
+        ];
+
+        if($request->filled('phone_number')){
+            $customer['mobile_number'] = $request->phone_number;
+        }
+
+        try {
+            $client = new Client();
+            $data_request = $client->request('POST', config('xendit.url') . 'invoices', [
+                'headers' => [
+                    'Authorization' => 'Basic ' . config('xendit.key_auth'),
+                ],
+                'json' => [
+                    'external_id' => $external_id,
+                    'amount' => $request->input('amount_donations'),
+                    'description' => 'Donasi untuk - ' . Campaign::find($request->input('campaign_id'))->title,
+                    'customer' => $customer,
+                    'success_redirect_url' => url('payment-sukses/'.$external_id),
+                    'failure_redirect_url' => url('payment-gagal/'.$external_id),
+                    'customer_notification_preference' => [
+                        'invoice_created' => [
+                            "whatsapp",
+                            "email",
+                        ],
+                        'invoice_reminder' => [
+                            "whatsapp",
+                        ],
+                        'invoice_expired' => [
+                            "whatsapp",
+                            "email",
+                        ],
+                    ],
+                    'locale' => 'id',
+                ],
+            ]);
+            $response = json_decode($data_request->getBody());
+        } catch (ClientException $e) {
+            return $this->setResponse([
+                'request' => Psr7\Message::toString($e->getRequest()),
+                'response' => Psr7\Message::toString($e->getResponse()),
+            ], $e->getMessage(), $e->getCode());
+        }
+        
+        $donation = new Donation;
+        $donation->user_id = $request->input('user_id');
+        $donation->campaign_id = $request->input('campaign_id');
+        $donation->amount_donations = $request->input('amount_donations');
+        $donation->hope = $request->input('hope');
+
+        $donation->name = $request->input('name');
+        $donation->email = $request->input('email');
+        $donation->phone_number = $request->input('phone_number');
+
+        $donation->status = $response->status;
+        $donation->payment_link = $response->invoice_url;
+        $donation->external_id = $external_id;
+
+        $donation->save();
+        DB::commit();
+
+        return $this->setResponse($donation, 'Donation created successfully', 201);
     }
 
     public function show($id)
@@ -147,7 +247,13 @@ class DonationController extends Controller
 
     public function list(Request $request)
     {
-        $model = Donation::with(['user.photoProfile']);
+        $model = Donation::with(['user.photoProfile', 'campaign']);
+
+        if($request->filled('token')){
+            $token = PersonalAccessToken::findToken($request->input('token'));
+            $user = $token->tokenable;
+            $model->where('user_id', $user->id);
+        }
 
         if($request->filled('campaign_id')){
             $model->where('campaign_id', $request->campaign_id);

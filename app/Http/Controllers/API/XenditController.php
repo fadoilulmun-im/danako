@@ -46,8 +46,8 @@ class XenditController extends Controller
                     'surname' => $user->username ?? null,
                     'email' => $user->email ?? null,
                 ],
-                'success_redirect_url' => url('payment-sukses'),
-                'failure_redirect_url' => url('payment-gagal'),
+                'success_redirect_url' => url('payment-sukses/'.$external_id),
+                'failure_redirect_url' => url('payment-gagal/'.$external_id),
             ],
         ]);
 
@@ -70,27 +70,56 @@ class XenditController extends Controller
 
     public function callback(Request $request)
     {
-        $data = request()->all();
+        // $data = request()->all();
         DB::beginTransaction();
-        $donation = Donation::where('external_id', $data['external_id'])->first();
-        $donation->status = $data['status'];
-        $donation->payment_method = $data['payment_method'];
-        $donation->payment_channel = $data['payment_channel'];
-        if(isset($data['paid_at']) && $data['paid_at'] != null){
-            $donation->paid_at = date('Y-m-d H:i:s', strtotime($data['paid_at']));
+        $donation = Donation::where('external_id', $request->external_id)->first();
+        if(!$donation){
+            return $this->setResponse(null, 'Donation not found', 404);
+        }
+        $donation->status = $request->status;
+        $donation->payment_method = $request->payment_method;
+        $donation->payment_channel = $request->payment_channel;
+        if($request->paid_at){
+            $donation->paid_at = date('Y-m-d H:i:s', strtotime($request->paid_at));
         }
         $donation->save();
 
         if($donation->status == 'PAID'){
             $campaign = $donation->campaign;
-            $campaign->real_time_amount += $donation->amount_donations;
+            // $campaign->real_time_amount += $campaign->donations->where('status', 'PAID')->sum('amount');
+            $campaign->real_time_amount += Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('amount');
             $campaign->save();
         }
+        
+        if(($donation->user->email ?? false) && ($donation->status == 'PAID')){
+            Mail::to($donation->user->email)->send(new DonationMail($donation));
+        }
+
+        if(($donation->user->phone_number ?? false) && ($donation->status == 'PAID')){
+            $client = new Client();
+            $data_request = $client->request('POST', 'https://broadcast.kamiberbagi.id/index.php/api/send_message', [
+                'json' => [
+                    'token' => config('env.token_api_wa'),
+                    'number' => $donation->user->detail->phone_number,
+                    'message' => "Assalamualaikum Warahmatullahi Wabarakatuh\n\n".
+                        "Bapak/Ibu/Sdr ".$donation->user->name."\n".
+                        "telah bertransaksi di ".url('/')."\n".
+                        "pada tanggal ".date('Y-m-d H:i:s', strtotime($donation->paid_at))."\n".
+                        "sebesar Rp. ".number_format($donation->amount_donations,0,',','.')."\n".
+                        "Semoga apa yang anda berikan menjadi keberkahan dan bertambahnya kebahagiaan dunia akhirat anda".
+                    "",
+                ],
+            ]);
+
+            $response_wa = json_decode($data_request->getBody());
+        }
+        
 
         DB::commit();
 
-        Mail::to($donation->user->email)->send(new DonationMail($donation));
-
-        return $this->setResponse($donation, 'Invoice updated successfully');
+        return $this->setResponse([
+            'donation' => $donation,
+            'response_wa' => $response_wa ?? null,
+        ], 'Invoice updated successfully');
     }
 }
