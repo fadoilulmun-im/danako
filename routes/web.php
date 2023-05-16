@@ -51,7 +51,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', function (Request $request) {
 
 
-        $categories = CampaignCategory::all();
+        $campaignall = Campaign::all();
 
         $Donation = Donation::count();
         $roleOneAdminCount = User::where('role_id', 1)->count();
@@ -122,7 +122,7 @@ Route::group(['prefix' => 'admin'], function () {
       
         
     
-        return view('admin.page.index', compact('categories','userCount','usersCreated','campainer','donatur','mingguDonations','monthlyDonations', 'Campaign', 'Donation', 'Totaldonasi', 'percentage', 'Totaltarget', 'percentage_remaining', 'roleOneUserCount', 'roleOneAdminCount', 'CampaignCategory'));
+        return view('admin.page.index', compact('campaignall','userCount','usersCreated','campainer','donatur','mingguDonations','monthlyDonations', 'Campaign', 'Donation', 'Totaldonasi', 'percentage', 'Totaltarget', 'percentage_remaining', 'roleOneUserCount', 'roleOneAdminCount', 'CampaignCategory'));
     })->name('admin.dashboard');
 
     
