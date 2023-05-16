@@ -176,10 +176,10 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item" onclick="Showuser()">Total Pengguna</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item" onclick="Showadmin()">Total Admin</a>
-                          
+                              @foreach ($categories as $category) 
+                <a href="javascript:void(0);" class="dropdown-item" onclick="filterByCategory('{{ $category->name }}')">{{ $category->name }}</a>
+                @endforeach
+                           
                         </div>
                     </div>
 
@@ -400,14 +400,6 @@ function Campainer() {
   document.getElementById("donatur").style.display = "none";
   document.getElementById("campainer").style.display = "block";
 }
-
-
-
-
-
-    
-
-    
 
 
 </script>

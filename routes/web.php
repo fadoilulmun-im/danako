@@ -4,7 +4,6 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Campaign;
 use App\Models\Donation;
-use Jorenvh\Share\Share;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use App\Models\CampaignCategory;
@@ -15,8 +14,13 @@ use App\Http\Controllers\RegencyController;
 use App\Http\Controllers\VillageController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\ProvinceController;
+use GeneaLabs\Phpgmaps\Facades\PhpgmapsFacade;
+
 use App\Http\Controllers\API\CampaignController;
 use App\Http\Controllers\WEB\VerifyEmailController;
+
+use Illuminate\Support\Facades\URL;
+use Jorenvh\Share\ShareFacade as Share;
 
 
 
@@ -42,17 +46,17 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-    
-   
-
-    
-    
+ 
 
     Route::get('/', function (Request $request) {
-        $Campaign = Campaign::count();
+
+
+        $categories = CampaignCategory::all();
+
         $Donation = Donation::count();
         $roleOneAdminCount = User::where('role_id', 1)->count();
         $roleOneUserCount = User::where('role_id', 2)->count();
+        $Campaign = Campaign::count();
         $CampaignCategory = CampaignCategory::count();
         $campainer = User::whereHas('detail')->count();
         $donatur = User::whereDoesntHave('detail')->count();
@@ -118,8 +122,10 @@ Route::group(['prefix' => 'admin'], function () {
       
         
     
-        return view('admin.page.index', compact('userCount','usersCreated','campainer','donatur','mingguDonations','monthlyDonations', 'Campaign', 'Donation', 'Totaldonasi', 'percentage', 'Totaltarget', 'percentage_remaining', 'roleOneUserCount', 'roleOneAdminCount', 'CampaignCategory'));
+        return view('admin.page.index', compact('categories','userCount','usersCreated','campainer','donatur','mingguDonations','monthlyDonations', 'Campaign', 'Donation', 'Totaldonasi', 'percentage', 'Totaltarget', 'percentage_remaining', 'roleOneUserCount', 'roleOneAdminCount', 'CampaignCategory'));
     })->name('admin.dashboard');
+
+    
 
     Route::get('/login', function () {
         return view('admin.page.login' );
@@ -287,38 +293,21 @@ Route::get('/campaign-pending', function () {
 })->name('campaign-pending');
 
 Route::get('/detail-campaign/{id}', function ($id) {
-    $currentUrl = url()->current(); // Dapatkan URL saat ini dari permintaan
-    $shareButtons1 = \Share::page(
-        $currentUrl
-  )
-  ->facebook()
-  ->twitter()
-  ->linkedin()
-  ->telegram()
-  ->whatsapp() 
-  ->reddit();
-
-
-    return view('landing.detail_campaign', compact('id','shareButtons1','currentUrl'));
+    $url = route('campaigns.detail', $id);
+   
+    return view('landing.detail_campaign', compact('id','url'));
 })->name('campaigns.detail');
+
 
 Route::get('/detail-penyaluran-campaign', function () {
     return view('landing.detail_penyaluran_campaign');
 });
 
 Route::get('/detail_campaign_pemilik/{id}', function ($id) {
-    $currentUrl = url()->current(); // Dapatkan URL saat ini dari permintaan
-    $shareButtons1 = \Share::page(
-        $currentUrl
-  )
-  ->facebook()
-  ->twitter()
-  ->linkedin()
-  ->telegram()
-  ->whatsapp()
-  ->reddit();
+    $url = route('campaigns.detail', $id);
+   
 
-    return view('landing.detail_campaign_pemilik',  compact('id','shareButtons1','currentUrl'));
+    return view('landing.detail_campaign_pemilik',  compact('id','url'));
 })->name('campaigns.pemilik');
 
 
