@@ -18,7 +18,7 @@ use GeneaLabs\Phpgmaps\Facades\PhpgmapsFacade;
 
 use App\Http\Controllers\API\CampaignController;
 use App\Http\Controllers\WEB\VerifyEmailController;
-
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\URL;
 use Jorenvh\Share\ShareFacade as Share;
 
@@ -169,7 +169,7 @@ Route::group(['prefix' => 'admin'], function () {
 
          $userCount = $usersCreated->count();
 
-        return view('admin.page.master.user.detail', ['id' => $id]);
+        return view('admin.page.master.user.detail', compact('usersCreated','userCount','id'));
     })->name('admin.user.detail');
 
     Route::get('/profile', function () {
@@ -451,6 +451,12 @@ Route::get('villages/select2', [VillageController::class, 'select2']);
 
 
 
-
-
-
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('view:cache');
+    Artisan::call('route:clear');
+    Artisan::call('route:cache');
+    return 'DONE'; //Return anything
+});
