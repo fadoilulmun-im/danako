@@ -25,7 +25,7 @@ class CampaignSeeder extends Seeder
                     'title' => 'Merapi Erupsi',
                     'description' => 'Kawasan magelang turut terdampak letusan gunung merapi',
                     'target_amount' => 500000,
-                    'img_path' => null,
+                    'img_path' => '',
                     'receiver' => 'Pak Yahya',
                     'purpose' => 'Membeli kebutuhan pokok ditempat pengungsian',
                     'address_receiver' => 'jalan durian runtuh, magelang',
