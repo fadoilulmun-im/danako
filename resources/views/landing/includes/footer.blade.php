@@ -1,4 +1,4 @@
-<footer class="py-4 text-footer footer">
+<footer class="py-4 text-footer footer mt-auto">
     <div class="container">
       <div class="row align-items-center mb-4">
         <div class="col-6 text-start">

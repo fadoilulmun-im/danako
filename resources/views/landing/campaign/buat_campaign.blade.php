@@ -85,9 +85,9 @@
       text-align: left; 
     }
 
-    .f1-buttons { 
+    /* .f1-buttons { 
       text-align: right; 
-    }
+    } */
 
     .f1 .input-error { 
       border-color: #f35b3f; 
@@ -119,7 +119,7 @@
 
       .f1 fieldset { display: none; text-align: left; }
 
-      .f1-buttons { text-align: right; }
+      /* .f1-buttons { text-align: right; } */
 
       .f1 .input-error { border-color: #f35b3f; }
     }
@@ -192,15 +192,23 @@
 
 @section('content')
 
-<body style="text-align: center;">
-  <div class="container">
-    <div class="title text-start">
-     
-      <span>Buat Campaign</span>
+<main class="text-center py-3">
+  <div class="container mb-3">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-10">
+        <div class="title text-center">
+          <span class="fs-1">Buat Campaign</span>
+          {{-- <span class="d-none d-md-inline">
+            <i class="fa-solid fa-minus fs-2 my-auto"></i>
+          </span> --}}
+          <span class="fs-1">{{ $category->name }}</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="container py-4"> 
+  <div class="container"> 
     <form class="f1" id="form-campaign">
       <div class="row">
         <div class="col-md-2 ">
@@ -210,7 +218,7 @@
             </div>
             <div class="f1-step active">
               <div class="f1-step-icon"><i class="fa fa-user"></i></div>
-              <p>Pilih Kategori</p>
+              <p>Detail Pasien</p>
             </div>
             <div class="f1-step">
               <div class="f1-step-icon"><i class="fa fa-home"></i></div>
@@ -242,10 +250,49 @@
             
               </div>
             </div>
-            <div class="f1-buttons pt-3 pb-3">
-              <button type="button" class="btn btn-primary btn-next disabled" id="category-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
+            <div class="f1-buttons pt-3 pb-3 d-flex justify-content-end">
+              <button type="button" class="btn btn-danako btn-next disabled" id="category-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
             </div>
           </fieldset>
+
+          {{-- step 1 --}}
+          {{-- <fieldset id="step-1">
+            <div class="container py-5">
+              <div class="contact form-area">
+                <div class="group form-group">      
+                  <select class="form-control" id="tujuan" name="tujuan" required>
+                    <option disabled selected>Pilih Salah Satu</option>
+                    <option value="Saya sendiri">Saya sendiri</option>
+                    <option value="Keluarga yang satu KK dengan saya">Keluarga yang satu KK dengan saya</option>
+                    <option value="Keluarga inti (ayah/ibu/kakak/adik/anak) yang sudah pisah KK dengan saya">Keluarga inti (ayah/ibu/kakak/adik/anak) yang sudah pisah KK dengan saya</option>
+                    <option value="Selain pilihan di atas">Selain pilihan di atas</option>
+                  </select>
+                  <label>Siapa yang sakit ?</label>
+                </div>
+
+                <div class="non-self d-none">
+                  <div class="group form-group">      
+                    <input type="text" class="form-control" id="no_hp" name="no_hp" placeholder="Pastikan nomor telepon aktif" required>
+                    <label>Masukkan no. ponsel pasien/keluarga pasien</label>
+                  </div>
+                </div>
+
+                <div class="group form-group">      
+                  <input type="text" class="form-control" id="nama_pasien" name="nama_pasien" placeholder="Nama pasien sesuai KK & dokumen medis" required>
+                  <label>Nama Pasien</label>
+                </div>
+
+                <div class="group form-group">      
+                  <input type="text" class="form-control" id="penyakit" name="penyakit" placeholder="Nama penyakit sesuai dokumen medis" required>
+                  <label>Penyakit atau kondisi yang diderita</label>
+                </div>
+              </div>
+
+              <div class="f1-buttons">
+                <button type="button" class="btn btn-danako btn-next step-1 disabled">Selanjutnya <i class="fa fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </fieldset> --}}
 
           <!-- step 2 -->
           <fieldset id="step-2" >
@@ -288,9 +335,9 @@
               </div>
             </div>
 
-            <div class="f1-buttons">
-                <button type="button" class="btn btn-secondary btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
-                <button type="button" class="btn btn-primary btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
+            <div class="f1-buttons d-flex justify-content-between">
+                <button type="button" class="btn btn-outline-danako btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
+                <button type="button" class="btn btn-danako btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
             </div>
           </fieldset>
 
@@ -349,9 +396,9 @@
               </div>
             </div>
 
-            <div class="f1-buttons">
-              <button type="button" class="btn btn-secondary btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
-              <button type="button" class="btn btn-primary btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
+            <div class="f1-buttons d-flex justify-content-between">
+              <button type="button" class="btn btn-outline-danako btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
+              <button type="button" class="btn btn-danako btn-next">Selanjutnya <i class="fa fa-arrow-right"></i></button>
             </div>
           </fieldset>
 
@@ -367,16 +414,16 @@
               </div>
             </div>
 
-            <div class="f1-buttons pt-3">
-              <button type="button" class="btn btn-secondary btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
-              <button type="submit" class="btn btn-primary" id="btn-submit">Ajukan</button>
+            <div class="f1-buttons d-flex justify-content-between pt-3">
+              <button type="button" class="btn btn-ouline-danako btn-previous"><i class="fa fa-arrow-left"></i> Sebelumnya</button>
+              <button type="submit" class="btn btn-danako" id="btn-submit">Ajukan</button>
             </div>
           </fieldset>
         </div>
       </div>                     
     </form>
   </div>
-</body>
+</main>
 
 @endsection
 
@@ -387,7 +434,7 @@
   <script src="{{ asset('') }}assets/libs/flatpickr/flatpickr.min.js"></script>
   <script src="https://cdn.ckeditor.com/4.21.0/standard/ckeditor.js"></script>
   <script >
-
+    const user = JSON.parse(localStorage.getItem('user'));
     $(document).ready(function() {
       CKEDITOR.replace( 'description' );
       CKEDITOR.replace( 'purpose' );
@@ -401,6 +448,22 @@
           });
         });
       });
+
+      $('#tujuan').change(() => {
+        if($('#tujuan').val() == 'Selain pilihan di atas' ){
+          $('.non-self').removeClass('d-none');
+          $('#no_hp').val('');
+        }else{
+          $('.non-self').addClass('d-none');
+          $('#no_hp').val(user.phone_number);
+        }
+
+        if($('#tujuan').val() == 'Saya sendiri'){
+          $('#nama_pasien').val(user.name).attr('disabled', true);
+        }else{
+          $('#nama_pasien').val('').attr('disabled', false);
+        }
+      })
 
       $('.f1-step').click(function() {
         // menghilangkan kelas active dari langkah sebelumnya
@@ -444,6 +507,23 @@
       
       // Form
       $('.f1 fieldset:first').fadeIn('slow');
+
+      // for (let index = 1; index <= 4; index++) {
+      //   $(`#step-${index} input, #step-${index} select`).on('keyup change', () => {
+      //     let empty = false;
+      //     $(`#step-${index} input, #step-${index} select`).each(function() {
+      //       if($(this).val() == '' && $(this).attr('required')) {
+      //         empty = true;
+      //       }
+      //     })
+
+      //     if(empty) {
+      //       $(`.btn-next.step-${index}`).addClass('disabled')
+      //     }else{
+      //       $(`.btn-next.step-${index}`).removeClass('disabled')
+      //     }
+      //   })
+      // }
       
       $('.f1 input, .f1 textarea').on('focus', function() {
         $(this).removeClass('input-error');

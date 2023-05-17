@@ -106,7 +106,7 @@
                 <div class="konten-kanan container pt-5">
                   <div class="row">
                     <div class="col-md-6 ">
-                      <img src="${item.logo_link ?? "{{ asset('assets/images/image-solid.svg') }}"}" class="img-fluid" style="width: 526px; height: 279px; object-fit: cover;">
+                      <img src="${item.logo_link ?? "{{ asset('assets/images/image-solid.svg') }}"}" class="img-fluid" style="width: 526px; height: 279px; object-fit: none;">
                     </div>
                     <div class="col-md-6 mx-auto p-sm-5 p-md-5 text-right">
                       <h3>${item.name}</h3>
@@ -126,7 +126,7 @@
                       <a href="{{ route('kategori', '') }}/${item.id}" class="btn btn-info text-white bg-danako-primary border-0 btn-lg">Donasi</a>
                     </div>
                     <div class="col-md-6 ">
-                      <img src="${item.logo_link ?? "{{ asset('assets/images/image-solid.svg') }}"}" class="img-fluid" style="width: 526px; height: 279px; object-fit: cover;">
+                      <img src="${item.logo_link ?? "{{ asset('assets/images/image-solid.svg') }}"}" class="img-fluid" style="width: 526px; height: 279px; object-fit: none;">
                     </div>
                   </div>
                 </div>

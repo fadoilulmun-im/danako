@@ -19,11 +19,23 @@ class CampaignCategorySeeder extends Seeder
             $data = [
                 [
                     'id' => 1,
-                    'name' => 'Bencana alam',
+                    'name' => 'Bantuan Medis & Kesehatan',
                 ],
                 [
                     'id' => 2,
-                    'name' => 'Kemanusiaan',
+                    'name' => 'Bantuan Pendidikan',
+                ],
+                [
+                    'id' => 3,
+                    'name' => 'Bencana Alam',
+                ],
+                [
+                    'id' => 4,
+                    'name' => 'Difabel',
+                ],
+                [
+                    'id' => 5,
+                    'name' => 'Infrastruktur Umum',
                 ]
             ];
 

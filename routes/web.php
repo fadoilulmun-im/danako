@@ -274,7 +274,7 @@ Route::get('/kategori/{id}', function ($id) {
 })->name('kategori');
 
 Route::get('/ajukan-campaign', function () {
-    return view('landing.ajukan_campaign');
+    return view('landing.campaign.ajukan_campaign');
 })->name('ajukan-campaign');
 
 
@@ -359,8 +359,13 @@ Route::get('/donasi', function () {
     return view('landing.profile.donasi');
 });
 
-Route::get('/buat-campaign', function () {
-    return view('landing.buat_campaign');
+Route::get('/buat-campaign/{id}', function ($id) {
+    $category = CampaignCategory::findOrFail($id);
+    return view('landing.campaign.buat_campaign', compact('id', 'category'));
+})->name('buat-campaign');
+
+Route::get('/pilih-kategori', function () {
+    return view('landing.campaign.pilih_kategori');
 });
 
 

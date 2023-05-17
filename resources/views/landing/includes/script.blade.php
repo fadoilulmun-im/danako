@@ -59,7 +59,7 @@
   $(document).ready(()=>{
     if(localStorage.getItem('_token')){
       $('#user-login').html(`
-        <button class="btn btn-success bg-danako-primary border-0 rounded-circle dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-danako border-0 rounded-circle dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <i class="fas fa-user"></i> <!-- menggunakan ikon akun dari Font Awesome -->
         </button>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -75,7 +75,7 @@
       `)
     }else{
       $('#user-login').html(`
-        <a href="{{ route('login') }}" class="btn btn-success bg-danako-primary rounded border-0">
+        <a href="{{ route('login') }}" class="btn btn-danako rounded border-0">
           <i class="fa fa-sign-in"></i>
           Login
         </a>

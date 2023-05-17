@@ -13,7 +13,40 @@
 
 
  /* ajuan campaign */
+ .hover-color-white:hover{
+    color: white;
+  }
 
+  .hover-bg-secondary:hover{
+    background-color: rgb(229 231 235) !important;
+  }
+
+  .btn-outline-danako{
+    border-color: #79C121;
+    color: #79C121;
+  }
+
+  .btn-outline-danako:hover{
+    background-color: #79C121;
+    color: white;
+  }
+
+  .btn-danako{
+    background-color: #79C121;
+    color: white;
+  }
+
+  .btn-danako:hover{
+    background-color: #669e21;
+    color: white;
+  }
+
+  .text-danako {
+    color: #79C121;
+  }
+  .hover-text-danako:hover{
+    color: #79C121;
+  }
  
   
  .c-notverifikasi .d-flex {

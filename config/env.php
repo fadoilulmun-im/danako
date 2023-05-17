@@ -9,6 +9,7 @@ return [
     'user' => env('ROLE_USER', 2),
   ],
   'token_api_wa' => env('TOKEN_API_WA'),
+  'category_medis' => env('CATEGORY_MEDIS', 1),
 ];
 
 ?>

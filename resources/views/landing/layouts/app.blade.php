@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zxx">
+<html lang="zxx" class="h-100">
 
 <head>
     @include('landing.includes.meta')

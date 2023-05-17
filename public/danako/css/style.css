@@ -1260,6 +1260,12 @@ input:focus:required:invalid{
   border-color: #f35b3f;
 } */
 
+input:placeholder-shown~label{
+  top: -20px;
+  font-size: 14px;
+  color: #96c93d;
+}
+
 .bar {
   position: relative;
   display: block;

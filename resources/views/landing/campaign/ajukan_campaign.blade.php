@@ -2,6 +2,15 @@
 
 @section('title', 'Ajukan Campaign')
 
+@push('after-style')
+  <style>
+    /* body{
+      background-image: url("{{ asset('danako/img/bgcard.png') }}");
+      background-position: center;
+      background-size: cover;
+    } */
+  </style>
+@endpush
 
 @section('content')
 
@@ -36,7 +45,7 @@
 
     </div>
 
-    <button type="button" onclick="cekVerified()" class="btn btn-success btn-lg mt-4">Lanjut</button>
+    <button type="button" onclick="cekVerified()" class="btn btn-danako btn-block btn-lg mt-4 w-50 fw-bold">Lanjut</button>
 
   </div>
 </section>
@@ -68,18 +77,46 @@
           const data = response.data;
           // console.log(data);
           if(data.status){
-            window.location.href = "{{ url('buat-campaign') }}";
+            window.location.href = "{{ url('pilih-kategori') }}";
           }else{
-            window.location.href = "{{ url('profile') }}";
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Untuk mulai membuat campaign anda harus verifikasi akun terlebih dahulu!',
+              showCancelButton: true,
+              confirmButtonText: `Verifikasi`,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = "{{ url('profile') }}";
+              }
+            })
           }
         },
         error: (response) => {
           const res = response.responseJSON;
-          Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: res.meta.message,
-          });
+
+          if(res.meta.code == 401){
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: 'Untuk mulai membuat campaign anda harus login terlebih dahulu!',
+              showCancelButton: true,
+              confirmButtonText: `Login`,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                localStorage.clear();
+                sessionStorage.setItem('redirect', window. location. href);
+                window.location.href = "{{ route('login') }}";
+              }
+            })
+          }
+          else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: res.meta.message,
+            });
+          }
         }
       })
     }

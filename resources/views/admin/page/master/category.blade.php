@@ -19,11 +19,10 @@
                   <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
                 </div>
 
-                <div class='mb-3'>
+                {{-- <div class='mb-3'>
                   <a href="#campaign" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Campaign</a>
                   <a href="#zakat" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Zakat</a>
-                  {{-- <a href="#waqaf" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Waqaf</a> --}}
-                </div>
+                </div> --}}
 
                 <table id="datatable" class="w-100 table table-bordered dt-responsive table-responsive nowrap">
                   <thead>
@@ -220,10 +219,10 @@
           </div>
           <form action="" method="post" id="form-create">
             <div class="modal-body">
-              <div class='mb-2'>
+              {{-- <div class='mb-2'>
                 <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable create">Campaign</button>
                 <button type="button" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable create">Zakat</button>
-              </div>
+              </div> --}}
               <div>
                 <input type="hidden" id="create-type" name="type" class="form-control" required>
 

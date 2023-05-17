@@ -165,7 +165,7 @@ class CategoryController extends Controller
             $width = $img->width();
             $img->resize($width > $height ? 300 : null, $height >= $width ? 300 : null, function ($constraint){
                 $constraint->aspectRatio();
-                $constraint->upsize();
+                // $constraint->upsize();
             });
             $canvas->insert($img, 'center');
             $canvas->save(public_path('uploads') . $path . '/' . $fileName);
@@ -215,6 +215,10 @@ class CategoryController extends Controller
 
         if($request->input('limit')){
             $model->limit($request->input('limit'));
+        }
+
+        if($request->nonmedis){
+            $model->where('id', '!=', config('env.category_medis'));
         }
 
         if ($request->has('q')) {
