@@ -4,80 +4,80 @@
 
 @push('after-style')
 <style>
- #social-links ul {
-        padding-left: 0;
-    }
-    #social-links ul li {
-        display: inline-block;
-    }
-    #social-links ul li a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 50px; /* Ubah sesuai ukuran yang Anda inginkan */
-        height: 50px; /* Ubah sesuai ukuran yang Anda inginkan */
-        border-radius: 50%; /* Membuat ikon menjadi lingkaran */
-        margin: 5px; /* Ubah sesuai jarak antara ikon */
-        font-size: 25px;
-        background-color: #ccc;
-        color: #fff;
-    }
-     #social-links .fa-facebook{
-           color: #0d6efd;
-     }
-     #social-links .fa-twitter{
-           color: deepskyblue;
-     }
-     #social-links .fa-linkedin{
-           color: #0e76a8;
-     }
-     #social-links .fa-whatsapp{
-          color: #25D366
-     }
-     #social-links .fa-reddit{
-          color: #FF4500;;
-     }
-     #social-links .fa-telegram{
-          color: #0088cc;
-     }
+  .mt-100 {
+    margin-top: 100px
+}
+
+.modal {
+    background-image: linear-gradient(rgb(35, 79, 71) 0%, rgb(36, 121, 106) 100.2%)
+}
+
+.modal-title {
+    font-weight: 900
+}
+
+.modal-content {
+    border-radius: 13px
+}
+
+.modal-body {
+    color: #3b3b3b
+}
+
+.img-thumbnail {
+    border-radius: 33px;
+    width: 61px;
+    height: 61px
+}
+
+.fab:before {
+    position: relative;
+    top: 13px
+}
+
+.smd {
+    width: 200px;
+    font-size: small;
+    text-align: center
+}
 
 .modal-footer {
-display: block
+    display: block
 }
 
 .ur {
-border: none;
-background-color: #e6e2e2;
-border-bottom-left-radius: 4px;
-border-top-left-radius: 4px
+    border: none;
+    background-color: #e6e2e2;
+    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px
 }
 
 .cpy {
-border: none;
-background-color: #e6e2e2;
-border-bottom-right-radius: 4px;
-border-top-right-radius: 4px;
-cursor: pointer
+    border: none;
+    background-color: #e6e2e2;
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+    cursor: pointer
 }
 
 button.focus,
 button:focus {
-outline: 0;
-box-shadow: none !important
+    outline: 0;
+    box-shadow: none !important
 }
 
 .ur.focus,
 .ur:focus {
-outline: 0;
-box-shadow: none !important
+    outline: 0;
+    box-shadow: none !important
 }
 
 .message {
-font-size: 11px;
-color: #ee5535
+    font-size: 11px;
+    color: #ee5535
 }
 </style>
-@endpush
+@endpush 
 
 
 @section('content')
@@ -188,24 +188,43 @@ color: #ee5535
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Bagikan Campaign Ke Social Media</h5>
+                            
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                            <div class='row'>
-                                         
-                              <!-- Social Share buttons 1 -->
-                              <div class="social-btn-sp">
-                                    {!! $shareButtons1 !!}
-                              </div> 
-                         </div>
-
-                          </div>
-
-                          <div class="modal-footer">
-                            <div class="row"> <input class="col-md-10 ur" type="url" placeholder="{{ $currentUrl }}" readonly id="myInput" aria-describedby="inputGroup-sizing-default" style="height: 40px;"> <button class=" col-2 cpy" onclick="myFunction()"><i class="far fa-clone"></i></button></div> 
-                      
-                          </div>
+                            <div class="icon-container1 d-flex">
+                                <a href="https://twitter.com/intent/tweet?url={{ urlencode($url) }}" class="smd"> <i class=" img-thumbnail fab fa-twitter fa-2x" style="color:#4c6ef5;background-color: aliceblue"></i>
+                                    <p>Twitter</p>
+                                </a>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($url) }}" class="smd"> <i class="img-thumbnail fab fa-facebook fa-2x" style="color: #3b5998;background-color: #eceff5;"></i>
+                                    <p>Facebook</p>
+                                </a>
+                                <a  href="https://www.reddit.com/submit?url={{ urlencode($url) }}" class="smd"> <i class="img-thumbnail fab fa-reddit-alien fa-2x" style="color: #FF5700;background-color: #fdd9ce;"></i>
+                                    <p>Reddit</p>
+                                </a>
+                                <a  href="https://discord.com/channels/SERVER_ID/CHANNEL_ID"  class="smd"> <i class="img-thumbnail fab fa-discord fa-2x " style="color: #738ADB;background-color: #d8d8d8;"></i>
+                                    <p>Discord</p>
+                                </a>
+                            </div>
+                            <div class="icon-container2 d-flex">
+                                <a href="https://api.whatsapp.com/send?text={{ urlencode($url) }}" class="smd" target="_blank">  <i class="img-thumbnail fab fa-whatsapp fa-2x" style="color: #25D366;background-color: #cef5dc;"></i>
+                                    <p>Whatsapp</p>
+                                </a>
+                                <a href="https://www.facebook.com/dialog/send?link={{ urlencode($url) }}" class="smd"> <i class="img-thumbnail fab fa-facebook-messenger fa-2x" style="color: #3b5998;background-color: #eceff5;"></i>
+                                    <p>Messenger</p>
+                                </a>
+                                <a href="https://t.me/share/url?url={{ urlencode($url) }}" class="smd"> <i class="img-thumbnail fab fa-telegram fa-2x" style="color: #4c6ef5;background-color: aliceblue"></i>
+                                    <p>Telegram</p>
+                                </a>
+                                <a  href="https://www.instagram.com/?url={{ urlencode($url) }}" class="smd">
+                                  <i class="img-thumbnail fab fa-instagram fa-2x" style="color: #7bb32e;background-color: #daf1bc;"></i>
+                                  <p>Instagram</p>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="modal-footer"> <label style="font-weight: 600">Social Media Share <span class="message"></span></label><br />
+                            <div class="row"> <input class="col-md-10 ur" type="url" placeholder="{{ $url }}" readonly id="myInput" aria-describedby="inputGroup-sizing-default" style="height: 40px;"> <button class="col-md-2 cpy" onclick="myFunction()"><i class="far fa-clone"></i></button> </div>
+                        </div>
                         </div>
                       </div>
                     </div>

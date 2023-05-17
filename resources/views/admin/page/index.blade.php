@@ -47,7 +47,7 @@
 
                     <h4 class="header-title mt-0 mb-3 mt-2">Realisasi Target Danako</h4>
 
-                    <div class="widget-box-2">
+                    <div class="widget-box-4">
                         <div class="widget-detail-2 text-end">
                             <span class="badge bg-success rounded-pill float-start mt-3">{{ $percentage }}% <i class="mdi mdi-trending-up"></i> </span>
                             <h2 class="fw-normal mb-2"> {{ $percentage }} %</h2>
@@ -149,7 +149,7 @@
 
                     <h4 class="header-title mt-0 mb-3"> Campaign Category</h4>
 
-                    <div class="widget-box-2">
+                    <div class="widget-box-4">
                         <div class="widget-detail-2 text-end">
                             <h2 class="fw-normal mb-1"> {{ $CampaignCategory }} </h2>
                             <p class="text-muted mb-3">Campaign</p>
@@ -176,32 +176,41 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item" onclick="Showuser()">Total Pengguna</a>
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item" onclick="Showadmin()">Total Admin</a>
-                          
+                            @foreach ($campaignall->unique('category_id') as $category)
+                                @php
+                                    $count = $campaignall->where('category_id', $category->category_id)->count();
+                                @endphp
+                                <a href="javascript:void(0);" class="dropdown-item" onclick="toggleCount({{ $category->category_id }})">
+                                    {{ $category->category->name }}
+                                </a>
+                            @endforeach
                         </div>
                     </div>
-
+        
                     <h4 class="header-title mt-0 mb-3">Jumlah Campaign</h4>
-
-                    <div class="widget-box-2">
+                    @foreach ($campaignall->unique('category_id') as $key => $category)
+                    @php
+                        $count = $campaignall->where('category_id', $category->category_id)->count();
+                        $display = ($key === 0) ? 'block' : 'none';
+                    @endphp
+                    <div class="widget-box-2" id="widget-box-{{ $category->category_id }}" style="display: {{ $display }};">
                         <div class="widget-detail-2 text-end">
-                            <h2 class="fw-normal mb-1"> {{ $Campaign }} </h2>
-                            <p class="text-muted mb-3">Campaign</p>
+                            <h2 class="fw-normal mb-1">{{ $count }}</h2>
+                            <p class="text-muted mb-3">{{ $category->category->name }}</p>
                         </div>
                         <div class="progress progress-bar-alt-pink progress-sm">
-                            <div class="progress-bar bg-pink" role="progressbar"
-                                    aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"
-                                    style="width:  {{ $Campaign }}%;">
-                                <span class="visually-hidden"> {{ $Campaign }}% Complete</span>
+                            <div class="progress-bar bg-pink" role="progressbar" aria-valuenow="77" aria-valuemin="0" aria-valuemax="100" style="width: {{ $count }}%;">
+                                <span class="visually-hidden">{{ $count }}% Complete</span>
                             </div>
                         </div>
                     </div>
+                @endforeach
+                
                 </div>
             </div>
-            
         </div><!-- end col -->
+        
+        
 
         <div class="col-xl-3 col-md-6">
             <div class="card">
@@ -355,8 +364,63 @@
   <script src="{{asset('assets/js/pages/dashboard.init.js')}}"></script>
 
   
+  <script>
+    function toggleCount(categoryId) {
+        // Hide all widget boxes
+        var widgetBoxes = document.querySelectorAll('.widget-box-2');
+        widgetBoxes.forEach(function(box) {
+            box.style.display = 'none';
+        });
+        
+        // Show selected widget box
+        var selectedWidgetBox = document.querySelector('#widget-box-' + categoryId);
+        selectedWidgetBox.style.display = 'block';
+    }
+</script>
 
   <script>
+
+let table = $('#datatable').DataTable({
+        responsive: true,
+        lengthChange: true,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{{ route('api.master.campaigns.index') }}",
+            data: function (d) {
+                d.verif = $('#verif-filter').val(),
+                d.status = $('#status-filter').val(),
+                d.category = $('#category-filter').val(),
+                d.from = minDate,
+                d.to = maxDate
+            },
+            complete: function(){
+                $('[data-bs-toggle="tooltip"]').tooltip();
+            }
+        },
+        columns: [
+            {data: 'DT_RowIndex', name: 'id', searchable: false},
+            // {data: 'user.username', name: 'user.username'},
+            // {data: 'category.name', name: 'category.name'},
+            {data: 'title', name: 'title'},
+            // {data: 'description', name: 'description'},
+            {data: 'img_path', name: 'img_path'},
+            {data: 'verification_status', name: 'verification_status'},
+            {data: 'target_amount', name: 'target_amount'},
+            {data: 'start_date', name: 'start_date'},
+            {data: 'end_date', name: 'end_date'},
+            // {data: 'receiver', name: 'receiver'},
+            // {data: 'purpose', name: 'purpose'},
+            // {data: 'address_receiver', name: 'address_receiver'},
+            // {data: 'detail_usage_of_funds', name: 'detail_usage_of_funds'},
+            // {data: 'real_time_amount', name: 'real_time_amount'},
+            // {data: 'reject_note', name: 'reject_note'},
+            // {data: 'activity', name: 'activity'},
+            // {data: 'slug', name: 'slug'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ],
+        order: [[0, 'desc']]
+    });
 
 function toggleChartVisibility(elementId) {
   var chartElement = document.getElementById(elementId);
@@ -400,14 +464,6 @@ function Campainer() {
   document.getElementById("donatur").style.display = "none";
   document.getElementById("campainer").style.display = "block";
 }
-
-
-
-
-
-    
-
-    
 
 
 </script>
