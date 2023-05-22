@@ -26,12 +26,12 @@
                     <div class="widget-chart-1">
 
                         <div id="widget" class="widget-detail-1 text-end">
-                            <h2 class="fw-normal pt-2 mb-1">Rp <?php echo $Totaldonasi; ?> </h2>
+                            <h2 class="fw-normal pt-2 mb-1">Rp <?php echo $Totaldonasi ?? '' ?> </h2>
                             <p class="text-muted mb-1">Donasi</p>
                         </div>
 
                         <div id="target" class="widget-detail-1 text-end" style="display: none;">
-                            <h2 class="fw-normal pt-2 mb-1">Rp {{ $Totaltarget }} </h2>
+                            <h2 class="fw-normal pt-2 mb-1">Rp {{ $Totaltarget ?? ''}} </h2>
                             <p class="text-muted mb-1">Target</p>
                         </div>
 
@@ -49,8 +49,8 @@
 
                     <div class="widget-box-4">
                         <div class="widget-detail-2 text-end">
-                            <span class="badge bg-success rounded-pill float-start mt-3">{{ $percentage }}% <i class="mdi mdi-trending-up"></i> </span>
-                            <h2 class="fw-normal mb-2"> {{ $percentage }} %</h2>
+                            <span class="badge bg-success rounded-pill float-start mt-3">{{ $percentage ?? '' }}% <i class="mdi mdi-trending-up"></i> </span>
+                            <h2 class="fw-normal mb-2"> {{ $percentage ?? ''}} %</h2>
                             <p class="text-muted mb-2">Target</p>
                         </div>
                         
@@ -82,12 +82,12 @@
                     <div id="user" class="widget-chart-1">
                         <div class="widget-chart-box-1 float-start" dir="ltr">
                             <input data-plugin="knob" data-width="70" data-height="70" data-fgColor="#ffbd4a"
-                                    data-bgColor="#FFE6BA" value="{{ $roleOneUserCount }}"
+                                    data-bgColor="#FFE6BA" value="{{ $roleOneUserCount ?? '' }}"
                                     data-skin="tron" data-angleOffset="180" data-readOnly=true
                                     data-thickness=".15"/>
                         </div>
                         <div class="widget-detail-1 text-end">
-                            <h2 class="fw-normal pt-2 mb-1"> {{ $roleOneUserCount }} </h2>
+                            <h2 class="fw-normal pt-2 mb-1"> {{ $roleOneUserCount ?? ''  }} </h2>
                             <p class="text-muted mb-1">User</p>
                         </div>
                     </div>
@@ -95,12 +95,12 @@
                     <div id="admin" class="widget-chart-1" style="display: none;">
                         <div class="widget-chart-box-1 float-start" dir="ltr">
                             <input data-plugin="knob" data-width="70" data-height="70" data-fgColor="#ffbd4a"
-                                    data-bgColor="#FFE6BA" value="{{ $roleOneAdminCount }}"
+                                    data-bgColor="#FFE6BA" value="{{ $roleOneAdminCount ?? ''}}"
                                     data-skin="tron" data-angleOffset="180" data-readOnly=true
                                     data-thickness=".15"/>
                         </div>
                         <div class="widget-detail-1 text-end">
-                            <h2 class="fw-normal pt-2 mb-1"> {{ $roleOneAdminCount }} </h2>
+                            <h2 class="fw-normal pt-2 mb-1"> {{ $roleOneAdminCount ?? '' }} </h2>
                             <p class="text-muted mb-1">Admin</p>
                         </div>
                     </div>
@@ -119,12 +119,12 @@
                     <div class="widget-chart-1">
                         <div class="widget-chart-box-1 float-start" dir="ltr">
                             <input data-plugin="knob" data-width="70" data-height="70" data-fgColor="#ffbd4a"
-                                    data-bgColor="#FFE6BA" value="{{ $Donation }}"
+                                    data-bgColor="#FFE6BA" value="{{ $Donation ?? '' }}"
                                     data-skin="tron" data-angleOffset="180" data-readOnly=true
                                     data-thickness=".15"/>
                         </div>
                         <div class="widget-detail-1 text-end">
-                            <h2 class="fw-normal pt-2 mb-1"> {{ $Donation }} </h2>
+                            <h2 class="fw-normal pt-2 mb-1"> {{ $Donation ?? ''}} </h2>
                             <p class="text-muted mb-1">Donatur</p>
                         </div>
                     </div>
@@ -151,14 +151,14 @@
 
                     <div class="widget-box-4">
                         <div class="widget-detail-2 text-end">
-                            <h2 class="fw-normal mb-1"> {{ $CampaignCategory }} </h2>
+                            <h2 class="fw-normal mb-1"> {{ $CampaignCategory ?? '' }} </h2>
                             <p class="text-muted mb-3">Campaign</p>
                         </div>
                         <div class="progress progress-bar-alt-pink progress-sm">
                             <div class="progress-bar bg-pink" role="progressbar"
                                     aria-valuenow="77" aria-valuemin="0" aria-valuemax="100"
-                                    style="width:  {{ $CampaignCategory }}%;">
-                                <span class="visually-hidden"> {{ $CampaignCategory }}% Complete</span>
+                                    style="width:  {{ $CampaignCategory ?? '' }}%;">
+                                <span class="visually-hidden"> {{ $CampaignCategory ?? ''}}% Complete</span>
                             </div>
                         </div>
                     </div>
@@ -222,7 +222,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item" onclick="Dnatur()">Total Dnatur</a>
+                            <a href="javascript:void(0);" class="dropdown-item" onclick="Dnatur()">Total Donatur</a>
                             <!-- item-->
                             <a href="javascript:void(0);" class="dropdown-item" onclick="Campainer()">Total Campainer</a>
                             <a href="{{ url('admin/users') }}" class="dropdown-item" >Lihat Data</a>

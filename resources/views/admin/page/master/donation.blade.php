@@ -228,7 +228,7 @@
         },
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
-            {data: 'user.username', name: 'user.username'},
+            {data: 'user.username', name: 'user.username', defaultContent: 'Data Kosong'},
             {data: 'campaign.title', name: 'campaign.title'},
             {data: 'amount_donations', name: 'amount_donations'},
             {data: 'hope', name: 'hope'},
@@ -432,7 +432,11 @@
             success: function(response){
                 if(response.meta.status == 'OK'){
                     $('#detail_id').text(response.data.id);
+                    if (response.data.user != null) {
                     $('#detail_user').text(response.data.user.username);
+                    } else {
+                        $('#detail_user').text(response.data.name);
+                    }
                     $('#detail_campaign').text(response.data.campaign.title);
                     $('#detail_amount_donations').text(formatRupiah(response.data.amount_donations));
                     $('#detail_hope').text(response.data.hope);
