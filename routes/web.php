@@ -423,6 +423,9 @@ Route::get('/bayar', function () {
     return view('landing.ziswaf.bayar');
 });
 
+Route::get('/pencairan', function () {
+    return view('landing.pencairan');
+});
 
 
 

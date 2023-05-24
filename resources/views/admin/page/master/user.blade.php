@@ -179,7 +179,7 @@
         columns: [
           {data: 'DT_RowIndex', name: 'id', searchable: false},
           {data: 'name', name: 'name'},
-          {data: 'username', name: 'username'},
+          {data: 'username', name: 'username', defaultContent: 'username kosong'},
           {data: 'email', name: 'email'},
           {data: 'status', name: 'status', searchable: false, orderable: false},
           {data: 'verification', name: 'verification', searchable: false, orderable: false},
