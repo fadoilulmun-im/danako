@@ -384,7 +384,7 @@ $(".message").text("link copied");
         Swal.fire({
           icon: 'warning',
           title: 'Anda belum login',
-          text: 'Apakah anda ingin login supaya data donasi tersimpan di aku anda',
+          text: 'Apakah anda ingin login supaya data donasi tersimpan di akun anda',
           showCancelButton: false,
           confirmButtonText: 'Ya, login',
           showDenyButton: true,
