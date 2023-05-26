@@ -114,7 +114,10 @@ class AuthUserController extends Controller
 
     public function me()
     {
-        $user = Auth::user();
+        // $user = Auth::user();
+        // return $this->setResponse(UserResource::make($user));
+
+        $user = User::where('id', Auth::id())->with(['detail.documents', 'detail.village.district.regency.province', 'photoProfile'])->first();
         return $this->setResponse(UserResource::make($user));
     }
 
