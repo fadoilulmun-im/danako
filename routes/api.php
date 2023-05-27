@@ -26,7 +26,10 @@ use App\Http\Controllers\API\WithdrawalController;
 Route::group(['prefix' => 'withdrawal'], function () {
     Route::post('/', [WithdrawalController::class, 'store'])->name('api.withdrawal.store')->middleware(['auth:sanctum']);
     Route::get('/', [WithdrawalController::class, 'index'])->name('api.master.withdrawal.index');
+    // Route::post('/', [WithdrawalController::class, 'create'])->name('api.withdrawal.create');
+    // Route::post('/', [WithdrawalController::class, 'storeCoba'])->name('api.withdrawal.storeCoba');
     Route::get('/{id}', [WithdrawalController::class, 'show'])->name('api.master.withdrawal.show');
+    Route::post('/verif/{id}', [WithdrawalController::class, 'updateVerifiying'])->name('api.master.withdrawal.verif')->middleware(['auth:sanctum']);
 });
 
 Route::group(['prefix' => 'xendit'], function () {

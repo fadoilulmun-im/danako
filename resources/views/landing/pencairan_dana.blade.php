@@ -4,7 +4,9 @@
 
 @push('after-style')
 <style>
-   
+  .card-bank.active{
+    border: 2px solid #79C121;
+  }
 </style>
 
 @endpush
@@ -20,54 +22,44 @@
 
   
   <div class="container pt-4 pb-4"> 
-    <form action="" method="post" class="f1" id="form-create">
+    <form class="f1" id="form-create" >
         <input type="hidden" name="campaign_id" value="{{ $campaign->id }}">
         <div class="row">
       
-        <div class="col-md-12 box-input">
+        <div class="col-md-6 box-input">
           <!-- step 1 -->
           <fieldset>
-            <h4 class="pt-2 pb-2">Ajukan Pencairan Dana : </h4>
-              
             <div class="container">
               <div class="contact pt-3">
-
+                <h4 class="pt-2 pb-2 mb-2 text-center">Ajukan Pencairan Dana</h4>
                 <div class="col-md-12">
-                  <h6>Bank Pencairan</h6>
-                  <div class="group form-group">      
-                    <input type="text" class="form-control" value="{{ $campaign->user->detail->bank_name }}" required disabled>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    {{-- <label>No Rekening Pemilik Campaign</label> --}}
-                  </div>
-                </div>
-
-                <div class="col-md-12">
-                  <h6>Nama Rekening Pencairan</h6>
-                  <div class="group form-group">      
-                    <input type="text" class="form-control" value="{{ $campaign->user->detail->rek_name }}" required disabled>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    {{-- <label>No Rekening Pemilik Campaign</label> --}}
-                  </div>
-                </div>
-
-                <div class="col-md-12">
-                  <h6>No Rekening Pencairan</h6>
-                  <div class="group form-group">      
-                    <input type="text" class="form-control" value="{{ $campaign->user->detail->rek_number }}" required disabled>
-                    <span class="highlight"></span>
-                    <span class="bar"></span>
-                    {{-- <label>No Rekening Pemilik Campaign</label> --}}
-                  </div>
-                </div>
-                <div class="col-md-12 col-md-offset-3">
-                    <div class="form-area">
+                  <div class="form-area">
+                    <h6>Rekening penerima</h6>
+                    <div class="d-flex mb-4">
+                      <div class="col-md-4">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="exampleRadios" id="rekeningSaya" 
+                          value="" required><span>Rekening saya</span>
+                        </div>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="exampleRadios" id="tambahRekening" 
+                          value="" required><span>Tambah rekening baru</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rekening-saya">
+                    </div>
+                    <div class="tambah-rekening" style="margin-left: 20px">
+                    </div>
+                {{-- <div class="col-md-12 col-md-offset-3">
+                    <div class="form-area"> --}}
                       
-                      <div class="row">
-                        <div class="col-md-6">
+                      {{-- <div class="row"> --}}
+                        <div class="col-md-12">
                           
-                          <h6>Masukkan nominal Pencairan Anda </h6>
+                          {{-- <h6>Masukkan nominal Pencairan Anda </h6>
                           <div class="card-text border info-donatur rounded-3 mt-2" style="cursor: pointer" onclick="changeAmount(10000)">                  
                             <div class="row py-2 px-2">
                               <h5 class="text-center">Rp 10.000</h5>
@@ -87,37 +79,57 @@
                             <div class="row py-2 px-2">
                               <h5 class="text-center">Rp 100.000</h5>
                             </div>
-                          </div>
+                          </div> --}}
 
                           <div class="group form-group">      
                             <input type="number" class="form-control" id="amount" name="amount" max="{{ $campaign->real_time_amount }}" required>
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label>Atau masukkan nominal lainnya</label>
+                            <label>Masukkan nominal yang ingin dicairkan</label>
                           </div>
-                          
-                        </div>
 
-                        <div class="col-md-6">
-
-                          <div class="group form-group mb-5">      
+                          {{-- <div class="group form-group mb-5">      
                             <input type="text" class="form-control" id="title" name="title" required>
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Tuliskan judul pencairan</label>
-                          </div>
+                          </div> --}}
 
-                          <div class="form-group group">
+                          <div class="group form-group">
                             <div class="text-group">
-                              <textarea required="required" class="form-control" rows="6" name="description"></textarea>
-                              <label for="textarea" class="input-label">Tuliskan Deskripsi Alasan Pencairan</label><i class="bar"></i>
+                              <textarea required="required" class="form-control" rows="5" name="description"></textarea>
+                              <label for="textarea" class="input-label">Tuliskan Keterangan Penggunaan Dana</label><i class="bar"></i>
                             </div>
                           </div>
 
+                          <div class="group form-group">
+                            <h6>Apakah anda sudah memiliki bukti pembayaran/ dokumen pendukung lainnya?</h6>
+                            <div class="d-flex">
+                              <div class="col-md-2">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="exampleRadios" id="checkBelum" 
+                                  value="" required><span>Belum</span>
+                                </div>
+                              </div>
+                              <div class="col-md-2">
+                                <div class="form-check">
+                                  <input class="form-check-input" type="radio" name="exampleRadios" id="checkSudah" 
+                                  value="" required><span>Sudah</span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="group form-group uploadBukti">
+                          </div>
+
+                          <div class="group form-group checkBox">
+                          </div>
+
                         </div>
-                      </div>
+                      {{-- </div> --}}
   
-                    </div>
+                    {{-- </div> --}}
                 </div>
               </div>
             </div>
@@ -164,7 +176,7 @@
       // Form
       $('.f1 fieldset:first').fadeIn('slow');
       
-      $('.f1 input[type="text"], .f1 input[type="password"], .f1 textarea').on('focus', function() {
+      $('.f1 input[type="text"], .f1 input[type="password"], .f1 textarea, .f1 input[type="radio"], .f1 input[type="file"]').on('focus', function() {
         $(this).removeClass('input-error');
       });
       
@@ -178,7 +190,7 @@
 
         
         // validasi form
-        parent_fieldset.find('input[type="text"], input[type="password"], textarea').each(function() {
+        parent_fieldset.find('input[type="text"], input[type="password"], textarea, input[type="radio"], input[type="file"]').each(function() {
           if( $(this).val() == "" ) {
             $(this).addClass('input-error');
             next_step = false;
@@ -221,11 +233,108 @@
         scroll_to_class( $('.f1'), 20 );
         });
       });
-      
+
+      // $('#checkSudah').is(":checked"){
+
+      // }
+
+      $('#checkSudah').click(function(e){
+        $('#checkSudah').val('checked');
+        $('#checkBelum').val('');
+        $('.checkBox').html(``);
+        $('.uploadBukti').html(`
+          <span style="padding-bottom: 80px;">Silahkan upload bukti pembayaran/ dokumen pendukung (Jpg, Png, Jpeg)</span>
+          <input type="file" class="form-control" id="documents" name="documents[] multiple accept="image/*" multiple required>
+          <span class="highlight"></span>
+          <span class="bar"></span>
+        `);
+      });
+
+      $('#checkBelum').click(function(e){
+        $('#checkBelum').val('checked');
+        $('#checkSudah').val('');
+        $('.uploadBukti').html(``);
+        $('.checkBox').html(`
+          <div class="card">
+            <div class="card-body">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required>
+                Dengan ini saya bersedia melakukan upload bukti pembayaran setelah pencairan dana berhasil
+              </div>
+            </div>
+          </div>
+        `);
+      });
+
+      $('#rekeningSaya').click(function(e){
+        $('#rekeningSaya').val('checked');
+        $('#checkBelum').val('');
+        $('.tambah-rekening').html(``);
+        $('.rekening-saya').html(`
+          <h6>Bank pencairan</h6>
+          <div class="group form-group">      
+            <input type="text" class="form-control" id="bank_name" name="bank_name" value="{{ $campaign->user->detail->bank_name }}" readonly="readonly" required>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+          </div>
+          <h6>Nama Pemilik Rekening</h6>
+          <div class="group form-group">      
+            <input type="text" class="form-control" id="rek_name" name="rek_name" value="{{ $campaign->user->detail->rek_name }}" readonly="readonly" required>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+          </div>
+          <h6>No Rekening</h6>
+          <div class="group form-group">      
+            <input type="text" class="form-control" id="rek_number" name="rek_number" value="{{ $campaign->user->detail->rek_number }}" readonly="readonly" required>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+          </div>
+         
+        `);
+      });
+
+      const bankClick = (e) => {
+        $('.card-bank').removeClass('active');
+        $(e).addClass('active');
+      }
+
+      $('#tambahRekening').click(function(e){
+        $('#tambahRekening').val('checked');
+        $('#rekeningSaya').val('');
+        $('.rekening-saya').html(``);
+        $('.tambah-rekening').html(`
+          <div class="group" style="margin-top: 50px">
+            <select class="form-control" id="bank_name" name="bank_name" required>
+              <option selected disabled>Pilih Bank</option>
+              <option value="BCA">BCA</option>
+              <option value="BRI">BRI</option>
+              <option value="Mandiri">MANDIRI</option>
+              <option value="BNI">BNI</option>
+              <option value="BSI">BSI</option>
+            </select>
+            <label>Bank pencairan</label>
+            <span class="highlight"></span>
+            <div class="bar"></div>
+          </div>
+          <div class="group form-group">      
+            <input type="text" class="form-control" id="rek_name" name="rek_name" required>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>Nama Pemilik Rekening</label>
+          </div>
+          <div class="group form-group">      
+            <input type="text" class="form-control" id="rek_number" name="rek_number" required>
+            <span class="highlight"></span>
+            <span class="bar"></span>
+            <label>No Rekening</label>
+          </div>
+        `);
+      });
+
       // submit (ketika klik tombol submit diakhir wizard)
       $('.f1').on('submit', function(e) {
         // validasi form
-        $(this).find('input[type="text"], input[type="password"], textarea').each(function() {
+        $(this).find('input[type="text"], input[type="password"], textarea, input[type="radio"]').each(function() {
           if( $(this).val() == "" ) {
             e.preventDefault();
             $(this).addClass('input-error');

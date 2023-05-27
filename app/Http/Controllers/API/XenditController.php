@@ -70,6 +70,7 @@ class XenditController extends Controller
 
     public function callback(Request $request)
     {
+        $qr_code = 
         // $data = request()->all();
         DB::beginTransaction();
         $donation = Donation::where('external_id', $request->external_id)->first();
@@ -89,6 +90,8 @@ class XenditController extends Controller
             // $campaign->real_time_amount += $campaign->donations->where('status', 'PAID')->sum('amount');
             $campaign->real_time_amount += Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('amount');
             $campaign->save();
+            
+            
         }
         
         if(($donation->user->email ?? false) && ($donation->status == 'PAID')){

@@ -28,6 +28,9 @@ class DonationController extends Controller
         if($startDate && $endDate) {
             $donation->whereDate('donations.created_at', '>=', $startDate)->whereDate('donations.created_at', '<=', $endDate);
         }
+        if ($request->filled('status')) {
+            $donation->where('status', $request->get('status'));
+        }
 
         return DataTables::of($donation)
             ->addColumn('action', function ($data) {

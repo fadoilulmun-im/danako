@@ -1,5 +1,7 @@
 @extends('admin.layout.master')
 
+@section('pageTitle', 'Campaign')
+
 @section('third-party-css')
 <link href="{{ asset('assets') }}/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets') }}/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
@@ -24,6 +26,7 @@
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light"
                             id="addBtn">Create</button>
                     </div>
+                    <div id="exportButtons" class="mb-2"></div>
                     <div class="row" style="padding-bottom: 20px">
                         <div class="col-sm-12 col-md-4">
                             <label class="form-label">Date Range</label>
@@ -64,23 +67,23 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                {{-- <th>User</th>
-                                <th>Category</th> --}}
+                                <th>User</th>
+                                <th>Category</th>
                                 <th>Title</th>
-                                {{-- <th>Description</th> --}}
+                                <th>Description</th>
                                 <th>Image</th>
                                 <th>Verification</th>
                                 <th>Target Amount</th>
                                 <th>Start</th>
                                 <th>End</th>
-                                {{-- <th>Receiver</th>
+                                <th>Receiver</th>
                                 <th>Purpose</th>
-                                <th>Address Receiver</th> --}}
-                                {{-- <th>Detail Usage of Funds</th> --}}
-                                {{-- <th>Real Time Amount</th>
-                                <th>Reject Note</th> --}}
-                                {{-- <th>Status</th> --}}
-                                {{-- <th>Slug</th> --}}
+                                <th>Address Receiver</th>
+                                <th>Detail Usage of Funds</th>
+                                <th>Real Time Amount</th>
+                                <th>Reject Note</th>
+                                <th>Status</th>
+                                <th>Slug</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -360,8 +363,10 @@
 <script src="{{ asset('assets') }}/libs/dropify/js/dropify.min.js"></script>
 <script src="{{ asset('assets') }}/libs/selectize/js/standalone/selectize.min.js"></script>
 <script src="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.js"></script>
+<script src="{{ asset('assets') }}/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="{{ asset('assets') }}/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @endsection
 
 @section('init-js')
@@ -375,6 +380,7 @@
         lengthChange: true,
         processing: true,
         serverSide: true,
+        lengthMenu: [[10, 25, 50, 100, 10000], [10, 25, 50, 100, "All"]],
         ajax: {
             url: "{{ route('api.master.campaigns.index') }}",
             data: function (d) {
@@ -390,27 +396,73 @@
         },
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
-            // {data: 'user.username', name: 'user.username'},
-            // {data: 'category.name', name: 'category.name'},
+            {data: 'user.username', name: 'user.username'},
+            {data: 'category.name', name: 'category.name'},
             {data: 'title', name: 'title'},
-            // {data: 'description', name: 'description'},
+            {data: 'description', name: 'description'},
             {data: 'img_path', name: 'img_path'},
             {data: 'verification_status', name: 'verification_status'},
             {data: 'target_amount', name: 'target_amount'},
             {data: 'start_date', name: 'start_date'},
             {data: 'end_date', name: 'end_date'},
-            // {data: 'receiver', name: 'receiver'},
-            // {data: 'purpose', name: 'purpose'},
-            // {data: 'address_receiver', name: 'address_receiver'},
-            // {data: 'detail_usage_of_funds', name: 'detail_usage_of_funds'},
-            // {data: 'real_time_amount', name: 'real_time_amount'},
-            // {data: 'reject_note', name: 'reject_note'},
-            // {data: 'activity', name: 'activity'},
-            // {data: 'slug', name: 'slug'},
+            {data: 'receiver', name: 'receiver'},
+            {data: 'purpose', name: 'purpose'},
+            {data: 'address_receiver', name: 'address_receiver'},
+            {data: 'detail_usage_of_funds', name: 'detail_usage_of_funds'},
+            {data: 'real_time_amount', name: 'real_time_amount'},
+            {data: 'reject_note', name: 'reject_note'},
+            {data: 'activity', name: 'activity'},
+            {data: 'slug', name: 'slug'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
-        order: [[0, 'desc']]
+        order: [[0, 'desc']],
+        dom: "B<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+        buttons: [
+            {
+                text: 'Copy',
+                extend: 'copy',
+                exportOptions: {
+                  columns: [0,1,2,3,4,5,6,7,8,9,10],
+                },
+                action: newexportaction
+            }, 
+            {
+                text: 'CSV',
+                extend: 'csv',
+                exportOptions: {
+                  columns: [0,1,2,3,4,5,6,7,8],
+                },
+                action: newexportaction
+            },
+            {  
+                text: 'Excel',
+                extend: 'excel', 
+                exportOptions: {
+                  columns: [0,1,2,3,4,5,6,7,8],
+                },
+                action: newexportaction
+            },
+            {
+                text: 'PDF',
+                extend: 'pdf',
+                exportOptions: {
+                  columns: [0,1,2,3,4,5,6,7,8],
+                },
+                action: newexportaction
+            },
+            {
+                text: 'Print',
+                extend: 'print',
+                exportOptions: {
+                    columns: ':not(:last-child)',
+                },
+            }, 
+        ],
     });
+
+    table.buttons( 0, null ).containers().appendTo('#exportButtons');
 
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
@@ -433,6 +485,48 @@
             return false;
         }
     );
+
+    function newexportaction(e, dt, button, config) {
+        var self = this;
+        var oldStart = dt.settings()[0]._iDisplayStart;
+        dt.one('preXhr', function(e, s, data) {
+            // Just this once, load all data from the server...
+            data.start = 0;
+            data.length = dt.page.info().recordsTotal;
+            dt.one('preDraw', function(e, settings) {
+                // Call the original action function
+                if (button[0].className.indexOf('buttons-copy') >= 0) {
+                    $.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button, config);
+                } else if (button[0].className.indexOf('buttons-excel') >= 0) {
+                    $.fn.dataTable.ext.buttons.excelHtml5.available(dt, config) ?
+                        $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config) :
+                        $.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
+                } else if (button[0].className.indexOf('buttons-csv') >= 0) {
+                    $.fn.dataTable.ext.buttons.csvHtml5.available(dt, config) ?
+                        $.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button, config) :
+                        $.fn.dataTable.ext.buttons.csvFlash.action.call(self, e, dt, button, config);
+                } else if (button[0].className.indexOf('buttons-pdf') >= 0) {
+                    $.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config) ?
+                        $.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config) :
+                        $.fn.dataTable.ext.buttons.pdfFlash.action.call(self, e, dt, button, config);
+                } else if (button[0].className.indexOf('buttons-print') >= 0) {
+                    $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
+                }
+                dt.one('preXhr', function(e, s, data) {
+                    // DataTables thinks the first item displayed is index 0, but we're not drawing that.
+                    // Set the property to what it was before exporting.
+                    settings._iDisplayStart = oldStart;
+                    data.start = oldStart;
+                });
+                // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
+                setTimeout(dt.ajax.reload, 0);
+                // Prevent rendering of the full data to the DOM
+                return false;
+            });
+        });
+        // Requery the server with the new one-time export settings
+        dt.ajax.reload();
+    };
 
     // Flat Picker Date
     $('#date_range').flatpickr({
@@ -651,7 +745,7 @@
                 if(response.meta.status == 'OK'){
                     $('#detail_img').append('<img src="{{ asset('uploads') }}' + response.data.img_path + '" alt="logo" style="width: 100px; height: 100px">');
                     // $('#detail_id').text(response.data.id);
-                    $('#detail_user').text(response.data.user.username);
+                    // $('#detail_user').text(response.data.user.username);
                     $('#detail_category').text(response.data.category.name);
                     $('#detail_title').text(response.data.title);
                     $('#detail_description').html(response.data.description);
@@ -697,6 +791,15 @@
                         default:
                         status_color = 'bg-secondary';
                         break;
+                    }
+
+                    if (response.data.user.detail){
+                        $('#detail_user').html(`
+                            ${response.data.user.username} <i class="mdi mdi-check-decagram text-primary"></i>
+                        `);
+                    } else {
+                        $('#detail_userk').html(`
+                        ${response.data.user.username}`);
                     }
 
                     $('#detail_activity').html(`
@@ -759,8 +862,8 @@
               'Authorization': 'Bearer '+localStorage.getItem('_token'),
             },
             body: JSON.stringify({
-              verification_status: 0,
-              reject_note: note,
+              status: 0,
+              note: note,
             })
           })
           .then(response => {
@@ -788,6 +891,7 @@
           $('#detail_status').html(`
             <h5 class='m-0 badge p-1 bg-danger'>${(data.verification_status).toUpperCase()}</h5>
           `);
+          table.ajax.reload();
         }
       })
     }
@@ -836,6 +940,7 @@
           $('#detail_status').html(`
             <h5 class='m-0 badge p-1 bg-success'>${(result.value.data.verification_status).toUpperCase()}</h5>
           `);
+          table.ajax.reload();
         }
       })
     }
