@@ -36,7 +36,7 @@ use Jorenvh\Share\ShareFacade as Share;
 */
 
 Route::get('cek-mail', function () {
-    return view('mail.donation');
+    return view('mail.contoh');
 });
 
 
@@ -352,7 +352,8 @@ Route::get('/donasi', function () {
 
 Route::get('/buat-campaign/{id}', function ($id) {
     $category = CampaignCategory::findOrFail($id);
-    return view('landing.campaign.buat_campaign', compact('id', 'category'));
+    // return view('landing.campaign.buat_campaign', compact('id', 'category'));
+    return view('landing.campaign.buat_campaign_new', compact('id', 'category'));
 })->name('buat-campaign');
 
 Route::get('/pilih-kategori', function () {
