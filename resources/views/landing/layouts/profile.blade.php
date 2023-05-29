@@ -23,6 +23,11 @@
                                 <img width="100" src="{{ asset('') }}danako/img/akun.png" alt="account holder image" id="img-profile-now">
                                 <h3 id="name-now">Loading...</h3>
                                 <p id="username-now">Loading..</p>
+                                <p id="status" class="pt-3">
+                                    <i class="fas fa-check-circle text-primary me-2"></i>
+                                   
+                                </p>
+                                  
                             </div>
     
                             <ul>
@@ -85,23 +90,28 @@
     @stack('after-script')
 
     <script>
-        $(document).ready(()=>{
-            $.ajax({
-                url: "{{ route('api.me') }}",
-                headers: {
-                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
-                    'Authorization': 'Bearer ' + localStorage.getItem('_token'),
-                },
-                type: 'GET',
-                dataType: 'json',
-                success: function(response){
-                    const data = response.data;
-                    $('#name-now').text(data.name);
-                    $('#username-now').text(data.username);
-                    $('#img-profile-now').attr('src', data.photo_profile);
-                }
-            })
-        })
+$(document).ready(() => {
+  $.ajax({
+    url: "{{ route('api.me') }}",
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}",
+      'Authorization': 'Bearer ' + localStorage.getItem('_token'),
+    },
+    type: 'GET',
+    dataType: 'json',
+    success: function(response) {
+      const data = response.data;
+      if (data.detail && data.detail.status === 'verified') {
+        $('#status').find('.text-primary').text(data.detail.status);
+        $('#status').show();
+      }
+      $('#name-now').text(data.name);
+      $('#username-now').text(data.username);
+      $('#img-profile-now').attr('src', data.photo_profile);
+    }
+  });
+});
+
     </script>
 </body>
 
