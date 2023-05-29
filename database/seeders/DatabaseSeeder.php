@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             CampaignCategorySeeder::class,
-            // CampaignSeeder::class,
+            CampaignSeeder::class,
             // DonationSeeder::class,
             IndoRegionSeeder::class,
         ]);

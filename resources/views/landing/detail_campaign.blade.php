@@ -337,11 +337,11 @@ $(".message").text("link copied");
               <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2 px-2">                  
                 <div class="row">
                   <div class="col-9">
-                    <h6 class="text-start">${item.user.name}</h6>
-                    <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.created_at)).fromNow()}</span></h6>
+                    <h6 class="text-start">${item.name}</h6>
+                    <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.paid_at)).fromNow()}</span></h6>
                   </div>
                   <div class="col-3 pe-0">
-                    <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 
+                    <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 
                   </div> 
                 </div>
               </div>
@@ -350,10 +350,10 @@ $(".message").text("link copied");
             $('#list-hope').append(`
               <div class="row mb-4 ps-1">
                 <div class="col-md-1">
-                  <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
+                  <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
                 </div>
                 <div class="col-md-11">
-                  <h6>${item.user.name}</h6>
+                  <h6>${item.name}</h6>
                   <p>${item.hope}</p>
                 </div>
               </div>
@@ -384,7 +384,7 @@ $(".message").text("link copied");
         Swal.fire({
           icon: 'warning',
           title: 'Anda belum login',
-          text: 'Apakah anda ingin login supaya data donasi tersimpan di aku anda',
+          text: 'Apakah anda ingin login supaya data donasi tersimpan di akun anda',
           showCancelButton: false,
           confirmButtonText: 'Ya, login',
           showDenyButton: true,

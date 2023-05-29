@@ -36,7 +36,7 @@ use Jorenvh\Share\ShareFacade as Share;
 */
 
 Route::get('cek-mail', function () {
-    return view('mail.donation');
+    return view('mail.contoh');
 });
 
 
@@ -345,8 +345,9 @@ Route::get('/payment-gagal', function () {
     return view('landing.payment_gagal');
 });
 
-Route::get('/payment-sukses', function () {
-    return view('landing.payment_sukses');
+Route::get('/payment-sukses/{external_id}', function ($external_id) {
+    // Donation::where('external_id', $external_id)->update(['status' => 'PAID']);
+    return view('landing.payment_sukses', compact('external_id'));
 });
 
 
@@ -368,7 +369,8 @@ Route::get('/donasi', function () {
 
 Route::get('/buat-campaign/{id}', function ($id) {
     $category = CampaignCategory::findOrFail($id);
-    return view('landing.campaign.buat_campaign', compact('id', 'category'));
+    // return view('landing.campaign.buat_campaign', compact('id', 'category'));
+    return view('landing.campaign.buat_campaign_new', compact('id', 'category'));
 })->name('buat-campaign');
 
 Route::get('/pilih-kategori', function () {
@@ -439,6 +441,9 @@ Route::get('/bayar', function () {
     return view('landing.ziswaf.bayar');
 });
 
+Route::get('/pencairan', function () {
+    return view('landing.pencairan');
+});
 
 
 

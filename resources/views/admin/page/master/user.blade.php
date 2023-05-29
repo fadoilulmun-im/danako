@@ -25,10 +25,22 @@
                   <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
                 </div>
 
-                <div class='mb-3'>
-                  <a href="#user" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">User</a>
-                  <a href="#admin" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Admin</a>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <div class='mb-3'>
+                      <a href="#user" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">User</a>
+                      <a href="#admin" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Admin</a>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class='mb-3'>
+                      <a href="#donatur" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Donatur</a>
+                      <a href="#campainer" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Campainer</a>
+                    </div>
+                  </div>
                 </div>
+                
+               
                 <div class="row" style="padding-bottom: 15px">
                   <div class="col-sm-12 col-md-2">Status
                     <select class="form-select form-select-sm" name="status" id="status-filter">
@@ -181,7 +193,7 @@
         columns: [
           {data: 'DT_RowIndex', name: 'id', searchable: false},
           {data: 'name', name: 'name'},
-          {data: 'username', name: 'username'},
+          {data: 'username', name: 'username', defaultContent: 'username kosong'},
           {data: 'email', name: 'email'},
           {data: 'status', name: 'status', searchable: false, orderable: false},
           {data: 'verification', name: 'verification', searchable: false, orderable: false},
