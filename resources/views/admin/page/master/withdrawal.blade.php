@@ -16,6 +16,7 @@
 <!-- Select2 css -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link href="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.css" rel="stylesheet">
+{{-- <link href="{{ asset('assets') }}/libs/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css" /> --}}
 @endsection
 
 @section('content')
@@ -61,6 +62,7 @@
                 <th>Rek Name</th>
                 <th>Rek Number</th>
                 <th>Reject Note</th>
+                {{-- <th>Created at</th> --}}
                 <th>Action</th>
               </tr>
             </thead>
@@ -186,7 +188,11 @@
           </tr>
           <tr>
             <th>Dokumen pendukung</th>
-            <td id="detail_images"></td>
+            <td id="detail_document"></td>
+          </tr>
+          <tr class="bukti-transfer">
+            <th>Bukti transfer pencairan</th>
+            <td id="detail_bukti_transfer"></td>
           </tr>
         </table>
       </div>
@@ -214,11 +220,14 @@
 <script src="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
 <!-- Select2 js -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{-- <!-- Magnific Popup-->
+<script src="{{ asset('assets') }}/libs/magnific-popup/jquery.magnific-popup.min.js"></script> --}}
 @endsection
 
 @section('init-js')
-<script src="{{ asset('assets') }}/js/pages/datatables.init.js"></script>
 <script>
+  var minDate, maxDate;
+  
   let table = $('#datatable').DataTable({
         processing: true,
         serverSide: true,
@@ -227,13 +236,15 @@
         ajax: {
           url:"{{ route('api.master.withdrawal.index') }}",
           data: function (d) {
+                d.from = minDate,
+                d.to = maxDate,
               d.status = $('#status-filter').val()
           },
           complete: function(){
               $('[data-bs-toggle="tooltip"]').tooltip();
           }
         },
-        dom: "B<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+        dom: "B<'row mb-1'<'col-sm-6'l><'col-sm-6'f>>" +
               "<'row'<'col-sm-12'tr>>" +
               "<'row'<'col-sm-6'i><'col-sm-6'p>>",
         buttons: [
@@ -283,28 +294,29 @@
             {data: 'description', name: 'description'},
             {data: 'amount', name: 'amount'},
             {data: 'status', name: 'status'},
-            {data: 'bank_name', name: 'bank_name', "render": function(data, type, row) {
+            {data: 'bank_name', name: 'bank_name', render: function(data, type, row) {
               if (data == null) { 
                 return row.campaign.user.detail.bank_name; 
               } else {
-                return data.bank_name;
+                return row.bank_name;
               }
             }},
-            {data: 'rek_name', name: 'rek_name', "render": function(data, type, row) {
+            {data: 'rek_name', name: 'rek_name', render: function(data, type, row) {
               if (data == null) { 
                 return row.campaign.user.detail.rek_name;
               } else {
-                return data.rek_name;
+                return row.rek_name;
               }
             }},
-            {data: 'rek_number', name: 'rek_number', "render": function(data, type, row) {
+            {data: 'rek_number', name: 'rek_number', render: function(data, type, row) {
               if (data == null) { 
                 return row.campaign.user.detail.rek_number;
               } else {
-                return data.rek_number;
+                return row.rek_number;
               }
             }},
             {data: 'reject_note', name: 'reject_note', defaultContent: '-'},
+            // {data: 'created_at', name: 'created_at', defaultContent: '-'},
             {data: 'action', name: 'action', orderable: false, searchable: false}
         ],
         order: [[0, 'desc']]
@@ -357,6 +369,38 @@
         // Requery the server with the new one-time export settings
         dt.ajax.reload();
     };
+
+    $flatpikr = $('#date_range').flatpickr({
+        mode: "range",
+        allowInput: true,
+        altInput: true,
+        dateFormat: "Y-m-d",
+        onClose: function(selectedDates, dateStr, instance) {
+            inpDate = dateStr.split(' to ');
+            minDate  =  (inpDate[0]);
+            maxDate  =  (inpDate[1] ?? inpDate[0]);
+            // console.log(minDate,"to",maxDate);
+            // console.log(dateStr);
+            table.draw();
+        }
+    });
+
+    $("#clear-date").click(function() {
+        $flatpikr.clear();
+        minDate = null;
+        maxDate = null;
+        table.ajax.reload();
+    });
+
+    $(".image-popup").magnificPopup({
+      type:"image",
+      closeOnContentClick:!0,
+      mainClass:"mfp-fade",
+      gallery:{
+        enabled:!0,
+        navigateByImgClick:!0,
+        preload:[0,1]}
+    });
 
     $('#addBtn').click(function(e){
       $('input[name="image"]').prop('required',true);
@@ -471,11 +515,18 @@
                   </div>
                   `);
 
-                  if((response.data.images ?? []).length){
-                      $('#detail_images').html('');
-                      (response.data.images).forEach(item => {
-                          $('#detail_images').append(`
-                              <img src="{{asset('')}}uploads${item.path}" alt="dokumen pendukung" class="img-fluid rounded" style="max-width: 200px; max-height: 200px;">
+                  // $('#detail_bukti_transfer').html(`
+                  //     <span><strong>Type: </strong>${response.data.document.type}</span>
+                  //     <img src="{{asset('')}}uploads${response.data.campaign.img_path}" class="img-fluid rounded" style="max-width: 200px; max-height: 200px;">
+                  // `);
+
+                  if((response.data.document ?? []).length){
+                      $('#detail_document').html('');
+                      (response.data.document).forEach(item => {
+                          $('#detail_document').append(`
+                              <a href="{{asset('uploads')}}${item.path}" class="image-popup" title="bukti pendukung">
+                                <img src="{{asset('uploads')}}${item.path}" alt="dokumen pendukung" class="thumb-img img-fluid rounded" style="max-width: 200px; max-height: 200px;">
+                              </a>
                           `);
                       });
                   }else{
@@ -603,6 +654,12 @@
           $('#button').html(``);
           $('#detail_status').html(`
             <h5 class='m-0 badge p-1 bg-success'>${(result.value.data.status).toUpperCase()}</h5>
+          `);
+          $('.bukti-transfer').html(`
+            <th>Bukti transfer</th>
+            <td id="detail_bukti_tf">
+              <a href="{{asset('')}}uploads${result.value.data.documents.path}" target="blank" rel="noopener noreferrer">Lihat Bukti Bayar</a>
+            </td>
           `);
           table.ajax.reload();
         }

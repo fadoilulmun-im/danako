@@ -38,13 +38,13 @@
                     <div class="d-flex mb-4">
                       <div class="col-md-4">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="rekeningSaya" 
+                          <input class="form-check-input" type="radio" name="rekeningRadioBtn" id="rekeningSaya" 
                           value="" required><span>Rekening saya</span>
                         </div>
                       </div>
                       <div class="col-md-5">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="exampleRadios" id="tambahRekening" 
+                          <input class="form-check-input" type="radio" name="rekeningRadioBtn" id="tambahRekening" 
                           value="" required><span>Tambah rekening baru</span>
                         </div>
                       </div>
@@ -107,13 +107,13 @@
                             <div class="d-flex">
                               <div class="col-md-2">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="exampleRadios" id="checkBelum" 
+                                  <input class="form-check-input" type="radio" name="docRadioBtn" id="checkBelum" 
                                   value="" required><span>Belum</span>
                                 </div>
                               </div>
                               <div class="col-md-2">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="exampleRadios" id="checkSudah" 
+                                  <input class="form-check-input" type="radio" name="docRadioBtn" id="checkSudah" 
                                   value="" required><span>Sudah</span>
                                 </div>
                               </div>
@@ -135,7 +135,7 @@
             </div>
 
             <div class="f1-buttons pb-3">
-              <button type="submit" class="btn btn-primary btn-next">Ajukan</button>
+              <button type="submit" class="btn btn-primary btn-submit">Ajukan</button>
             </div>
           </fieldset>
         </div>
@@ -244,7 +244,7 @@
         $('.checkBox').html(``);
         $('.uploadBukti').html(`
           <span style="padding-bottom: 80px;">Silahkan upload bukti pembayaran/ dokumen pendukung (Jpg, Png, Jpeg)</span>
-          <input type="file" class="form-control" id="documents" name="documents[] multiple accept="image/*" multiple required>
+          <input type="file" class="form-control" multiple name="documents[]" required>
           <span class="highlight"></span>
           <span class="bar"></span>
         `);
@@ -258,7 +258,7 @@
           <div class="card">
             <div class="card-body">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" required>
+                <input class="form-check-input" type="checkbox" value="" id="checkBoxBelum" required>
                 Dengan ini saya bersedia melakukan upload bukti pembayaran setelah pencairan dana berhasil
               </div>
             </div>
@@ -347,7 +347,6 @@
 
       $('#form-create').submit((e) => {
         e.preventDefault();
-        const formData = new FormData(e.target);
         $.ajax({
           headers: {
             'X-CSRF-TOKEN': "{{ csrf_token() }}",
@@ -355,7 +354,7 @@
           },
           url: "{{ route('api.withdrawal.store') }}",
           method: "POST",
-          data: formData,
+          data: new FormData(e.target),
           processData: false,
           contentType: false,
           beforeSend: () => {

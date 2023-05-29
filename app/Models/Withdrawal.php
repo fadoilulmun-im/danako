@@ -24,7 +24,7 @@ class Withdrawal extends Model
         return $this->belongsTo(Campaign::class);
     }
 
-    public function documents()
+    public function document()
     {
         return $this->hasMany(WithdrawalDocument::class, 'withdrawal_id', 'id');
     }

@@ -26,10 +26,17 @@ class DonationController extends Controller
         $endDate = $request->get('to');
 
         if($startDate && $endDate) {
-            $donation->whereDate('donations.created_at', '>=', $startDate)->whereDate('donations.created_at', '<=', $endDate);
+            $donation->whereDate('donations.created_at', '>=', $startDate);
+            $donation->WhereDate('donations.created_at', '<=', $endDate);
         }
         if ($request->filled('status')) {
             $donation->where('status', $request->get('status'));
+        }
+        if ($request->filled('method')) {
+            $donation->where('payment_method', $request->get('method'));
+        }
+        if ($request->filled('channel')) {
+            $donation->where('payment_channel', $request->get('channel'));
         }
 
         return DataTables::of($donation)
@@ -49,6 +56,78 @@ class DonationController extends Controller
                     $html .= '<span align=Center>Not found</span>';
                 }  
                 return $html;
+            })
+            ->editColumn('payment_channel', function($data){
+                if ($data->payment_channel) {
+                    switch ($data->payment_channel) {
+                        case 'MANDIRI':
+                            $return  = '<center><img width="70" height="20" src="'. asset('/danako/img/payments/mandiri_logo.png') .'"></center>';
+                            break;
+
+                        case 'BRI':
+                            $return  = '<center><img width="60" height="30" src="'. asset('/danako/img/payments/bri_logo.png') .'"></center>';
+                            break;
+
+                        case 'BSI':
+                            $return  = '<center><img width="60" height="50" src="'. asset('/danako/img/payments/logo-bsi.png') .'"></center>';
+                            break;
+
+                        case 'BNI':
+                            $return  = '<center><img width="60" height="20" src="'. asset('/danako/img/payments/bni_logo.png') .'"></center>';
+                            break;
+                        
+                        case 'PERMATA':
+                            $return  = '<center><img width="70" height="30" src="'. asset('/danako/img/payments/permata_logo.png') .'"></center>';
+                            break;
+                        
+                        case 'OVO':
+                            $return  = '<center><img width="60" height="20" src="'. asset('/danako/img/payments/ovo_logo.png') .'"></center>';
+                            break;
+
+                        case 'DANA':
+                            $return  = '<center><img width="65" height="20" src="'. asset('/danako/img/payments/dana_logo.png') .'"></center>';
+                            break;
+
+                        case 'LINKAJA':
+                            $return  = '<center><img width="45" height="40" src="'. asset('/danako/img/payments/linkaja_logo.png') .'"></center>';
+                            break;
+
+                        case 'QRIS':
+                            $return  = '<center><img width="60" height="30" src="'. asset('/danako/img/payments/qris_logo.png') .'" alt="QRIS"></center>';
+                            break;
+                        
+                        default:
+                            $return = '<center><h5><span class="badge p-1 badge-soft-secondary">'. $data->payment_channel .'</span></h5><center>';
+                            break;
+                    }
+                    return $return;
+                } else {
+                    return '<center><h5><span>NOT FOUND</span></h5></center>';
+                }
+            })
+            ->editColumn('payment_method', function($data){
+                if ($data->payment_method) {
+                    switch ($data->payment_method) {
+                        case 'QR_CODE':
+                            $return  = '<center><h5><span>QR Code</span></h5></center>';
+                            break;
+
+                        case 'EWALLET':
+                            $return  = '<center><h5><span>e-Wallet</span></h5></center>';
+                            break;
+
+                        case 'BANK_TRANSFER':
+                            $return  = '<center><h5><span>Bank Transfer</span></h5></center>';
+                            break;
+                        
+                        default:
+                            $return = '<center><h5><span class="badge p-1 badge-soft-secondary">'. $data->payment_method .'</span></h5><center>';
+                            break;
+                    }
+                    return $return;
+                } else {
+                    return '<center><h5><span>NOT FOUND</span></h5></center>';
+                }
             })
             ->editColumn('status', function($data){
                 if ($data->status) {
@@ -77,8 +156,42 @@ class DonationController extends Controller
                 //     return '<h5><span class="badge p-1 badge-soft-warning">'. $data->id .'</span></h5>';
                 // }   
             })
+            ->editColumn('net_amount', function($data){
+                if(($data->status == 'PAID') && ($data->paid_at)){
+                    $grossAmount = $data->amount_donations;
+                    switch ($data->payment_method) {
+                        case 'QR_CODE':
+                            $transactionFee = round(($grossAmount * 0.007));
+                            $platformFee = round((0.05 * ($grossAmount - $transactionFee)));
+                            $totalNetAmount = $grossAmount - $transactionFee - $platformFee;
+                            return $data->net_amount = $totalNetAmount;
+                            break;
+        
+                        case 'BANK_TRANSFER':
+                            $transactionFee = 4000;
+                            $tax = round(($transactionFee * 0.11));
+                            $platformFee = round((0.05 * ($grossAmount - $transactionFee - $tax)));
+                            $totalNetAmount = $grossAmount - $transactionFee - $tax - $platformFee;
+                            return $data->net_amount = $totalNetAmount;
+                            break;
+
+                        case 'EWALLET':
+                            $transactionFee = round(($grossAmount * 0.015));
+                            $tax = round(($transactionFee * 0.11));
+                            $platformFee = round((0.05 * ($grossAmount - $transactionFee - $tax)));
+                            $totalNetAmount = $grossAmount - $transactionFee - $tax - $platformFee;
+                            return $data->net_amount = $totalNetAmount;
+                            // .' platfee = '.$platformFee.' tax = '.$tax.' tfee = '.$transactionFee;
+                            break;
+        
+                        default:
+                            return 0;
+                            break;
+                    }
+                }
+            })
             ->addIndexColumn()
-            ->rawColumns(['action', 'payment_link', 'status'])
+            ->rawColumns(['action', 'payment_link', 'status', 'payment_channel', 'payment_method'])
             ->make(true);
     }
 

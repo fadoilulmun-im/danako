@@ -529,7 +529,7 @@
     };
 
     // Flat Picker Date
-    $('#date_range').flatpickr({
+    $flatpikr = $('#date_range').flatpickr({
         mode: "range",
         allowInput: true,
         altInput: true,
@@ -544,7 +544,7 @@
     });
 
     $("#clear-date").click(function() {
-        $('#date_range').flatpickr().clear();
+        $flatpikr.clear();
         minDate = null;
         maxDate = null;
         table.draw();

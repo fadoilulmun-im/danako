@@ -17,9 +17,16 @@ class WithdrawalController extends Controller
     public function index(Request $request)
     {
         $model = Withdrawal::with(['campaign.user.detail']);
-        
+
+        $startDate = $request->get('from');
+        $endDate = $request->get('to');
+
         if ($request->filled('status')) {
             $model->where('status', $request->get('status'));
+        }
+        if($startDate && $endDate) {
+            $model->whereDate('withdrawals.created_at', '>=', $startDate);
+            $model->whereDate('withdrawals.created_at', '<=', $endDate);
         }
 
         return DataTables::of($model)
@@ -73,7 +80,8 @@ class WithdrawalController extends Controller
             'campaign_id' => 'required|exists:campaigns,id',
             'description' => 'required',
             'amount' => 'required|numeric',
-            'documents' => 'nullable|image|mimes:jpg,jpeg,png',
+            'documents' => 'nullable|array',
+            'documents.*' => 'required|file|mimes:jpeg,png,jpg',
             'bank_name' => 'nullable|string',
             'rek_name' => 'nullable|string',
             'rek_number' => 'nullable|numeric',
@@ -96,16 +104,16 @@ class WithdrawalController extends Controller
         $withdrawal->status = 'processing';
         $withdrawal->save();
 
-        foreach(($request->documents ?? []) as $document){
+        foreach(($request->documents ?? []) as $doc){
             $withdrawalDocument = new WithdrawalDocument();
             $withdrawalDocument->withdrawal_id = $withdrawal->id;
-            $withdrawalDocument->type = "dokumen pendukung user";
+            $withdrawalDocument->type = "dokumen pendukung";
             $path = '/withdrawal/dokumen-pendukung';
             if (!File::exists(public_path('uploads' . $path))) {
                 File::makeDirectory(public_path('uploads' . $path), 0777, true, true);
             }
-            $fileName = time() . rand(1, 99) . '.' . $document->extension();
-            $document->move(public_path('uploads' . $path), $fileName);
+            $fileName = time() . rand(1, 99) . '.' . $doc->extension();
+            $doc->move(public_path('uploads' . $path), $fileName);
 
             $withdrawalDocument->path = $path . '/' . $fileName;
             $withdrawalDocument->save();
@@ -162,7 +170,7 @@ class WithdrawalController extends Controller
 
     public function show($id)
     {
-        $model = Withdrawal::where('id', $id)->with(['campaign.user.detail', 'documents'])->first();
+        $model = Withdrawal::where('id', $id)->with(['document', 'campaign.user.detail'])->first();
 
         if(!$model){
             return $this->setResponse(null, 'Withdrawal not found', 404);
@@ -195,7 +203,7 @@ class WithdrawalController extends Controller
 
         if($request->hasFile('invoice')) {
             $invoice = new WithdrawalDocument();
-            $invoice->type = 'invoice admin';
+            $invoice->type = 'bukti transfer admin';
             $invoice->withdrawal_id = $withdrawal->id;
             $path = '/withdrawal/invoice';
             if(!File::exists(public_path('uploads'. $path))){
@@ -204,7 +212,7 @@ class WithdrawalController extends Controller
             $fileName = time().'.'.$request->file('invoice')->extension();
             $request->file('invoice')->move(public_path('uploads'. $path), $fileName);
 
-            $invoice->path = $path . '/' . $fileName;
+            $invoice->path = $fileName;
             $invoice->save();
         }
 

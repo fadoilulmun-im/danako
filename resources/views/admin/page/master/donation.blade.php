@@ -42,6 +42,30 @@
                                 <option value="EXPIRED">Expired</option>
                             </select>
                         </div>
+                        <div class="col-sm-12 col-md-3">
+                            <label class="form-label">Payment Method</label>
+                            <select class="form-select form-select-sm" name="method" id="method-filter">
+                                <option value="">All</option>
+                                <option value="BANK_TRANSFER">Bank Transfer</option>
+                                <option value="EWALLET">e-Wallet</option>
+                                <option value="QR_CODE">QR Code</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <label class="form-label">Payment Channel</label>
+                            <select class="form-select form-select-sm" name="channel" id="channel-filter">
+                                <option value="">All</option>
+                                <option value="BNI">Bank BNI</option>
+                                <option value="BRI">Bank BRI</option>
+                                <option value="BSI">Bank BSI</option>
+                                <option value="MANDIRI">Bank Mandiri</option>
+                                <option value="PERMATA">Bank Permata</option>
+                                <option value="DANA">DANA</option>
+                                <option value="LINKAJA">LinkAja</option>
+                                <option value="OVO">OVO</option>
+                                <option value="QRIS">QRIS</option>
+                            </select>
+                        </div>
                     </div>
                     <table id="datatable" class="w-100 table table-bordered dt-responsive dataTable no-footer">
                         <thead>
@@ -50,6 +74,7 @@
                                 <th>User</th>
                                 <th>Campaign</th>
                                 <th>Amount</th>
+                                <th>Net Amount</th>
                                 <th>Hope</th>
                                 <th>Status</th>
                                 <th>Payment Method</th>
@@ -141,7 +166,7 @@
                         <td><span id="detail_campaign"></span></td>
                     </tr>
                     <tr>
-                        <th>Amount Donation</th>
+                        <th>Amount</th>
                         <td><span id="detail_amount_donations"></span></td>
                     </tr>
                     <tr>
@@ -236,7 +261,9 @@
             data: function (d) {
                 d.from = minDate,
                 d.to = maxDate,
-                d.status = $('#status-filter').val()
+                d.status = $('#status-filter').val(),
+                d.method = $('#method-filter').val(),
+                d.channel = $('#channel-filter').val()
             },
             complete: function(){
                 $('[data-bs-toggle="tooltip"]').tooltip();
@@ -247,6 +274,7 @@
             {data: 'user.username', name: 'user.username'},
             {data: 'campaign.title', name: 'campaign.title'},
             {data: 'amount_donations', name: 'amount_donations'},
+            {data: 'net_amount', name: 'net_amount'},
             {data: 'hope', name: 'hope'},
             {data: 'status', name: 'status'},
             {data: 'payment_method', name: 'payment_method'},
@@ -349,7 +377,7 @@
     };
 
     // Flat Picker Date
-    $('#date_range').flatpickr({
+    $flatpikr = $('#date_range').flatpickr({
         mode: "range",
         allowInput: true,
         altInput: true,
@@ -365,13 +393,21 @@
     });
 
     $("#clear-date").click(function() {
-        $('#date_range').flatpickr().clear();
+        $flatpikr.clear();
         minDate = null;
         maxDate = null;
         table.ajax.reload();
     });
 
     $('#status-filter').change(function(){
+        table.draw();
+    });
+
+    $('#method-filter').change(function(){
+        table.draw();
+    });
+
+    $('#channel-filter').change(function(){
         table.draw();
     });
 
