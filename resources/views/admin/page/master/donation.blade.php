@@ -301,38 +301,51 @@
                 },
                 action: newexportaction
             }, 
+            
             {
-                text: 'CSV',
-                extend: 'csv',
-                exportOptions: {
-                  columns: [0,1,2,3,4,5,6,7,8,9,10,11],
-                },
-                action: newexportaction
-            },
-            {  
-                text: 'Excel',
-                extend: 'excel', 
-                exportOptions: {
-                  columns: [0,1,2,3,4,5,6,7,8,9,10,11],
-                },
-                action: newexportaction
-            },
-            {
-                text: 'PDF',
-                extend: 'pdf',
-                exportOptions: {
-                  columns: [0,1,2,3,4,5,6,7,8,9,10,11],
-                },
-                action: newexportaction
-            },
-            {
-                text: 'Print',
-                extend: 'print',
-                exportOptions: {
-                    columns: [0,1,2,3,4,5,6,7,8,9,10,11],
-                },
-                action: newexportaction
-            }, 
+    text: 'Print-Pdf',
+    extend: 'print',
+    exportOptions: {
+        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    },
+    customize: function (win) {
+        var currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        var title = 'MONTHLY DONATION REPORT';
+
+        var table = $(win.document.body).find('table').get(0);
+        var column3Total = 0;
+
+        // Calculate the total of column 3
+        $(table).find('tbody tr').each(function () {
+            var column3Value = parseFloat($(this).find('td:eq(3)').text().replace(/[^\d.-]/g, ''));
+            if (!isNaN(column3Value)) {
+                column3Total += column3Value;
+            }
+        });
+
+        // Update the title
+        $(win.document.body).find('h1').text(title);
+        
+        // Add the period and total below the h1 element
+        $(win.document.body).find('h2').after('<p>Period: ' + currentDate + '</p>');
+
+        // Append the total to the table footer
+        $(table).find('tfoot').append('<tr><th colspan="3">Total:</th><th>' + column3Total.toFixed(2) + '</th></tr>');
+
+        $(win.document.body).find('h1').after('<p>Total Amount Donations: ' + column3Total.toFixed(2) + '</p>');
+
+        // Apply custom styling
+        $(win.document.body).find('.top-section').css({
+            'background-color': '#0EBF65',
+            'color': '#fff'
+        });
+        $(win.document.body).find('.logo_danako img').attr('src', 'https://drive.google.com/uc?export=view&id=11K7woy_jTiqsMFOYSFSkgGEKAY2_sKq_');
+    }
+}
+
+
+
+
         ],
     });
 
