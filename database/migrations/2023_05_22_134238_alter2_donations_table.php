@@ -14,7 +14,9 @@ class Alter2DonationsTable extends Migration
     public function up()
     {
         Schema::table('donations', function (Blueprint $table) {
-            $table->double('net_amount')->after('amount_donations');
+            $table->integer('transaction_fee')->after('amount_donations');
+            $table->integer('platform_fee')->after('transaction_fee');
+            $table->integer('net_amount')->after('platform_fee');
         });
     }
 
@@ -26,6 +28,8 @@ class Alter2DonationsTable extends Migration
     public function down()
     {
         Schema::table('donations', function (Blueprint $table) {
+            $table->dropColumn('transaction_fee');
+            $table->dropColumn('platform_fee');
             $table->dropColumn('net_amount');
         });
     }

@@ -15,10 +15,12 @@ class Alter2WithdrawalsTable extends Migration
     {
         Schema::table('withdrawals', function (Blueprint $table) {
             $table->enum('status', ['processing', 'approved', 'rejected'])->default('processing');
+            $table->integer('amount')->change();
             $table->text('reject_note')->nullable()->after('status');
             $table->string('bank_name')->nullable()->after('reject_note');
             $table->string('rek_name')->nullable()->after('bank_name');
             $table->string('rek_number')->nullable()->after('rek_name');
+            $table->integer('remaining_withdrawal')->nullable()->after('rek_number');
         });        
     }
 

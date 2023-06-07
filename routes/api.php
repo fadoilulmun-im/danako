@@ -29,6 +29,7 @@ Route::group(['prefix' => 'withdrawal'], function () {
     // Route::post('/', [WithdrawalController::class, 'create'])->name('api.withdrawal.create');
     // Route::post('/', [WithdrawalController::class, 'storeCoba'])->name('api.withdrawal.storeCoba');
     Route::get('/{id}', [WithdrawalController::class, 'show'])->name('api.master.withdrawal.show');
+    Route::get('/list/{id}', [WithdrawalController::class, 'list'])->name('api.master.withdrawal.list');
     Route::post('/verif/{id}', [WithdrawalController::class, 'updateVerifiying'])->name('api.master.withdrawal.verif')->middleware(['auth:sanctum']);
 });
 

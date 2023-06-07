@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Campaign;
 use App\Models\Withdrawal;
+use App\Models\WithdrawalCalculation;
 use App\Models\WithdrawalDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -76,10 +78,19 @@ class WithdrawalController extends Controller
     }
 
     public function store(Request $request){
+
+        // $withdraw = Withdrawal::where('campaign_id', $request->campaign_id)->exists();
+        // if (!$withdraw) {
+        //     $maxWithdraw = Campaign::select('real_time_amount')->where('id', $request->campaign_id);
+        // } else {
+        //     $maxWithdraw = Withdrawal::select('remaining_amount')->where('campaign_id', $request->campaign_id)->sum('remaining_amount');
+        // }
+
         $rules = [
             'campaign_id' => 'required|exists:campaigns,id',
             'description' => 'required',
             'amount' => 'required|numeric',
+            // 'amount' => 'required|numeric|min:100000|max:'.$maxWithdraw,
             'documents' => 'nullable|array',
             'documents.*' => 'required|file|mimes:jpeg,png,jpg',
             'bank_name' => 'nullable|string',
@@ -179,6 +190,21 @@ class WithdrawalController extends Controller
         return $this->setResponse($model, 'Withdrawal retrieved successfully');
     }
 
+    public function list($id, Request $request)
+    {
+        $model = Withdrawal::where('campaign_id', $id)->with(['document', 'campaign.user.detail'])->get();
+
+        if ($request->filled('status')) {
+            $model->where('status', $request->status)->get();
+        }
+
+        if(!$model){
+            return $this->setResponse(null, 'Withdrawal not found', 404);
+        }
+
+        return $this->setResponse($model, 'Withdrawal retrieved successfully');
+    }
+
     public function updateVerifiying($id, Request $request){
         $validator = Validator::make($request->all(), [
             'status' => 'required|in:0,1',
@@ -191,6 +217,10 @@ class WithdrawalController extends Controller
         }
 
         $withdrawal = Withdrawal::where('id', $id)->first();
+        $campaignId = $withdrawal->campaign_id;
+        $campaign = Campaign::find($campaignId);
+        $realtime_amount = $campaign->real_time_amount;
+        $target_amount = $campaign->target_amount;
 
         if (!$withdrawal) {
             return $this->setResponse(null, 'Data not found', 404);
@@ -215,6 +245,21 @@ class WithdrawalController extends Controller
             $invoice->path = $fileName;
             $invoice->save();
         }
+
+        // if ($withdrawal->status == 'approved'){
+        //     $ada = Withdrawal::whereHas('');
+        //     // bingunggg;
+        //     if('kalo ga pernah narik dan ga kecatet ditabel calculate withdrawal'){
+        //         'remaining_withdrawal = target amount - amount withdrawal ini';
+        //     } else {
+        //         'remaining_withdrawal = remaining withdrawal->paling terakhir - amount withdrawal ini';
+        //     }
+        //     $totalWithdrawal = Withdrawal::where('campaign_id', $campaignId)->where('status', 'approved')->sum('amount');
+
+        //     $calculate = new WithdrawalCalculation();
+        //     $calculate->withdrawal_id = $withdrawal->id;
+        //     $calculate->remaining_withdrawal = $target_amount - $totalWithdrawal;
+        // }
 
         DB::commit();
 

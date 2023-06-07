@@ -213,15 +213,16 @@
 <script src="{{ asset('assets') }}/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="{{ asset('assets') }}/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
 <script src="{{ asset('assets') }}/libs/datatables.net-select/js/dataTables.select.min.js"></script>
-<script src="{{ asset('assets') }}/libs/pdfmake/build/vfs_fonts.js"></script>
-<script src="{{ asset('assets') }}/libs/pdfmake/build/pdfmake.min.js"></script>
+
 <script src="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script scr="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <!-- Responsive Table js -->
 <script src="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
 <!-- Select2 js -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-{{-- <!-- Magnific Popup-->
-<script src="{{ asset('assets') }}/libs/magnific-popup/jquery.magnific-popup.min.js"></script> --}}
+<!-- Magnific Popup-->
+<script src="{{ asset('assets') }}/libs/magnific-popup/jquery.magnific-popup.min.js"></script>
 @endsection
 
 @section('init-js')
@@ -244,7 +245,7 @@
               $('[data-bs-toggle="tooltip"]').tooltip();
           }
         },
-        dom: "B<'row mb-1'<'col-sm-6'l><'col-sm-6'f>>" +
+        dom: "<'row mb-1'<'col-sm-6'Bl><'col-sm-6'f>>" +
               "<'row'<'col-sm-12'tr>>" +
               "<'row'<'col-sm-6'i><'col-sm-6'p>>",
         buttons: [
@@ -286,6 +287,7 @@
                 exportOptions: {
                     columns: [0,1,2,3,4,5,6,7,8],
                 },
+                action: newexportaction
             }, 
         ],
         columns: [
@@ -390,16 +392,6 @@
         minDate = null;
         maxDate = null;
         table.ajax.reload();
-    });
-
-    $(".image-popup").magnificPopup({
-      type:"image",
-      closeOnContentClick:!0,
-      mainClass:"mfp-fade",
-      gallery:{
-        enabled:!0,
-        navigateByImgClick:!0,
-        preload:[0,1]}
     });
 
     $('#addBtn').click(function(e){

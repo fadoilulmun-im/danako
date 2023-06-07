@@ -18,6 +18,7 @@ use GeneaLabs\Phpgmaps\Facades\PhpgmapsFacade;
 
 use App\Http\Controllers\API\CampaignController;
 use App\Http\Controllers\WEB\VerifyEmailController;
+use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\URL;
 use Jorenvh\Share\ShareFacade as Share;
@@ -377,18 +378,23 @@ Route::get('/pilih-kategori', function () {
     return view('landing.campaign.pilih_kategori');
 });
 
-
-// Route::get('/pencairan-dana', function () {
-//     return view('landing.pencairan_dana');
-// });
-
 Route::get('/pencairan-dana/{id}', function ($id) {
     $campaign = Campaign::findOrFail($id);
-    return view('landing.pencairan_dana', [
+    $withdrawal = Withdrawal::all();
+    return view('landing.pencairan.pencairan_dana', [
+        'id' => $id,
+        'campaign' => $campaign,
+        'withdrawal' => $withdrawal,
+    ]);
+})->name('pencairan-dana');
+
+Route::get('/ajukan-pencairan-dana/{id}', function ($id) {
+    $campaign = Campaign::findOrFail($id);
+    return view('landing.pencairan.ajukan_pencairan_dana', [
         'id' => $id,
         'campaign' => $campaign,
     ]);
-});
+})->name('ajukan-pencairan-dana');
 
 Route::get('/verifikasi-pencairan', function () {
     return view('landing.verifikasi_pencairan');

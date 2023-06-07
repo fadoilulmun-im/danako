@@ -190,8 +190,69 @@ class DonationController extends Controller
                     }
                 }
             })
+            ->addColumn('transaction_fee', function ($data) {
+                if(($data->status == 'PAID') && ($data->paid_at)){
+                    $grossAmount = $data->amount_donations;
+                    switch ($data->payment_method) {
+                        case 'QR_CODE':
+                            $transactionFee = round(($grossAmount * 0.007));
+                            return $transactionFee;
+                            break;
+        
+                        case 'BANK_TRANSFER':
+                            $transactionFee = 4000;
+                            $tax = round(($transactionFee * 0.11));
+                            return $transactionFee + $tax;
+                            break;
+
+                        case 'EWALLET':
+                            $transactionFee = round(($grossAmount * 0.015));
+                            $tax = round(($transactionFee * 0.11));
+                            return $transactionFee + $tax;
+                            // .' platfee = '.$platformFee.' tax = '.$tax.' tfee = '.$transactionFee;
+                            break;
+        
+                        default:
+                            return 0;
+                            break;
+                    }
+                }
+            })
+            ->addColumn('platform_fee', function ($data) {
+                if(($data->status == 'PAID') && ($data->paid_at)){
+                    $grossAmount = $data->amount_donations;
+                    switch ($data->payment_method) {
+                        case 'QR_CODE':
+                            $transactionFee = round(($grossAmount * 0.007));
+                            $platformFee = round((0.05 * ($grossAmount - $transactionFee)));
+                            return $platformFee;
+                            break;
+        
+                        case 'BANK_TRANSFER':
+                            $transactionFee = 4000;
+                            $tax = round(($transactionFee * 0.11));
+                            $platformFee = round((0.05 * ($grossAmount - $transactionFee - $tax)));
+                            $totalNetAmount = $grossAmount - $transactionFee - $tax - $platformFee;
+                            return $platformFee;
+                            break;
+
+                        case 'EWALLET':
+                            $transactionFee = round(($grossAmount * 0.015));
+                            $tax = round(($transactionFee * 0.11));
+                            $platformFee = round((0.05 * ($grossAmount - $transactionFee - $tax)));
+                            $totalNetAmount = $grossAmount - $transactionFee - $tax - $platformFee;
+                            return $platformFee;
+                            // .' platfee = '.$platformFee.' tax = '.$tax.' tfee = '.$transactionFee;
+                            break;
+        
+                        default:
+                            return 0;
+                            break;
+                    }
+                }
+            })
             ->addIndexColumn()
-            ->rawColumns(['action', 'payment_link', 'status', 'payment_channel', 'payment_method'])
+            ->rawColumns(['action', 'payment_link', 'status', 'payment_channel', 'payment_method', 'transaction_fee', 'platform_fee'])
             ->make(true);
     }
 

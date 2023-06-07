@@ -75,6 +75,8 @@
                                 <th>Campaign</th>
                                 <th>Amount</th>
                                 <th>Net Amount</th>
+                                <th>Tf fee</th>
+                                <th>plat fee</th>
                                 <th>Hope</th>
                                 <th>Status</th>
                                 <th>Payment Method</th>
@@ -247,7 +249,6 @@
 @endsection
 
 @section('init-js')
-<script src="{{ asset('assets') }}/js/pages/datatables.init.js"></script>
 <script>
     var minDate, maxDate;
 
@@ -275,6 +276,8 @@
             {data: 'campaign.title', name: 'campaign.title'},
             {data: 'amount_donations', name: 'amount_donations'},
             {data: 'net_amount', name: 'net_amount'},
+            {data: 'transaction_fee', name: 'transaction_fee'},
+            {data: 'platform_fee', name: 'platform_fee'},
             {data: 'hope', name: 'hope'},
             {data: 'status', name: 'status'},
             {data: 'payment_method', name: 'payment_method'},
@@ -328,6 +331,7 @@
                 exportOptions: {
                     columns: [0,1,2,3,4,5,6,7,8,9,10,11],
                 },
+                action: newexportaction
             }, 
         ],
     });

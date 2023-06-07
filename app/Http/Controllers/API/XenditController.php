@@ -98,6 +98,8 @@ class XenditController extends Controller
                     $transactionFee = round(($grossAmount * 0.007));
                     $platformFee = round((0.05 * ($grossAmount - $transactionFee)));
                     $totalNetAmount = $grossAmount - $transactionFee - $platformFee;
+                    $donation->transaction_fee = $$transactionFee;
+                    $donation->platform_fee = $platformFee;
                     $donation->net_amount = $totalNetAmount;
                     $donation->save();
                     break;
@@ -107,6 +109,8 @@ class XenditController extends Controller
                     $tax = round(($transactionFee * 0.11));
                     $platformFee = round((0.05 * ($grossAmount - $transactionFee - $tax)));
                     $totalNetAmount = $grossAmount - $transactionFee - $tax - $platformFee;
+                    $donation->transaction_fee = $$transactionFee + $tax;
+                    $donation->platform_fee = $platformFee;
                     $donation->net_amount = $totalNetAmount;
                     $donation->save();
                     break;
@@ -116,11 +120,15 @@ class XenditController extends Controller
                     $tax = round(($transactionFee * 0.11));
                     $platformFee = round((0.05 * ($grossAmount - $transactionFee - $tax)));
                     $totalNetAmount = $grossAmount - $transactionFee - $tax - $platformFee;
+                    $donation->transaction_fee = $$transactionFee + $tax;
+                    $donation->platform_fee = $platformFee;
                     $donation->net_amount = $totalNetAmount;
                     $donation->save();
                     break;
                 
                 default:
+                $donation->transaction_fee = 0;
+                $donation->platform_fee = 0;
                 $donation->net_amount = 0;
                 $donation->save();
             }
