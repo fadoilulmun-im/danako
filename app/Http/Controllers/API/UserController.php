@@ -15,37 +15,36 @@ class UserController extends Controller
 {
     public function index(Request $request){
        $model = User::select(['users.id', 'users.name', 'username', 'email', 'is_active', 'roles.name as role_name'])
-    ->join('roles', 'roles.id', '=', 'users.role_id')
-    ->leftJoin('user_details', 'user_details.user_id', '=', 'users.id');
+        ->join('roles', 'roles.id', '=', 'users.role_id')
+        ->leftJoin('user_details', 'user_details.user_id', '=', 'users.id');
 
-if ($request->filled('type')) {
-    if ($request->type == 'donatur') {
-        $model->whereDoesntHave('detail')->where('roles.name', '!=', 'admin');
-    } elseif ($request->type == 'campainer') {
-        $model->whereHas('detail');
-    } else {
-        $model->where('roles.name', strtolower($request->type));
-    }
-} else {
-    $model->where('roles.name', 'user')->where('roles.name', '!=', 'admin');
-}
+        if ($request->filled('type')) {
+            if ($request->type == 'donatur') {
+                $model->whereDoesntHave('detail')->where('roles.name', '!=', 'admin');
+            } elseif ($request->type == 'campainer') {
+                $model->whereHas('detail');
+            } else {
+                $model->where('roles.name', strtolower($request->type));
+            }
+        } else {
+            $model->where('roles.name', 'user')->where('roles.name', '!=', 'admin');
+        }
 
-if ($request->get('status') == '0' || $request->get('status') == '1') {
-    $model->where('is_active', $request->get('status'));
-}
+        if ($request->get('status') == '0' || $request->get('status') == '1') {
+            $model->where('is_active', $request->get('status'));
+        }
 
-if ($request->filled('verif')) {
-    if ($request->verif == 'unverified') {
-        $model->where(function ($q) use ($request) {
-            $q->whereHas('detail', function ($q) use ($request) {
-                $q->where('status', $request->verif);
-            })->orWhereDoesntHave('detail');
-        });
-    } else {
-        $model->where('user_details.status', $request->get('verif'));
-    }
-}
-
+        if ($request->filled('verif')) {
+            if ($request->verif == 'unverified') {
+                $model->where(function ($q) use ($request) {
+                    $q->whereHas('detail', function ($q) use ($request) {
+                        $q->where('status', $request->verif);
+                    })->orWhereDoesntHave('detail');
+                });
+            } else {
+                $model->where('user_details.status', $request->get('verif'));
+            }
+        }
 
         return DataTables::of($model)
             ->addColumn('status', function ($data) {

@@ -11,13 +11,65 @@
   <div id="alert"></div>
   <div class="col-md-19">
     <div class="account-details">
-      <h3 class="pb-3">Data Pribadi</h3>
-  
+      
       <div class="contact">
         <div class="col-md-12 col-md-offset-3">
           <div class="form-area">
             <form>
-              <div class="group form-group">      
+              <div id="data-kelompok" class="d-none">
+                <h3 class="pb-3">Data</h3>
+                <div class="group form-group">
+                  <input type="file" class="form-control" id="foto-kelompok" name="foto">
+                  <label for="foto" style="pointer-events: auto" id="label-foto-kelompok">
+                    Logo
+                    <div id="img-foto"></div>
+                  </label>
+                </div>
+
+                <div class="group form-group">
+                  <input type="text" class="form-control" id="username-kelompok" name="username" required>
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label id="label-username-kelompok">Username</label>
+                </div>
+
+                <div class="group form-group">
+                  <input type="text" class="form-control" id="name-kelompok" name="name" required>
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label id="label-name-kelompok">Name</label>
+                </div>
+
+                <div class="group form-group">
+                  <input type="mail" class="form-control" id="email-kelompok" name="email" required>
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label id="label-email-kelompok">Email</label>
+                </div>
+
+                <div class="group form-group">
+                  <input type="text" class="form-control" id="link-website-kelompok" name="link_website" required>
+                  <span class="highlight"></span>
+                  <span class="bar"></span>
+                  <label id="label-link-website-kelompok">Link Website</label>
+                </div>
+
+                <div class="group form-group">
+                  <input type="file" class="form-control" id="dokumen-legalitas" name="dokumen-legalitas">
+                  <label for="dokumen-legalitas" style="pointer-events: auto" id="label-dokumen-legalitas">
+                    Dokumen Legalitas
+                  </label>
+                  <div class="preview dokumen mt-2 d-none">
+                    <a target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="Lihat File">
+                      <i class="fa-solid fa-file fs-3"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+
+              <h3 class="pb-3" id="data">Data Pribadi</h3>
+              <div class="group form-group" id="foto-profile">
                 <input type="file" class="form-control" id="foto" name="foto">
                 <label for="foto" style="pointer-events: auto">
                   Foto Profile
@@ -25,28 +77,35 @@
                 </label>
               </div>
 
-              <div class="group form-group">      
+              <div class="group form-group" id="username-profile">
                 <input type="text" class="form-control" id="username" name="username" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>Username</label>
               </div>
                 
-              <div class="group form-group">      
+              <div class="group form-group" id="email-profile">
                 <input type="mail" class="form-control" id="email" name="email" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>Email</label>
               </div>
 
-              <div class="group form-group">      
+              <div class="group form-group" id="name-profile">
                 <input type="text" class="form-control" id="name" name="name" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>Name</label>
               </div>
 
-              <div class="group form-group">      
+              <div class="group form-group d-none" id="posisi">
+                <input type="text" class="form-control" id="posisi_penanggung_jawab" name="posisi_penanggung_jawab" required>
+                <span class="highlight"></span>
+                <span class="bar"></span>
+                <label>Posisi</label>
+              </div>
+
+              <div class="group form-group">
                 <input type="number" class="form-control" id="nik" name="nik" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
@@ -54,7 +113,7 @@
               </div>
 
               <h6>Tanggal Lahir</h6>   
-              <div class="group form-group">   
+              <div class="group form-group">
                 <input type="date" class="form-control" id="birth_date" name="birth_date" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
@@ -70,16 +129,16 @@
                 <div class="bar"></div>
               </div>
 
-              <div class="group form-group">      
+              <div class="group form-group">
                 <input type="number" class="form-control" id="phone_number" name="phone_number" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
                 <label>Nomor Handphone</label>
               </div>
 
-              <h3 class="pt-3 pb-4">Alamat Domisili</h5>
+              <h3 class="pt-3 pb-4" id="alamat">Alamat Domisili</h5>
 
-              <div class="group form-group">      
+              <div class="group form-group">
                 <input type="text" class="form-control" id="address" name="address" required>
                 <span class="highlight"></span>
                 <span class="bar"></span>
@@ -222,6 +281,7 @@
           },
         }
       });
+
       $('#regency').select2({
         placeholder: 'Pilih Kota / Kabupaten',
         allowClear: true,
@@ -275,6 +335,7 @@
           },
         }
       });
+
       $('#village').select2({
         placeholder: 'Pilih Kelurahan',
         allowClear: true,
@@ -362,6 +423,67 @@
         success: (response)=>{
           const data = response.data;
 
+          if(data.type == 'kelompok'){
+            $('#data').text('Data Penanggung Jawab');
+            $('#alamat').text('Alamat ' + data.group).css('textTransform', 'capitalize');
+
+            $('#data-kelompok').removeClass('d-none');
+            $('#data-kelompok h3:first').text('Data '+ data.group).css('textTransform', 'capitalize');
+            // $('#label-foto-kelompok').html(`
+            //   <label for="foto" style="pointer-events: auto" id="label-foto-kelompok">
+            //     Logo ${data.group}
+            //     <div id="img-foto"></div>
+            //   </label>
+            // `).css('textTransform', 'capitalize');
+            $('#label-username-kelompok').text('Username ' + data.group).css('textTransform', 'capitalize');
+            $('#label-name-kelompok').text('Nama ' + data.group).css('textTransform', 'capitalize');
+            $('#label-email-kelompok').text('Email ' + data.group).css('textTransform', 'capitalize');
+
+
+            $('#foto-profile').remove();
+            $('#username-profile').remove();
+            $('#email-profile').remove();
+
+            if(data.photo_profile){
+              $('#foto-kelompok').hide();
+              $('#img-foto').html(`
+                <img src="{{ asset('uploads') }}${data.photo_profile.path}" alt="foto" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+              `).css('cursor', 'pointer');
+              $('label[for="foto"]').css('position', 'inherit');
+            }
+
+            $('#username-kelompok').val(data.username);
+            $('#name-kelompok').val(data.name);
+            $('#email-kelompok').val(data.email);
+
+            $('#name-profile input:first').attr('name', 'nama_penanggung_jawab');
+            $('#name').val(data.detail?.nama_penanggung_jawab);
+            $('#posisi').removeClass('d-none');
+            $('#posisi_penanggung_jawab').val(data.detail?.posisi_penanggung_jawab);
+            $('#link-website-kelompok').val(data.detail?.link_website);
+
+            let legalitas = data.detail?.documents?.filter(i => i.type == 'legalitas')[0] ?? null;
+            if(legalitas){
+              $('.preview.dokumen a').attr('href', "{{ asset('uploads') }}/" + legalitas.path);
+              $('.preview.dokumen').removeClass('d-none');
+            }
+          }else{
+            $('#posisi').remove();
+            $('#data-kelompok').remove();
+            $('#posisi').remove();
+            if(data.photo_profile){
+              $('#foto').hide();
+              $('#img-foto').html(`
+                <img src="{{ asset('uploads') }}${data.photo_profile.path}" alt="foto" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+              `).css('cursor', 'pointer');
+              $('label[for="foto"]').css('position', 'inherit');
+            }
+
+            $('#username').val(data.username);
+            $('#name').val(data.name);
+            $('#email').val(data.email);
+          }
+
           if(!data.detail || data.detail.status == 'unverified'){
             $('#alert').html(`
               <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -391,17 +513,6 @@
             `)
           }
 
-          if(data.photo_profile){
-            $('#foto').hide();
-            $('#img-foto').html(`
-              <img src="{{ asset('uploads') }}${data.photo_profile.path}" alt="foto" class="img-fluid" style="max-width: 200px; max-height: 200px;">
-            `).css('cursor', 'pointer');
-            $('label[for="foto"]').css('position', 'inherit');
-          }
-
-          $('#username').val(data.username);
-          $('#name').val(data.name);
-          $('#email').val(data.email);
           $('#nik').val(data.detail?.nik);
           $('#birth_date').val(data.detail?.birth_date);
           $('#gender').val(data.detail?.gender).change();
@@ -413,10 +524,11 @@
             $('#regency').append(new Option(data.detail.village.district.regency.name, data.detail.village.district.regency.id, false, true));
             $('#province').append(new Option(data.detail.village.district.regency.province.name, data.detail.village.district.regency.province.id, false, true));
           }
-          if((data.detail?.documents ?? []).length){
+          let ktp;
+          if(ktp = data.detail?.documents?.filter(i => i.type == 'ktp')[0] ?? null){
             $('#ktp').hide();
             $('#img-ktp').html(`
-              <img src="{{ asset('uploads') }}${data.detail.documents[0].path}" alt="KTP" class="img-fluid" style="max-width: 200px; max-height: 200px;">
+              <img src="{{ asset('uploads') }}${ktp.path}" alt="KTP" class="img-fluid" style="max-width: 200px; max-height: 200px;">
             `).css('cursor', 'pointer');
             $('label[for="ktp"]').css('position', 'inherit');
           }

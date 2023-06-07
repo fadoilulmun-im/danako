@@ -141,6 +141,11 @@ class AuthUserController extends Controller
             'bank_name' => 'required|string',
             'rek_name' => 'required|string',
             'rek_number' => 'required|string',
+
+            'link_website' => 'nullable|string',
+            'nama_penanggung_jawab' => 'nullable|string',
+            'posisi_penanggung_jawab' => 'nullable|string',
+            'dokumen-legalitas' => 'nullable|file|mimes:pdf',
         ];
 
         $validator = Validator::make($request->all(), $rules);
@@ -174,6 +179,9 @@ class AuthUserController extends Controller
         $detail->bank_name = $request->bank_name;
         $detail->rek_name = $request->rek_name;
         $detail->rek_number = $request->rek_number;
+        $detail->link_website = $request->link_website;
+        $detail->nama_penanggung_jawab = $request->nama_penanggung_jawab;
+        $detail->posisi_penanggung_jawab = $request->posisi_penanggung_jawab;
         $detail->save();
 
         if($request->hasFile('foto')) {
@@ -224,6 +232,25 @@ class AuthUserController extends Controller
 
             $ktp->path = $path . '/' . $fileName;
             $ktp->save();
+        }
+
+        if($request->hasFile('dokumen-legalitas')){
+            if($legalitas = UserDocument::where('user_detail_id', $detail->id)->where('type', 'legalitas')->first()){
+                $legalitas->deleteFile();
+            }else{
+                $legalitas = new UserDocument();
+                $legalitas->type = 'legalitas';
+                $legalitas->user_detail_id = $detail->id;
+            }
+            $path = '/user-detail/legalitas';
+            if(!File::exists(public_path('uploads'. $path))){
+                File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+            }
+            $fileName = time().'.'.$request->file('dokumen-legalitas')->extension();
+            $request->file('dokumen-legalitas')->move(public_path('uploads'. $path), $fileName);
+
+            $legalitas->path = $path . '/' . $fileName;
+            $legalitas->save();
         }
 
         DB::commit();

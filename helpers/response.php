@@ -3,7 +3,8 @@
 function setResponse(
   $data = null, 
   $message = null,
-  $code = 200
+  $code = 200,
+	$meta = true
 ){
   switch ($code) {
 		case 200:
@@ -56,15 +57,18 @@ function setResponse(
 		  break;
 	}
 
-  $result = [
-    'meta' => [
+  $result = [];
+
+	if($meta){
+		$result['meta'] = [
       'code' => $code,
       'status' => $code > 399 ? 'Error' : 'OK',
 			'name' => $defaultStatus,
       'message' => $message ?? $defaultMessage,
-    ],
-    'data' => $data
-  ];
+    ];
+	}
+
+	$result['data'] = $data;
 
   return response()->json($result, $code);
 }
