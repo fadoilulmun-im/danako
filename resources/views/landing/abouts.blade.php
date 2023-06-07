@@ -131,18 +131,22 @@
 
 </section>
 
-<div class="container">
+<div class="container pb-4">
+  <div class="section-title text-center pb-5">
+    <h2>IT Squad Intern batch 4 </h2>
+    <p></p>
+  </div>
     <div class="card-slider" >
       <div class="card active mb-3" style="max-width: 540px;">
         <div class="row g-0">
           <div class="col-md-4">
-            <img src="{{ asset('danako/img/foto/5.png') }}" class="img-fluid rounded-start" alt="...">
+            <img src="{{ asset('danako/img/foto/6.png') }}" class="img-fluid rounded-start" alt="...">
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Full-Stack</h5>
+              <h5 class="card-title">Full-Stack Programmer</h5>
               <p class="card-text">FADOILUL MUN IM</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+             
             </div>
           </div>
         </div>
@@ -154,9 +158,9 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Full-Stack</h5>
+              <h5 class="card-title">Full-Stack Programmer</h5>
               <p class="card-text">DIKA ANTONI PUTRA</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+             
             </div>
           </div>
         </div>
@@ -169,9 +173,9 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Full-Stack</h5>
+              <h5 class="card-title">Full-Stack Programmer</h5>
               <p class="card-text">KHODIJAH AULIA RAHMA</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+             
             </div>
           </div>
         </div>
@@ -184,46 +188,90 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Full-Stack</h5>
+              <h5 class="card-title">Full-Stack Programmer</h5>
               <p class="card-text">Gede Ardi Pratama</p>
-              <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+             
             </div>
           </div>
         </div>
       </div>
-    
+
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/8.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">UI / UX Design </h5>
+              <p class="card-text">Iqbal Dzakwan Imaduddin</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/10.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Mobile Developer Android </h5>
+              <p class="card-text">Riska Harum Dian Sari</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
       
-      
-      <div class="card active my-3 mx-3">
-        <img src="{{ asset('danako/img/foto/8.png') }}" class="card-img-top" alt="..." style="width: 250px; height: 250px;">
-        <div class="card-body">
-          <p class="card-text">Iqbal Dzakwan Imaduddin</p>
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/9.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Mobile Developer Android </h5>
+              <p class="card-text">Thariqi Ruli Ramadhani</p>
+             
+            </div>
+          </div>
         </div>
       </div>
-      <div class="card active my-3 mx-3">
-        <img src="{{ asset('danako/img/foto/10.png') }}" class="card-img-top" alt="..." style="width: 250px; height: 250px;">
-        <div class="card-body">
-          <p class="card-text">Riska Harum Dian Sari</p>
+
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/5.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Data Analyst</h5>
+              <p class="card-text">RAHIDA RIHHADATUL AISY</p>
+             
+            </div>
+          </div>
         </div>
       </div>
-      <div class="card active my-3 mx-3">
-        <img src="{{ asset('danako/img/foto/9.png') }}" class="card-img-top" alt="..." style="width: 250px; height: 250px;">
-        <div class="card-body">
-          <p class="card-text">Thariqi Ruli Ramadhani</p>
+
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/2.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Data Analyst</h5>
+              <p class="card-text">AULIA PUTRI FAJAR</p>
+             
+            </div>
+          </div>
         </div>
       </div>
-      <div class="card active my-3 mx-3">
-        <img src="{{ asset('danako/img/foto/5.png') }}" class="card-img-top" alt="..." style="width: 250px; height: 250px;">
-        <div class="card-body">
-          <p class="card-text">Rahida Rihhadatul Aisy</p>
-        </div>
-      </div>
-      <div class="card active my-3 mx-3">
-        <img src="{{ asset('danako/img/foto/2.png') }}" class="card-img-top" alt="..." style="width: 250px; height: 250px;">
-        <div class="card-body">
-          <p class="card-text">AULIA PUTRI FAJAR</p>
-        </div>
-      </div>
+
     </div>
   </div>
 @endsection
