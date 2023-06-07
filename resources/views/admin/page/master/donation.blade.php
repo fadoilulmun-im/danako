@@ -272,7 +272,7 @@
         },
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
-            {data: 'user.username', name: 'user.username', defaultContent: 'Data Kosong'},
+            {data: 'name', name: 'name'},
             {data: 'campaign.title', name: 'campaign.title'},
             {data: 'amount_donations', name: 'amount_donations'},
             {data: 'transaction_fee', name: 'transaction_fee'},

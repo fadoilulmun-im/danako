@@ -20,7 +20,7 @@ class DonationController extends Controller
 {
     public function index(Request $request)
     {
-        $donation = Donation::with(['user', 'campaign']);
+        $donation = Donation::with(['campaign.user.detail']);
 
         $startDate = $request->get('from');
         $endDate = $request->get('to');
