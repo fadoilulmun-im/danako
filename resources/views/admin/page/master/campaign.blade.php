@@ -913,7 +913,7 @@
               'Authorization': 'Bearer '+localStorage.getItem('_token'),
             },
             body: JSON.stringify({
-              verification_status: 1
+              status: 1
             })
           })
           .then(response => {
