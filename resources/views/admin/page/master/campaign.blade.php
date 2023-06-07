@@ -444,14 +444,7 @@
                 },
                 action: newexportaction
             },
-            {
-                text: 'PDF',
-                extend: 'pdf',
-                exportOptions: {
-                  columns: [0,1,2,3,4,5,6,7,8],
-                },
-                action: newexportaction
-            },
+          
             {
                 text: 'Print',
                 extend: 'print',
