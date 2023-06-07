@@ -313,7 +313,7 @@ Route::get('/campaign-pending', function () {
 
 Route::get('/detail-campaign/{id}', function ($id) {
     $url = route('campaigns.detail', $id);
-   
+    
     return view('landing.detail_campaign', compact('id','url'));
 })->name('campaigns.detail');
 
