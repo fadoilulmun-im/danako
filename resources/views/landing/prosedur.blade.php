@@ -9,18 +9,26 @@
 @section('content')
 
 
-  <div class="container">
-  <div class="title">
-     
-      <span>{{ $category->name }}</span>
-  </div>
-  </div>
+  
 
   <!-- slider -->
   <div class="container pb-80">
     <div class="slider">
-      <h2 class="text-center"><span class="title-gren">Tolong!</span>Mereka segera butuh bantuanmu</h2>
-  
+      <h2 class="text-center"><span class="title-gren px-3">PROSEDUR</span>MULAI CAMPAIGN DI DANAKO</h2>
+      <div class="row container pt-3">
+        <div class="col-md-3">
+          <img src="{{ asset('danako/img/p1.png') }}" class="img img-fluid" />
+        </div>
+        <div class="col-md-3">
+          <img src="{{ asset('danako/img/p2.png') }}" class="img img-fluid" />
+        </div>
+        <div class="col-md-3">
+          <img src="{{ asset('danako/img/p3.png') }}" class="img img-fluid" />
+        </div>
+        <div class="col-md-3">
+          <img src="{{ asset('danako/img/p4.png') }}" class="img img-fluid" />
+        </div>
+      </div>
     </div>
   </div>
 

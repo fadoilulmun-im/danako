@@ -430,6 +430,10 @@ Route::get('/tentang-kami', function () {
     return view('landing.abouts');
 });
 
+Route::get('/prosedur', function () {
+    return view('landing.prosedur');
+});
+
 Route::get('/zakat', function () {
     return view('landing.ziswaf.zakat');
 });
