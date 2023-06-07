@@ -81,7 +81,6 @@ button:focus {
 
 @section('content')
 
-
 <section class="job-details pt-5 pb-5">
     <div class="container">
       <div class="notif"></div>

@@ -1,5 +1,7 @@
 @extends('admin.layout.master')
 
+@section('pageTitle', 'User Detail')
+
 @section('content')
 <div class="container-fluid mt-2">
   <div class="row">

@@ -6,19 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Donation extends Model
+class WithdrawalCalculation extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $guarded = [];
 
-    public function user()
+    public function withdrawal()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function campaign()
-    {
-        return $this->belongsTo(Campaign::class);
+        return $this->belongsTo(Withdrawal::class);
     }
 }

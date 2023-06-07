@@ -87,8 +87,51 @@ class XenditController extends Controller
         if($donation->status == 'PAID'){
             $campaign = $donation->campaign;
             // $campaign->real_time_amount += $campaign->donations->where('status', 'PAID')->sum('amount');
-            $campaign->real_time_amount = Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('amount_donations');
+            $campaign->real_time_amount += Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('net_amount');
             $campaign->save();
+        }
+
+        if(($donation->status == 'PAID') && ($donation->paid_at)){
+            $grossAmount = $donation->amount_donations;
+            switch ($donation->payment_method) {
+                case 'QR_CODE':
+                    $transactionFee = round(($grossAmount * 0.007));
+                    $platformFee = round((0.05 * ($grossAmount - $transactionFee)));
+                    $totalNetAmount = $grossAmount - $transactionFee - $platformFee;
+                    $donation->transaction_fee = $$transactionFee;
+                    $donation->platform_fee = $platformFee;
+                    $donation->net_amount = $totalNetAmount;
+                    $donation->save();
+                    break;
+
+                case 'BANK_TRANSFER':
+                    $transactionFee = 4000;
+                    $tax = round(($transactionFee * 0.11));
+                    $platformFee = round((0.05 * ($grossAmount - $transactionFee - $tax)));
+                    $totalNetAmount = $grossAmount - $transactionFee - $tax - $platformFee;
+                    $donation->transaction_fee = $transactionFee + $tax;
+                    $donation->platform_fee = $platformFee;
+                    $donation->net_amount = $totalNetAmount;
+                    $donation->save();
+                    break;
+
+                case 'EWALLET':
+                    $transactionFee = round(($grossAmount * 0.015));
+                    $tax = round(($transactionFee * 0.11));
+                    $platformFee = round((0.05 * ($grossAmount - $transactionFee - $tax)));
+                    $totalNetAmount = $grossAmount - $transactionFee - $tax - $platformFee;
+                    $donation->transaction_fee = $$transactionFee + $tax;
+                    $donation->platform_fee = $platformFee;
+                    $donation->net_amount = $totalNetAmount;
+                    $donation->save();
+                    break;
+                
+                default:
+                $donation->transaction_fee = 0;
+                $donation->platform_fee = 0;
+                $donation->net_amount = 0;
+                $donation->save();
+            }
         }
         
         if(($donation->email ?? false) && ($donation->status == 'PAID')){
@@ -99,8 +142,8 @@ class XenditController extends Controller
             $client = new Client();
             $data_request = $client->request('POST', 'https://broadcast.kamiberbagi.id/index.php/api/send_message', [
                 'form_params' => [
-                    'token' => config('env.token_api_wa', 'e63b482fd887b408d87a4d66e5913187'),
-                    'number' => $donation->phone_number,
+                    'token' => config('env.token_api_wa'),
+                    'number' => $donation->detail->phone_number,
                     'message' => "Assalamualaikum Warahmatullahi Wabarakatuh\n\n".
                         "Bapak/Ibu/Sdr ".$donation->name."\n".
                         "telah bertransaksi di ".url('/')."\n".

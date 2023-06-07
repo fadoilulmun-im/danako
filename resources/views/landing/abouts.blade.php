@@ -4,6 +4,21 @@
     Dashboard
 @endsection
 
+@push('after-style')
+ <!-- CSS Slick Slider -->
+ <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+ <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+ 
+ <style>
+   .card-slider .card {
+     display: none;
+   }
+   
+   .card-slider .card.active {
+     display: block;
+   }
+ </style>
+@endpush
 
 
 @section('content')
@@ -111,15 +126,97 @@
             </div>
         </div>
     </div>
+
+  
+
 </section>
 
-
-
-
+<div class="container">
+    <div class="card-slider">
+      <div class="card active my-3 mx-3">
+        <img src="{{ asset('danako/img/bgindex.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">ilool</p>
+        </div>
+      </div>
+      <div class="card active my-3 mx-3">
+        <img src="{{ asset('danako/img/bgindex.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">dia</p>
+        </div>
+      </div>
+      <div class="card active my-3 mx-3">
+        <img src="{{ asset('danako/img/bgindex.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">dije</p>
+        </div>
+      </div>
+      <div class="card active my-3 mx-3">
+        <img src="{{ asset('danako/img/bgindex.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">ardi</p>
+        </div>
+      </div>
+      <div class="card active my-3 mx-3">
+        <img src="{{ asset('danako/img/bgindex.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">iqbal</p>
+        </div>
+      </div>
+      <div class="card active my-3 mx-3">
+        <img src="{{ asset('danako/img/bgindex.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">riska</p>
+        </div>
+      </div>
+      <div class="card active my-3 mx-3">
+        <img src="{{ asset('danako/img/bgindex.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">ruli</p>
+        </div>
+      </div>
+      <div class="card active my-3 mx-3">
+        <img src="{{ asset('danako/img/bgindex.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">rahida</p>
+        </div>
+      </div>
+      <div class="card active my-3 mx-3">
+        <img src="{{ asset('danako/img/admin.png') }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">puput</p>
+        </div>
+      </div>
+    </div>
+  </div>
 @endsection
 
 
 @push('after-script')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.card-slider').slick({
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 2000,
+      arrows: true,
+      prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+      nextArrow: '<button type="button" class="slick-next">Next</button>',
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+          }
+        }
+      ]
+    });
+  });
+</script>
+
   <script>
     const questionContainers = document.querySelectorAll('.question-container');
 const answers = document.querySelectorAll('.answer');

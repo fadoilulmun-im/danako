@@ -15,7 +15,7 @@
             </form>
           </li> --}}
           <li class="nav-item">
-            <a class="nav-link" href="#">Prosedur</a>
+            <a class="nav-link" href="{{ url('prosedur') }}">Prosedur</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url('faq') }}">FAQs</a>

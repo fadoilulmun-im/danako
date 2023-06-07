@@ -21,19 +21,19 @@
     </ul>
 
     <div id="myTabContent" class="tab-content">
-        <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
-            <div class="container-fluid" style="max-height: 1500px; overflow-y: scroll;" id="list-campaign">
-           
-              <div class="d-flex justify-content-center">
-                <div class="spinner-border" role="status">
-                  <span class="visually-hidden">Loading...</span>
-                </div>
+      <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
+          <div class="container-fluid" style="max-height: 1500px; overflow-y: scroll;" id="list-campaign">
+          
+            <div class="d-flex justify-content-center">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
               </div>
-                  
             </div>
-        </div>
+                
+          </div>
+      </div>
 
-    <div id="aktiv" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
+      <div id="aktiv" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade px-4 py-5">
         <div class="container-fluid" style="max-height: 1500px; overflow-y: scroll;" id="list-aktiv">      
           <div class="d-flex justify-content-center">
             <div class="spinner-border" role="status">
@@ -63,9 +63,6 @@
           </div>       
         </div>
       </div>
-
-
-
     </div>
     <!-- End rounded tabs -->
   </div>
@@ -172,7 +169,7 @@
           data.forEach((item, index) => {
             let progress = item.real_time_amount / item.target_amount * 100;
             $('#list-aktiv').append(`
-              <div class="row pt-2 pb-2" onclick="detail(${item.id})")>
+              <div class="row pt-2 pb-2" onclick="pemilik(${item.id})")>
                 <div class="col-md-4">
                   <img src="{{ asset('') }}${item.img_path ? 'uploads' + item.img_path : 'danako/img/category/1.png'}" class="img-thumbnail border-0 pt-5" alt="image" style="max-height: 200px">
                 </div>

@@ -298,7 +298,7 @@ class CampaignController extends Controller
 
     public function updateVerifiying($id, Request $request){
         $validator = Validator::make($request->all(), [
-            'verification_status' => 'required|in:0,1',
+            'status' => 'required|in:0,1',
             'note' => 'nullable|required_if:status,0|string',
         ]);
 
@@ -313,8 +313,8 @@ class CampaignController extends Controller
         }
 
         DB::beginTransaction();
-        $model->verification_status = $request->verification_status ? 'verified' : 'rejected';
-        $model->reject_note = $request->reject_note;
+        $model->verification_status = $request->status ? 'verified' : 'rejected';
+        $model->reject_note = $request->note;
         $model->save();
         DB::commit();
 

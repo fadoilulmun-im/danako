@@ -9,10 +9,36 @@
     @stack('before-style')
     @include('landing.includes.style')
     @stack('after-style')
+
+    <style>
+        .loader {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+       }
+
+       /* Efek spinner */
+       @keyframes spinner {
+           0% { transform: rotate(0deg); }
+           100% { transform: rotate(360deg); }
+       }
+
+       /* Mengatur animasi spinner pada loader */
+       .loader img {
+           animation: spinner 1s linear infinite;
+       }
+   </style>
+
 </head>
 
 <body>
 
+    <div id="loader" class="loader">
+        <img src="{{ asset('danako/img/icon - yellow green.png') }}" alt="Loader" style="width: 100px; height: 100px;">
+    </div>
+
+    <div id="content" style="display: none;">
         @include('landing.includes.navbar')
         <section class="account-section pt-5 pb-5">
             <div class="container">
@@ -79,11 +105,9 @@
                     </div>
                 </div>
             </div>
-        </section>
-
-           
+        </section> 
         @include('landing.includes.footer')
-       
+    </div>
  
     @stack('before-script')
     @include('landing.includes.script')
@@ -112,7 +136,25 @@ $(document).ready(() => {
   });
 });
 
+
+
     </script>
+
+<script>
+    // Fungsi untuk menampilkan tampilan setelah penundaan 10 detik
+    function showContent() {
+        var loader = document.getElementById('loader');
+        var content = document.getElementById('content');
+
+        // Menampilkan tampilan dan menyembunyikan loader
+        content.style.display = 'block';
+        loader.style.display = 'none';
+    }
+
+    // Panggil fungsi showContent setelah penundaan 10 detik
+    setTimeout(showContent, 2000);
+</script>
+
 </body>
 
 </html>
