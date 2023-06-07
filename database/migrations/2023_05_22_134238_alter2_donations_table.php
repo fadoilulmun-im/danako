@@ -14,9 +14,9 @@ class Alter2DonationsTable extends Migration
     public function up()
     {
         Schema::table('donations', function (Blueprint $table) {
-            $table->integer('transaction_fee')->after('amount_donations');
-            $table->integer('platform_fee')->after('transaction_fee');
-            $table->integer('net_amount')->after('platform_fee');
+            $table->integer('transaction_fee')->after('amount_donations')->nullable();
+            $table->integer('platform_fee')->after('transaction_fee')->nullable();
+            $table->integer('net_amount')->after('platform_fee')->nullable();
         });
     }
 

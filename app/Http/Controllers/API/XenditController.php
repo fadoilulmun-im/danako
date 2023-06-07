@@ -87,7 +87,7 @@ class XenditController extends Controller
         if($donation->status == 'PAID'){
             $campaign = $donation->campaign;
             // $campaign->real_time_amount += $campaign->donations->where('status', 'PAID')->sum('amount');
-            $campaign->real_time_amount += Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('amount_donations');
+            $campaign->real_time_amount += Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('net_amount');
             $campaign->save();
         }
 
@@ -109,7 +109,7 @@ class XenditController extends Controller
                     $tax = round(($transactionFee * 0.11));
                     $platformFee = round((0.05 * ($grossAmount - $transactionFee - $tax)));
                     $totalNetAmount = $grossAmount - $transactionFee - $tax - $platformFee;
-                    $donation->transaction_fee = $$transactionFee + $tax;
+                    $donation->transaction_fee = $transactionFee + $tax;
                     $donation->platform_fee = $platformFee;
                     $donation->net_amount = $totalNetAmount;
                     $donation->save();
@@ -134,18 +134,18 @@ class XenditController extends Controller
             }
         }
         
-        if(($donation->user->email ?? false) && ($donation->status == 'PAID')){
-            Mail::to($donation->user->email)->send(new DonationMail($donation));
+        if(($donation->email ?? false) && ($donation->status == 'PAID')){
+            Mail::to($donation->email)->send(new DonationMail($donation));
         }
 
-        if(($donation->user->phone_number ?? false) && ($donation->status == 'PAID')){
+        if(($donation->phone_number ?? false) && ($donation->status == 'PAID')){
             $client = new Client();
             $data_request = $client->request('POST', 'https://broadcast.kamiberbagi.id/index.php/api/send_message', [
-                'json' => [
+                'form_params' => [
                     'token' => config('env.token_api_wa'),
-                    'number' => $donation->user->detail->phone_number,
+                    'number' => $donation->detail->phone_number,
                     'message' => "Assalamualaikum Warahmatullahi Wabarakatuh\n\n".
-                        "Bapak/Ibu/Sdr ".$donation->user->name."\n".
+                        "Bapak/Ibu/Sdr ".$donation->name."\n".
                         "telah bertransaksi di ".url('/')."\n".
                         "pada tanggal ".date('Y-m-d H:i:s', strtotime($donation->paid_at))."\n".
                         "sebesar Rp. ".number_format($donation->amount_donations,0,',','.')."\n".

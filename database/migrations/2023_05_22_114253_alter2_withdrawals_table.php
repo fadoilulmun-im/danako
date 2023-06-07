@@ -36,6 +36,7 @@ class Alter2WithdrawalsTable extends Migration
             $table->dropColumn('bank_name');
             $table->dropColumn('rek_name');
             $table->dropColumn('rek_number');
+            $table->dropColumn('remaining_withdrawal');
         });
     }
 }
