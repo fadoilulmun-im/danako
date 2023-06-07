@@ -38,7 +38,7 @@
     </div>
     
 
-    <div id="content" style="display: none;">
+    <div id="konten" style="display: none;">
         @include('landing.includes.navbar')
         @yield('content')
         @include('landing.includes.footer')
@@ -52,10 +52,10 @@
         // Fungsi untuk menampilkan tampilan setelah penundaan 10 detik
         function showContent() {
             var loader = document.getElementById('loader');
-            var content = document.getElementById('content');
+            var konten = document.getElementById('konten');
 
             // Menampilkan tampilan dan menyembunyikan loader
-            content.style.display = 'block';
+            konten.style.display = 'block';
             loader.style.display = 'none';
         }
 

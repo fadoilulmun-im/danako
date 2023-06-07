@@ -7,6 +7,7 @@
 
 
 @section('content')
+
   <header class="header">
     <div class="container">
      <div class="text-center">
