@@ -37,7 +37,7 @@ use Jorenvh\Share\ShareFacade as Share;
 */
 
 Route::get('cek-mail', function () {
-    return view('mail.contoh');
+    return view('mail.donation');
 });
 
 

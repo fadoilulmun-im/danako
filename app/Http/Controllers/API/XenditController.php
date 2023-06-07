@@ -143,7 +143,7 @@ class XenditController extends Controller
             $data_request = $client->request('POST', 'https://broadcast.kamiberbagi.id/index.php/api/send_message', [
                 'form_params' => [
                     'token' => config('env.token_api_wa'),
-                    'number' => $donation->detail->phone_number,
+                    'number' => $donation->phone_number,
                     'message' => "Assalamualaikum Warahmatullahi Wabarakatuh\n\n".
                         "Bapak/Ibu/Sdr ".$donation->name."\n".
                         "telah bertransaksi di ".url('/')."\n".

@@ -7,32 +7,36 @@
         <title> Invoice-Donation-Receipt </title>
 	</head>
     <body style="margin:auto;margin: 0;padding: 0;font-size: 16px;font-weight: 300;width: 100%;background: rgb(204, 204, 204);font-family: 'Poppins', sans-serif;">
-		<div style="margin: auto;background:#fff;width:100%;max-width:400px;padding:20px;display:block;">
-			<div class="container_fluid_invoice" style="background: #f2f8e5;padding: 70px !important;max-width: 100vw;border: 1px solid #ccc;border-radius: 6px;">
+		<div style="margin: auto;background:#fff;width:100%;max-width:270px;padding:15px;display:block;">
+			<div class="container_fluid_invoice" style="background: #f2f8e5;padding: 20px !important;max-width: 100vw;border: 1px solid #ccc;border-radius: 6px;">
 				<!-- logo -->
-				<div class="logo_danako" style="margin-left: 30px;margin-top: 1px;position : relative;float: left;">
+				<div class="logo_danako" style="text-align: center">
 					<img src = "https://drive.google.com/uc?export=view&id=1VaN8CLypRWGHI2Ju1tHLEgEwiDzRfMob"
 					 width = 200   
 					 height = 46.5
 					/>
 				</div>
 				<!-- judul invoice -->
-				<p class="title_bold" style="margin-top: 100px;margin-bottom: 30px;text-align: center;font-size:20px;font-weight: 600;position: relative;">DONATION RECEIPT</p>
+				<p class="title_bold" style="margin-bottom: 35px;text-align: center;font-size:20px;font-weight: 600;position: relative;">DONATION RECEIPT</p>
 				
 				<!-- receiver row -->
-				<div class="receiver" style="margin-left: -10px;position: absolute;font-weight: 450;font-size: 13px;">
-					Kepada Yth<br>
-					{{ $data->name ?? '-' }}
-				</div>
-				<div class="id_donation" style="margin-top: -15px;float: right;margin-right: -10px;font-weight: 450;font-size: 13px;">
-					<p>
-						Donation ID <br>
-						{{ $data->external_id ?? '-' }}
-					</p>
-				</div>
+        <table style="width: 100%">
+					<thead>
+						<tr>
+							<td style="width: 50%; font-size: 14px">Kepada Yth</th>
+							<td style="width: 50%; font-size: 14px; text-align:right">Donarion ID</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td style="font-size: 14px">{{ explode(' ', $data->name ?? 'PUPUT TOK')[0] ?? '-' }}</td>
+              <td style="font-size: 14px;text-align:right">{{ $data->external_id ?? 'KJGJHIGUIFUG' }}</td>
+						</tr>
+					</tbody>
+				</table>
 				
 				<!-- ucapan terimakasih -->
-				<div class="thankyou" style="position: relative;text-align: center;margin-top: 120px;margin-bottom: 10px;font-size: 13px;font-weight: 400;">
+				<div class="thankyou" style="position: relative;text-align: center;margin-top: 25px;margin-bottom: 35px;font-size: 13px;font-weight: 400;">
 					<p>
 						Terimakasih telah menyalurkan bantuan melalui DANAKO bersama LMI <br>
 						Semoga Allah SWT memberikan keberkahan atas rezeki yang sudah Bapak/Ibu berikan <br>
@@ -40,9 +44,9 @@
 				</div>
 				<!-- Detail Pembayaran -->
 				<div class="payment_detail" style="position: relative;text-align: left;margin-top: 20px;margin-bottom: 10px;font-size: 13px;font-weight: 400;">
-					<table>
+					<table style="width: 100%">
 						<tr>                           
-							<th>Detail Pembayaran</th>
+							<th colspan="3" style="text-align: center; padding-bottom: 10px">Detail Pembayaran</th>
 						</tr>
 						<tr>
 							<th>Tanggal Pembayaran</th>
@@ -57,7 +61,7 @@
 					</table>
 				</div>
 				<div class="table_detail" style="width:100%;text-align:center;margin-top: 40px;font-size: 13px;font-family: 'Poppins', sans-serif;">
-				<table border="2px solid">
+				<table border="2px solid" style="width: 100%">
 				<tr>
 					<th colspan="3" style="background:#0EBF65;">DETAIL DONASI</th>
 				</tr>

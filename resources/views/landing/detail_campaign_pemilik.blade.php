@@ -363,7 +363,7 @@ $(document).ready(function() {
                 <div class="row">
                   <div class="col-9">
                     <h6 class="text-start">${item.user.name}</h6>
-                    <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.created_at)).fromNow()}</span></h6>
+                    <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.net_amount ?? item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.created_at)).fromNow()}</span></h6>
                   </div>
                   <div class="col-3 pe-0">
                     <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 
@@ -372,17 +372,19 @@ $(document).ready(function() {
               </div>
             `);
 
-            $('#list-hope').append(`
-              <div class="row mb-4 ps-1">
-                <div class="col-md-1">
-                  <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
+            if(item.hope){
+              $('#list-hope').append(`
+                <div class="row mb-4 ps-1">
+                  <div class="col-md-1">
+                    <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
+                  </div>
+                  <div class="col-md-11">
+                    <h6>${item.user.name}</h6>
+                    <p>${item.hope}</p>
+                  </div>
                 </div>
-                <div class="col-md-11">
-                  <h6>${item.user.name}</h6>
-                  <p>${item.hope}</p>
-                </div>
-              </div>
-            `);
+              `);
+            }
           });
         }else{
           $('#list-donasi').html(`
