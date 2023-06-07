@@ -74,9 +74,9 @@
                                 <th>User</th>
                                 <th>Campaign</th>
                                 <th>Amount</th>
+                                <th>Transaction fee</th>
+                                <th>Platform fee</th>
                                 <th>Net Amount</th>
-                                <th>Tf fee</th>
-                                <th>plat fee</th>
                                 <th>Hope</th>
                                 <th>Status</th>
                                 <th>Payment Method</th>
@@ -275,9 +275,9 @@
             {data: 'user.username', name: 'user.username', defaultContent: 'Data Kosong'},
             {data: 'campaign.title', name: 'campaign.title'},
             {data: 'amount_donations', name: 'amount_donations'},
-            {data: 'net_amount', name: 'net_amount'},
             {data: 'transaction_fee', name: 'transaction_fee'},
             {data: 'platform_fee', name: 'platform_fee'},
+            {data: 'net_amount', name: 'net_amount'},
             {data: 'hope', name: 'hope'},
             {data: 'status', name: 'status'},
             {data: 'payment_method', name: 'payment_method'},
