@@ -387,7 +387,7 @@ Route::get('/pencairan-dana/{id}', function ($id) {
     $totalBiayaTransaksi = number_format(Donation::where('campaign_id', $id)->sum('transaction_fee'));
     $totalBiayaPlatform = number_format(Donation::where('campaign_id', $id)->sum('platform_fee'));
     $sudahDicairkan = number_format(Withdrawal::where('campaign_id', $id)->where('status', 'approved')->sum('amount'));
-    $targetDonasi = number_format($campaign->target_amount);
+    // $targetDonasi = number_format($campaign->target_amount);
     $dapatDicairkan = number_format($totalDana - $sudahDicairkan);
     $belumDicairkan = number_format($dapatDicairkan - $sudahDicairkan);
 
