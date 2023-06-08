@@ -2,6 +2,14 @@
 
 @section('title', 'Payment Sukses')
 
+@push('after-style')
+  @if (config('env.app_env') == 'test-local')
+    <script>
+      window.location.href = "{{ config('env.local_url') }}" + '/payment-sukses/' + "{{ $external_id }}";
+    </script>
+  @endif
+@endpush
+
 @section('content')
 
 <br>

@@ -147,6 +147,7 @@
         function handleError(code, res){
           switch (code) {
             case 401:
+              localStorage.clear();
               Swal.fire({
                 title: 'Anda Belum Login',
                 text: "Silahkan login terlebih dahulu untuk melakukan aksi ini",
@@ -157,9 +158,6 @@
                 allowOutsideClick: () => !Swal.isLoading(),
               }).then((result) => {
                 if (result.isConfirmed) {
-                  localStorage.removeItem('_token');
-                  localStorage.removeItem('_user_username');
-                  localStorage.removeItem('_user_photo_profile');
                   window.location.href = "{{ route('admin.login') }}";
                 }
               })
