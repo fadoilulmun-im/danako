@@ -1,5 +1,7 @@
 @extends('admin.layout.master')
 
+@section('pageTitle', 'User')
+
 @section('third-party-css')
   <link href="{{asset('')}}assets/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
   <link href="{{asset('')}}assets/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
@@ -23,10 +25,22 @@
                   <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#createModal">Create</button>
                 </div>
 
-                <div class='mb-3'>
-                  <a href="#user" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">User</a>
-                  <a href="#admin" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Admin</a>
+                <div class="row">
+                  <div class="col-sm-2">
+                    <div class='mb-3'>
+                      <a href="#user" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">User</a>
+                      <a href="#admin" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Admin</a>
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class='mb-3'>
+                      <a href="#donatur" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Donatur</a>
+                      <a href="#campainer" class="btn btn-sm btn-outline-primary waves-effect waves-light clickable">Campainer</a>
+                    </div>
+                  </div>
                 </div>
+                
+               
                 <div class="row" style="padding-bottom: 15px">
                   <div class="col-sm-12 col-md-2">Status
                     <select class="form-select form-select-sm" name="status" id="status-filter">

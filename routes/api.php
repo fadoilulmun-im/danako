@@ -26,7 +26,11 @@ use App\Http\Controllers\API\WithdrawalController;
 Route::group(['prefix' => 'withdrawal'], function () {
     Route::post('/', [WithdrawalController::class, 'store'])->name('api.withdrawal.store')->middleware(['auth:sanctum']);
     Route::get('/', [WithdrawalController::class, 'index'])->name('api.master.withdrawal.index');
+    // Route::post('/', [WithdrawalController::class, 'create'])->name('api.withdrawal.create');
+    // Route::post('/', [WithdrawalController::class, 'storeCoba'])->name('api.withdrawal.storeCoba');
     Route::get('/{id}', [WithdrawalController::class, 'show'])->name('api.master.withdrawal.show');
+    Route::get('/list/{id}', [WithdrawalController::class, 'list'])->name('api.master.withdrawal.list');
+    Route::post('/verif/{id}', [WithdrawalController::class, 'updateVerifiying'])->name('api.master.withdrawal.verif')->middleware(['auth:sanctum']);
 });
 
 Route::group(['prefix' => 'xendit'], function () {
@@ -51,22 +55,12 @@ Route::prefix('auth-user')->group(function () {
     Route::get('logout', [AuthUserController::class, 'logout'])->name('api.user.logout')->middleware(['auth:sanctum']);
 });
 
-//user authentication
-
-//API route for register user
-// Route::post('/register', [App\Http\Controllers\API\AuthController::class, 'register'])->name('api.user.register');
-//API route for login user
-// Route::post('/login', [App\Http\Controllers\API\AuthController::class, 'login'])->name('api.user.login');
-
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/profile', function (Request $request) {
         return auth()->user();
     });
-
-    // API route for logout user
-    // Route::post('/logout', [App\Http\Controllers\API\AuthController::class, 'logout'])->name('api.user.logout');
 });
-//end user authentication
+
 
 Route::prefix('auth-admin')->group(function () {
     Route::post('/', [AuthenticationController::class, 'update'])->name('api.admin.update')->middleware(['auth:sanctum']);

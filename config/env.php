@@ -10,6 +10,7 @@ return [
   ],
   'token_api_wa' => env('TOKEN_API_WA'),
   'category_medis' => env('CATEGORY_MEDIS', 1),
+  'local_url' => env('LOCAL_URL'),
 ];
 
 ?>

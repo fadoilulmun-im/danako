@@ -16,6 +16,6 @@ class Controller extends BaseController
         $message = null,
         $code = 200
     ){
-        return setResponse($data, $message, $code);
+        return setResponse($data, $message, $code, ($_GET['removeMeta'] ?? null) == 'true' ? false : true);
     }
 }

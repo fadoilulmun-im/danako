@@ -9,7 +9,7 @@
                 <li>
                     <a href="/admin">
                         <i class="mdi mdi-view-dashboard-outline"></i>
-                        <span class="badge bg-success rounded-pill float-end">9+</span>
+                        {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
                         <span> Dashboard </span>
                     </a>
                 </li>
@@ -44,23 +44,7 @@
                         <span> Withdrawals </span>
                     </a>
                 </li>
-                <li>
-                    <a href="#contacts" data-bs-toggle="collapse">
-                        <i class="mdi mdi-book-open-page-variant-outline"></i>
-                        <span> Report </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <div class="collapse" id="contacts">
-                        <ul class="nav-second-level">
-                            <li>
-                                <a href="#">Report 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Report 2</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+             
             </ul>
 
         </div>

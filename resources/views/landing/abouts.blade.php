@@ -4,6 +4,21 @@
     Dashboard
 @endsection
 
+@push('after-style')
+ <!-- CSS Slick Slider -->
+ <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+ <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+ 
+ <style>
+   .card-slider .card {
+     display: none;
+   }
+   
+   .card-slider .card.active {
+     display: block;
+   }
+ </style>
+@endpush
 
 
 @section('content')
@@ -111,15 +126,182 @@
             </div>
         </div>
     </div>
+
+  
+
 </section>
 
+<div class="container pb-4">
+  <div class="section-title text-center pb-5">
+    <h2>IT Squad Intern batch 4 </h2>
+    <p></p>
+  </div>
+    <div class="card-slider" >
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/6.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Full-Stack Programmer</h5>
+              <p class="card-text">FADOILUL MUN IM</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/4.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Full-Stack Programmer</h5>
+              <p class="card-text">DIKA ANTONI PUTRA</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/3.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Full-Stack Programmer</h5>
+              <p class="card-text">KHODIJAH AULIA RAHMA</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/1.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Full-Stack Programmer</h5>
+              <p class="card-text">Gede Ardi Pratama</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/8.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">UI / UX Design </h5>
+              <p class="card-text">Iqbal Dzakwan Imaduddin</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/10.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Mobile Developer Android </h5>
+              <p class="card-text">Riska Harum Dian Sari</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/9.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Mobile Developer Android </h5>
+              <p class="card-text">Thariqi Ruli Ramadhani</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/5.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Data Analyst</h5>
+              <p class="card-text">RAHIDA RIHHADATUL AISY</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card active mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{{ asset('danako/img/foto/2.png') }}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Data Analyst</h5>
+              <p class="card-text">AULIA PUTRI FAJAR</p>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 @endsection
 
 
 @push('after-script')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script>
+  $(document).ready(function(){
+    $('.card-slider').slick({
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 2000,
+      arrows: true,
+      prevArrow: '<button type="button" class="slick-prev">Previous</button>',
+      nextArrow: '<button type="button" class="slick-next">Next</button>',
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: 1,
+          }
+        }
+      ]
+    });
+  });
+</script>
+
   <script>
     const questionContainers = document.querySelectorAll('.question-container');
 const answers = document.querySelectorAll('.answer');

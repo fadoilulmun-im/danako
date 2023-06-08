@@ -1,5 +1,7 @@
 @extends('admin.layout.master')
 
+@section('pageTitle', 'Donations')
+
 @section('third-party-css')
 <link href="{{ asset('assets') }}/libs/datatables.net-bs5/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
 <link href="{{ asset('assets') }}/libs/datatables.net-responsive-bs5/css/responsive.bootstrap5.min.css" rel="stylesheet" type="text/css" />
@@ -20,6 +22,7 @@
                         <h4 class="mt-0 header-title">Donations</h4>
                         <button type="button" class="btn btn-primary btn-sm waves-effect waves-light" id="addBtn">Create</button>
                     </div>
+                    <div id="exportButtons" class="mb-2"></div>
                     <div class="row" style="padding-bottom: 20px">
                         <div class="col-sm-12 col-md-4">
                             <label class="form-label">Date Range</label>
@@ -30,17 +33,54 @@
                                 </a>
                             </div>
                         </div>
+                        <div class="col-sm-12 col-md-2">
+                            <label class="form-label">Status</label>
+                            <select class="form-select form-select-sm" name="status" id="status-filter">
+                                <option value="">All</option>
+                                <option value="PAID">Paid</option>
+                                <option value="PENDING">Pending</option>
+                                <option value="EXPIRED">Expired</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <label class="form-label">Payment Method</label>
+                            <select class="form-select form-select-sm" name="method" id="method-filter">
+                                <option value="">All</option>
+                                <option value="BANK_TRANSFER">Bank Transfer</option>
+                                <option value="EWALLET">e-Wallet</option>
+                                <option value="QR_CODE">QR Code</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <label class="form-label">Payment Channel</label>
+                            <select class="form-select form-select-sm" name="channel" id="channel-filter">
+                                <option value="">All</option>
+                                <option value="BNI">Bank BNI</option>
+                                <option value="BRI">Bank BRI</option>
+                                <option value="BSI">Bank BSI</option>
+                                <option value="MANDIRI">Bank Mandiri</option>
+                                <option value="PERMATA">Bank Permata</option>
+                                <option value="DANA">DANA</option>
+                                <option value="LINKAJA">LinkAja</option>
+                                <option value="OVO">OVO</option>
+                                <option value="QRIS">QRIS</option>
+                            </select>
+                        </div>
                     </div>
-                    <table id="datatable" class="w-100 table table-bordered table-responsive">
+                    <table id="datatable" class="w-100 table table-bordered dt-responsive dataTable no-footer">
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>User</th>
                                 <th>Campaign</th>
-                                <th>Amount Donation</th>
+                                <th>Amount</th>
+                                <th>Transaction fee</th>
+                                <th>Platform fee</th>
+                                <th>Net Amount</th>
                                 <th>Hope</th>
                                 <th>Status</th>
                                 <th>Payment Method</th>
+                                <th>Payment Channel</th>
                                 <th>Payment Link</th>
                                 <th>Paid at</th>
                                 <th>External Id</th>
@@ -128,7 +168,7 @@
                         <td><span id="detail_campaign"></span></td>
                     </tr>
                     <tr>
-                        <th>Amount Donation</th>
+                        <th>Amount</th>
                         <td><span id="detail_amount_donations"></span></td>
                     </tr>
                     <tr>
@@ -203,11 +243,12 @@
 <script src="{{ asset('assets') }}/libs/datatables.net-select/js/dataTables.select.min.js"></script>
 <script src="{{ asset('assets') }}/libs/admin-resources/rwd-table/rwd-table.min.js"></script>
 <script src="{{ asset('assets') }}/libs/flatpickr/flatpickr.min.js"></script>
+<script src="{{ asset('assets') }}/libs/pdfmake/build/vfs_fonts.js"></script>
+<script src="{{ asset('assets') }}/libs/pdfmake/build/pdfmake.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @endsection
 
 @section('init-js')
-<script src="{{ asset('assets') }}/js/pages/datatables.init.js"></script>
 <script>
     var minDate, maxDate;
 
@@ -220,7 +261,10 @@
             url: "{{ route('api.master.donations.index') }}",
             data: function (d) {
                 d.from = minDate,
-                d.to = maxDate
+                d.to = maxDate,
+                d.status = $('#status-filter').val(),
+                d.method = $('#method-filter').val(),
+                d.channel = $('#channel-filter').val()
             },
             complete: function(){
                 $('[data-bs-toggle="tooltip"]').tooltip();
@@ -228,23 +272,129 @@
         },
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
-            {data: 'user.username', name: 'user.username', defaultContent: 'Data Kosong'},
+            {data: 'name', name: 'name'},
             {data: 'campaign.title', name: 'campaign.title'},
             {data: 'amount_donations', name: 'amount_donations'},
+            {data: 'transaction_fee', name: 'transaction_fee'},
+            {data: 'platform_fee', name: 'platform_fee'},
+            {data: 'net_amount', name: 'net_amount'},
             {data: 'hope', name: 'hope'},
             {data: 'status', name: 'status'},
             {data: 'payment_method', name: 'payment_method'},
+            {data: 'payment_channel', name: 'payment_channel'},
             {data: 'payment_link', name: 'payment_link'},
             {data: 'paid_at', name: 'paid_at'},
             {data: 'external_id', name: 'external_id'},
             {data: 'created_at', name: 'created_at'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
-        order: [[0, 'desc']]
+        order: [[0, 'desc']],
+        dom: "B<'row'<'col-sm-6'l><'col-sm-6'f>>" +
+              "<'row'<'col-sm-12'tr>>" +
+              "<'row'<'col-sm-6'i><'col-sm-6'p>>",
+        buttons: [
+            {
+                text: 'Copy',
+                extend: 'copy',
+                exportOptions: {
+                  columns: [0,1,2,3,4,5,6,7,8,9,10,11],
+                },
+                action: newexportaction
+            }, 
+            
+            {
+    text: 'Print-Pdf',
+    extend: 'print',
+    exportOptions: {
+        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+    },
+    customize: function (win) {
+        var currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        var title = 'MONTHLY DONATION REPORT';
+
+        var table = $(win.document.body).find('table').get(0);
+        var column3Total = 0;
+
+        // Calculate the total of column 3
+        $(table).find('tbody tr').each(function () {
+            var column3Value = parseFloat($(this).find('td:eq(3)').text().replace(/[^\d.-]/g, ''));
+            if (!isNaN(column3Value)) {
+                column3Total += column3Value;
+            }
+        });
+
+        // Update the title
+        $(win.document.body).find('h1').text(title);
+        
+        // Add the period and total below the h1 element
+        $(win.document.body).find('h2').after('<p>Period: ' + currentDate + '</p>');
+
+        // Append the total to the table footer
+        $(table).find('tfoot').append('<tr><th colspan="3">Total:</th><th>' + column3Total.toFixed(2) + '</th></tr>');
+
+        $(win.document.body).find('h1').after('<p>Total Amount Donations: ' + column3Total.toFixed(2) + '</p>');
+
+        // Apply custom styling
+        $(win.document.body).find('.top-section').css({
+            'background-color': '#0EBF65',
+            'color': '#fff'
+        });
+        $(win.document.body).find('.logo_danako img').attr('src', 'https://drive.google.com/uc?export=view&id=11K7woy_jTiqsMFOYSFSkgGEKAY2_sKq_');
+    }
+}
+
+
+
+
+        ],
     });
 
+    table.buttons( 0, null ).containers().appendTo('#exportButtons');
+
+    function newexportaction(e, dt, button, config) {
+        var self = this;
+        var oldStart = dt.settings()[0]._iDisplayStart;
+        dt.one('preXhr', function(e, s, data) {
+            // Just this once, load all data from the server...
+            data.start = 0;
+            data.length = dt.page.info().recordsTotal;
+            dt.one('preDraw', function(e, settings) {
+                // Call the original action function
+                if (button[0].className.indexOf('buttons-copy') >= 0) {
+                    $.fn.dataTable.ext.buttons.copyHtml5.action.call(self, e, dt, button, config);
+                } else if (button[0].className.indexOf('buttons-excel') >= 0) {
+                    $.fn.dataTable.ext.buttons.excelHtml5.available(dt, config) ?
+                        $.fn.dataTable.ext.buttons.excelHtml5.action.call(self, e, dt, button, config) :
+                        $.fn.dataTable.ext.buttons.excelFlash.action.call(self, e, dt, button, config);
+                } else if (button[0].className.indexOf('buttons-csv') >= 0) {
+                    $.fn.dataTable.ext.buttons.csvHtml5.available(dt, config) ?
+                        $.fn.dataTable.ext.buttons.csvHtml5.action.call(self, e, dt, button, config) :
+                        $.fn.dataTable.ext.buttons.csvFlash.action.call(self, e, dt, button, config);
+                } else if (button[0].className.indexOf('buttons-pdf') >= 0) {
+                    $.fn.dataTable.ext.buttons.pdfHtml5.available(dt, config) ?
+                        $.fn.dataTable.ext.buttons.pdfHtml5.action.call(self, e, dt, button, config) :
+                        $.fn.dataTable.ext.buttons.pdfFlash.action.call(self, e, dt, button, config);
+                } else if (button[0].className.indexOf('buttons-print') >= 0) {
+                    $.fn.dataTable.ext.buttons.print.action(e, dt, button, config);
+                }
+                dt.one('preXhr', function(e, s, data) {
+                    // DataTables thinks the first item displayed is index 0, but we're not drawing that.
+                    // Set the property to what it was before exporting.
+                    settings._iDisplayStart = oldStart;
+                    data.start = oldStart;
+                });
+                // Reload the grid with the original page. Otherwise, API functions like table.cell(this) don't work properly.
+                setTimeout(dt.ajax.reload, 0);
+                // Prevent rendering of the full data to the DOM
+                return false;
+            });
+        });
+        // Requery the server with the new one-time export settings
+        dt.ajax.reload();
+    };
+
     // Flat Picker Date
-    $('#date_range').flatpickr({
+    $flatpikr = $('#date_range').flatpickr({
         mode: "range",
         allowInput: true,
         altInput: true,
@@ -260,10 +410,22 @@
     });
 
     $("#clear-date").click(function() {
-        $('#date_range').flatpickr().clear();
+        $flatpikr.clear();
         minDate = null;
         maxDate = null;
         table.ajax.reload();
+    });
+
+    $('#status-filter').change(function(){
+        table.draw();
+    });
+
+    $('#method-filter').change(function(){
+        table.draw();
+    });
+
+    $('#channel-filter').change(function(){
+        table.draw();
     });
 
     $.fn.dataTable.ext.search.push(

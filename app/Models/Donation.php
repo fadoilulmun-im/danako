@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Donation extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
-    protected $table = 'donations';
-    protected $fillable = ['user_id', 'campaign_id', 'name', 'amount_donations', 'hope'];
-    protected $primaryKey = 'id';
+    protected $guarded = [];
 
     public function user()
     {

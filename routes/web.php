@@ -18,6 +18,7 @@ use GeneaLabs\Phpgmaps\Facades\PhpgmapsFacade;
 
 use App\Http\Controllers\API\CampaignController;
 use App\Http\Controllers\WEB\VerifyEmailController;
+use App\Models\Withdrawal;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\URL;
 use Jorenvh\Share\ShareFacade as Share;
@@ -240,6 +241,23 @@ Route::group(['prefix' => 'admin'], function () {
         $userCount = $usersCreated->count();
         return view('admin.page.master.donation', compact('userCount', 'usersCreated'));
     });
+
+    Route::get('/withdrawals', function () {
+        $currentDate = Carbon::now()->format('Y-m-d');
+
+        // Ambil waktu awal dan akhir hari ini
+        $startOfDay = Carbon::parse($currentDate)->startOfDay();
+        $endOfDay = Carbon::parse($currentDate)->endOfDay();
+        
+        // Ambil daftar pengguna yang dibuat pada hari ini, batasi hanya 10 terbaru
+        $usersCreated = User::whereBetween('created_at', [$startOfDay, $endOfDay])
+                            ->orderBy('created_at', 'desc')
+                            ->take(10)
+                            ->get();
+
+         $userCount = $usersCreated->count();
+        return view('admin.page.master.withdrawal',compact('userCount','usersCreated'));
+    });
 });
 
 
@@ -336,7 +354,7 @@ Route::get('/payment-gagal', function () {
     return view('landing.payment_gagal');
 });
 
-Route::get('/payment-sukses/{external_id}', function ($external_id) {
+Route::get('/payment-sukses/{external_id?}', function ($external_id) {
     // Donation::where('external_id', $external_id)->update(['status' => 'PAID']);
     return view('landing.payment_sukses', compact('external_id'));
 });
@@ -360,25 +378,31 @@ Route::get('/donasi', function () {
 
 Route::get('/buat-campaign/{id}', function ($id) {
     $category = CampaignCategory::findOrFail($id);
-    return view('landing.campaign.buat_campaign', compact('id', 'category'));
+    // return view('landing.campaign.buat_campaign', compact('id', 'category'));
+    return view('landing.campaign.buat_campaign_new', compact('id', 'category'));
 })->name('buat-campaign');
 
 Route::get('/pilih-kategori', function () {
     return view('landing.campaign.pilih_kategori');
 });
 
-
-// Route::get('/pencairan-dana', function () {
-//     return view('landing.pencairan_dana');
-// });
-
 Route::get('/pencairan-dana/{id}', function ($id) {
     $campaign = Campaign::findOrFail($id);
-    return view('landing.pencairan_dana', [
+    $withdrawal = Withdrawal::all();
+    return view('landing.pencairan.pencairan_dana', [
+        'id' => $id,
+        'campaign' => $campaign,
+        'withdrawal' => $withdrawal,
+    ]);
+})->name('pencairan-dana');
+
+Route::get('/ajukan-pencairan-dana/{id}', function ($id) {
+    $campaign = Campaign::findOrFail($id);
+    return view('landing.pencairan.ajukan_pencairan_dana', [
         'id' => $id,
         'campaign' => $campaign,
     ]);
-});
+})->name('ajukan-pencairan-dana');
 
 Route::get('/verifikasi-pencairan', function () {
     return view('landing.verifikasi_pencairan');
@@ -412,6 +436,10 @@ Route::get('/faq', function () {
 
 Route::get('/tentang-kami', function () {
     return view('landing.abouts');
+});
+
+Route::get('/prosedur', function () {
+    return view('landing.prosedur');
 });
 
 Route::get('/zakat', function () {

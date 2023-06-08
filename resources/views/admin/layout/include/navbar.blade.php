@@ -14,10 +14,10 @@
       </li>
 
       <li class="dropdown notification-list topbar-dropdown">
-          <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+          {{-- <a class="nav-link dropdown-toggle waves-effect waves-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
               <i class="fe-bell noti-icon"></i>
               <span class="badge bg-danger rounded-circle noti-icon-badge">{{ $userCount ?? '0' }}</span>
-          </a>
+          </a> --}}
           <div class="dropdown-menu dropdown-menu-end dropdown-lg">
 
               <!-- item-->
@@ -98,18 +98,18 @@
   <div class="logo-box">
       <a href="index.html" class="logo logo-light text-center">
           <span class="logo-sm">
-              <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
+              <img src="{{asset('danako/img/logo.png')}}" alt="" height="22">
           </span>
           <span class="logo-lg">
-              <img src="{{asset('assets/images/logo-light.png')}}" alt="" height="16">
+              <img src="{{asset('danako/img/logo.png')}}" alt="" height="16">
           </span>
       </a>
       <a href="index.html" class="logo logo-dark text-center">
           <span class="logo-sm">
-              <img src="{{asset('assets/images/logo-sm.png')}}" alt="" height="22">
+              <img src="{{asset('danako/img/logo.png')}}" alt="" height="22">
           </span>
           <span class="logo-lg">
-              <img src="{{asset('assets/images/logo-dark.png')}}" alt="" height="16">
+              <img src="{{asset('danako/img/logo.png')}}" alt="" height="16">
           </span>
       </a>
   </div>

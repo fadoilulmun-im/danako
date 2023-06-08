@@ -1,5 +1,7 @@
 @extends('admin.layout.master')
 
+@section('pageTitle', 'My Profile')
+
 @section('third-party-css')
   <link href="{{asset('')}}assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
 @endsection

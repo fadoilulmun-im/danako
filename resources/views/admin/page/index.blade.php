@@ -1,5 +1,7 @@
 @extends('admin.layout.master')
 
+@section('pageTitle', 'Dashboard')
+
 @section('content')
   <!-- Start Content-->
   <div class="container-fluid">

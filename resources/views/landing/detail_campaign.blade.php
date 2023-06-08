@@ -81,30 +81,26 @@
 
 @section('content')
 
-
-    <section class="job-details pt-5 pb-5">
-        <div class="container">
-            <div class="notif"></div>
-            <div class="row">
-                <div class="col-lg-8 ">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="job-details-text">
-                                <div class="job-card mb-0">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-2">
-                                            <div class="company-logo">
-                                                <img src="{{ asset('') }}danako/img/Expand_left.svg" alt="logo" />
-                                            </div>
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="job-info">
-                                                <h1 id="title">Loading... </h1>
-
-                                                <div id="count-donasi">
-                                                </div>
-                                            </div>
-                                        </div>
+<section class="job-details pt-5 pb-5">
+    <div class="container">
+      <div class="notif"></div>
+        <div class="row">
+            <div class="col-lg-8 ">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="job-details-text">
+                      <div class="job-card mb-0">
+                          <div class="row align-items-center">
+                              <div class="col-md-2">
+                                  <div class="company-logo">
+                                      <img src="{{ asset('') }}danako/img/Expand_left.svg" alt="logo" /> 
+                                  </div>
+                              </div>
+                              <div class="col-md-10">
+                                  <div class="job-info">
+                                    <h1 id="title">Loading... </h1>
+                                    
+                                    <div id="count-donasi">
                                     </div>
                                 </div>
                                 <div class="border-bottom border-3 pt-2"></div>
@@ -371,51 +367,53 @@
                             `<b>${new Intl.NumberFormat().format(data.length)}</b> orang baik telah berdonasi untuk campaign ini`
                             );
 
-                        $('#list-hope').append(
-                            `<h5 class="mb-4">Pesan dari orang baik (${data.length})</h5>`);
+                        $('#list-hope').append(`<h5 class="mb-4">Pesan dari orang baik (${data.length})</h5>`);
                         data.forEach(item => {
                             $('#list-donasi').append(`
-              <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2 px-2">                  
-                <div class="row">
-                  <div class="col-9">
-                    <h6 class="text-start">${item.name}</h6>
-                    <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.paid_at)).fromNow()}</span></h6>
-                  </div>
-                  <div class="col-3 pe-0">
-                    <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 
-                  </div> 
-                </div>
-              </div>
-            `);
+                                <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2 px-2">                  
+                                    <div class="row">
+                                    <div class="col-9">
+                                        <h6 class="text-start">${item.name}</h6>
+                                        <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.net_amount ?? item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.paid_at)).fromNow()}</span></h6>
+                                    </div>
+                                    <div class="col-3 pe-0">
+                                        <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 
+                                    </div> 
+                                    </div>
+                                </div>
+                            `);
 
+                            if(item.hope){
                             $('#list-hope').append(`
-              <div class="row mb-4 ps-1">
-                <div class="col-md-1">
-                  <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
-                </div>
-                <div class="col-md-11">
-                  <h6>${item.name}</h6>
-                  <p>${item.hope}</p>
-                </div>
-              </div>
-            `);
+                                <div class="row mb-4 ps-1">
+                                <div class="col-md-1">
+                                    <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
+                                </div>
+                                <div class="col-md-11">
+                                    <h6>${item.name}</h6>
+                                    <p>${item.hope}</p>
+                                </div>
+                                </div>
+                            `);
+                            }
+            
                         });
-                    } else {
-                        $('#list-donasi').html(`
-            <div class="card-body">
-              <p class="text-center">Belum ada donasi</p>
-            </div>
-          `);
+                    }else{
+                    $('#list-donasi').html(`
+                        <div class="card-body">
+                        <p class="text-center">Belum ada donasi</p>
+                        </div>
+                    `);
                     }
 
-                },
-                error: (response) => {
-                    const res = response.responseJSON;
-                    $('#list-donasi').html(`
-          <div class="card-body">
-            <p class="text-center">${res.message}</p>
-          </div>
-        `);
+                    },
+                    error: (response) => {
+                        const res = response.responseJSON;
+                        $('#list-donasi').html(`
+                    <div class="card-body">
+                        <p class="text-center">${res.message}</p>
+                    </div>
+                    `);
                 },
             })
 
