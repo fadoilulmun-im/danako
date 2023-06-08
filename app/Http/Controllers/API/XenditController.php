@@ -70,6 +70,17 @@ class XenditController extends Controller
 
     public function callback(Request $request)
     {
+
+        if(config('env.app_env') == 'test-local'){
+            $client = new Client();
+            $data_request = $client->request('POST', config('env.local_url') . '/api/xendit/callback', [
+                'headers' => ['ngrok-skip-browser-warning' => 'true'],
+                'form_params' => $request->all(),
+            ]);
+
+            return json_decode($data_request->getBody());
+        }
+
         // $data = request()->all();
         DB::beginTransaction();
         $donation = Donation::where('external_id', $request->external_id)->first();
@@ -84,13 +95,6 @@ class XenditController extends Controller
         }
         $donation->save();
 
-        if($donation->status == 'PAID'){
-            $campaign = $donation->campaign;
-            // $campaign->real_time_amount += $campaign->donations->where('status', 'PAID')->sum('amount');
-            $campaign->real_time_amount += Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('net_amount');
-            $campaign->save();
-        }
-
         if(($donation->status == 'PAID') && ($donation->paid_at)){
             $grossAmount = $donation->amount_donations;
             switch ($donation->payment_method) {
@@ -98,7 +102,7 @@ class XenditController extends Controller
                     $transactionFee = round(($grossAmount * 0.007));
                     $platformFee = round((0.05 * ($grossAmount - $transactionFee)));
                     $totalNetAmount = $grossAmount - $transactionFee - $platformFee;
-                    $donation->transaction_fee = $$transactionFee;
+                    $donation->transaction_fee = $transactionFee;
                     $donation->platform_fee = $platformFee;
                     $donation->net_amount = $totalNetAmount;
                     $donation->save();
@@ -133,6 +137,13 @@ class XenditController extends Controller
                 $donation->save();
             }
         }
+
+        if($donation->status == 'PAID'){
+            $campaign = $donation->campaign;
+            // $campaign->real_time_amount += $campaign->donations->where('status', 'PAID')->sum('amount');
+            $campaign->real_time_amount = Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('net_amount');
+            $campaign->save();
+        }
         
         if(($donation->email ?? false) && ($donation->status == 'PAID')){
             Mail::to($donation->email)->send(new DonationMail($donation));
@@ -142,7 +153,7 @@ class XenditController extends Controller
             $client = new Client();
             $data_request = $client->request('POST', 'https://broadcast.kamiberbagi.id/index.php/api/send_message', [
                 'form_params' => [
-                    'token' => config('env.token_api_wa'),
+                    'token' => config('env.token_api_wa', 'e63b482fd887b408d87a4d66e5913187'),
                     'number' => $donation->phone_number,
                     'message' => "Assalamualaikum Warahmatullahi Wabarakatuh\n\n".
                         "Bapak/Ibu/Sdr ".$donation->name."\n".

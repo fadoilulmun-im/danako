@@ -61,9 +61,10 @@ class CampaignController extends Controller
                 return '
                     <span onclick="detail(' . $data->id . ')" onclick="loading()" class="fas fa-eye text-primary me-1" style="font-size: 1.2rem; cursor: pointer" 
                     data-bs-toggle="tooltip" data-bs-placement="top" title="Show" data-bs-original-title="Show" aria-label="Show"></span>
-                ';
-                // <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning me-1" style="font-size: 1.2rem; cursor: pointer" title="Edit"></span>
+                
+                <span onclick="edit('. $data->id .')" class="edit-admin fas fa-pen text-warning me-1" style="font-size: 1.2rem; cursor: pointer" title="Edit"></span>'
                 // <span onclick="destroy('. $data->id .')" class="fas fa-trash-alt text-danger" style="font-size: 1.2rem; cursor: pointer" title="Delete"></span>
+                ;
             })
             ->editColumn('img_path', function ($data) {
                 if (File::exists(public_path('uploads' . $data->img_path))) {

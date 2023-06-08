@@ -346,7 +346,7 @@ Route::get('/payment-gagal', function () {
     return view('landing.payment_gagal');
 });
 
-Route::get('/payment-sukses/{external_id}', function ($external_id) {
+Route::get('/payment-sukses/{external_id?}', function ($external_id) {
     // Donation::where('external_id', $external_id)->update(['status' => 'PAID']);
     return view('landing.payment_sukses', compact('external_id'));
 });

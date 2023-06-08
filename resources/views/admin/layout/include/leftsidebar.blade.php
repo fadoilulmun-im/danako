@@ -9,7 +9,7 @@
                 <li>
                     <a href="/admin">
                         <i class="mdi mdi-view-dashboard-outline"></i>
-                        <span class="badge bg-success rounded-pill float-end">9+</span>
+                        {{-- <span class="badge bg-success rounded-pill float-end">9+</span> --}}
                         <span> Dashboard </span>
                     </a>
                 </li>
