@@ -44,4 +44,9 @@ class Campaign extends Model
     {
         return $this->hasMany(CampaignDocument::class, 'campaign_id', 'id');
     }
+
+    public function withdrawal()
+    {
+        return $this->hasMany(Campaign::class, 'campaign_id', 'id');
+    }
 }
