@@ -145,8 +145,19 @@
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">Full-Stack Programmer</h5>
-              <p class="card-text">FADOILUL MUN IM</p>
-             
+              <p class="card-text">Fadoilul Mun`im</p>
+              <p class="card-text">Universitas Narotama - 2019</p>
+              <div class="card-text">
+                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                  <i class="fa-regular fa-envelope"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -159,8 +170,19 @@
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">Full-Stack Programmer</h5>
-              <p class="card-text">DIKA ANTONI PUTRA</p>
-             
+              <p class="card-text">Dika Antoni Putra</p>
+              <p class="card-text">Universitas Narotama - 2011</p>
+              <div class="card-text">
+                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                  <i class="fa-regular fa-envelope"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -174,8 +196,19 @@
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">Full-Stack Programmer</h5>
-              <p class="card-text">KHODIJAH AULIA RAHMA</p>
-             
+              <p class="card-text">Khodijah Aulia Rahma</p>
+              <p class="card-text">Universitas Airlangga - 2010</p>
+              <div class="card-text">
+                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                  <i class="fa-regular fa-envelope"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -190,7 +223,18 @@
             <div class="card-body">
               <h5 class="card-title">Full-Stack Programmer</h5>
               <p class="card-text">Gede Ardi Pratama</p>
-             
+              <p class="card-text">UPN Veteran Jatim - 2020</p>
+              <div class="card-text">
+                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                  <i class="fa-regular fa-envelope"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -205,7 +249,18 @@
             <div class="card-body">
               <h5 class="card-title">UI / UX Design </h5>
               <p class="card-text">Iqbal Dzakwan Imaduddin</p>
-             
+              <p class="card-text">ITS - 2019</p>
+              <div class="card-text">
+                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                  <i class="fa-regular fa-envelope"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -218,9 +273,20 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Mobile Developer Android </h5>
+              <h5 class="card-title">Android Developer</h5>
               <p class="card-text">Riska Harum Dian Sari</p>
-             
+              <p class="card-text">UPN Veteran Jatim - 2020</p>
+              <div class="card-text">
+                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="http://www.linkedin.com/in/riskaharum" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                  <i class="fa-regular fa-envelope"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -234,9 +300,20 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title">Mobile Developer Android </h5>
+              <h5 class="card-title">Android Developer</h5>
               <p class="card-text">Thariqi Ruli Ramadhani</p>
-             
+              <p class="card-text">Universitas Airlangga - 2023</p>
+              <div class="card-text">
+                <a href="#" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/thariqi-ruli-ramadhani/" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                  <i class="fa-regular fa-envelope"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -250,8 +327,19 @@
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title">Data Analyst</h5>
-              <p class="card-text">RAHIDA RIHHADATUL AISY</p>
-             
+              <p class="card-text">Rahida Rihhadatul Aisy</p>
+              <p class="card-text">ITS - 2019</p>
+              <div class="card-text">
+                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                  <i class="fa-regular fa-envelope"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -266,7 +354,18 @@
             <div class="card-body">
               <h5 class="card-title">Data Analyst</h5>
               <p class="card-text">AULIA PUTRI FAJAR</p>
-             
+              <p class="card-text">UPN Veteran Jatim - 2020</p>
+              <div class="card-text">
+                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                  <i class="fa-regular fa-envelope"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -308,8 +407,8 @@ const answers = document.querySelectorAll('.answer');
 let activeAnswer = answers[0];
 
 // Adds the visible class to the first answer and rotate class to the first toggle button
-questionContainers[0].querySelector('.toggle-btn p').classList.add('rotate');
-activeAnswer.classList.add('visible');
+// questionContainers[0].querySelector('.toggle-btn p').classList.add('rotate');
+// activeAnswer.classList.add('visible');
 
 questionContainers.forEach((container, index) => {
   container.addEventListener('click', () => {

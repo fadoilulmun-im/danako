@@ -153,11 +153,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <h6 class="card-title">Sudah Di Cairkan</h6>
-                                        <p class="card-text">Rp 27.361.831</p>
+                                        <p class="card-text">Rp {{ $sudahDicairkan }}</p>
                                     </div>
                                     <div class="col-md-6">
                                         <h6 class="card-title">Belum Di Cairkan</h6>
-                                        <p class="card-text">Rp 27.361.931</p>
+                                        <p class="card-text">Rp {{ $belumDicairkan }}</p>
                                     </div>
                                     {{-- <div class="col-md-12 py-1 bg-light text-dark rounded-3">
                                         Data Di Perbarui setiap 15 menit harap Terakir 23 - Maret - 2022
@@ -168,15 +168,15 @@
                         <h5 class="pt-1 pb-1">Total Transaksi sampai saat  ini</h5>
                         <div class="d-flex justify-content-between pb-3">
                           <span>Jumlah Donasi</span>
-                          <span>341431 transaksi</span>
+                          <span>{{ $donasi }} transaksi</span>
                         </div>
                         <div class="d-flex justify-content-between pb-3">
                           <span>Jumlah Donatur</span>
-                          <span>234922 donatur</span>
+                          <span>{{ $donatur }} donatur</span>
                         </div>
                         <div class="d-flex justify-content-between pb-3">
                           <span>Dana Terkumpul</span>
-                          <span>Rp 32.322.335</span>
+                          <span>Rp {{ $totalDana }}</span>
                         </div>
                         {{-- <div class="row">
                             <div class="col">
@@ -193,15 +193,15 @@
                         <h5 class="pt-1 pb-1">Rincian dana terkumpul</h5>
                         <div class="d-flex justify-content-between pb-3">
                           <span>&#8226; Biaya Transaksi Bank</span>
-                          <span>Rp 32.322.335</span>
+                          <span>Rp {{ $totalBiayaTransaksi }}</span>
                         </div>
                         <div class="d-flex justify-content-between pb-3">
                           <span>&#8226; Donasi operasional DANAKO</span>
-                          <span>Rp 32.322.335</span>
+                          <span>Rp {{ $totalBiayaPlatform }}</span>
                         </div>
                         <div class="d-flex justify-content-between pb-3">
                           <span>Dana dapat dicairkan</span>
-                          <span>Rp 32.322.335</span>
+                          <span>Rp {{ $dapatDicairkan }}</span>
                         </div>
                         {{-- <div class="row">
                             <div class="col">

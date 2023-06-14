@@ -389,11 +389,18 @@ Route::get('/pilih-kategori', function () {
 Route::get('/pencairan-dana/{id}', function ($id) {
     $campaign = Campaign::findOrFail($id);
     $withdrawal = Withdrawal::all();
-    return view('landing.pencairan.pencairan_dana', [
-        'id' => $id,
-        'campaign' => $campaign,
-        'withdrawal' => $withdrawal,
-    ]);
+    $donasi = Donation::where('campaign_id', $id)->count();
+    $donatur = Donation::where('campaign_id', $id)->distinct('name')->count();
+    $totalDana = number_format(Donation::where('campaign_id', $id)->sum('net_amount'));
+    $totalBiayaTransaksi = number_format(Donation::where('campaign_id', $id)->sum('transaction_fee'));
+    $totalBiayaPlatform = number_format(Donation::where('campaign_id', $id)->sum('platform_fee'));
+    $sudahDicairkan = number_format(Withdrawal::where('campaign_id', $id)->where('status', 'approved')->sum('amount'));
+    // $targetDonasi = number_format($campaign->target_amount);
+    $dapatDicairkan = number_format($totalDana - $sudahDicairkan);
+    $belumDicairkan = number_format($dapatDicairkan - $sudahDicairkan);
+
+    return view('landing.pencairan.pencairan_dana', compact('id', 'campaign', 'donasi', 'donatur', 'totalDana', 
+    'totalBiayaTransaksi', 'totalBiayaPlatform', 'sudahDicairkan', 'belumDicairkan', 'dapatDicairkan'));
 })->name('pencairan-dana');
 
 Route::get('/ajukan-pencairan-dana/{id}', function ($id) {
