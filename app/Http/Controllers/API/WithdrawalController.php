@@ -205,74 +205,63 @@ class WithdrawalController extends Controller
         return $this->setResponse($model, 'Withdrawal retrieved successfully');
     }
 
-    public function updateVerifiying($id, Request $request){
+    public function updateVerifiying($id, Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'status' => 'required|in:0,1',
             'invoice' => 'nullable|required_if:status,1|image|mimes:png,jpg,jpeg',
             'reject_note' => 'nullable|required_if:status,0|string',
         ]);
-
+    
         if ($validator->fails()) {
             return $this->setResponse($validator->errors(), $validator->errors()->first(), 422);
         }
-
+    
         $withdrawal = Withdrawal::where('id', $id)->first();
         $campaignId = $withdrawal->campaign_id;
         $campaign = Campaign::find($campaignId);
-        $realtime_amount = $campaign->real_time_amount;
-        $target_amount = $campaign->target_amount;
-
+        $realtimeAmount = $campaign->real_time_amount;
+        $targetAmount = $campaign->target_amount;
+    
         if (!$withdrawal) {
             return $this->setResponse(null, 'Data not found', 404);
         }
-
+    
         DB::beginTransaction();
+    
         $withdrawal->status = $request->status ? 'approved' : 'rejected';
         $withdrawal->reject_note = $request->reject_note;
+    
+        if ($withdrawal->status === 'approved') {
+            $withdrawal->remaining_withdrawal = $realtimeAmount - $withdrawal->amount;
+            $campaign->real_time_amount -= $withdrawal->amount;
+            $campaign->save();
+        } else {
+            $withdrawal->remaining_withdrawal = null;
+        }
+    
         $withdrawal->save();
-
-        if($request->hasFile('invoice')) {
+    
+        if ($request->hasFile('invoice')) {
             $invoice = new WithdrawalDocument();
             $invoice->type = 'bukti transfer admin';
             $invoice->withdrawal_id = $withdrawal->id;
             $path = '/withdrawal/invoice-admin';
-            if(!File::exists(public_path('uploads'. $path))){
-                File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+            if (!File::exists(public_path('uploads' . $path))) {
+                File::makeDirectory(public_path('uploads' . $path), 0777, true, true);
             }
-            $fileName = time().'.'.$request->file('invoice')->extension();
-            $request->file('invoice')->move(public_path('uploads'. $path), $fileName);
-
+            $fileName = time() . '.' . $request->file('invoice')->extension();
+            $request->file('invoice')->move(public_path('uploads' . $path), $fileName);
+    
             $invoice->path = $path . '/' . $fileName;
             $invoice->save();
         }
-
-        if ($withdrawal->status == 'approved'){
-            // $ada = Withdrawal::whereHas('');
-            // // bingunggg;
-            // if('kalo ga pernah narik dan ga kecatet ditabel calculate withdrawal'){
-            //     'remaining_withdrawal = target amount - amount withdrawal ini';
-            // } else {
-            //     'remaining_withdrawal = remaining withdrawal->paling terakhir - amount withdrawal ini';
-            // }
-            $calculate = new WithdrawalCalculation;
-            $calculate->withdrawal_id = $withdrawal->id;
-            $calculate->target_amount = $target_amount;
-            $calculate->realtime_amount = $realtime_amount;
-            $totalDicairkan = Withdrawal::where('campaign_id', $campaignId)->where('status', 'approved')->sum('amount');
-            $belumPernahDicairkan = Withdrawal::where('campaign_id', $campaignId)->whereHas('calculation');
-            $sisaRealTimeTerakhir = WithdrawalCalculation::where('campaign_id', $campaignId)->whereHas('calculation')->first();
-            if(!$belumPernahDicairkan){
-                $calculate->remaining_withdrawal = $realtime_amount - $withdrawal->amount;
-            } else {
-                $calculate->remaining_withdrawal = $realtime_amount - $totalDicairkan -  $sisaRealTimeTerakhir->remaining_withdrawal;
-            }
-            $calculate->save();
-        }
-
+    
         DB::commit();
-
+    
         return $this->setResponse($withdrawal, 'Withdrawal updated', 200);
     }
+    
 
     public function bankList($id)
     {
