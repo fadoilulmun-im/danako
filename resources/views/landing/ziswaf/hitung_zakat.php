@@ -103,7 +103,7 @@
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">KALKULATOR ZAKAT LMI Tabungan</h5>
+        <h5 class="modal-title" id="exampleModalLabel">KALKULATOR ZAKAT DanakoTabungan</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="container pt-3"><div id="myAlert"></div></div>
@@ -198,7 +198,7 @@
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">KALKULATOR ZAKAT LMI Tabungan</h5>
+        <h5 class="modal-title" id="exampleModalLabel">KALKULATOR ZAKAT DanakoTabungan</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="container pt-3"><div id="myAlert"></div></div>
@@ -323,7 +323,7 @@
   <div class="modal-dialog modal-fullscreen">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">KALKULATOR ZAKAT LMI Emas</h5>
+        <h5 class="modal-title" id="exampleModalLabel">KALKULATOR ZAKAT DanakoEmas</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="container pt-3"><div id="myAlert"></div></div>
@@ -332,7 +332,7 @@
           <div class="container">
             <div class="row justify-content-center align-items-center">
               <div class="col-lg-12 form-bg">
-                <h2 class="text-center mt-5">KALKULATOR ZAKAT LMI Emas</h1>
+                <h2 class="text-center mt-5">KALKULATOR ZAKAT DanakoEmas</h1>
                 <div class="container">
                   <!-- HTML -->
                   

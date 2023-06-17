@@ -611,6 +611,12 @@ a {
 
 
 <style>
-  
+  #question-icon {
+  transition: transform 0.3s;
+}
+
+#question-icon:hover {
+  transform: scale(1.1);
+}
 </style>
 

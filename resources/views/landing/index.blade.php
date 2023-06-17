@@ -79,13 +79,30 @@
      </div>
  
    </section>
+
+   <section class="container"  style="background-color: #EEF4E6" >
+    <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel">
+      <div class="carousel-inner container" id="segera2">
+       
+      
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+
  
   <section class="pb-80" id="section-segera">
     <div class="container" >
       <h2 class="text-center" style="font-size: 38px ; padding-top: 27px; padding-bottom: 47px;">Mereka yang  <spand class="title-gren">segera</spand> butuh bantuanmu</h2>
       <div class="container">
-
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" id="segera">
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="segera">
           <div class="text-center w-100">
             <div class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
@@ -101,68 +118,7 @@
   </section>
  
  
-   {{-- <section class="container"  style="background-color: #EEF4E6" >
-     <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel">
-       <div class="carousel-inner container">
-         <div class="carousel-item pt-5 pb-5 active">
-           <div class="row">
-             <div class="col-md-6">
-               <p>Mereka yang sudah terbantu</p>
-               <h2 class="color-primary">
-                 Lorem ipsum dolor <span class="text-white">sit  amet</span>
-                 <br>
-                 consectetur
-               </h2>
-               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, vestibulum ac ipsum. Praesent vitae vulputate urna. Pellentesque molestie felis ante, vitae viverra ipsum mattis id. In hac habitasse platea dictumst. Ut vel sagittis diam. Maecenas congue sollicitudin volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla porttitor nisl id eleifend fermentum</p>
-             </div>
-             <div class="col-md-6">
-               <img src="{{ asset('') }}danako/img/conten1.png" class="d-block w-100" alt="...">
-             </div>         
-           </div>
-         </div>
-         <div class="carousel-item pt-5 pb-5">
-           <div class="row">
-             <div class="col-md-6">
-               <p>Mereka yang sudah terbantu</p>
-               <h2 class="color-primary">
-                 Lorem ipsum dolor <span class="text-white">sit  amet</span>
-                 <br>
-                 consectetur
-               </h2>
-               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, vestibulum ac ipsum. Praesent vitae vulputate urna. Pellentesque molestie felis ante, vitae viverra ipsum mattis id. In hac habitasse platea dictumst. Ut vel sagittis diam. Maecenas congue sollicitudin volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla porttitor nisl id eleifend fermentum</p>
-             </div>
-             <div class="col-md-6">
-               <img src="{{ asset('') }}danako/img/conten1.png" class="d-block w-100" alt="...">
-             </div>         
-           </div>
-         </div>
-         <div class="carousel-item pt-5 pb-5">
-           <div class="row">
-             <div class="col-md-6">
-               <p>Mereka yang sudah terbantu</p>
-               <h2 class="color-primary">
-                 Lorem ipsum dolor <span class="text-white">sit  amet</span>
-                 <br>
-                 consectetur
-               </h2>
-               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin arcu ligula, eget maximus sapien ultrices vel. Ut erat metus, posuere et dictum sit amet, vestibulum ac ipsum. Praesent vitae vulputate urna. Pellentesque molestie felis ante, vitae viverra ipsum mattis id. In hac habitasse platea dictumst. Ut vel sagittis diam. Maecenas congue sollicitudin volutpat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Nulla porttitor nisl id eleifend fermentum</p>
-             </div>
-             <div class="col-md-6">
-               <img src="{{ asset('') }}danako/img/conten1.png" class="d-block w-100" alt="...">
-             </div>         
-           </div>
-         </div>
-       </div>
-       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-         <span class="visually-hidden">Previous</span>
-       </button>
-       <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-         <span class="visually-hidden">Next</span>
-       </button>
-     </div>
-   </section> --}}
+
  
    <div class="container h-100 pt-5 pb-5">
      <div class="row align-items-center h-100">
@@ -194,7 +150,7 @@
   <script>
 $(document).ready(function(){
   $.ajax({
-    url: "{{ route('api.master.campaigns.pagination') }}?per_page=4&verification_status=verified",
+    url: "{{ route('api.master.campaigns.pagination') }}?per_page=8&verification_status=verified",
     type: "GET",
     success: function(response){
       let data = response.data.data;
@@ -224,6 +180,46 @@ $(document).ready(function(){
         `)
       });
       $('#lihat-semua').toggleClass('d-none');
+
+      if(!data.length){
+        $('#section-segera').toggleClass('d-none');
+      }
+    },
+    error: function(response){
+      $('#segera').html('Ada kesalahan server')
+    }
+  })
+});
+
+
+$(document).ready(function(){
+  $.ajax({
+    url: "{{ route('api.master.campaigns.pagination') }}?per_page=8&verification_status=verified",
+    type: "GET",
+    success: function(response){
+      let data = response.data.data;
+      $('#segera2').html('');
+      data.forEach(item => {
+        let progress = item.real_time_amount / item.target_amount * 100;
+        let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('assets/images/image-solid.svg') }}";
+        let img_size = item.img_path ? 'width="300" height="200"' : '';
+        $('#segera2').append(`
+          <div class="carousel-item pt-5 pb-5 active">
+            <div class="row">
+              <div class="col-md-6">
+                <p>Mereka yang membutuhkan</p>
+                <h2 class="color-primary" onclick="detail(${item.id})">
+                  ${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}
+                </h2>
+                <p>${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 30 ? "..." : ""}</p>
+              </div>
+              <div class="col-md-6">
+                <img src="${img_src}" class="d-block w-100" alt="...">
+              </div>
+            </div>
+          </div>
+        `);
+      });
 
       if(!data.length){
         $('#section-segera').toggleClass('d-none');

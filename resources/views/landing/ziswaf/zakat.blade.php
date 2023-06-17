@@ -21,7 +21,7 @@
     <div class="container">
       <div class="row justify-content-center align-items-center">
         <div class="col-lg-12 form-bg">
-          <h2 class="col-md-12 text-center mt-5">Kalkulator Lmi Zakat</h1>
+          <h2 class="col-md-12 text-center mt-5">Kalkulator Danako Zakat</h1>
           <div class="container">
             <p class="mb-4 mt-4">Kalkulator zakat adalah layanan untuk mempermudah perhitungan jumlah zakat yang harus ditunaikan oleh setiap umat muslim sesuai ketetapan syariah. Oleh karena itu, bagi Anda yang ingin mengetahui berapa jumlah zakat yang harus ditunaikan, silahkan gunakan fasilitas Kalkulator Zakat BAZNAS dibawah ini.</p>
           </div>

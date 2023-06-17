@@ -38,7 +38,7 @@
 				<!-- ucapan terimakasih -->
 				<div class="thankyou" style="position: relative;text-align: center;margin-top: 25px;margin-bottom: 35px;font-size: 13px;font-weight: 400;">
 					<p>
-						Terimakasih telah menyalurkan bantuan melalui DANAKO bersama LMI <br>
+						Terimakasih telah menyalurkan bantuan melalui DANAKO  <br>
 						Semoga Allah SWT memberikan keberkahan atas rezeki yang sudah Bapak/Ibu berikan <br>
 					</p>
 				</div>
