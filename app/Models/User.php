@@ -21,7 +21,7 @@ class User extends Authenticatable
     protected $fillable = [
         'username', 'email', 'password',
         'role_id','google_id',
-        'name', 'phone_number', 'type', 'group',
+        'name', 'phone_number', 'type', 'group', 'referral_code',
     ];
 
     /**
@@ -56,6 +56,27 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserDetail::class, 'user_id', 'id');
     }
+
+    public static function generateReferralCode()
+    {
+        $id = 'id';
+        $idpeg = $id;
+        $kode_tambahan = 'siamil';
+        $c = md5($idpeg);
+        $d = md5($kode_tambahan);
+        $e = $idpeg . $kode_tambahan;
+        $f = md5($e);
+        $token = substr($f, 0, 10);
+
+        $code = $token; // Generate referral code using the provided logic
+
+        while (User::where('referral_code', $code)->exists()) {
+            $code = substr(md5(uniqid(mt_rand(), true)), 0, 10);
+        }
+
+        return $code;
+    }
+
     
     // public function campaign()
     // {

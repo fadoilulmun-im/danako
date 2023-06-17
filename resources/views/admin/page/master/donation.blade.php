@@ -297,16 +297,24 @@
                 text: 'Copy',
                 extend: 'copy',
                 exportOptions: {
-                  columns: [0,1,2,3,4,5,6,7,8,9,10,11],
+                  columns: [0,1,2,3,4,5,6,7,8,9,10,11,14],
                 },
                 action: newexportaction
             }, 
+            {
+                text: 'CSV',
+                extend: 'csv',
+                exportOptions: {
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11,14],
+                },
+                action: newexportaction
+            },
             
             {
     text: 'Print-Pdf',
     extend: 'print',
     exportOptions: {
-        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+        columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 14],
     },
     customize: function (win) {
         var currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });

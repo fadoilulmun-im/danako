@@ -15,15 +15,17 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class AuthUserController extends Controller
 {
-    public function cekVerified(){
+    public function cekVerified()
+    {
         $user = Auth::user();
-        if($user->detail && $user->detail->status == 'verified'){
+        if ($user->detail && $user->detail->status == 'verified') {
             return $this->setResponse(['status' => true], null, 200);
         }
-        
+
         return $this->setResponse(['status' => false], null, 200);
     }
 
@@ -46,6 +48,20 @@ class AuthUserController extends Controller
         }
 
         DB::beginTransaction();
+        $id = 'id';
+        $idpeg = $id;
+        $kode_tambahan = 'siamil';
+        $c = md5($idpeg);
+        $d = md5($kode_tambahan);
+        $e = $idpeg . $kode_tambahan;
+        $f = md5($e);
+        $token = substr($f, 0, 10);
+
+        $referralCode = $token; // Generate referral code using the provided logic
+        while (User::where('referral_code', $referralCode)->exists()) {
+            $referralCode = Str::random(10);
+        }
+
         $user = User::create([
             'name' => $request->nama,
             'username' => strtolower($request->username),
@@ -56,12 +72,14 @@ class AuthUserController extends Controller
             'phone_number' => $request->nomor_telepon,
             'type' => $request->type ?? 'personal',
             'group' => $request->group ?? null,
+            'referral_code' => $referralCode,
         ]);
         $user->sendEmailVerificationNotification();
         DB::commit();
-        
+
         return $this->setResponse(null, 'User created successfully');
     }
+
 
     public function login(Request $request)
     {
@@ -83,7 +101,7 @@ class AuthUserController extends Controller
         ];
 
         $user = User::where($fieldType, $request->username)->where('role_id', config('env.role.user'))->first();
-        if($user && $user->google_id && !$user->password){
+        if ($user && $user->google_id && !$user->password) {
             return $this->setResponse(null, 'Akun ini hanya bisa login menggunakan google', 401);
         }
 
@@ -184,13 +202,13 @@ class AuthUserController extends Controller
         $detail->posisi_penanggung_jawab = $request->posisi_penanggung_jawab;
         $detail->save();
 
-        if($request->hasFile('foto')) {
+        if ($request->hasFile('foto')) {
             $foto = $user->photoProfile;
-            if(!$foto){
+            if (!$foto) {
                 $foto = new UserImage();
                 $foto->type = 'profile';
                 $foto->user_id = $user->id;
-            }else{
+            } else {
                 $foto->deleteFile();
             }
             $path = '/user/profile';
@@ -215,20 +233,20 @@ class AuthUserController extends Controller
             $foto->save();
         }
 
-        if($request->hasFile('ktp')) {
-            if($ktp = UserDocument::where('user_detail_id', $detail->id)->where('type', 'ktp')->first()){
+        if ($request->hasFile('ktp')) {
+            if ($ktp = UserDocument::where('user_detail_id', $detail->id)->where('type', 'ktp')->first()) {
                 $ktp->deleteFile();
-            }else{
+            } else {
                 $ktp = new UserDocument();
                 $ktp->type = 'ktp';
                 $ktp->user_detail_id = $detail->id;
             }
             $path = '/user-detail/ktp';
-            if(!File::exists(public_path('uploads'. $path))){
-                File::makeDirectory(public_path('uploads'. $path), 0777, true, true);
+            if (!File::exists(public_path('uploads' . $path))) {
+                File::makeDirectory(public_path('uploads' . $path), 0777, true, true);
             }
-            $fileName = time().'.'.$request->file('ktp')->extension();
-            $request->file('ktp')->move(public_path('uploads'. $path), $fileName);
+            $fileName = time() . '.' . $request->file('ktp')->extension();
+            $request->file('ktp')->move(public_path('uploads' . $path), $fileName);
 
             $ktp->path = $path . '/' . $fileName;
             $ktp->save();
@@ -258,9 +276,9 @@ class AuthUserController extends Controller
         return $this->setResponse(new UserResource($user));
     }
 
-    public function userDetail(){
+    public function userDetail()
+    {
         $user = User::where('id', Auth::id())->with(['detail.documents', 'detail.village.district.regency.province', 'photoProfile'])->first();
         return $this->setResponse($user);
     }
-
 }

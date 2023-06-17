@@ -66,6 +66,7 @@
                         <th>Name</th>
                         <th>Username</th>
                         <th>Email</th>
+                        <th>Referral</th>
                         <th>Status</th>
                         <th>Verification</th>
                         <th>Actions</th>
@@ -195,6 +196,7 @@
           {data: 'name', name: 'name'},
           {data: 'username', name: 'username', defaultContent: 'username kosong'},
           {data: 'email', name: 'email'},
+          {data: 'referral_code', name: 'referral_code'},
           {data: 'status', name: 'status', searchable: false, orderable: false},
           {data: 'verification', name: 'verification', searchable: false, orderable: false},
           {data: 'action', name: 'action', orderable: false, searchable: false},

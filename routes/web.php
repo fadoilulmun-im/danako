@@ -47,7 +47,7 @@ Route::get('/', function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
- 
+
 
     Route::get('/', function (Request $request) {
 
@@ -61,18 +61,18 @@ Route::group(['prefix' => 'admin'], function () {
         $CampaignCategory = CampaignCategory::count();
         $campainer = User::whereHas('detail')->count();
         $donatur = User::whereDoesntHave('detail')->count();
-      
+
 
         $Totaldonasi = Campaign::sum('real_time_amount');
         $Totaltarget = Campaign::sum('target_amount');
         $percentage = number_format(($Totaldonasi / $Totaltarget) * 100, 2);
-        $percentage_remaining = number_format((( $Totaltarget - $Totaldonasi ) / $Totaltarget ) * 100, 2);
-    
+        $percentage_remaining = number_format((($Totaltarget - $Totaldonasi) / $Totaltarget) * 100, 2);
+
         $currentYear = Carbon::now()->format('Y');
         $currentMonth = Carbon::now()->month;
         $mingguDonations = [];
         $monthlyDonations = [];
-    
+
         // Loop through each month in a year
         for ($month = 1; $month <= 12; $month++) {
             // Get total donations for the current month
@@ -80,29 +80,29 @@ Route::group(['prefix' => 'admin'], function () {
                 ->whereRaw('MONTH(created_at) = ?', [$month])
                 ->whereRaw('YEAR(created_at) = ?', [$currentYear])
                 ->get();
-        
+
             // Extract the total amount from the result
             $totalAmount = $result[0]->total_amount;
-    
+
             // Store the total amount for the current month
             $monthlyDonations[$month] = $totalAmount;
         }
 
         $firstDayOfMonth = Carbon::createFromDate($currentYear, $currentMonth, 1);
         $lastDayOfMonth = $firstDayOfMonth->endOfMonth();
-        
+
         $mingguDonations = [];
-        
+
         for ($week = 1; $week <= $lastDayOfMonth->weekOfMonth; $week++) {
             $startOfWeek = $firstDayOfMonth->copy()->startOfWeek()->addWeeks($week - 5);
             $endOfWeek = $startOfWeek->copy()->endOfWeek();
-        
+
             $result = Donation::select(DB::raw('COALESCE(SUM(amount_donations), 0) as total_amount'))
                 ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
                 ->get();
-        
+
             $totalAmount = $result[0]->total_amount;
-        
+
             $mingguDonations[$week] = $totalAmount;
         }
 
@@ -111,25 +111,25 @@ Route::group(['prefix' => 'admin'], function () {
         // Ambil waktu awal dan akhir hari ini
         $startOfDay = Carbon::parse($currentDate)->startOfDay();
         $endOfDay = Carbon::parse($currentDate)->endOfDay();
-        
+
         // Ambil daftar pengguna yang dibuat pada hari ini, batasi hanya 10 terbaru
         $usersCreated = User::whereBetween('created_at', [$startOfDay, $endOfDay])
-                            ->orderBy('created_at', 'desc')
-                            ->take(10)
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
 
-         $userCount = $usersCreated->count();
+        $userCount = $usersCreated->count();
 
-      
-        
-    
-        return view('admin.page.index', compact('campaignall','userCount','usersCreated','campainer','donatur','mingguDonations','monthlyDonations', 'Campaign', 'Donation', 'Totaldonasi', 'percentage', 'Totaltarget', 'percentage_remaining', 'roleOneUserCount', 'roleOneAdminCount', 'CampaignCategory'));
+
+
+
+        return view('admin.page.index', compact('campaignall', 'userCount', 'usersCreated', 'campainer', 'donatur', 'mingguDonations', 'monthlyDonations', 'Campaign', 'Donation', 'Totaldonasi', 'percentage', 'Totaltarget', 'percentage_remaining', 'roleOneUserCount', 'roleOneAdminCount', 'CampaignCategory'));
     })->name('admin.dashboard');
 
-    
+
 
     Route::get('/login', function () {
-        return view('admin.page.login' );
+        return view('admin.page.login');
     })->name('admin.login');
 
     Route::get('/dashboard', function () {
@@ -143,16 +143,16 @@ Route::group(['prefix' => 'admin'], function () {
         // Ambil waktu awal dan akhir hari ini
         $startOfDay = Carbon::parse($currentDate)->startOfDay();
         $endOfDay = Carbon::parse($currentDate)->endOfDay();
-        
+
         // Ambil daftar pengguna yang dibuat pada hari ini, batasi hanya 10 terbaru
         $usersCreated = User::whereBetween('created_at', [$startOfDay, $endOfDay])
-                            ->orderBy('created_at', 'desc')
-                            ->take(10)
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
 
-         $userCount = $usersCreated->count();
+        $userCount = $usersCreated->count();
 
-        return view('admin.page.master.user',compact('usersCreated','userCount'));
+        return view('admin.page.master.user', compact('usersCreated', 'userCount'));
     });
 
     Route::get('/users/{id}', function ($id) {
@@ -161,16 +161,16 @@ Route::group(['prefix' => 'admin'], function () {
         // Ambil waktu awal dan akhir hari ini
         $startOfDay = Carbon::parse($currentDate)->startOfDay();
         $endOfDay = Carbon::parse($currentDate)->endOfDay();
-        
+
         // Ambil daftar pengguna yang dibuat pada hari ini, batasi hanya 10 terbaru
         $usersCreated = User::whereBetween('created_at', [$startOfDay, $endOfDay])
-                            ->orderBy('created_at', 'desc')
-                            ->take(10)
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
 
-         $userCount = $usersCreated->count();
+        $userCount = $usersCreated->count();
 
-        return view('admin.page.master.user.detail', compact('usersCreated','userCount','id'));
+        return view('admin.page.master.user.detail', compact('usersCreated', 'userCount', 'id'));
     })->name('admin.user.detail');
 
     Route::get('/profile', function () {
@@ -179,16 +179,16 @@ Route::group(['prefix' => 'admin'], function () {
         // Ambil waktu awal dan akhir hari ini
         $startOfDay = Carbon::parse($currentDate)->startOfDay();
         $endOfDay = Carbon::parse($currentDate)->endOfDay();
-        
+
         // Ambil daftar pengguna yang dibuat pada hari ini, batasi hanya 10 terbaru
         $usersCreated = User::whereBetween('created_at', [$startOfDay, $endOfDay])
-                            ->orderBy('created_at', 'desc')
-                            ->take(10)
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
 
-         $userCount = $usersCreated->count();
+        $userCount = $usersCreated->count();
 
-        return view('admin.page.profile',compact('usersCreated','userCount'));
+        return view('admin.page.profile', compact('usersCreated', 'userCount'));
     })->name('admin.profile');
 
     Route::get('/categories', function () {
@@ -197,15 +197,15 @@ Route::group(['prefix' => 'admin'], function () {
         // Ambil waktu awal dan akhir hari ini
         $startOfDay = Carbon::parse($currentDate)->startOfDay();
         $endOfDay = Carbon::parse($currentDate)->endOfDay();
-        
+
         // Ambil daftar pengguna yang dibuat pada hari ini, batasi hanya 10 terbaru
         $usersCreated = User::whereBetween('created_at', [$startOfDay, $endOfDay])
-                            ->orderBy('created_at', 'desc')
-                            ->take(10)
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
 
-         $userCount = $usersCreated->count();
-        return view('admin.page.master.category',compact('usersCreated','userCount'));
+        $userCount = $usersCreated->count();
+        return view('admin.page.master.category', compact('usersCreated', 'userCount'));
     });
 
     Route::get('/campaigns', function () {
@@ -214,32 +214,32 @@ Route::group(['prefix' => 'admin'], function () {
         // Ambil waktu awal dan akhir hari ini
         $startOfDay = Carbon::parse($currentDate)->startOfDay();
         $endOfDay = Carbon::parse($currentDate)->endOfDay();
-        
+
         // Ambil daftar pengguna yang dibuat pada hari ini, batasi hanya 10 terbaru
         $usersCreated = User::whereBetween('created_at', [$startOfDay, $endOfDay])
-                            ->orderBy('created_at', 'desc')
-                            ->take(10)
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
 
-         $userCount = $usersCreated->count();
-        return view('admin.page.master.campaign',compact('usersCreated','userCount'));
+        $userCount = $usersCreated->count();
+        return view('admin.page.master.campaign', compact('usersCreated', 'userCount'));
     });
-    
+
     Route::get('/donations', function () {
         $currentDate = Carbon::now()->format('Y-m-d');
 
         // Ambil waktu awal dan akhir hari ini
         $startOfDay = Carbon::parse($currentDate)->startOfDay();
         $endOfDay = Carbon::parse($currentDate)->endOfDay();
-        
+
         // Ambil daftar pengguna yang dibuat pada hari ini, batasi hanya 10 terbaru
         $usersCreated = User::whereBetween('created_at', [$startOfDay, $endOfDay])
-                            ->orderBy('created_at', 'desc')
-                            ->take(10)
-                            ->get();
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
 
-         $userCount = $usersCreated->count();
-        return view('admin.page.master.donation',compact('userCount','usersCreated'));
+        $userCount = $usersCreated->count();
+        return view('admin.page.master.donation', compact('userCount', 'usersCreated'));
     });
 
     Route::get('/withdrawals', function () {
@@ -264,8 +264,12 @@ Route::group(['prefix' => 'admin'], function () {
 
 
 
-Route::get('/user', function () { return view('landing.index');})->name('landing');
-Route::get('/', function () { return view('landing.index');})->name('home');
+Route::get('/user', function () {
+    return view('landing.index');
+})->name('landing');
+Route::get('/', function () {
+    return view('landing.index');
+})->name('home');
 
 Route::get('/Halaman-utama', function () {
     return view('landing.utama');
@@ -277,9 +281,13 @@ Route::get('/ziswaf', function () {
 
 
 
-Route::get('/login', function () { return view('landing.login');})->name('login');
+Route::get('/login', function () {
+    return view('landing.login');
+})->name('login');
 // Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
-Route::get('/registrasi', function () { return view('landing.register');})->name('register');
+Route::get('/registrasi', function () {
+    return view('landing.register');
+})->name('register');
 
 // Route::get('/login', function () {
 //     return view('landing.auth.login');
@@ -313,8 +321,8 @@ Route::get('/campaign-pending', function () {
 
 Route::get('/detail-campaign/{id}', function ($id) {
     $url = route('campaigns.detail', $id);
-    
-    return view('landing.detail_campaign', compact('id','url'));
+
+    return view('landing.detail_campaign', compact('id', 'url'));
 })->name('campaigns.detail');
 
 
@@ -324,9 +332,9 @@ Route::get('/detail-penyaluran-campaign', function () {
 
 Route::get('/detail_campaign_pemilik/{id}', function ($id) {
     $url = route('campaigns.detail', $id);
-   
 
-    return view('landing.detail_campaign_pemilik',  compact('id','url'));
+
+    return view('landing.detail_campaign_pemilik',  compact('id', 'url'));
 })->name('campaigns.pemilik');
 
 
@@ -439,7 +447,7 @@ Route::get('/awal-campaign', function () {
     Route::get('/campaigns', function () {
         return view('admin.page.master.campaign');
     });
-    
+
     Route::get('/donations', function () {
         return view('admin.page.master.donation');
     });
@@ -490,7 +498,9 @@ Route::get('/pencairan', function () {
 
 
 
-Route::get('/user', function () { return view('landing.index');})->name('landing');
+Route::get('/user', function () {
+    return view('landing.index');
+})->name('landing');
 // Route::get('/', function () { return view('landing.page');})->name('index');
 // Route::get('/loginuser', function () { return view('landing.login');})->name('login');
 // Route::get('/registrasi', function () { return view('landing.registrasi');})->name('register');
@@ -507,7 +517,7 @@ Route::get('villages/select2', [VillageController::class, 'select2']);
 
 
 
-Route::get('/clear-cache', function() {
+Route::get('/clear-cache', function () {
     Artisan::call('cache:clear');
     Artisan::call('config:cache');
     Artisan::call('view:clear');

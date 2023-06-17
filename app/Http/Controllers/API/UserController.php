@@ -14,7 +14,7 @@ use Yajra\DataTables\Facades\DataTables;
 class UserController extends Controller
 {
     public function index(Request $request){
-       $model = User::select(['users.id', 'users.name', 'username', 'email', 'is_active', 'roles.name as role_name'])
+       $model = User::select(['users.id', 'users.name', 'username', 'email', 'is_active', 'roles.name as role_name', 'referral_code'])
         ->join('roles', 'roles.id', '=', 'users.role_id')
         ->leftJoin('user_details', 'user_details.user_id', '=', 'users.id');
 
