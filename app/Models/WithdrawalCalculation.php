@@ -10,6 +10,8 @@ class WithdrawalCalculation extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'withdrawal_calculation';
+
     protected $guarded = [];
 
     public function withdrawal()

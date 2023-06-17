@@ -84,6 +84,7 @@
 <section class="job-details pt-5 pb-5">
     <div class="container">
       <div class="notif"></div>
+<<<<<<< HEAD
       <div class="row">
         <div class="col-lg-8">
           <div class="row">
@@ -138,6 +139,192 @@
                   </div>
                 </div>
               </div>
+=======
+        <div class="row">
+            <div class="col-lg-8 ">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="job-details-text">
+                      <div class="job-card mb-0">
+                          <div class="row align-items-center">
+                              <div class="col-md-12">
+                                <div class="job-info">
+                                    <h1 id="title">Loading... </h1>
+                                    
+                                    <div id="count-donasi"></div>
+                                </div>
+                                <div class="border-bottom border-3 pt-2"></div>
+
+                                <img id="image" src="{{ asset('assets/images/image-solid.svg') }}" class="img-fluid"
+                                    alt="Responsive image" style="max-height: 500px">
+
+                                {{-- <h6 class="pt-3">Pencairan dana Rp 1.500.000 ke rekening *****11321412 a.n. SITI</h6> --}}
+
+
+                                <div class="details-text pt-2">
+                                    <h3>Deskripsi</h3>
+                                    <div id="content">
+                                        <div class="text-center w-100">
+                                            <div class="spinner-border" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{-- <button class="toggle-button readmore" onclick="toggleText()">Baca Selengkapnya</button> --}}
+                                </div>
+
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="border-bottom border-3 pt-2"></div>
+
+                  <div class="kontak-campaign pt-3 pb-3">
+                      <div class="d-flex align-items-center">
+                          <img id="image-campaigner" src="{{ asset('') }}danako/img/campaign/Circel.png"
+                              alt="LMI ZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
+                          <h4 class="ms-3 m-0" id="name-campaigner">Loading...</h4>
+                      </div>
+                      <p style="margin-top: 5px;">Penggalang Dana <span class="color-primary">Lihat</span></p>
+                  </div>
+
+                  <div class="border-bottom border-3"></div>
+                  <div class="container p-0 pt-3" id="list-hope">
+                      <div class="text-center w-100">
+                          <div class="spinner-border" role="status">
+                              <span class="visually-hidden">Loading...</span>
+                          </div>
+                      </div>
+                  </div>
+
+                  {{-- <div class="pagination-wrapper">
+                      <ul class="pagination modal-3">
+                          <li><a href="#" class="prev">&laquo</a></li>
+                          <li><a href="#" class="active">1</a></li>
+                          <li> <a href="#">2</a></li>
+                          <li> <a href="#">3</a></li>
+                          <li> <a href="#">4</a></li>
+                          <li> <a href="#">5</a></li>
+                          <li> <a href="#">6</a></li>
+                          <li> <a href="#">7</a></li>
+                          <li> <a href="#">8</a></li>
+                          <li> <a href="#">9</a></li>
+                          <li><a href="#" class="next">&raquo;</a></li>
+                      </ul>
+                  </div> --}}
+
+              </div>
+            </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="job-sidebar">
+                  <h3>Total dana masuk: <span class="color-primary" id="total-dana-masuk">Rp 0</span></h3>
+                  <div class="progress">
+                      <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                          aria-valuemax="100"></div>
+                  </div>
+
+                  <div class="d-grid gap-2 pt-2 pb-3">
+                      <a href="#" class="btn btn-primary" type="button" id="donasi">Donasi Sekarang</a>
+                      {{-- <button class="btn btn-primary" id="bagikan" type="button">Bagikan campaign</button>
+                      <a href="{{ url('donasi').'/'.$id }}" class="btn btn-primary" type="button">Donasi Sekarang</a> --}}
+                      {{-- <button class="btn btn-primary" id="bagikan" type="button" onclick="openSharePopup()">Bagikan campaign</button> --}}
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                          data-bs-target="#exampleModal">
+                          Bagikan
+                      </button>
+                  </div>
+
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                      aria-hidden="true">
+                      <div class="modal-dialog">
+                          <div class="modal-content">
+                              <div class="modal-header">
+
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                      aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                  <div class="icon-container1 d-flex">
+                                      <a href="https://twitter.com/intent/tweet?url={{ urlencode($url) }}"
+                                          class="smd"> <i class=" img-thumbnail fab fa-twitter fa-2x"
+                                              style="color:#4c6ef5;background-color: aliceblue"></i>
+                                          <p>Twitter</p>
+                                      </a>
+                                      <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($url) }}"
+                                          class="smd"> <i class="img-thumbnail fab fa-facebook fa-2x"
+                                              style="color: #3b5998;background-color: #eceff5;"></i>
+                                          <p>Facebook</p>
+                                      </a>
+                                      <a href="https://www.reddit.com/submit?url={{ urlencode($url) }}"
+                                          class="smd"> <i class="img-thumbnail fab fa-reddit-alien fa-2x"
+                                              style="color: #FF5700;background-color: #fdd9ce;"></i>
+                                          <p>Reddit</p>
+                                      </a>
+                                      <a href="https://discord.com/channels/SERVER_ID/CHANNEL_ID" class="smd"> <i
+                                              class="img-thumbnail fab fa-discord fa-2x "
+                                              style="color: #738ADB;background-color: #d8d8d8;"></i>
+                                          <p>Discord</p>
+                                      </a>
+                                  </div>
+                                  <div class="icon-container2 d-flex">
+                                      <a href="https://api.whatsapp.com/send?text={{ urlencode($url . '/') }}"
+                                              class="smd" target="_blank"> <i
+                                              class="img-thumbnail fab fa-whatsapp fa-2x"
+                                              style="color: #25D366;background-color: #cef5dc;"></i>
+                                          <p>Whatsapp</p>
+                                      </a>
+                                      <a href="https://www.facebook.com/dialog/send?link={{ urlencode($url) }}"
+                                          class="smd"> <i class="img-thumbnail fab fa-facebook-messenger fa-2x"
+                                              style="color: #3b5998;background-color: #eceff5;"></i>
+                                          <p>Messenger</p>
+                                      </a>
+                                      <a href="https://t.me/share/url?url={{ urlencode($url) }}" class="smd"> <i
+                                              class="img-thumbnail fab fa-telegram fa-2x"
+                                              style="color: #4c6ef5;background-color: aliceblue"></i>
+                                          <p>Telegram</p>
+                                      </a>
+                                      <a href="https://www.instagram.com/?url={{ urlencode($url) }}" class="smd">
+                                          <i class="img-thumbnail fab fa-instagram fa-2x"
+                                              style="color: #7bb32e;background-color: #daf1bc;"></i>
+                                          <p>Instagram</p>
+                                      </a>
+                                  </div>
+                              </div>
+                              <div class="modal-footer">
+                                  <label style="font-weight: 600">Social Media Share <span
+                                          class="message"></span></label><br />
+                                  <div class="row">
+                                      <input class="col-md-10 ur" type="url" placeholder="{{ $url }}"
+                                          readonly id="myInput" aria-describedby="inputGroup-sizing-default"
+                                          style="height: 40px;">
+                                      <button class="col-md-2 cpy" onclick="myFunction()"><i
+                                              class="far fa-clone"></i></button>
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
+                  </div>
+
+                  <div class="card" style="height: 500px; overflow-y: scroll;">
+                      <div class="card-body p-0" id="list-donasi">
+
+                          <div class="text-center w-100 pt-5">
+                              <div class="spinner-border" role="status">
+                                  <span class="visually-hidden">Loading...</span>
+                              </div>
+                          </div>
+
+                      </div>
+                  </div>
+
+                  {{-- <div class="d-grid gap-2 col-6 mx-auto pt-3">
+                <button type="button" class="btn btn-outline-success">Lihat semua</button>
+              </div> --}}
+
+>>>>>>> 1fe91430a035d4b59fac1633896a90ab8505bdee
             </div>
           </div>
         </div>
@@ -224,9 +411,9 @@
     </section>
 
     <div class="my-div information-container">
-        <div class="container">
+        <div class="container text-center">
             <h1 class="title pt-5">Download Aplikasi DANAKO!</h1>
-            <h6>LNikmati Kemudahan Beramal di manapun bersama Danako</h6>
+            <h6>Nikmati Kemudahan Beramal di manapun bersama Danako</h6>
             <div class="text-center">
                 <img src="{{ asset('') }}danako/img/category/googleplay.png"
                     style="padding-top: 24px; padding-bottom: 41px;" />
@@ -307,7 +494,10 @@
                             `<b>${new Intl.NumberFormat().format(data.length)}</b> orang baik telah berdonasi untuk campaign ini`
                             );
 
-                        $('#list-hope').append(`<h5 class="mb-4">Pesan dari orang baik (${data.length})</h5>`);
+                        let hopes = data.filter(item => item.hope != null);
+                        if(hopes && hopes.length > 0){
+                          $('#list-hope').append(`<h5 class="mb-4">Pesan dari orang baik (${data.length})</h5>`);
+                        }
                         data.forEach(item => {
                             $('#list-donasi').append(`
                                 <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2 px-2">                  
@@ -324,17 +514,17 @@
                             `);
 
                             if(item.hope){
-                            $('#list-hope').append(`
-                                <div class="row mb-4 ps-1">
-                                <div class="col-md-1">
-                                    <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="col-md-11">
-                                    <h6>${item.name}</h6>
-                                    <p>${item.hope}</p>
-                                </div>
-                                </div>
-                            `);
+                              $('#list-hope').append(`
+                                  <div class="row mb-4 ps-1">
+                                  <div class="col-md-1">
+                                      <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
+                                  </div>
+                                  <div class="col-md-11">
+                                      <h6>${item.name}</h6>
+                                      <p>${item.hope}</p>
+                                  </div>
+                                  </div>
+                              `);
                             }
             
                         });

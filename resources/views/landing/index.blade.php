@@ -166,7 +166,7 @@ $(document).ready(function(){
               <div class="card-body">
                 <p>${new Date(item.start_date).toLocaleDateString("id", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</p>
                 <h5 class="card-title">${item.title.split(' ').slice(0,4).join(' ')}${item.title.split(' ').length > 4 ? '...' : ''}</h5>
-                <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 16 ? "..." : ""}</p>
+                <p class="card-text">${item.description.split(" ").slice(0, 16).join(" ").replace( /(<([^>]+)>)/ig, '')}${item.description.split(" ").length > 16 ? "..." : ""}</p>
                 <div class="progress">
                   <div class="progress-bar bg-danako" role="progressbar" style="width: ${progress}%;  border-radius: 100px;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>

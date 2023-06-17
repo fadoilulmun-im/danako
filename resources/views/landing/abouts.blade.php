@@ -173,13 +173,13 @@
               <p class="card-text">Dika Antoni Putra</p>
               <p class="card-text">Universitas Narotama - 2011</p>
               <div class="card-text">
-                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                <a href="https://www.instagram.com/dikaantoniputra" target="_blank">
                   <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                <a href="https://www.linkedin.com/in/dika-a-p" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                 </a>
-                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                <a href="#!">
                   <i class="fa-regular fa-envelope"></i>
                 </a>
               </div>
@@ -199,13 +199,13 @@
               <p class="card-text">Khodijah Aulia Rahma</p>
               <p class="card-text">Universitas Airlangga - 2010</p>
               <div class="card-text">
-                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                <a href="https://www.instagram.com/kodijeee" target="_blank">
                   <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                <a href="https://www.linkedin.com/in/khodijah-aulia-rahma/" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                 </a>
-                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                <a href="#!">
                   <i class="fa-regular fa-envelope"></i>
                 </a>
               </div>
@@ -225,13 +225,13 @@
               <p class="card-text">Gede Ardi Pratama</p>
               <p class="card-text">UPN Veteran Jatim - 2020</p>
               <div class="card-text">
-                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                <a href="instagram.com/pratamaardhy_" target="_blank">
                   <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                <a href="https://www.linkedin.com/in/pratamaardhy" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                 </a>
-                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                <a href="#!">
                   <i class="fa-regular fa-envelope"></i>
                 </a>
               </div>
@@ -251,13 +251,13 @@
               <p class="card-text">Iqbal Dzakwan Imaduddin</p>
               <p class="card-text">ITS - 2019</p>
               <div class="card-text">
-                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                <a href="https://www.instagram.com/iqbaldzakwan" target="_blank">
                   <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                <a href="https://www.linkedin.com/in/iqbal-dzakwan-445103185" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                 </a>
-                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                <a href="#!">
                   <i class="fa-regular fa-envelope"></i>
                 </a>
               </div>
@@ -277,13 +277,13 @@
               <p class="card-text">Riska Harum Dian Sari</p>
               <p class="card-text">UPN Veteran Jatim - 2020</p>
               <div class="card-text">
-                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                <a href="https://www.instagram.com/riskaharumds/" target="_blank">
                   <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="http://www.linkedin.com/in/riskaharum" target="_blank">
+                <a href="https://www.linkedin.com/in/riskaharum/" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                 </a>
-                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                <a href="#!">
                   <i class="fa-regular fa-envelope"></i>
                 </a>
               </div>
@@ -304,13 +304,13 @@
               <p class="card-text">Thariqi Ruli Ramadhani</p>
               <p class="card-text">Universitas Airlangga - 2023</p>
               <div class="card-text">
-                <a href="#" target="_blank">
+                <a href="https://www.instagram.com/thariqi.r/" target="_blank">
                   <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/thariqi-ruli-ramadhani/" target="_blank">
+                <a href="https://www.linkedin.com/in/thariqi-ruli-ramadhani" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                 </a>
-                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                <a href="#!">
                   <i class="fa-regular fa-envelope"></i>
                 </a>
               </div>
@@ -330,13 +330,13 @@
               <p class="card-text">Rahida Rihhadatul Aisy</p>
               <p class="card-text">ITS - 2019</p>
               <div class="card-text">
-                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                <a href="#!" target="_blank">
                   <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                <a href="https://www.linkedin.com/in/rahidara/" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                 </a>
-                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                <a href="#!">
                   <i class="fa-regular fa-envelope"></i>
                 </a>
               </div>
@@ -356,13 +356,13 @@
               <p class="card-text">AULIA PUTRI FAJAR</p>
               <p class="card-text">UPN Veteran Jatim - 2020</p>
               <div class="card-text">
-                <a href="https://www.instagram.com/fadoilulmun.im" target="_blank">
+                <a href="https://www.instagram.com/auliapf_" target="_blank">
                   <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="https://www.linkedin.com/in/fadoilulmun-im/" target="_blank">
+                <a href="#!" target="_blank">
                   <i class="fa-brands fa-linkedin"></i>
                 </a>
-                <a href="mailto:fadoilulmun.im2807@gmail.com">
+                <a href="#!">
                   <i class="fa-regular fa-envelope"></i>
                 </a>
               </div>
