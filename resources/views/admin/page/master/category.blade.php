@@ -101,6 +101,7 @@
           {data: 'action', name: 'action', orderable: false, searchable: false},
         ],
         order: [[0, 'desc']]
+        
       });
 
       window.addEventListener('hashchange', function(){

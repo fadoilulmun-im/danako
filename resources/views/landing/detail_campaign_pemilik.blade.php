@@ -134,7 +134,7 @@ button:focus {
 
               <div class="kontak-campaign pt-3 pb-3">
                 <div class="d-flex align-items-center">
-                  <img id="image-campaigner" src="{{ asset('') }}danako/img/campaign/Circel.png" alt="LMI ZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
+                  <img id="image-campaigner" src="{{ asset('') }}danako/img/campaign/Circel.png" alt="DanakoZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
                   <h4 class="ms-3 m-0" id="name-campaigner">Loading...</h4>
                 </div>
                 <p style="margin-top: 5px;">Penggalang Dana <span class="color-primary">Lihat</span></p>
