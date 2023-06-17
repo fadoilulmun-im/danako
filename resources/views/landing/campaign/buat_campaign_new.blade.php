@@ -451,7 +451,10 @@
     const user = JSON.parse(localStorage.getItem('user'));
     $(document).ready(function() {
       $('.dropify').dropify();
-      CKEDITOR.replace( 'description' );
+      CKEDITOR.plugins.addExternal( 'videoembed', "{{ asset('js/ckeditor/videoembed/plugin.js') }}", '' );
+      CKEDITOR.replace( 'description', {
+        extraPlugins: 'videoembed'
+      } );
       CKEDITOR.replace( 'purpose' );
       CKEDITOR.replace( 'detail_usage_of_funds' );
 
