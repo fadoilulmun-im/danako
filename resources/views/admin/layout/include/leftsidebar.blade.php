@@ -39,12 +39,22 @@
                     </a>
                 </li>
                 <li>
-                    <a href="/admin/withdrawals">
+                    <a href="#withdrawal" data-bs-toggle="collapse">
                         <i class="mdi mdi-bank-transfer-out mdi-24px"></i>
-                        <span> Withdrawals </span>
+                        <span>Withdrawals</span>
+                        <span class="menu-arrow"></span>
                     </a>
+                    <div class="collapse" id="withdrawal">
+                        <ul class="nav-second-level">
+                            <li>
+                                <a href="/admin/withdrawals">Withdrawals</a>
+                            </li>
+                            <li>
+                                <a href="/admin/withdrawals-calculation">Withdrawal calculation</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
-             
             </ul>
 
         </div>

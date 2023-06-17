@@ -282,4 +282,13 @@ class WithdrawalController extends Controller
 
         return $this->setResponse($bank, 'Campaign retrieved successfully');
     }
+
+    public function indexCalculation(Request $request)
+    {
+        $model = WithdrawalCalculation::with(['withdrawal']);
+
+        return DataTables::of($model)
+            ->addIndexColumn()
+            ->make(true);
+    }
 }
