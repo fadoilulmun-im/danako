@@ -31,6 +31,6 @@ class Withdrawal extends Model
 
     public function calculation()
     {
-        return $this->hasOne(UserDetail::class, 'user_id', 'id');
+        return $this->hasOne(WithdrawalCalculation::class, 'withdrawal_id', 'id');
     }
 }

@@ -79,18 +79,21 @@ class WithdrawalController extends Controller
 
     public function store(Request $request){
 
-        // $withdraw = Withdrawal::where('campaign_id', $request->campaign_id)->exists();
-        // if (!$withdraw) {
-        //     $maxWithdraw = Campaign::select('real_time_amount')->where('id', $request->campaign_id);
-        // } else {
-        //     $maxWithdraw = Withdrawal::select('remaining_amount')->where('campaign_id', $request->campaign_id)->sum('remaining_amount');
-        // }
+        $withdraw = Withdrawal::where('campaign_id', $request->campaign_id)->where('status', 'approved');
+        $campaign = Campaign::where('id', $request->campaign_id)->first();
+        if (!$withdraw) {
+            $maxWithdraw = $campaign->real_time_amount;
+        } else {
+            $withdrawed_amount = Withdrawal::where('campaign_id', $request->campaign_id)->where('status', 'approved')->sum('amount');
+            $realtime_amount = $campaign->real_time_amount;
+            $maxWithdraw = $realtime_amount - $withdrawed_amount;
+        }
 
         $rules = [
             'campaign_id' => 'required|exists:campaigns,id',
             'description' => 'required',
-            'amount' => 'required|numeric',
-            // 'amount' => 'required|numeric|min:100000|max:'.$maxWithdraw,
+            // 'amount' => 'required|numeric',
+            'amount' => 'required|numeric|max:'.$maxWithdraw,
             'documents' => 'nullable|array',
             'documents.*' => 'required|file|mimes:jpeg,png,jpg',
             'bank_name' => 'nullable|string',
@@ -257,14 +260,14 @@ class WithdrawalController extends Controller
             $calculate = new WithdrawalCalculation;
             $calculate->withdrawal_id = $withdrawal->id;
             $calculate->target_amount = $target_amount;
-            $calculate->realtime_amount = $realtime_amount;
-            $totalDicairkan = Withdrawal::where('campaign_id', $campaignId)->where('status', 'approved')->sum('amount');
-            $belumPernahDicairkan = Withdrawal::where('campaign_id', $campaignId)->whereHas('calculation');
-            $sisaRealTimeTerakhir = WithdrawalCalculation::where('campaign_id', $campaignId)->whereHas('calculation')->first();
-            if(!$belumPernahDicairkan){
-                $calculate->remaining_withdrawal = $realtime_amount - $withdrawal->amount;
+            $calculate->real_time_amount = $realtime_amount;
+            $sudahDicairkan = Withdrawal::where('campaign_id', $campaignId)->where('status', 'approved')->sum('amount');
+            $sudahPernahDicairkan = Withdrawal::where('campaign_id', $campaignId)->where('status', 'approved');
+            // $sisaRealTimeTerakhir = Withdrawal::where('campaign_id', $campaignId)->whereHas('calculation')->first();
+            if(!$sudahPernahDicairkan){
+                $calculate->remaining_withdrawal = $realtime_amount - ($withdrawal->amount);
             } else {
-                $calculate->remaining_withdrawal = $realtime_amount - $totalDicairkan -  $sisaRealTimeTerakhir->remaining_withdrawal;
+                $calculate->remaining_withdrawal = $realtime_amount - $sudahDicairkan;
             }
             $calculate->save();
         }
