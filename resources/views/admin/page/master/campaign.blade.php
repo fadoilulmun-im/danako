@@ -736,7 +736,10 @@
             type: "GET",
             success: function(response){
                 if(response.meta.status == 'OK'){
-                    $('#detail_img').append('<img src="{{ asset('uploads') }}' + response.data.img_path + '" alt="logo" style="width: 100px; height: 100px">');
+                    $('#detail_img').append(`
+                    <a href="{{asset('uploads')}}${response.data.img_path}" class="image-popup" title="foto campaign">
+                        <img src="{{ asset('uploads') }}${response.data.img_path}" alt="logo" style="width: 100px; height: 100px">
+                    </a>`);
                     // $('#detail_id').text(response.data.id);
                     // $('#detail_user').text(response.data.user.username);
                     $('#detail_category').text(response.data.category.name);

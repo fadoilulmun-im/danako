@@ -15,7 +15,7 @@
 </div>
 
 {{-- <div class="row-container"> --}}
-  <section class="account-section pt-4 pb-5">
+<section class="account-section pt-4 pb-5">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
