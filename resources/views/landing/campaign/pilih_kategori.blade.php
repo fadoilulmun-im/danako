@@ -26,7 +26,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-2">
-                <img src="https://galang-dana.kitabisa.com/illustrations/icon-galang-dana-medis.svg" alt="icon galang dana medis" class="jsx-4c901ca77bed544d mb-4">
+                <img src="{{ asset('danako/img/medis.png') }}" alt="icon galang dana medis" class="img-fluid mb-4" style="object-fit: contain;">
               </div>
               <div class="col-10">
                 <h6>Galang dana bantuan orang sakit</h6>
@@ -44,7 +44,7 @@
           <div class="card-body">
             <div class="row">
               <div class="col-2">
-                <img src="https://galang-dana.kitabisa.com/illustrations/icon-galang-dana-nonmedis.svg" alt="icon galang dana nonmedis" class="jsx-4c901ca77bed544d mb-4">
+                <img src="{{ asset('danako/img/non_medis.png') }}" alt="icon galang dana nonmedis" class="img-fluid mb-4">
               </div>
               <div class="col-10">
                 <h6>Galang dana bantuan lainnya</h6>
@@ -99,12 +99,12 @@
             $('#list-kategori').html('');
             data.forEach(item => {
               $('#list-kategori').append(`
-                <div class="col-md-6 col-lg-4 mb-3">
+                <div class="col-md-6 col-lg-6 mb-3">
                   <div class="card kategori" data-id="${item.id}" style="cursor: pointer" onclick="categoryClick(this)">
                     <div class="card-body">
                       <div class="row">
                         <div class="col-2">
-                          <img src="${item.logo_link}" alt="icon ${item.name}" width="35" height="35" class="jsx-798d2d03a986eda8">
+                          <img src="${item.logo_link}" alt="icon ${item.name}" class="img-fluid">
                         </div>
                         <div class="col-10 d-flex align-items-center">
                           <h6 class="m-0">${item.name}</h6>

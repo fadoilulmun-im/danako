@@ -33,8 +33,9 @@
               <tr>
                 <th>No</th>
                 <th>Withdrawal Id</th>
-                <th>Real Time Amount</th>
                 <th>Target Amount</th>
+                <th>Real Time Amount</th>
+                <th>Withdrawal amount</th>
                 <th>Remaining Amount</th>
                 <th>Created at</th>
               </tr>
@@ -83,8 +84,9 @@
         columns: [
             {data: 'DT_RowIndex', name: 'id', searchable: false},
             {data: 'withdrawal_id', name: 'withdrawal_id'},
-            {data: 'real_time_amount', name: 'real_time_amount'},
             {data: 'target_amount', name: 'target_amount'},
+            {data: 'real_time_amount', name: 'real_time_amount'},
+            {data: 'withdrawal.amount', name: 'withdrawal.amount'},
             {data: 'remaining_withdrawal', name: 'remaining_withdrawal'},
             {data: 'created_at', name: 'created_at'},
         ],
