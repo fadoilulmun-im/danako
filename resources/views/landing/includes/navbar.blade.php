@@ -1,5 +1,5 @@
 <section>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container">
       <div class="d-flex align-items-center">
         <a class="navbar-brand" href="{{ route('home') }}">
@@ -8,6 +8,7 @@
         <a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#myModal">
           <i id="question-icon" class="fas fa-question-circle ml-2"></i>
         </a>
+        <span id="dynamic-text" class="custom-text"></span> <!-- Menampilkan teks yang akan berubah setiap 10 detik -->
       </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
