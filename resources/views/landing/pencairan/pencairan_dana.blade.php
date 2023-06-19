@@ -3,8 +3,8 @@
 @section('title', 'Pencairan')
 
 @push('after-style')
-
-
+<!-- icons -->
+<link href="{{ asset('assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @section('content')
@@ -230,7 +230,7 @@
                                 <strong>*</strong>
                               </div>
                               <div class="col-md-11">
-                                <span>Dana dapat dicairkan dan dikelola oleh penggalang dana</span>
+                                <small>Dana dapat dicairkan dan dikelola oleh penggalang dana</small>
                               </div>
                             </div>
                             <div class="row mb-2">
@@ -238,9 +238,9 @@
                                 <strong>**</strong>
                               </div>
                               <div class="col-md-11">
-                                <span>Biaya transaksi bank 100% ditujukan untuk pihak ketiga penyedia layanan transaksi digital melalui 
+                                <small>Biaya transaksi bank 100% ditujukan untuk pihak ketiga penyedia layanan transaksi digital melalui 
                                   Virtual Account, dompet digital dan QRIS. DANAKO tidak mengambil keuntungan dari layanan ini.
-                                </span>
+                                </small>
                               </div>
                             </div>
                             <div class="row">
@@ -248,9 +248,9 @@
                                 <strong>***</strong>
                               </div>
                               <div class="col-md-11">
-                                <span>Donasi untuk operasional DANAKO agar donasi semakin mudah, aman & transparan. 
+                                <small>Donasi untuk operasional DANAKO agar donasi semakin mudah, aman & transparan. 
                                   Maksimal 5% dari setiap donasi yang terkumpul.
-                                </span>
+                                </small>
                               </div>
                             </div>
                                 {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
@@ -270,6 +270,7 @@
 
 
 @push('after-script')
+<script src="{{asset('assets/libs/feather-icons/feather.min.js')}}"></script>
 <script>
   var tabs = document.querySelectorAll('#myTab a')
   
@@ -315,14 +316,37 @@
               case 'processing':
                 bg = 'warning';
                 status = 'Diproses';
+                alert = `<div class="alert alert-primary fade show mt-2" role="alert">
+                  <i class="mdi mdi-information"></i>
+                  <small> Anda tidak dapat melakukan pencairan lagi sebelum pencairan ini selesai diproses.
+                    Pencairan berlangsung 3 x 24 jam hari kerja.</small>
+                  </div>`;
                 break;
               case 'approved':
                 bg = 'success';
                 status = 'Berhasil';
+                // alert = `<div class="alert alert-warning fade show mt-2" role="alert">
+                //     <i class="mdi mdi-information"></i>
+                //     <small> Anda belum mengunggah kabar terbaru kepada para donatur. Segera mengunggah kabar terbaru setelah pencairan berhasil.</small>
+                //     </div>`;
+                //     break;
+                 // if penggalang dana belum mengunggah distribution report
+                if (!datas.document && item.status == 'approved'){
+                  alert = `<div class="alert alert-warning fade show mt-2" role="alert">
+                    <i class="mdi mdi-information"></i>
+                    <small> Anda belum mengunggah kabar terbaru kepada para donatur. Segera mengunggah kabar terbaru setelah pencairan berhasil.</small>
+                    </div>`;
+                  btn = `<a href="{{ url('buat-kabar-terbaru','') }}/`+item.id+`" class="btn btn-sm btn-info mt-2 align-center text-white" type="button">Tulis Kabar Terbaru</a>`;
+                } else if (datas.document && item.status == 'approved'){
+                  alert = ``;
+                };
                 break;
               case 'rejected':
                 bg = 'danger';
                 status = 'Ditolak';
+                alert = `div class="alert alert-danger fade show mt-2" role="alert">
+                    <small>Ditolak karena:${item.reject_note}</small>
+                  </div>`;
                 break;
               default:
                 break;
@@ -342,11 +366,13 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                  <span><b>${item.rek_name}</b></span>
-                  <span>${item.bank_name} - ${item.rek_number}</span>
+                  <span style="font-weight: 600;">${item.bank_name} - ${item.rek_number}</span>
+                  <span style="font-weight: 600;">a/n ${item.rek_name}</span>
                   <span>Rincian penggunaan dana: ${item.description}
                   </span>
                 </div>
+                <div>${btn}<div>
+                <div>${alert}<div>
               </div>
             </div>
             `);
@@ -405,6 +431,14 @@
         dataType: "json",
         success: function (response) {
           const datas = response.data;
+          if (datas.document && datas.status == 'approved'){
+                  alert = `<div class="alert alert-warning fade show mt-2" role="alert">
+                    <i class="mdi mdi-information"></i>
+                    <small> Anda belum mengunggah kabar terbaru kepada para donatur. Segera mengunggah kabar terbaru setelah pencairan berhasil.</small>
+                    </div>`;
+                } else if (datas.document && datas.status == 'approved'){
+                  alert = ``;
+                };
           $('#list-pencairan-approved').html('');
           $.each(datas, function(i, item) {
             $('#list-pencairan-approved').append(`
@@ -427,6 +461,7 @@
                   <span>Rincian penggunaan dana: ${item.description}
                   </span>
                 </div>
+                <div>${alert}<div>
               </div>
             </div>
             `);

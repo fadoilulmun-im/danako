@@ -449,6 +449,13 @@ Route::get('/verifikasi-pencairan', function () {
     return view('landing.verifikasi_pencairan');
 })->name('verifikasi-pencairan');
 
+Route::get('/buat-kabar-terbaru/{id}', function ($id) {
+    $withdrawal = Withdrawal::findOrFail($id)->where('campaign_id', 'campaign.id')
+    ->leftJoin('campaign', 'withdrawal.campaign_id', '=', 'campaign.id');
+
+    return view('landing.pencairan.buat_kabar_terbaru', compact('id', 'withdrawal'));
+})->name('buat-kabar-terbaru');
+
 Route::get('/donasi/{id}', function ($id) {
     $campaign = Campaign::findOrFail($id);
     return view('landing.donasi', [
