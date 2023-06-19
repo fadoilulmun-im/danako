@@ -76,7 +76,18 @@
             font-size: 11px;
             color: #ee5535
         }
+
+        .nav-pills .nav-link.active{
+            background: #79C121;
+        }
+
+        .card-kabar{
+            border-left: 5px solid green; /* Menambahkan border hijau di sebelah kanan */
+        }
+
+        
     </style>
+
 @endpush
 
 @section('content')
@@ -102,61 +113,206 @@
                                 <img id="image" src="{{ asset('assets/images/image-solid.svg') }}" class="img-fluid"
                                     alt="Responsive image" style="max-height: 500px">
 
-                                {{-- <h6 class="pt-3">Pencairan dana Rp 1.500.000 ke rekening *****11321412 a.n. SITI</h6> --}}
-
-
-                                <div class="details-text pt-2">
-                                    <h3>Deskripsi</h3>
-                                    <div id="content">
-                                        <div class="text-center w-100">
-                                            <div class="spinner-border" role="status">
-                                                <span class="visually-hidden">Loading...</span>
-                                            </div>
+                                    <div class="kontak-campaign pt-3 pb-3">
+                                        <div class="d-flex align-items-center">
+                                            <img id="image-campaigner" src="{{ asset('') }}danako/img/campaign/Circel.png"
+                                                alt="LMI ZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
+                                            <h4 class="ms-3 m-0" id="name-campaigner">Loading...</h4>
                                         </div>
+                                        <p style="margin-top: 5px;">Penggalang Dana <span class="color-primary">Lihat</span></p>
                                     </div>
 
-                                    {{-- <button class="toggle-button readmore" onclick="toggleText()">Baca Selengkapnya</button> --}}
-                                </div>
+                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                          <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Cerita</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Penggunaan Dana</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                          <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Kabar terbaru</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-hope" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Doa Doa</button>
+                                          </li>
+                                      </ul>
+                                      <div class="tab-content" id="pills-tabContent">
 
+                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                                            <div class="details-text pt-2">
+
+                                                <h3>Cerita Campaign</h3>
+                                                <div id="content">
+                                                    <div class="text-center w-100">
+                                                        <div class="spinner-border" role="status">
+                                                            <span class="visually-hidden">Loading...</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+        
+                                                {{-- <button class="toggle-button readmore" onclick="toggleText()">Baca Selengkapnya</button> --}}
+                                            </div>
+        
+                                        </div>
+
+                                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                                          <div class="row">
+                                            <div class="col-sm-7">
+                                                <div class="bg-white rounded mb-5">
+                                                    <div class="row">
+                                                        <div class="col-sm-12 px-4 shadow">
+                                                            <h5 class="pt-4 pb-3">Informasi Pengunaan Dana</h5>
+                                                            <div class="bg-info border border-primary mb-3 rounded-3" >
+                                                                <div class="card-body text-white">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <h6 class="card-title">Sudah Di Cairkan</h6>
+                                                                            <p class="card-text">Rp </p>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <h6 class="card-title">Belum Di Cairkan</h6>
+                                                                            <p class="card-text">Rp </p>
+                                                                        </div>
+                                                                        {{-- <div class="col-md-12 py-1 bg-light text-dark rounded-3">
+                                                                            Data Di Perbarui setiap 15 menit harap Terakir 23 - Maret - 2022
+                                                                        </div> --}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <h5 class="pt-1 pb-1">Total Transaksi sampai saat  ini</h5>
+                                                            <div class="d-flex justify-content-between pb-3">
+                                                              <span>Jumlah Donasi</span>
+                                                              <span> transaksi</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between pb-3">
+                                                              <span>Jumlah Donatur</span>
+                                                              <span> donatur</span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between pb-3">
+                                                              <span>Dana Terkumpul</span>
+                                                              <span>Rp </span>
+                                                            </div>
+                                                            
+                                                            <h5 class="pt-1 pb-1">Rincian dana terkumpul</h5>
+                                                            <div class="d-flex justify-content-between pb-3">
+                                                              <span>&#8226; Biaya Transaksi Bank</span>
+                                                              <span>Rp </span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between pb-3">
+                                                              <span>&#8226; Donasi operasional DANAKO</span>
+                                                              <span>Rp </span>
+                                                            </div>
+                                                            <div class="d-flex justify-content-between pb-3">
+                                                              <span>Dana dapat dicairkan</span>
+                                                              <span>Rp </span>
+                                                            </div>
+                                                            
+                                                            <div class="alert alert-warning fade show" role="alert">
+                                                                
+                                                                <div class="row">
+                                                                  <div class="col-md-1">
+                                                                    <strong>***</strong>
+                                                                  </div>
+                                                                  <div class="col-md-11">
+                                                                    <span>Catatan
+                                                                    </span>
+                                                                  </div>
+                                                                </div>
+                                                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                              
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="alert alert-warning fade show" role="alert">
+                                                    <div class="row sm-2">
+                                                      <div class="col-sm-1">
+                                                        <strong>*</strong>
+                                                      </div>
+                                                      <div class="col-sm-11">
+                                                        <span>Dana dapat dicairkan dan dikelola oleh penggalang dana</span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="row mb-2">
+                                                      <div class="col-md-1">
+                                                        <strong>**</strong>
+                                                      </div>
+                                                      <div class="col-sm-11">
+                                                        <span>Biaya transaksi bank 100% ditujukan untuk pihak ketiga penyedia layanan transaksi digital melalui 
+                                                          Virtual Account, dompet digital dan QRIS. DANAKO tidak mengambil keuntungan dari layanan ini.
+                                                        </span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="row">
+                                                      <div class="col-sm-1">
+                                                        <strong>***</strong>
+                                                      </div>
+                                                      <div class="col-sm-11">
+                                                        <span>Donasi untuk operasional DANAKO agar donasi semakin mudah, aman & transparan. 
+                                                          Maksimal 5% dari setiap donasi yang terkumpul.
+                                                        </span>
+                                                      </div>
+                                                    </div>
+                                                        {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
+                                                    </div>
+                                                </div>
+                                            
+                                            
+                                          </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">                                          
+                                            <div  style="height: 500px; overflow-y: scroll;">
+                                                        <div class="card-kabar py-3 px-3 mt-3">                                                 
+                                                               <div class="card rounded py-3 px-3 mt-3"> 
+                                                                    <p class="card-text ">21 Januari 2023</p>
+                                                                    <h6 class="card-text">Pencariran <span class="text-danako"> RP.10000</span></h6>
+                                                                    <h5 class="card-title pb-1 pt-1">Kerekening bri ********</h5>
+                                                                    <p>Rencan Penggunaan Dana:<br>
+                                                                    <span>Rencan pengunaan Dana</span>
+                                                                    </p> 
+                                                               </div>
+                                                          </div>
+
+                                                          <div class="card-kabar py-3 px-3 mt-3">                                                 
+                                                            <div class="card rounded py-3 px-3 mt-3"> 
+                                                                 <p class="card-text ">21 Januari 2023</p>
+                                                                 <h6 class="card-text">Pencariran <span class="text-danako"> RP.10000</span></h6>
+                                                                 <h5 class="card-title pb-1 pt-1">Kerekening bri ********</h5>
+                                                                 <p>Rencan Penggunaan Dana:<br>
+                                                                 <span>Rencan pengunaan Dana</span>
+                                                                 </p> 
+                                                            </div>
+                                                       </div>
+                                            </div>
+                                        </div>
+                                 
+
+                                      <div class="tab-pane fade" id="pills-hope" role="tabpanel" aria-labelledby="pills-contact-tab">
+                                        <div class="container p-0 pt-3" id="list-hope">
+                                            <div class="text-center w-100">
+                                                <div class="spinner-border" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                  
+                                    
+                                    
+                                   
                               </div>
                           </div>
                       </div>
                   </div>
-                  <div class="border-bottom border-3 pt-2"></div>
+              
 
-                  <div class="kontak-campaign pt-3 pb-3">
-                      <div class="d-flex align-items-center">
-                          <img id="image-campaigner" src="{{ asset('') }}danako/img/campaign/Circel.png"
-                              alt="LMI ZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
-                          <h4 class="ms-3 m-0" id="name-campaigner">Loading...</h4>
-                      </div>
-                      <p style="margin-top: 5px;">Penggalang Dana <span class="color-primary">Lihat</span></p>
-                  </div>
+                  
+           
 
-                  <div class="border-bottom border-3"></div>
-                  <div class="container p-0 pt-3" id="list-hope">
-                      <div class="text-center w-100">
-                          <div class="spinner-border" role="status">
-                              <span class="visually-hidden">Loading...</span>
-                          </div>
-                      </div>
-                  </div>
-
-                  {{-- <div class="pagination-wrapper">
-                      <ul class="pagination modal-3">
-                          <li><a href="#" class="prev">&laquo</a></li>
-                          <li><a href="#" class="active">1</a></li>
-                          <li> <a href="#">2</a></li>
-                          <li> <a href="#">3</a></li>
-                          <li> <a href="#">4</a></li>
-                          <li> <a href="#">5</a></li>
-                          <li> <a href="#">6</a></li>
-                          <li> <a href="#">7</a></li>
-                          <li> <a href="#">8</a></li>
-                          <li> <a href="#">9</a></li>
-                          <li><a href="#" class="next">&raquo;</a></li>
-                      </ul>
-                  </div> --}}
+            
 
               </div>
             </div>

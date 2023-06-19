@@ -84,7 +84,7 @@
     <div id="carouselExampleControls" class="carousel slide carousel-dark" data-bs-ride="carousel">
       <div class="carousel-inner container" id="segera2">
        
-      
+
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -199,12 +199,16 @@ $(document).ready(function(){
     success: function(response){
       let data = response.data.data;
       $('#segera2').html('');
-      data.forEach(item => {
+
+      data.forEach((item, index) => {
         let progress = item.real_time_amount / item.target_amount * 100;
         let img_src = item.img_path ? "{{ asset('uploads') }}" + item.img_path : "{{ asset('assets/images/image-solid.svg') }}";
         let img_size = item.img_path ? 'width="300" height="200"' : '';
+
+        let activeClass = index === 0 ? 'active' : ''; // Tambahkan variabel activeClass
+
         $('#segera2').append(`
-          <div class="carousel-item pt-5 pb-5 active">
+          <div class="carousel-item pt-5 pb-5 ${activeClass}"> <!-- Tambahkan variabel activeClass -->
             <div class="row">
               <div class="col-md-6">
                 <p>Mereka yang membutuhkan</p>
@@ -214,22 +218,24 @@ $(document).ready(function(){
                 <p>${item.description.split(" ").slice(0, 16).join(" ")}${item.description.split(" ").length > 30 ? "..." : ""}</p>
               </div>
               <div class="col-md-6">
-                <img src="${img_src}" class="d-block w-100" alt="...">
+                <img src="${img_src}" class="d-block w-100" alt="..." ${img_size} style="object-fit: cover;"> <!-- Tambahkan style object-fit: cover; -->
               </div>
             </div>
           </div>
         `);
       });
 
-      if(!data.length){
+      if (!data.length) {
         $('#section-segera').toggleClass('d-none');
       }
     },
     error: function(response){
-      $('#segera').html('Ada kesalahan server')
+      $('#segera').html('Ada kesalahan server');
     }
-  })
+  });
 });
+
+
 
 
   </script>
