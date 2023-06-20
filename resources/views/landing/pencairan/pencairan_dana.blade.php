@@ -8,14 +8,17 @@
 @endpush
 
 @section('content')
-<div class="container pt-4">
-  <h1 class="color-primary">Pencairan Dana</h1>
-  <a href="{{ url('ajukan-pencairan-dana').'/'.$id }}" class="btn btn-outline-success" type="button">Cairkan Dana</a>
+<div class="container pt-2">
+  {{-- <h1 class="color-primary mt-4">Pencairan Dana</h1> --}}
+  <div class="title text-start">
+    <span>{{$campaign->title}}</span>
+  </div>
+  {{-- <h4 class="text-success mt-2 mb-2">{{ $campaign->title }}</h4> --}}
   <input type="hidden" id="campaign_id" value="{{ $campaign->id }}">
 </div>
 
 {{-- <div class="row-container"> --}}
-<section class="account-section pt-4 pb-5">
+<section class="account-section pt-4 pb-4">
     <div class="container">
         <div class="row">
             <div class="col-md-8">
@@ -77,20 +80,22 @@
                         </div>
                       </div> --}}
                       <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
+                        <center><div>Tidak ada data</div></center>
+                        {{-- <div class="spinner-border" role="status">
                           <span class="visually-hidden">Loading...</span>
-                        </div>
+                        </div> --}}
                       </div>
                     </div>
                   </div>
             
                   <div id="approved" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade py-5">
-                    <div class="container-fluid" style="max-height: 1500px; overflow-y: scroll;" id="list-pencairan-approved">
+                    <div class="container-fluid" style="max-height: 800px; overflow-y: scroll;" id="list-pencairan-approved">
                       {{-- //kontain --}}
                       <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
+                        <center><div>Tidak ada data</div></center>
+                        {{-- <div class="spinner-border" role="status">
                           <span class="visually-hidden">Loading...</span>
-                        </div>
+                        </div> --}}
                       </div>
                     </div>
                     {{-- <div class="row pt-3 pb-3 shadow">
@@ -115,23 +120,22 @@
                   </div>
             
                   <div id="rejected" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade py-5">
-                    <div class="container-fluid" style="max-height: 1500px; overflow-y: scroll;" id="list-pencairan-rejected">
+                    <div class="container-fluid" style="max-height: 800px; overflow-y: scroll;" id="list-pencairan-rejected">
                       {{-- //kontain --}}
                       <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
+                        <center><div>Tidak ada data</div></center>
+                        {{-- <div class="spinner-border" role="status">
                           <span class="visually-hidden">Loading...</span>
-                        </div>
+                        </div> --}}
                       </div>
                     </div>
                   </div>
             
                   <div id="processing" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade py-5">
-                    <div class="container-fluid" style="max-height: 1500px; overflow-y: scroll;" id="list-pencairan-processing">
+                    <div class="container-fluid" style="max-height: 800px; overflow-y: scroll;" id="list-pencairan-processing">
                       {{-- //kontain --}}
                       <div class="d-flex justify-content-center">
-                        <div class="spinner-border" role="status">
-                          <span class="visually-hidden">Loading...</span>
-                        </div>
+                        <center><div>Tidak ada data</div></center>
                       </div>
                     </div>
                   </div>
@@ -203,6 +207,8 @@
                           <span>Dana dapat dicairkan</span>
                           <span>Rp {{ $dapatDicairkan }}</span>
                         </div>
+                        <center><a href="{{ url('ajukan-pencairan-dana').'/'.$id }}" class="btn btn-primary mb-2" 
+                          type="button">Cairkan Dana</a></center>
                         {{-- <div class="row">
                             <div class="col">
                               <p>Biaya Transaksi Bank</p>
@@ -271,6 +277,7 @@
 
 @push('after-script')
 <script src="{{asset('assets/libs/feather-icons/feather.min.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
 <script>
 
 
@@ -313,16 +320,32 @@
         dataType: "json",
         success: function (response) {
           const datas = response.data;
+          datas.reverse();
           $('#list-pencairan-all').html('');
+          $('#list-pencairan-processing').html('');
+          $('#list-pencairan-rejected').html('');
+          $('#list-pencairan-approved').html('');
           $.each(datas, function(i, item) {
-            let bg = '';
-            let status = '';
+            let bg = ``;
+            let status = ``;
+            let btn = ``;
+            let alert = ``;
+            if (!item.report && item.status == 'approved'){
+              alert = `<div class="alert alert-warning fade show mt-2" role="alert">
+                <i class="mdi mdi-information"></i>
+                <small> Anda belum mengunggah kabar terbaru kepada para donatur. Segera mengunggah kabar terbaru setelah pencairan berhasil.</small>
+                </div>`;
+              btn = `<a href="{{ url('buat-kabar-terbaru','') }}/`+item.id+`" class="btn btn-sm btn-info mt-2 align-center text-white" type="button">Tulis Kabar Terbaru</a>`;
+            } else if (item.report && item.status == 'approved'){
+              alert = ``;
+              btn = ``;
+            };
             switch (item.status) {
               case 'processing':
                 bg = 'warning';
                 status = 'Diproses';
                 alert = `
-                  <div class="alert alert-primary fade show mt-2" role="alert">
+                  <div class="alert alert-danger fade show mt-2" role="alert">
                     <i class="mdi mdi-information"></i>
                     <small>
                       Anda tidak dapat melakukan pencairan lagi sebelum pencairan ini selesai diproses.
@@ -330,24 +353,22 @@
                     </small>
                   </div>
                 `;
-                $('#list-pencairan-processing').html('')
                 $('#list-pencairan-processing').append(`
                   <div class="card mb-3">
                     <div class="card-header bg-white">
                       <div class="row">
                         <div class="col-10 text-start pt-2">
                           <div class="row">
-                            <small>${item.created_at}</small>
+                            <small>${dayjs(new Date(item.created_at)).format('MMM D, YYYY')}</small>
                             <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
                           </div>
                         </div>
-                        <div class="col-2 text-end pt-2"><span class="badge p-2 bg-warning">${item.status}</span></div>
+                        <div class="col-2 text-end pt-2"><span class="badge p-2 bg-warning">${status}</span></div>
                       </div>
                     </div>
                     <div class="card-body">
                       <div class="row">
-                        <span><b>${item.rek_name}</b></span>
-                        <span>${item.bank_name} - ${item.rek_number}</span>
+                        <span style="font-weight: 600;">${item.bank_name} ${item.rek_number} a/n ${item.rek_name}</span>
                         <span>Rincian penggunaan dana: ${item.description}
                         </span>
                       </div>
@@ -355,56 +376,68 @@
                   </div>
                 `);
                 break;
+
               case 'approved':
                 bg = 'success';
                 status = 'Berhasil';
-                // alert = `<div class="alert alert-warning fade show mt-2" role="alert">
-                //     <i class="mdi mdi-information"></i>
-                //     <small> Anda belum mengunggah kabar terbaru kepada para donatur. Segera mengunggah kabar terbaru setelah pencairan berhasil.</small>
-                //     </div>`;
-                //     break;
-                 // if penggalang dana belum mengunggah distribution report
-                if (!datas.document && item.status == 'approved'){
-                  alert = `<div class="alert alert-warning fade show mt-2" role="alert">
-                    <i class="mdi mdi-information"></i>
-                    <small> Anda belum mengunggah kabar terbaru kepada para donatur. Segera mengunggah kabar terbaru setelah pencairan berhasil.</small>
-                    </div>`;
-                  btn = `<a href="{{ url('buat-kabar-terbaru','') }}/`+item.id+`" class="btn btn-sm btn-info mt-2 align-center text-white" type="button">Tulis Kabar Terbaru</a>`;
-                } else if (datas.document && item.status == 'approved'){
-                  alert = ``;
-                };
-                $('#list-pencairan-approved').html('');
                 $('#list-pencairan-approved').append(`
                   <div class="card mb-3">
                     <div class="card-header bg-white">
                       <div class="row">
                         <div class="col-10 text-start pt-2">
                           <div class="row">
-                            <small>${item.created_at}</small>
+                            <small>${dayjs(new Date(item.created_at)).format('MMM D, YYYY')}</small>
                             <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
                           </div>
                         </div>
-                        <div class="col-2 text-end pt-2"><span class="badge p-2 bg-success">${item.status}</span></div>
+                        <div class="col-2 text-end pt-2"><span class="badge p-2 bg-success">${status}</span></div>
                       </div>
                     </div>
                     <div class="card-body">
                       <div class="row">
-                        <span><b>${item.rek_name}</b></span>
-                        <span>${item.bank_name} - ${item.rek_number}</span>
+                        <span style="font-weight: 600;">${item.bank_name} ${item.rek_number} a/n ${item.rek_name}</span>
                         <span>Rincian penggunaan dana: ${item.description}
                         </span>
                       </div>
+                      <div>${btn}<div>
                       <div>${alert}<div>
                     </div>
                   </div>
                 `);
                 break;
+
               case 'rejected':
                 bg = 'danger';
                 status = 'Ditolak';
-                alert = `div class="alert alert-danger fade show mt-2" role="alert">
-                    <small>Ditolak karena:${item.reject_note}</small>
-                  </div>`;
+                alert = `<div class="alert alert-danger fade show mt-2" role="alert">
+                      <small>Ditolak karena: ${item.reject_note}</small>
+                      </div>
+                    </div>
+                  </div>
+                  `;
+                  $('#list-pencairan-rejected').append(`
+                  <div class="card mb-3">
+                    <div class="card-header bg-white">
+                      <div class="row">
+                        <div class="col-10 text-start pt-2">
+                          <div class="row">
+                            <small>${dayjs(new Date(item.created_at)).format('MMM D, YYYY')}</small>
+                            <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
+                          </div>
+                        </div>
+                        <div class="col-2 text-end pt-2"><span class="badge p-2 bg-danger">${status}</span></div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <span style="font-weight: 600;">${item.bank_name} ${item.rek_number} a/n ${item.rek_name}</span>
+                        <span>Rincian penggunaan dana: ${item.description}
+                        </span>
+                      </div>
+                      <div>${alert}</div>
+                    </div>
+                  </div>
+                  `);
                 break;
               default:
                 break;
@@ -415,7 +448,7 @@
                 <div class="row">
                   <div class="col-10 text-start pt-2">
                     <div class="row">
-                      <small>${item.created_at}</small>
+                      <small>${dayjs(new Date(item.created_at)).format('MMM D, YYYY')}</small>
                       <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
                     </div>
                   </div>
@@ -424,8 +457,7 @@
               </div>
               <div class="card-body">
                 <div class="row">
-                  <span style="font-weight: 600;">${item.bank_name} - ${item.rek_number}</span>
-                  <span style="font-weight: 600;">a/n ${item.rek_name}</span>
+                  <span style="font-weight: 600;">${item.bank_name} ${item.rek_number} a/n ${item.rek_name}</span>
                   <span>Rincian penggunaan dana: ${item.description}
                   </span>
                 </div>

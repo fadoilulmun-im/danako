@@ -57,78 +57,78 @@ class DonationController extends Controller
                 }  
                 return $html;
             })
-            ->editColumn('payment_channel', function($data){
-                if ($data->payment_channel) {
-                    switch ($data->payment_channel) {
-                        case 'MANDIRI':
-                            $return  = '<center><img width="70" height="20" src="'. asset('/danako/img/payments/mandiri_logo.png') .'"></center>';
-                            break;
+            // ->editColumn('payment_channel', function($data){
+            //     if ($data->payment_channel) {
+            //         switch ($data->payment_channel) {
+            //             case 'MANDIRI':
+            //                 $return  = '<center><img width="70" height="20" src="'. asset('/danako/img/payments/mandiri_logo.png') .'"></center>';
+            //                 break;
 
-                        case 'BRI':
-                            $return  = '<center><img width="60" height="30" src="'. asset('/danako/img/payments/bri_logo.png') .'"></center>';
-                            break;
+            //             case 'BRI':
+            //                 $return  = '<center><img width="60" height="30" src="'. asset('/danako/img/payments/bri_logo.png') .'"></center>';
+            //                 break;
 
-                        case 'BSI':
-                            $return  = '<center><img width="60" height="50" src="'. asset('/danako/img/payments/logo-bsi.png') .'"></center>';
-                            break;
+            //             case 'BSI':
+            //                 $return  = '<center><img width="60" height="50" src="'. asset('/danako/img/payments/logo-bsi.png') .'"></center>';
+            //                 break;
 
-                        case 'BNI':
-                            $return  = '<center><img width="60" height="20" src="'. asset('/danako/img/payments/bni_logo.png') .'"></center>';
-                            break;
+            //             case 'BNI':
+            //                 $return  = '<center><img width="60" height="20" src="'. asset('/danako/img/payments/bni_logo.png') .'"></center>';
+            //                 break;
                         
-                        case 'PERMATA':
-                            $return  = '<center><img width="70" height="30" src="'. asset('/danako/img/payments/permata_logo.png') .'"></center>';
-                            break;
+            //             case 'PERMATA':
+            //                 $return  = '<center><img width="70" height="30" src="'. asset('/danako/img/payments/permata_logo.png') .'"></center>';
+            //                 break;
                         
-                        case 'OVO':
-                            $return  = '<center><img width="60" height="20" src="'. asset('/danako/img/payments/ovo_logo.png') .'"></center>';
-                            break;
+            //             case 'OVO':
+            //                 $return  = '<center><img width="60" height="20" src="'. asset('/danako/img/payments/ovo_logo.png') .'"></center>';
+            //                 break;
 
-                        case 'DANA':
-                            $return  = '<center><img width="65" height="20" src="'. asset('/danako/img/payments/dana_logo.png') .'"></center>';
-                            break;
+            //             case 'DANA':
+            //                 $return  = '<center><img width="65" height="20" src="'. asset('/danako/img/payments/dana_logo.png') .'"></center>';
+            //                 break;
 
-                        case 'LINKAJA':
-                            $return  = '<center><img width="45" height="40" src="'. asset('/danako/img/payments/linkaja_logo.png') .'"></center>';
-                            break;
+            //             case 'LINKAJA':
+            //                 $return  = '<center><img width="45" height="40" src="'. asset('/danako/img/payments/linkaja_logo.png') .'"></center>';
+            //                 break;
 
-                        case 'QRIS':
-                            $return  = '<center><img width="60" height="30" src="'. asset('/danako/img/payments/qris_logo.png') .'" alt="QRIS"></center>';
-                            break;
+            //             case 'QRIS':
+            //                 $return  = '<center><img width="60" height="30" src="'. asset('/danako/img/payments/qris_logo.png') .'" alt="QRIS"></center>';
+            //                 break;
                         
-                        default:
-                            $return = '<center><h5><span class="badge p-1 badge-soft-secondary">'. $data->payment_channel .'</span></h5><center>';
-                            break;
-                    }
-                    return $return;
-                } else {
-                    return '<center><h5><span>NOT FOUND</span></h5></center>';
-                }
-            })
-            ->editColumn('payment_method', function($data){
-                if ($data->payment_method) {
-                    switch ($data->payment_method) {
-                        case 'QR_CODE':
-                            $return  = '<center><h5><span>QR Code</span></h5></center>';
-                            break;
+            //             default:
+            //                 $return = '<center><h5><span class="badge p-1 badge-soft-secondary">'. $data->payment_channel .'</span></h5><center>';
+            //                 break;
+            //         }
+            //         return $return;
+            //     } else {
+            //         return '<center><h5><span>NOT FOUND</span></h5></center>';
+            //     }
+            // })
+            // ->editColumn('payment_method', function($data){
+            //     if ($data->payment_method) {
+            //         switch ($data->payment_method) {
+            //             case 'QR_CODE':
+            //                 $return  = '<center><h5><span>QR Code</span></h5></center>';
+            //                 break;
 
-                        case 'EWALLET':
-                            $return  = '<center><h5><span>e-Wallet</span></h5></center>';
-                            break;
+            //             case 'EWALLET':
+            //                 $return  = '<center><h5><span>e-Wallet</span></h5></center>';
+            //                 break;
 
-                        case 'BANK_TRANSFER':
-                            $return  = '<center><h5><span>Bank Transfer</span></h5></center>';
-                            break;
+            //             case 'BANK_TRANSFER':
+            //                 $return  = '<center><h5><span>Bank Transfer</span></h5></center>';
+            //                 break;
                         
-                        default:
-                            $return = '<center><h5><span class="badge p-1 badge-soft-secondary">'. $data->payment_method .'</span></h5><center>';
-                            break;
-                    }
-                    return $return;
-                } else {
-                    return '<center><h5><span>NOT FOUND</span></h5></center>';
-                }
-            })
+            //             default:
+            //                 $return = '<center><h5><span class="badge p-1 badge-soft-secondary">'. $data->payment_method .'</span></h5><center>';
+            //                 break;
+            //         }
+            //         return $return;
+            //     } else {
+            //         return '<center><h5><span>NOT FOUND</span></h5></center>';
+            //     }
+            // })
             ->editColumn('status', function($data){
                 if ($data->status) {
                     switch ($data->status) {
@@ -252,7 +252,7 @@ class DonationController extends Controller
                 }
             })
             ->addIndexColumn()
-            ->rawColumns(['action', 'payment_link', 'status', 'payment_channel', 'payment_method', 'transaction_fee', 'platform_fee'])
+            ->rawColumns(['action', 'payment_link', 'status', 'transaction_fee', 'platform_fee'])
             ->make(true);
     }
 

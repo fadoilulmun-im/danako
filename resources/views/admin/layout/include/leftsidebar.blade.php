@@ -28,7 +28,7 @@
                 </li>
                 <li>
                     <a href="/admin/campaigns">
-                        <i class="mdi mdi-heart-outline"></i>
+                        <i class="mdi mdi-charity"></i>
                         <span> Campaigns </span>
                     </a>
                 </li>
@@ -54,6 +54,12 @@
                             </li>
                         </ul>
                     </div>
+                </li>
+                <li>
+                    <a href="/admin/distribution-report">
+                        <i class="mdi mdi-book-open-variant"></i>
+                        <span> Distribution Report</span>
+                    </a>
                 </li>
             </ul>
 

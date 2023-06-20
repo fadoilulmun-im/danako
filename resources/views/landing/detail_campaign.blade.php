@@ -3,90 +3,94 @@
 @section('title', 'Detail Campaign')
 
 @push('after-style')
-    <style>
-        .mt-100 {
-            margin-top: 100px
-        }
+<style>
+    .mt-100 {
+        margin-top: 100px
+    }
 
-        .modal {
-            background-image: linear-gradient(rgb(35, 79, 71) 0%, rgb(36, 121, 106) 100.2%)
-        }
+    .modal {
+        background-image: linear-gradient(rgb(35, 79, 71) 0%, rgb(36, 121, 106) 100.2%)
+    }
 
-        .modal-title {
-            font-weight: 900
-        }
+    .modal-title {
+        font-weight: 900
+    }
 
-        .modal-content {
-            border-radius: 13px
-        }
+    .modal-content {
+        border-radius: 13px
+    }
 
-        .modal-body {
-            color: #3b3b3b
-        }
+    .modal-body {
+        color: #3b3b3b
+    }
 
-        .img-thumbnail {
-            border-radius: 33px;
-            width: 61px;
-            height: 61px
-        }
+    .img-thumbnail {
+        border-radius: 33px;
+        width: 61px;
+        height: 61px
+    }
 
-        .fab:before {
-            position: relative;
-            top: 13px
-        }
+    .fab:before {
+        position: relative;
+        top: 13px
+    }
 
-        .smd {
-            width: 200px;
-            font-size: small;
-            text-align: center
-        }
+    .smd {
+        width: 200px;
+        font-size: small;
+        text-align: center
+    }
 
-        .modal-footer {
-            display: block
-        }
+    .modal-footer {
+        display: block
+    }
 
-        .ur {
-            border: none;
-            background-color: #e6e2e2;
-            border-bottom-left-radius: 4px;
-            border-top-left-radius: 4px
-        }
+    .ur {
+        border: none;
+        background-color: #e6e2e2;
+        border-bottom-left-radius: 4px;
+        border-top-left-radius: 4px
+    }
 
-        .cpy {
-            border: none;
-            background-color: #e6e2e2;
-            border-bottom-right-radius: 4px;
-            border-top-right-radius: 4px;
-            cursor: pointer
-        }
+    .cpy {
+        border: none;
+        background-color: #e6e2e2;
+        border-bottom-right-radius: 4px;
+        border-top-right-radius: 4px;
+        cursor: pointer
+    }
 
-        button.focus,
-        button:focus {
-            outline: 0;
-            box-shadow: none !important
-        }
+    button.focus,
+    button:focus {
+        outline: 0;
+        box-shadow: none !important
+    }
 
-        .ur.focus,
-        .ur:focus {
-            outline: 0;
-            box-shadow: none !important
-        }
+    .ur.focus,
+    .ur:focus {
+        outline: 0;
+        box-shadow: none !important
+    }
 
-        .message {
-            font-size: 11px;
-            color: #ee5535
-        }
+    .message {
+        font-size: 11px;
+        color: #ee5535
+    }
 
-        .nav-pills .nav-link.active{
-            background: #79C121;
-        }
+    .nav-pills .nav-link.active {
+        background: #79C121;
+    }
 
-        .card-kabar{
-            border-left: 5px solid green; /* Menambahkan border hijau di sebelah kanan */
-        }
+    .card-kabar {
+        border-left: 5px solid green;
+        /* Menambahkan border hijau di sebelah kanan */
+    }
 
-        
-    </style>
+    .card-hope {
+        border-bottom: 1px solid slategrey;
+        /* Menambahkan border hijau di sebelah kanan */
+    }
+</style>
 
 @endpush
 
@@ -94,368 +98,356 @@
 
 <section class="job-details pt-5 pb-5">
     <div class="container">
-      <div class="notif"></div>
+        <div class="notif"></div>
         <div class="row">
             <div class="col-lg-8 ">
-              <div class="row">
-                <div class="col-lg-12">
-                  <div class="job-details-text">
-                      <div class="job-card mb-0">
-                          <div class="row align-items-center">
-                              <div class="col-md-12">
-                                <div class="job-info">
-                                    <h1 id="title">Loading... </h1>
-                                    
-                                    <div id="count-donasi"></div>
-                                </div>
-                                <div class="border-bottom border-3 pt-2"></div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="job-details-text">
+                            <div class="job-card mb-0">
+                                <div class="row align-items-center">
+                                    <div class="col-md-12">
+                                        <div class="job-info">
+                                            <h1 id="title">Loading... </h1>
 
-                                <img id="image" src="{{ asset('assets/images/image-solid.svg') }}" class="img-fluid"
-                                    alt="Responsive image" style="max-height: 500px">
-
-                                    <div class="kontak-campaign pt-3 pb-3">
-                                        <div class="d-flex align-items-center">
-                                            <img id="image-campaigner" src="{{ asset('') }}danako/img/campaign/Circel.png"
-                                                alt="LMI ZAKAT" style="width: 50px; height: 50px; border-radius: 50%;">
-                                            <h4 class="ms-3 m-0" id="name-campaigner">Loading...</h4>
+                                            <div id="count-donasi"></div>
                                         </div>
-                                        <p style="margin-top: 5px;">Penggalang Dana <span class="color-primary">Lihat</span></p>
-                                    </div>
+                                        <div class="border-bottom border-3 pt-2"></div>
 
-                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                        <li class="nav-item" role="presentation">
-                                          <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Cerita</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Penggunaan Dana</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                          <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Kabar terbaru</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-hope" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Doa Doa</button>
-                                          </li>
-                                      </ul>
-                                      <div class="tab-content" id="pills-tabContent">
+                                        <img id="image" src="{{ asset('assets/images/image-solid.svg') }}"
+                                            class="img-fluid" alt="Responsive image" style="max-height: 500px">
 
-                                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                                            <div class="details-text pt-2">
+                                        <div class="kontak-campaign pt-3 pb-3">
+                                            <div class="d-flex align-items-center">
+                                                <img id="image-campaigner"
+                                                    src="{{ asset('') }}danako/img/campaign/Circel.png" alt="LMI ZAKAT"
+                                                    style="width: 50px; height: 50px; border-radius: 50%;">
+                                                <h4 class="ms-3 m-0" id="name-campaigner">Loading...</h4>
+                                            </div>
+                                            <p style="margin-top: 5px;">Penggalang Dana <span
+                                                    class="color-primary">Lihat</span></p>
+                                        </div>
 
-                                                <h3>Cerita Campaign</h3>
-                                                <div id="content">
+                                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link active" id="pills-home-tab"
+                                                    data-bs-toggle="pill" data-bs-target="#pills-home" type="button"
+                                                    role="tab" aria-controls="pills-home"
+                                                    aria-selected="true">Cerita</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#pills-profile" type="button" role="tab"
+                                                    aria-controls="pills-profile" aria-selected="false">Penggunaan
+                                                    Dana</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#pills-contact" type="button" role="tab"
+                                                    aria-controls="pills-contact" aria-selected="false">Kabar
+                                                    terbaru</button>
+                                            </li>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
+                                                    data-bs-target="#pills-hope" type="button" role="tab"
+                                                    aria-controls="pills-contact" aria-selected="false">Doa Doa</button>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="pills-tabContent">
+
+                                            <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                                                aria-labelledby="pills-home-tab">
+                                                <div class="details-text pt-2">
+
+                                                    <h3>Cerita Campaign</h3>
+                                                    <div id="content">
+                                                        <div class="text-center w-100">
+                                                            <div class="spinner-border" role="status">
+                                                                <span class="visually-hidden">Loading...</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {{-- <button class="toggle-button readmore"
+                                                        onclick="toggleText()">Baca Selengkapnya</button> --}}
+                                                </div>
+
+                                            </div>
+
+                                            <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                                                aria-labelledby="pills-profile-tab">
+                                                <div class="row">
+                                                    <div class="col-sm-5">
+                                                        <div class="card alert alert-warning fade show" role="alert">
+                                                            <div class="row mb-2">
+                                                                <small> &#8226; Dana dapat dicairkan dan dikelola oleh
+                                                                penggalang dana</small>
+                                                            </div>
+                                                            <div class="row mb-2">
+                                                                <small>&#8226; Biaya transaksi bank 100% ditujukan untuk
+                                                                    pihak ketiga penyedia layanan transaksi digital
+                                                                    melalui
+                                                                    Virtual Account, dompet digital dan QRIS. DANAKO
+                                                                    tidak mengambil keuntungan dari layanan ini.
+                                                                </small>
+                                                            </div>
+                                                            <div class="row">
+                                                                <small>&#8226; Donasi untuk operasional DANAKO agar donasi
+                                                                    semakin mudah, aman & transparan.
+                                                                    Maksimal 5% dari setiap donasi yang terkumpul.
+                                                                </small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-7">
+                                                        <div class="bg-white rounded mb-5">
+                                                            <div class="row">
+                                                                <div class="col-sm-12 px-4 shadow">
+                                                                    <h5 class="pt-4 pb-3">Informasi Pengunaan Dana</h5>
+                                                                    <div
+                                                                        class="bg-info border border-primary mb-3 rounded-3">
+                                                                        <div class="card-body text-white">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <h6 class="card-title">Sudah Di
+                                                                                        Cairkan</h6>
+                                                                                    <p class="card-text">Rp {{ $sudahDicairkan }}</p>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <h6 class="card-title">Belum Di
+                                                                                        Cairkan</h6>
+                                                                                    <p class="card-text">Rp {{ $belumDicairkan }}</p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <h5 class="pt-1 pb-1">Total Transaksi sampai saat
+                                                                        ini</h5>
+                                                                    <div class="d-flex justify-content-between pb-3">
+                                                                        <span>Jumlah Donasi</span>
+                                                                        <span>{{ $donasi }} transaksi</span>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-between pb-3">
+                                                                        <span>Jumlah Donatur</span>
+                                                                        <span>{{ $donatur }} donatur</span>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-between pb-3">
+                                                                        <span>Dana Terkumpul</span>
+                                                                        <span>Rp {{ $totalDana }}</span>
+                                                                    </div>
+
+                                                                    <h5 class="pt-1 pb-1">Rincian dana terkumpul</h5>
+                                                                    <div class="d-flex justify-content-between pb-3">
+                                                                        <span>Biaya Transaksi Bank</span>
+                                                                        <span>Rp {{ $totalBiayaTransaksi }} </span>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-between pb-3">
+                                                                        <span>Donasi operasional DANAKO</span>
+                                                                        <span>Rp {{ $totalBiayaPlatform }}</span>
+                                                                    </div>
+                                                                    <div class="d-flex justify-content-between pb-3">
+                                                                        <span>Dana dapat dicairkan</span>
+                                                                        <span>Rp {{ $dapatDicairkan }} </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="pills-contact" role="tabpanel"
+                                                aria-labelledby="pills-contact-tab">
+                                                <input type="hidden" id="campaign_id" value="{{ $campaign->id }}">
+                                                <div class="container-fluid" style="height: 500px; overflow-y: scroll;" id="list-kabar">
+                                                    {{-- <div class="d-flex justify-content-center">
+                                                        <center><div>Dana belum dicairkan</div></center>
+                                                    </div> --}}
+                                                    {{-- <div class="card-kabar py-3 px-3 mt-3">
+                                                        <div class="card rounded py-3 px-3 mt-3">
+                                                            <p class="card-text ">21 Januari 2023</p>
+                                                            <h6 class="card-text">Pencariran <span class="text-danako">
+                                                                    RP.10000</span></h6>
+                                                            <h5 class="card-title pb-1 pt-1">Kerekening bri ********
+                                                            </h5>
+                                                            <p>Rencan Penggunaan Dana:<br>
+                                                                <span>Rencan pengunaan Dana</span>
+                                                            </p>
+                                                        </div>
+                                                    </div> --}}
+
+                                                    {{-- <div class="card-kabar py-3 px-3 mt-3">
+                                                        <div class="card rounded py-3 px-3 mt-3">
+                                                            <p class="card-text ">21 Januari 2023</p>
+                                                            <h6 class="card-text">Pencariran <span class="text-danako">
+                                                                    RP.10000</span></h6>
+                                                            <h5 class="card-title pb-1 pt-1">Kerekening bri ********
+                                                            </h5>
+                                                            <p>Rencan Penggunaan Dana:<br>
+                                                                <span>Rencan pengunaan Dana</span>
+                                                            </p>
+                                                        </div>
+                                                    </div> --}}
+                                                </div>
+                                            </div>
+
+
+                                            <div class="tab-pane fade" id="pills-hope" role="tabpanel"
+                                                aria-labelledby="pills-contact-tab">
+                                                <div class="container-fluid" style="height: 500px; overflow-y: scroll;" id="list-hope">
                                                     <div class="text-center w-100">
                                                         <div class="spinner-border" role="status">
                                                             <span class="visually-hidden">Loading...</span>
                                                         </div>
                                                     </div>
                                                 </div>
-        
-                                                {{-- <button class="toggle-button readmore" onclick="toggleText()">Baca Selengkapnya</button> --}}
-                                            </div>
-        
-                                        </div>
-
-                                        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                          <div class="row">
-                                            <div class="col-sm-7">
-                                                <div class="bg-white rounded mb-5">
-                                                    <div class="row">
-                                                        <div class="col-sm-12 px-4 shadow">
-                                                            <h5 class="pt-4 pb-3">Informasi Pengunaan Dana</h5>
-                                                            <div class="bg-info border border-primary mb-3 rounded-3" >
-                                                                <div class="card-body text-white">
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <h6 class="card-title">Sudah Di Cairkan</h6>
-                                                                            <p class="card-text">Rp </p>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <h6 class="card-title">Belum Di Cairkan</h6>
-                                                                            <p class="card-text">Rp </p>
-                                                                        </div>
-                                                                        {{-- <div class="col-md-12 py-1 bg-light text-dark rounded-3">
-                                                                            Data Di Perbarui setiap 15 menit harap Terakir 23 - Maret - 2022
-                                                                        </div> --}}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <h5 class="pt-1 pb-1">Total Transaksi sampai saat  ini</h5>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>Jumlah Donasi</span>
-                                                              <span> transaksi</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>Jumlah Donatur</span>
-                                                              <span> donatur</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>Dana Terkumpul</span>
-                                                              <span>Rp </span>
-                                                            </div>
-                                                            
-                                                            <h5 class="pt-1 pb-1">Rincian dana terkumpul</h5>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>&#8226; Biaya Transaksi Bank</span>
-                                                              <span>Rp </span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>&#8226; Donasi operasional DANAKO</span>
-                                                              <span>Rp </span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>Dana dapat dicairkan</span>
-                                                              <span>Rp </span>
-                                                            </div>
-                                                            
-                                                            <div class="alert alert-warning fade show" role="alert">
-                                                                
-                                                                <div class="row">
-                                                                  <div class="col-md-1">
-                                                                    <strong>***</strong>
-                                                                  </div>
-                                                                  <div class="col-md-11">
-                                                                    <span>Catatan
-                                                                    </span>
-                                                                  </div>
-                                                                </div>
-                                                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                              
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <div class="alert alert-warning fade show" role="alert">
-                                                    <div class="row sm-2">
-                                                      <div class="col-sm-1">
-                                                        <strong>*</strong>
-                                                      </div>
-                                                      <div class="col-sm-11">
-                                                        <span>Dana dapat dicairkan dan dikelola oleh penggalang dana</span>
-                                                      </div>
-                                                    </div>
-                                                    <div class="row mb-2">
-                                                      <div class="col-md-1">
-                                                        <strong>**</strong>
-                                                      </div>
-                                                      <div class="col-sm-11">
-                                                        <span>Biaya transaksi bank 100% ditujukan untuk pihak ketiga penyedia layanan transaksi digital melalui 
-                                                          Virtual Account, dompet digital dan QRIS. DANAKO tidak mengambil keuntungan dari layanan ini.
-                                                        </span>
-                                                      </div>
-                                                    </div>
-                                                    <div class="row">
-                                                      <div class="col-sm-1">
-                                                        <strong>***</strong>
-                                                      </div>
-                                                      <div class="col-sm-11">
-                                                        <span>Donasi untuk operasional DANAKO agar donasi semakin mudah, aman & transparan. 
-                                                          Maksimal 5% dari setiap donasi yang terkumpul.
-                                                        </span>
-                                                      </div>
-                                                    </div>
-                                                        {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
-                                                    </div>
-                                                </div>
-                                            
-                                            
-                                          </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">                                          
-                                            <div  style="height: 500px; overflow-y: scroll;">
-                                                        <div class="card-kabar py-3 px-3 mt-3">                                                 
-                                                               <div class="card rounded py-3 px-3 mt-3"> 
-                                                                    <p class="card-text ">21 Januari 2023</p>
-                                                                    <h6 class="card-text">Pencariran <span class="text-danako"> RP.10000</span></h6>
-                                                                    <h5 class="card-title pb-1 pt-1">Kerekening bri ********</h5>
-                                                                    <p>Rencan Penggunaan Dana:<br>
-                                                                    <span>Rencan pengunaan Dana</span>
-                                                                    </p> 
-                                                               </div>
-                                                          </div>
-
-                                                          <div class="card-kabar py-3 px-3 mt-3">                                                 
-                                                            <div class="card rounded py-3 px-3 mt-3"> 
-                                                                 <p class="card-text ">21 Januari 2023</p>
-                                                                 <h6 class="card-text">Pencariran <span class="text-danako"> RP.10000</span></h6>
-                                                                 <h5 class="card-title pb-1 pt-1">Kerekening bri ********</h5>
-                                                                 <p>Rencan Penggunaan Dana:<br>
-                                                                 <span>Rencan pengunaan Dana</span>
-                                                                 </p> 
-                                                            </div>
-                                                       </div>
                                             </div>
                                         </div>
-                                 
-
-                                      <div class="tab-pane fade" id="pills-hope" role="tabpanel" aria-labelledby="pills-contact-tab">
-                                        <div class="container p-0 pt-3" id="list-hope">
-                                            <div class="text-center w-100">
-                                                <div class="spinner-border" role="status">
-                                                    <span class="visually-hidden">Loading...</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                      </div>
                                     </div>
-                  
-                                    
-                                    
-                                   
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              
-
-                  
-           
-
-            
-
-              </div>
-            </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-4">
-              <div class="job-sidebar">
-                  <h3>Total dana masuk: <span class="color-primary" id="total-dana-masuk">Rp 0</span></h3>
-                  <div class="progress">
-                      <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0"
-                          aria-valuemax="100"></div>
-                  </div>
+                <div class="job-sidebar">
+                    <h3>Total dana masuk: <span class="color-primary" id="total-dana-masuk">Rp 0</span></h3>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                            aria-valuemax="100"></div>
+                    </div>
 
-                  <div class="d-grid gap-2 pt-2 pb-3">
-                      <a href="#" class="btn btn-primary" type="button" id="donasi">Donasi Sekarang</a>
-                      {{-- <button class="btn btn-primary" id="bagikan" type="button">Bagikan campaign</button>
-                      <a href="{{ url('donasi').'/'.$id }}" class="btn btn-primary" type="button">Donasi Sekarang</a> --}}
-                      {{-- <button class="btn btn-primary" id="bagikan" type="button" onclick="openSharePopup()">Bagikan campaign</button> --}}
-                      <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal">
-                          Bagikan
-                      </button>
-                  </div>
+                    <div class="d-grid gap-2 pt-2 pb-3">
+                        <a href="#" class="btn btn-primary" type="button" id="donasi">Donasi Sekarang</a>
+                        {{-- <button class="btn btn-primary" id="bagikan" type="button">Bagikan campaign</button>
+                        <a href="{{ url('donasi').'/'.$id }}" class="btn btn-primary" type="button">Donasi Sekarang</a>
+                        --}}
+                        {{-- <button class="btn btn-primary" id="bagikan" type="button"
+                            onclick="openSharePopup()">Bagikan campaign</button> --}}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">
+                            Bagikan
+                        </button>
+                    </div>
 
-                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                      aria-hidden="true">
-                      <div class="modal-dialog">
-                          <div class="modal-content">
-                              <div class="modal-header">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
 
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                      aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                  <div class="icon-container1 d-flex">
-                                      <a href="https://twitter.com/intent/tweet?url={{ urlencode($url) }}"
-                                          class="smd"> <i class=" img-thumbnail fab fa-twitter fa-2x"
-                                              style="color:#4c6ef5;background-color: aliceblue"></i>
-                                          <p>Twitter</p>
-                                      </a>
-                                      <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($url) }}"
-                                          class="smd"> <i class="img-thumbnail fab fa-facebook fa-2x"
-                                              style="color: #3b5998;background-color: #eceff5;"></i>
-                                          <p>Facebook</p>
-                                      </a>
-                                      <a href="https://www.reddit.com/submit?url={{ urlencode($url) }}"
-                                          class="smd"> <i class="img-thumbnail fab fa-reddit-alien fa-2x"
-                                              style="color: #FF5700;background-color: #fdd9ce;"></i>
-                                          <p>Reddit</p>
-                                      </a>
-                                      <a href="https://discord.com/channels/SERVER_ID/CHANNEL_ID" class="smd"> <i
-                                              class="img-thumbnail fab fa-discord fa-2x "
-                                              style="color: #738ADB;background-color: #d8d8d8;"></i>
-                                          <p>Discord</p>
-                                      </a>
-                                  </div>
-                                  <div class="icon-container2 d-flex">
-                                      <a href="https://api.whatsapp.com/send?text={{ urlencode($url . '/') }}"
-                                              class="smd" target="_blank"> <i
-                                              class="img-thumbnail fab fa-whatsapp fa-2x"
-                                              style="color: #25D366;background-color: #cef5dc;"></i>
-                                          <p>Whatsapp</p>
-                                      </a>
-                                      <a href="https://www.facebook.com/dialog/send?link={{ urlencode($url) }}"
-                                          class="smd"> <i class="img-thumbnail fab fa-facebook-messenger fa-2x"
-                                              style="color: #3b5998;background-color: #eceff5;"></i>
-                                          <p>Messenger</p>
-                                      </a>
-                                      <a href="https://t.me/share/url?url={{ urlencode($url) }}" class="smd"> <i
-                                              class="img-thumbnail fab fa-telegram fa-2x"
-                                              style="color: #4c6ef5;background-color: aliceblue"></i>
-                                          <p>Telegram</p>
-                                      </a>
-                                      <a href="https://www.instagram.com/?url={{ urlencode($url) }}" class="smd">
-                                          <i class="img-thumbnail fab fa-instagram fa-2x"
-                                              style="color: #7bb32e;background-color: #daf1bc;"></i>
-                                          <p>Instagram</p>
-                                      </a>
-                                  </div>
-                              </div>
-                              <div class="modal-footer">
-                                  <label style="font-weight: 600">Social Media Share <span
-                                          class="message"></span></label><br />
-                                  <div class="row">
-                                      <input class="col-md-10 ur" type="url" placeholder="{{ $url }}"
-                                          readonly id="myInput" aria-describedby="inputGroup-sizing-default"
-                                          style="height: 40px;">
-                                      <button class="col-md-2 cpy" onclick="myFunction()"><i
-                                              class="far fa-clone"></i></button>
-                                  </div>
-                              </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="icon-container1 d-flex">
+                                        <a href="https://twitter.com/intent/tweet?url={{ urlencode($url) }}"
+                                            class="smd"> <i class=" img-thumbnail fab fa-twitter fa-2x"
+                                                style="color:#4c6ef5;background-color: aliceblue"></i>
+                                            <p>Twitter</p>
+                                        </a>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($url) }}"
+                                            class="smd"> <i class="img-thumbnail fab fa-facebook fa-2x"
+                                                style="color: #3b5998;background-color: #eceff5;"></i>
+                                            <p>Facebook</p>
+                                        </a>
+                                        <a href="https://www.reddit.com/submit?url={{ urlencode($url) }}" class="smd">
+                                            <i class="img-thumbnail fab fa-reddit-alien fa-2x"
+                                                style="color: #FF5700;background-color: #fdd9ce;"></i>
+                                            <p>Reddit</p>
+                                        </a>
+                                        <a href="https://discord.com/channels/SERVER_ID/CHANNEL_ID" class="smd"> <i
+                                                class="img-thumbnail fab fa-discord fa-2x "
+                                                style="color: #738ADB;background-color: #d8d8d8;"></i>
+                                            <p>Discord</p>
+                                        </a>
+                                    </div>
+                                    <div class="icon-container2 d-flex">
+                                        <a href="https://api.whatsapp.com/send?text={{ urlencode($url . '/') }}"
+                                            class="smd" target="_blank"> <i class="img-thumbnail fab fa-whatsapp fa-2x"
+                                                style="color: #25D366;background-color: #cef5dc;"></i>
+                                            <p>Whatsapp</p>
+                                        </a>
+                                        <a href="https://www.facebook.com/dialog/send?link={{ urlencode($url) }}"
+                                            class="smd"> <i class="img-thumbnail fab fa-facebook-messenger fa-2x"
+                                                style="color: #3b5998;background-color: #eceff5;"></i>
+                                            <p>Messenger</p>
+                                        </a>
+                                        <a href="https://t.me/share/url?url={{ urlencode($url) }}" class="smd"> <i
+                                                class="img-thumbnail fab fa-telegram fa-2x"
+                                                style="color: #4c6ef5;background-color: aliceblue"></i>
+                                            <p>Telegram</p>
+                                        </a>
+                                        <a href="https://www.instagram.com/?url={{ urlencode($url) }}" class="smd">
+                                            <i class="img-thumbnail fab fa-instagram fa-2x"
+                                                style="color: #7bb32e;background-color: #daf1bc;"></i>
+                                            <p>Instagram</p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <label style="font-weight: 600">Social Media Share <span
+                                            class="message"></span></label><br />
+                                    <div class="row">
+                                        <input class="col-md-10 ur" type="url" placeholder="{{ $url }}" readonly
+                                            id="myInput" aria-describedby="inputGroup-sizing-default"
+                                            style="height: 40px;">
+                                        <button class="col-md-2 cpy" onclick="myFunction()"><i
+                                                class="far fa-clone"></i></button>
+                                    </div>
+                                </div>
 
-                          </div>
-                      </div>
-                  </div>
+                            </div>
+                        </div>
+                    </div>
 
-                  <div class="card" style="height: 500px; overflow-y: scroll;">
-                      <div class="card-body p-0" id="list-donasi">
+                    <div class="card" style="height: 500px; overflow-y: scroll;">
+                        <div class="card-body p-0" id="list-donasi">
 
-                          <div class="text-center w-100 pt-5">
-                              <div class="spinner-border" role="status">
-                                  <span class="visually-hidden">Loading...</span>
-                              </div>
-                          </div>
+                            <div class="text-center w-100 pt-5">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
 
-                      </div>
-                  </div>
+                        </div>
+                    </div>
 
-                  {{-- <div class="d-grid gap-2 col-6 mx-auto pt-3">
-                <button type="button" class="btn btn-outline-success">Lihat semua</button>
-              </div> --}}
+                    {{-- <div class="d-grid gap-2 col-6 mx-auto pt-3">
+                        <button type="button" class="btn btn-outline-success">Lihat semua</button>
+                    </div> --}}
 
 
+                </div>
             </div>
-          </div>
         </div>
-      
-      
-      </div>
-    </section>
 
-    <div class="my-div information-container">
-        <div class="container text-center">
-            <h1 class="title pt-5">Download Aplikasi DANAKO!</h1>
-            <h6>Nikmati Kemudahan Beramal di manapun bersama Danako</h6>
-            <div class="text-center">
-                <img src="{{ asset('') }}danako/img/category/googleplay.png"
-                    style="padding-top: 24px; padding-bottom: 41px;" />
-            </div>
+
+    </div>
+</section>
+
+<div class="my-div information-container">
+    <div class="container text-center">
+        <h1 class="title pt-5">Download Aplikasi DANAKO!</h1>
+        <h6>Nikmati Kemudahan Beramal di manapun bersama Danako</h6>
+        <div class="text-center">
+            <img src="{{ asset('') }}danako/img/category/googleplay.png"
+                style="padding-top: 24px; padding-bottom: 41px;" />
         </div>
     </div>
+</div>
 
 @endsection
 
 
 @push('after-script')
-    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.5/plugin/relativeTime.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.5/plugin/relativeTime.min.js"></script>
 
 
 
-    <script>
-        
-        function myFunction() {
+<script>
+    function myFunction() {
             $(".message").text("link copied");
 
         }
@@ -510,6 +502,7 @@
                 type: 'GET',
                 success: (response) => {
                     const data = response.data;
+                    data.reverse();
                     $('#list-donasi').html('');
                     $('#list-hope').html('');
                     if (data.length > 0) {
@@ -538,15 +531,17 @@
 
                             if(item.hope){
                               $('#list-hope').append(`
-                                  <div class="row mb-4 ps-1">
-                                  <div class="col-md-1">
-                                      <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
+                                <div class="card-hope mb-4">
+                                  <div class="row ps-1">
+                                    <div class="col-md-1">
+                                        <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
+                                    </div>
+                                    <div class="col-md-11">
+                                        <h6>${item.name} <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">&#8226; ${dayjs(new Date(item.paid_at)).fromNow()}</span></h6>
+                                        <p>${item.hope}</p>
+                                    </div>
                                   </div>
-                                  <div class="col-md-11">
-                                      <h6>${item.name}</h6>
-                                      <p>${item.hope}</p>
-                                  </div>
-                                  </div>
+                                </div>
                               `);
                             }
             
@@ -563,38 +558,92 @@
                     error: (response) => {
                         const res = response.responseJSON;
                         $('#list-donasi').html(`
-                    <div class="card-body">
-                        <p class="text-center">${res.message}</p>
-                    </div>
+                        <div class="card-body">
+                            <p class="text-center">${res.message}</p>
+                        </div>
                     `);
                 },
             })
 
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    'Authorization': 'Bearer ' + localStorage.getItem('_token'),
+                },
+                url: "{{ route('api.master.withdrawal.pagination','') }}/" + $('#campaign_id').val() + "?status=approved",
+                type: 'GET',
+                dataType: "json",
+                success: function (response) {
+                    const data = response.data;
+                    $('#list-kabar').html('');
+                    $.each(data, function(i, item) {
+                        const hideDataWithDot = value => value.replace(/.+(.{3})$/, "*** **** **** **** $1");
+                        let rek_cencored = hideDataWithDot(item.rek_number);
+
+                        let date = item.created_at.toString();
+                        $('#list-kabar').append(`
+                        <div class="card-kabar">
+                            <div class="card rounded py-3 px-3 mt-3">
+                            <div class="card-header bg-white">
+                                <div class="row">
+                                    <small>${dayjs(new Date(item.created_at)).format('MMM D, YYYY')}</small>
+                                    <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <span style="font-weight: 600;">Ke rekening ${item.bank_name} ${rek_cencored} a/n ${item.rek_name}</span>
+                                    <span>Rincian penggunaan dana: ${item.description}</span>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+    
+                        `);
+                    });
+                    // } else {
+                    //     $('#list-kabar').html(`
+                    //         <div class="card-body">
+                    //         <p class="text-center">Campaigner belum melakukan pencairan</p>
+                    //         </div>
+                    //     `);
+                    // }
+                },
+                error: (response) => {
+                    const res = response.responseJSON;
+                    $('#list-donasi').html(`
+                    <div class="card-body">
+                        <p class="text-center">${res.message}</p>
+                    </div>
+                `);
+                },
+            });
+
             $('#donasi').click((e) => {
-  e.preventDefault();
-  if (!localStorage.getItem('_token')) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Anda belum login',
-      text: 'Apakah anda ingin login supaya data Donasi tersimpan di aku anda',
-      showCancelButton: false,
-      confirmButtonText: 'Ya, login',
-      showDenyButton: true,
-      denyButtonText: 'Tanpa, login',
-      denyButtonColor: '#28a745', // Warna tombol Tanpa Login
-      showCloseButton: true, // Menampilkan ikon "x"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        sessionStorage.setItem('redirect', "{{ url('donasi') . '/' . $id }}");
-        window.location.href = "{{ route('login') }}";
-      } else if (result.isDenied) {
-        window.location.href = "{{ url('donasi') . '/' . $id }}";
-      }
-    });
-  } else {
-    window.location.href = "{{ url('donasi') . '/' . $id }}";
-  }
-});
+                e.preventDefault();
+                if (!localStorage.getItem('_token')) {
+                    Swal.fire({
+                    icon: 'warning',
+                    title: 'Anda belum login',
+                    text: 'Apakah anda ingin login supaya data Donasi tersimpan di aku anda',
+                    showCancelButton: false,
+                    confirmButtonText: 'Ya, login',
+                    showDenyButton: true,
+                    denyButtonText: 'Tanpa, login',
+                    denyButtonColor: '#28a745', // Warna tombol Tanpa Login
+                    showCloseButton: true, // Menampilkan ikon "x"
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        sessionStorage.setItem('redirect', "{{ url('donasi') . '/' . $id }}");
+                        window.location.href = "{{ route('login') }}";
+                    } else if (result.isDenied) {
+                        window.location.href = "{{ url('donasi') . '/' . $id }}";
+                    }
+                    });
+                } else {
+                    window.location.href = "{{ url('donasi') . '/' . $id }}";
+                }
+            });
 
 
 
@@ -606,5 +655,5 @@
             $('#myInput').attr('placeholder', url_new);
             const whatsappLink = "https://api.whatsapp.com/send?text=" + encodeURIComponent("{{ $url . '/' }}") + referral_code;
         });
-    </script>
+</script>
 @endpush

@@ -789,14 +789,14 @@
                         break;
                     }
 
-                    if (response.data.user.detail){
+                    // if (! response.data.user.detail){
                         $('#detail_user').html(`
                             ${response.data.user.username} <i class="mdi mdi-check-decagram text-primary"></i>
                         `);
-                    } else {
-                        $('#detail_userk').html(`
-                        ${response.data.user.username}`);
-                    }
+                    // } else {
+                    //     $('#detail_user').html(`
+                    //     ${response.data.user.username} <i class="mdi mdi-check-decagram text-primary"></i>`);
+                    // }
 
                     $('#detail_activity').html(`
                         <div class="d-flex justify-content-between mb-2">

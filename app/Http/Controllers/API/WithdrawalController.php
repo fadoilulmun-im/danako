@@ -146,6 +146,72 @@ class WithdrawalController extends Controller
         return $this->setResponse(null, 'Withdrawal created successfully');
     }
 
+    public function store2(Request $request){
+
+        $withdraw = Withdrawal::where('campaign_id', $request->campaign_id)->where('status', 'approved');
+        $campaign = Campaign::where('id', $request->campaign_id)->first();
+
+        $user = auth()->user();
+        if($user->id != $campaign->user_id){
+            return $this->setResponse(null, 'Anda tidak memiliki akses', 403);
+        }
+        
+        if (!$withdraw) {
+            $maxWithdraw = $campaign->real_time_amount;
+        } else {
+            $withdrawed_amount = Withdrawal::where('campaign_id', $request->campaign_id)->where('status', 'approved')->sum('amount');
+            $realtime_amount = $campaign->real_time_amount;
+            $maxWithdraw = $realtime_amount - $withdrawed_amount;
+        }
+
+        $rules = [
+            'campaign_id' => 'required|exists:campaigns,id',
+            'description' => 'required',
+            // 'amount' => 'required|numeric',
+            'amount' => 'required|numeric|max:'.$maxWithdraw,
+            'documents' => 'nullable|array',
+            'documents.*' => 'required|file|mimes:jpeg,png,jpg',
+            'bank_name' => 'nullable|string',
+            'rek_name' => 'nullable|string',
+            'rek_number' => 'nullable|numeric',
+        ];
+
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->setResponse($validator->errors(), $validator->errors()->first(), 422);
+        }
+        
+        DB::beginTransaction();
+
+        $withdrawal = new Withdrawal();
+        $withdrawal->description = $request->description;
+        $withdrawal->amount = $request->amount;
+        $withdrawal->campaign_id = $request->campaign_id;
+        $withdrawal->bank_name = $request->bank_name;
+        $withdrawal->rek_name = $request->rek_name;
+        $withdrawal->rek_number = $request->rek_number;
+        $withdrawal->status = 'processing';
+        $withdrawal->save();
+
+        foreach(($request->documents ?? []) as $doc){
+            $withdrawalDocument = new WithdrawalDocument();
+            $withdrawalDocument->withdrawal_id = $withdrawal->id;
+            $withdrawalDocument->type = "dokumen pendukung";
+            $path = '/withdrawal/dokumen-pendukung-user';
+            if (!File::exists(public_path('uploads' . $path))) {
+                File::makeDirectory(public_path('uploads' . $path), 0777, true, true);
+            }
+            $fileName = time() . rand(1, 99) . '.' . $doc->extension();
+            $doc->move(public_path('uploads' . $path), $fileName);
+
+            $withdrawalDocument->path = $path . '/' . $fileName;
+            $withdrawalDocument->save();
+        }
+        
+        DB::commit();
+
+        return $this->setResponse(null, 'Withdrawal created successfully');
+    }
     // public function storeCoba(Request $request){
     //     $rules = [
     //         'title' => 'required|string',
@@ -204,12 +270,28 @@ class WithdrawalController extends Controller
     public function list($id, Request $request)
     {
         $campaign = Campaign::findOrFail($id);
-        $model = Withdrawal::where('campaign_id', $id)->with(['document', 'campaign.user.detail']);
+        $model = Withdrawal::where('campaign_id', $id)->with(['report.images', 'document', 'campaign.user']);
 
         $user = auth()->user();
         if($user->id != $campaign->user_id){
             return $this->setResponse(null, 'Anda tidak memiliki akses', 403);
         }
+
+        if ($request->filled('status')) {
+            $model->where('status', $request->status);
+        }
+
+        if(!$model){
+            return $this->setResponse(null, 'Withdrawal not found', 404);
+        }
+
+        return $this->setResponse($model->get(), 'Withdrawal retrieved successfully');
+    }
+
+    public function pagination($id, Request $request)
+    {
+        $campaign = Campaign::findOrFail($id);
+        $model = Withdrawal::where('campaign_id', $id)->with(['report.images', 'document', 'campaign.user']);
 
         if ($request->filled('status')) {
             $model->where('status', $request->status);

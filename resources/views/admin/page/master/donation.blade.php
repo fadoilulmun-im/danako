@@ -611,7 +611,6 @@
                     $('#detail_amount_donations').text(formatRupiah(response.data.amount_donations));
                     $('#detail_hope').text(response.data.hope);
                     $('#detail_payment_method').text(response.data.payment_method);
-                    $('#detail_payment_channel').text(response.data.payment_channel);
                     $('#detail_paid_at').text(response.data.paid_at);
                     $('#detail_external_id').text(response.data.external_id);
 
@@ -639,6 +638,54 @@
                             status_color = 'badge-soft-danger';
                         break;
                     }
+
+                    let payment_channel = '';
+                    if (response.data.payment_channel) {
+                    switch (response.data.payment_channel) {
+                        case 'MANDIRI':
+                            payment_channel  = '<img width="60" height="20" src="{{ asset("/danako/img/payments/mandiri_logo.png") }}"></center>';
+                            break;
+
+                        case 'BRI':
+                            payment_channel  = '<img width="60" height="30" src="{{ asset("/danako/img/payments/bri_logo.png") }}"></center>';
+                            break;
+
+                        case 'BSI':
+                            payment_channel  = '<img width="60" height="50" src="{{ asset("/danako/img/payments/logo-bsi.png") }}"></center>';
+                            break;
+
+                        case 'BNI':
+                            payment_channel  = '<img width="60" height="20" src="{{ asset("/danako/img/payments/bni_logo.png") }}">';
+                            break;
+                        
+                        case 'PERMATA':
+                            payment_channel  = '<img width="70" height="30" src="{{ asset("/danako/img/payments/permata_logo.png") }}">';
+                            break;
+                        
+                        case 'OVO':
+                            payment_channel  = '<img width="60" height="20" src="{{ asset("/danako/img/payments/ovo_logo.png") }}">';
+                            break;
+
+                        case 'DANA':
+                            payment_channel  = '<img width="65" height="20" src="{{ asset("/danako/img/payments/dana_logo.png") }}">';
+                            break;
+
+                        case 'LINKAJA':
+                            payment_channel  = '<img width="45" height="40" src="{{ asset("/danako/img/payments/linkaja_logo.png") }}">';
+                            break;
+
+                        case 'QRIS':
+                            payment_channel  = '<img width="60" height="30" src="{{ asset("/danako/img/payments/qris_logo.png") }}" alt="QRIS">';
+                            break;
+                        
+                        default:
+                            payment_channel = '<center><h5><span class="badge p-1 badge-soft-secondary">'+ response.data.payment_channel +'</span></h5>';
+                            break;
+                    }
+                    } else {
+                        return '<center><h5><span>NOT FOUND</span></h5></center>';
+                    }
+                    $('#detail_payment_channel').html(payment_channel);
 
                     $('#detail_status').html(`
                         <h5 class='badge p-1 ${status_color}'>${(response.data.status).toUpperCase()}</h5>

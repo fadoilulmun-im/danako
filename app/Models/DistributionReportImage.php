@@ -14,7 +14,7 @@ class DistributionReportImage extends Model
     protected $guarded = [];
 
     public function distributionReport(){
-        return $this->belongsTo(DistributionReport::class);
+        return $this->belongsTo(DistributionReports::class);
     }
 
     public function deleteFile()

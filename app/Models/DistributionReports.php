@@ -6,11 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class DistributionReport extends Model
+class DistributionReports extends Model
 {
     use HasFactory, SoftDeletes;
-
-    protected $table = 'distribution_reports';
 
     protected $guarded = [];
 

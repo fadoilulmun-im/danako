@@ -13,7 +13,7 @@
 
 @section('content')
 
-  <div class="container pb-2">
+  <div class="container pb-2 pt-5">
     <div class="title text-start">
       <span>{{$campaign->title}}</span>
     </div>

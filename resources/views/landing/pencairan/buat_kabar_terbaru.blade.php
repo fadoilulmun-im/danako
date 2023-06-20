@@ -13,7 +13,7 @@
 
 @section('content')
 
-  <div class="container pb-2">
+  <div class="container pb-2 pt-5">
     <div class="title text-start">
       <span></span>
     </div>
@@ -92,8 +92,7 @@
 
   $(document).ready(function() {
       CKEDITOR.replace('description', {
-        
-        filebrowserUploadUrl: "",
+        filebrowserUploadUrl: "{{ route('api.ckeditor.upload') }}",
         filebrowserUploadMethod: 'form'
       });
       CKEDITOR.on('instanceReady', function(){

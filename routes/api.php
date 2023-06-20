@@ -26,17 +26,20 @@ use App\Http\Controllers\API\WithdrawalController;
 
 Route::group(['prefix' => 'withdrawal'], function () {
     Route::post('/', [WithdrawalController::class, 'store'])->name('api.withdrawal.store')->middleware(['auth:sanctum']);
+    Route::post('/', [WithdrawalController::class, 'store2'])->name('api.withdrawal.store2')->middleware(['auth:sanctum']);
     Route::get('/', [WithdrawalController::class, 'index'])->name('api.master.withdrawal.index');
     Route::get('/calculation', [WithdrawalController::class, 'indexCalculation'])->name('api.master.withdrawal.calculation');
     // Route::post('/', [WithdrawalController::class, 'create'])->name('api.withdrawal.create');
     // Route::post('/', [WithdrawalController::class, 'storeCoba'])->name('api.withdrawal.storeCoba');
     Route::get('/{id}', [WithdrawalController::class, 'show'])->name('api.master.withdrawal.show');
+    Route::get('/pagination/{id}', [WithdrawalController::class, 'pagination'])->name('api.master.withdrawal.pagination');
     Route::get('/list/{id}', [WithdrawalController::class, 'list'])->name('api.master.withdrawal.list')->middleware(['auth:sanctum']);
     Route::post('/verif/{id}', [WithdrawalController::class, 'updateVerifiying'])->name('api.master.withdrawal.verif')->middleware(['auth:sanctum']);
 });
 
-Route::group(['prefix' => 'report'], function () {
-    Route::post('/upload', [DistributionReportController::class, 'upload'])->name('api.ckeditor.upload')->middleware(['auth:sanctum']);
+Route::group(['prefix' => 'distribution-report'], function () {
+    Route::get('/', [DistributionReportController::class, 'index'])->name('api.master.distribution.report.index');
+    Route::post('/upload', [DistributionReportController::class, 'upload'])->name('api.ckeditor.upload');
     Route::post('/', [DistributionReportController::class, 'store'])->name('api.distribution.report.store')->middleware(['auth:sanctum']);
 });
 

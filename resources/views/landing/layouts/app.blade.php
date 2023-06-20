@@ -38,7 +38,7 @@
     </div>
     
 
-    <div id="konten" style="display: none;">
+    <div id="konten" class="pt-5" style="display: none;">
         @include('landing.includes.navbar')
         @yield('content')
         @include('landing.includes.footer')
