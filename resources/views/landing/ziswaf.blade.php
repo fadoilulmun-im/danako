@@ -74,21 +74,25 @@
               </a>
               </div>
             
+              
               <div class="col-md-3 mb-4">
+                <a href="{{ url('waqaf') }}" class="card-link">
                 <div class="card">
                   <div class="container">
                     <img src="{{ asset('') }}danako/img/ziswaf/waqaf.png" class="card-img-top" alt="...">
                     <div class="card-body">
                       <div class="card-body d-flex align-items-center">
                         <i class="fa-solid fa-building fa-2xl" style="color: #1c913c;"></i>
-                        <h5 class="card-title mb-0 ms-3">Wakaf</h5>
+                        <h5 class="card-title mb-0 ms-3 text-dark">Wakaf</h5>
                       </div>
-                      <p class="card-text">Hikmah wakaf adalah sesuatu yang dapat kita petik setelah membagikan sebagian harta kita untuk kebutuhan sosial atau ibadah. Selain sebagai salah satu cara mendekatkan diri pada Tuhan, wakaf juga memberikan pahala yang terus mengalir karena bisa memberikan manfaat tak terhingga bagi banyak orang. Apakah wakaf bermanfaat bagi umat?......
+                      <p class="card-text text-dark">Hikmah wakaf adalah sesuatu yang dapat kita petik setelah membagikan sebagian harta kita untuk kebutuhan sosial atau ibadah. Selain sebagai salah satu cara mendekatkan diri pada Tuhan, wakaf juga memberikan pahala yang terus mengalir karena bisa memberikan manfaat tak terhingga bagi banyak orang. Apakah wakaf bermanfaat bagi umat?......
                        </p>
                     </div>
                   </div>
                 </div>
+              </a>
               </div>
+             
 
           </div>
       </div>

@@ -10,11 +10,8 @@
 
 <br>
 
-<div class="container">
+<div class="container pt-5">
     <div class="title">
-		
-       
-
         <span>Sedekah</span>
     </div>
   </div>
@@ -68,9 +65,9 @@
 				
         
           <div class="d-flex justify-content-center mt-5 mb-5 ">
-            <button type="button" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <a href="{{ url('bayar') }}" class="btn btn-primary my-3 mx-3 bg-danako-primary border-0" >
               Sedekah Sekarang
-            </button>
+			</a>
            
           </div>
         </div>
