@@ -319,13 +319,17 @@ class WithdrawalController extends Controller
         $donasi = Donation::where('campaign_id', $campaignId)->where('status', 'PAID')->count();
         $donatur = Donation::where('campaign_id', $campaignId)->where('status', 'PAID')->distinct('name')->count();
         
-        $totalBiayaTransaksi = number_format(Donation::where('campaign_id', $campaignId)->where('status', 'PAID')->sum('transaction_fee'));
-        $totalBiayaPlatform = number_format(Donation::where('campaign_id', $campaignId)->where('status', 'PAID')->sum('platform_fee'));
+        $nonFormatTotalBiayaTransaksi = Donation::where('campaign_id', $campaignId)->where('status', 'PAID')->sum('transaction_fee');
+        $totalBiayaTransaksi = number_format($nonFormatTotalBiayaTransaksi);
+        $nonFormatTotalBiayaPlatform = Donation::where('campaign_id', $campaignId)->where('status', 'PAID')->sum('platform_fee');
+        $totalBiayaPlatform = number_format($nonFormatTotalBiayaPlatform);
         
-        $dapatDicairkan = number_format($totalDanas - $sudahDicairkans);
+        $belumDicairkan = number_format($totalDanas - $sudahDicairkans);
+        $dapatDicairkan = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
 
         return $this->setResponse([
             'sudah_dicairkan' => $sudahDicairkan,
+            'belum_dicairkan' => $belumDicairkan,
             'dapat_dicairkan' => $dapatDicairkan,
             'total_dana' => $totalDana,
             'donasi' => $donasi,

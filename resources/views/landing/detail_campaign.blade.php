@@ -556,7 +556,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <h6 class="card-title">Belum Di Cairkan</h6>
-                                            <p class="card-text">Rp ${data.dapat_dicairkan}</p>
+                                            <p class="card-text">Rp ${data.belum_dicairkan}</p>
                                         </div>
                                     </div>
                                 </div>

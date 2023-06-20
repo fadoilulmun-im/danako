@@ -136,7 +136,7 @@
                     <div class="col-9 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">${item.title.slice(0, 30)}...</h6></div>
                     <div class="col-3 text-end pt-2"><span class="badge bg-${bg}">${item.verification_status}</span></div>
                   </div>
-                  <p class="card-text pt-2 pb-2">${item.description.slice(0,150)}...</p>
+                  <p class="card-text pt-2 pb-2">${item.description.slice(0,150).replace( /(<([^>]+)>)/ig, '')}...</p>
                   <div class="progress">
                     <div class="progress-bar bg-danako" role="progressbar" style="width: ${progress}%; border-radius: 100px;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
@@ -178,7 +178,7 @@
                     <div class="col-9 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">${item.title.slice(0, 30)}...</h6></div>
                     <div class="col-3 text-end pt-2"><span class="badge bg-success">${item.verification_status}</span></div>
                   </div>
-                  <p class="card-text pt-2 pb-2">${item.description.slice(0,150)}...</p>
+                  <p class="card-text pt-2 pb-2">${item.description.slice(0,150).replace( /(<([^>]+)>)/ig, '')}...</p>
                   <div class="progress">
                     <div class="progress-bar bg-danako" role="progressbar" style="width: ${progress}%; border-radius: 100px;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
@@ -217,7 +217,7 @@
                     <div class="col-9 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">${item.title.slice(0, 30)}...</h6></div>
                     <div class="col-3 text-end pt-2"><span class="badge bg-danger">${item.verification_status}</span></div>
                   </div>
-                  <p class="card-text pt-2 pb-2">${item.description.slice(0,150)}...</p>
+                  <p class="card-text pt-2 pb-2">${item.description.slice(0,150).replace( /(<([^>]+)>)/ig, '')}...</p>
                   <div class="progress">
                     <div class="progress-bar bg-danako" role="progressbar" style="width: ${progress}%; border-radius: 100px;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
@@ -259,7 +259,7 @@
                     <div class="col-9 text-start text-success pt-2"><h6 class="card-title pb-1 pt-1">${item.title.slice(0, 30)}...</h6></div>
                     <div class="col-3 text-end pt-2"><span class="badge bg-warning">${item.verification_status}</span></div>
                   </div>
-                  <p class="card-text pt-2 pb-2">${item.description.slice(0,150)}...</p>
+                  <p class="card-text pt-2 pb-2">${item.description.slice(0,150).replace( /(<([^>]+)>)/ig, '')}...</p>
                   <div class="progress">
                     <div class="progress-bar bg-danako" role="progressbar" style="width: ${progress}%; border-radius: 100px;" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>

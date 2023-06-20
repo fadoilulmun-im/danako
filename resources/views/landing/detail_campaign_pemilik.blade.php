@@ -92,12 +92,12 @@ button:focus {
                   <div class="job-details-text">
                       <div class="job-card mb-0">
                           <div class="row align-items-center">
-                              <div class="col-md-2">
+                              {{-- <div class="col-md-2">
                                   <div class="company-logo">
                                     <img src="{{ asset('') }}danako/img/Expand_left.svg" alt="logo" /> 
                                   </div>
-                              </div>
-                              <div class="col-md-10">
+                              </div> --}}
+                              <div class="col-md-12">
                                   <div class="job-info">
                                     <h1 id="title">Loading... </h1>
                                     

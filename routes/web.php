@@ -422,7 +422,7 @@ Route::get('/pencairan-dana/{id}', function ($id) {
     // $targetDonasi = number_format($campaign->target_amount);
     $dapatDicairkan = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
     $dapatDicairkans = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
-    $belumDicairkan = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
+    $belumDicairkan = number_format($totalDanas - $sudahDicairkans);
 
     return view('landing.pencairan.pencairan_dana', compact('id', 'campaign', 'donasi', 'donatur', 'totalDana', 
     'totalBiayaTransaksi', 'totalBiayaPlatform', 'sudahDicairkan', 'belumDicairkan', 'dapatDicairkan'));
@@ -447,7 +447,7 @@ Route::get('/ajukan-pencairan-dana/{id}', function ($id) {
     // $targetDonasi = number_format($campaign->target_amount);
     $dapatDicairkan = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
     $dapatDicairkans = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
-    $belumDicairkan = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
+    $belumDicairkan = number_format($totalDanas - $sudahDicairkans);
     
     return view('landing.pencairan.ajukan_pencairan_dana', compact('id', 'campaign', 'donasi', 'donatur', 'totalDana', 
     'totalBiayaTransaksi', 'totalBiayaPlatform', 'sudahDicairkan', 'belumDicairkan', 'dapatDicairkan'));
