@@ -9,21 +9,21 @@
 @section('content')
 
 <section class="h-utama">
-    <div class="container-fluid">
-        <div class="banner">
-            <div class="row ">
-                <div class="col-md-6">
-                    <p class="text-dark">Tak perlu sejuta untuk berdampak, mulai dari seribu</p>
-                    <h1 class="pb-3 color-primary">Satukan kebaikan<br><span class="text-dark">Salurkan kebermanfaatan.</span> </h1>
-                    <button type="button" class="btn btn-primary btn-lg bg-danako-primary border-0 border-5">Donasi sekarang</button>
-                </div>
-                <div class="col-md-6">
-                    <img src="{{ asset('') }}danako/img/campaignunggulan.png" class="img-fluid">
-                </div>
-            </div>
-        </div>
-    </div>
-  </section>
+  <div class="container-fluid">
+      <div class="banner">
+          <div class="row ">
+              <div class="col-md-6">
+                  <p class="text-white">Tak perlu sejuta untuk berdampak, mulai dari seribu</p>
+                  <h1 class="pb-3 text-white">Satukan kebaikan<br><span class="text-white">Salurkan kebermanfaatan.</span> </h1>
+                  <a href="{{ url('all-campaign') }}" class="btn btn-primary btn-lg bg-danako-primary border-0 border-5">Donasi sekarang</a>
+              </div>
+              <div class="col-md-6">
+                  <img src="{{ asset('') }}danako/img/campaignunggulan.png" class="img-fluid">
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
 
   <a href="{{ url('ziswaf') }}">
     <section class="info-danako">

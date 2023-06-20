@@ -75,9 +75,10 @@
                             </div>
                           </div>
                            <div class="d-flex justify-content-center pt-4 pb-5">
-                            <button type="button" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat" onclick="hitungNisabProfesi(); hitungZakatProfesi();">Bayar Zakat</button>
+                           
                           </div> 
                         </form>
+                        
                         
                       
                       </div>
@@ -92,7 +93,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat" onclick="hitungNisabProfesi(); hitungZakatProfesi();">Bayar Zakat</button>
+        <a href="/bayar" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat">Bayar Zakat</a>
       </div>
     </div>
   </div>
@@ -169,7 +170,7 @@
                             </div>
                           </div>
                            <div class="d-flex justify-content-center pt-4 pb-5">
-                            <button type="button" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat" onclick="hitungNisabProfesi(); hitungZakatProfesi();">Bayar Zakat</button>
+                          
                           </div> 
                         </form>
                         
@@ -186,7 +187,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat" onclick="hitungNisabProfesi(); hitungZakatProfesi();">Bayar Zakat</button>
+        <a href="/bayar" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat">Bayar Zakat</a>
       </div>
     </div>
   </div>
@@ -295,7 +296,7 @@
                           </div>
 
                            <div class="d-flex justify-content-center pt-4 pb-5">
-                            <button type="button" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat" onclick="hitungNisabProfesi(); hitungZakatProfesi();">Bayar Zakat</button>
+                           
                           </div> 
                         </form>
                         
@@ -312,7 +313,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat" onclick="hitungNisabProfesi(); hitungZakatProfesi();">Bayar Zakat</button>
+        <a href="/bayar" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat">Bayar Zakat</a>
       </div>
     </div>
   </div>
@@ -392,7 +393,7 @@
                             </div>
                           </div>
                            <div class="d-flex justify-content-center pt-4 pb-5">
-                            <button type="button" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat" onclick="hitungNisabProfesi(); hitungZakatProfesi();">Bayar Zakat</button>
+                           
                           </div> 
                         </form>
                         
@@ -409,7 +410,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat" onclick="hitungNisabProfesi(); hitungZakatProfesi();">Bayar Zakat</button>
+        <a href="/bayar" class="btn btn-primary btn-lg me-5 bg-danako-primary bt-zakat">Bayar Zakat</a>
       </div>
     </div>
   </div>

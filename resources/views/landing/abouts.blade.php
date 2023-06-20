@@ -28,9 +28,9 @@
         <div class="banner">
             <div class="row ">
                 <div class="col-md-6">
-                    <p class="text-dark">Tak perlu sejuta untuk berdampak, mulai dari seribu</p>
-                    <h1 class="pb-3 color-primary">Satukan kebaikan<br><span class="text-dark">Salurkan kebermanfaatan.</span> </h1>
-                    <button type="button" class="btn btn-primary btn-lg bg-danako-primary border-0 border-5">Donasi sekarang</button>
+                    <p class="text-white">Tak perlu sejuta untuk berdampak, mulai dari seribu</p>
+                    <h1 class="pb-3 text-white">Satukan kebaikan<br><span class="text-white">Salurkan kebermanfaatan.</span> </h1>
+                    <a href="{{ url('all-campaign') }}" class="btn btn-primary btn-lg bg-danako-primary border-0 border-5">Donasi sekarang</a>
                 </div>
                 <div class="col-md-6">
                     <img src="{{ asset('') }}danako/img/campaignunggulan.png" class="img-fluid">
@@ -50,8 +50,8 @@
                         <h2>Apa itu Danako?</h2>
                     </div>
 
-                    <p>Kitabisa.com adalah platform crowdfunding yang didirikan pada tahun 2013 di Indonesia. Platform ini memungkinkan individu, kelompok, maupun organisasi untuk menggalang dana secara online untuk berbagai keperluan seperti pendidikan, kesehatan, bencana alam, sosial, dan lain sebagainya.</p>
-                    <p>Kitabisa.com memberikan kemudahan bagi pengguna untuk membuat kampanye penggalangan dana dengan memilih jenis kampanye yang sesuai dengan kebutuhan dan mengatur target dana yang dibutuhkan. Selain itu, platform ini juga menyediakan fitur-fitur lain seperti dukungan sosial media, laporan perkembangan kampanye, dan pencairan dana secara aman dan mudah.</p>
+                    <p>Danako.com adalah platform crowdfunding yang didirikan pada tahun ini oleh MSIB Batch 4 di Indonesia. Platform ini memungkinkan individu, kelompok, maupun organisasi untuk menggalang dana secara online untuk berbagai keperluan seperti pendidikan, kesehatan, bencana alam, sosial, dan lain sebagainya.</p>
+                    <p>Danako.com memberikan kemudahan bagi pengguna untuk membuat kampanye penggalangan dana dengan memilih jenis kampanye yang sesuai dengan kebutuhan dan mengatur target dana yang dibutuhkan. Selain itu, platform ini juga menyediakan fitur-fitur lain seperti dukungan sosial media, laporan perkembangan kampanye, dan pencairan dana secara aman dan mudah.</p>
                     
                 </div>
             </div>
@@ -115,7 +115,7 @@
                     <p>Selain itu,danako.my.id juga telah bekerja sama dengan berbagai institusi, perusahaan, dan komunitas dalam menggalang dana untuk berbagai keperluan. Hal ini menunjukkan bahwa platform crowdfunding ini memiliki peran yang penting dalam membantu masyarakat Indonesia dalam mengatasi berbagai tantangan sosial dan ekonomi.</p>
                     
                     <div class="theme-btn">
-                        <a href="" class="default-btn bg-primary">Donasi Sekarang</a>
+                        <a href="{{ url('/all-campaign') }}" class="default-btn bg-primary">Donasi Sekarang</a>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@
 
 <br>
 
-<div class="container">
+<div class="container pt-5">
     <div class="title">
        
         <span>Zakat</span>

@@ -569,6 +569,10 @@ Route::get('/sedekah', function () {
     return view('landing.ziswaf.sedekah');
 });
 
+Route::get('/waqaf', function () {
+    return view('landing.ziswaf.waqaf');
+});
+
 
 Route::get('/bayar', function () {
     return view('landing.ziswaf.bayar');
