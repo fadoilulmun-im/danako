@@ -15,7 +15,7 @@
 
   <div class="container pb-2">
     <div class="title text-start">
-      <span>{{ $withdrawal->campaign->title }}</span>
+      <span></span>
     </div>
   </div>
   <div class="container">
@@ -24,6 +24,7 @@
           <div class="p-4 bg-white mb-4 shadow">
             <form class="f1" id="form-create" >
               <input type="hidden" name="withdrawal_id" value="{{$withdrawal->id}}">
+              <input type="hidden" name="campaign_id" value="{{$withdrawal->campaign_id}}">
               <div class="col-md-12 col-md-offset-3">
                 <!-- step 1 -->
                 <fieldset>
@@ -90,14 +91,18 @@
   }
 
   $(document).ready(function() {
-        CKEDITOR.replace( 'description' );
-        CKEDITOR.on('instanceReady', function(){
-        $.each( CKEDITOR.instances, function(instance) {
-          CKEDITOR.instances[instance].on("change", function(e) {
-              for ( instance in CKEDITOR.instances )
-              CKEDITOR.instances[instance].updateElement();
-          });
+      CKEDITOR.replace('description', {
+        
+        filebrowserUploadUrl: "",
+        filebrowserUploadMethod: 'form'
+      });
+      CKEDITOR.on('instanceReady', function(){
+      $.each( CKEDITOR.instances, function(instance) {
+        CKEDITOR.instances[instance].on("change", function(e) {
+            for ( instance in CKEDITOR.instances )
+            CKEDITOR.instances[instance].updateElement();
         });
+      });
       });
       // Form
       $('.f1 fieldset:first').fadeIn('slow');
@@ -187,7 +192,7 @@
             'X-CSRF-TOKEN': "{{ csrf_token() }}",
             'Authorization': 'Bearer ' + localStorage.getItem('_token'),
           },
-          url: "",
+          url: "{{ route('api.distribution.report.store') }}",
           method: "POST",
           data: new FormData(e.target),
           processData: false,
@@ -209,8 +214,6 @@
               icon: 'success',
               title: 'Berhasil',
               text: 'Berhasil mengajukan pencairan dana',
-            }).then(() => {
-              window.location.href = "{{ route('verifikasi-pencairan') }}";
             });
           },
           error: (response) => {

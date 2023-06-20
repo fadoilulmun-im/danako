@@ -7,6 +7,7 @@ use App\Http\Controllers\API\DonationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthenticationController;
+use App\Http\Controllers\API\DistributionReportController;
 use App\Http\Controllers\API\LocationController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\XenditController;
@@ -30,8 +31,13 @@ Route::group(['prefix' => 'withdrawal'], function () {
     // Route::post('/', [WithdrawalController::class, 'create'])->name('api.withdrawal.create');
     // Route::post('/', [WithdrawalController::class, 'storeCoba'])->name('api.withdrawal.storeCoba');
     Route::get('/{id}', [WithdrawalController::class, 'show'])->name('api.master.withdrawal.show');
-    Route::get('/list/{id}', [WithdrawalController::class, 'list'])->name('api.master.withdrawal.list');
+    Route::get('/list/{id}', [WithdrawalController::class, 'list'])->name('api.master.withdrawal.list')->middleware(['auth:sanctum']);
     Route::post('/verif/{id}', [WithdrawalController::class, 'updateVerifiying'])->name('api.master.withdrawal.verif')->middleware(['auth:sanctum']);
+});
+
+Route::group(['prefix' => 'report'], function () {
+    Route::post('/upload', [DistributionReportController::class, 'upload'])->name('api.ckeditor.upload')->middleware(['auth:sanctum']);
+    Route::post('/', [DistributionReportController::class, 'store'])->name('api.distribution.report.store')->middleware(['auth:sanctum']);
 });
 
 Route::group(['prefix' => 'xendit'], function () {

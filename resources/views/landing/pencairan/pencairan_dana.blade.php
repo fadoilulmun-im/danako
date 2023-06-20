@@ -272,6 +272,8 @@
 @push('after-script')
 <script src="{{asset('assets/libs/feather-icons/feather.min.js')}}"></script>
 <script>
+
+
   var tabs = document.querySelectorAll('#myTab a')
   
   // Menambahkan event click ke setiap elemen tab
@@ -303,6 +305,9 @@
 
   $(document).ready(()=>{
       $.ajax({
+        headers: {
+          'Authorization': "Bearer " + localStorage.getItem('_token'),
+        },
         url: "{{ route('api.master.withdrawal.list', '') }}/" + $('#campaign_id').val(),
         type: "GET",
         dataType: "json",
@@ -316,11 +321,39 @@
               case 'processing':
                 bg = 'warning';
                 status = 'Diproses';
-                alert = `<div class="alert alert-primary fade show mt-2" role="alert">
-                  <i class="mdi mdi-information"></i>
-                  <small> Anda tidak dapat melakukan pencairan lagi sebelum pencairan ini selesai diproses.
-                    Pencairan berlangsung 3 x 24 jam hari kerja.</small>
-                  </div>`;
+                alert = `
+                  <div class="alert alert-primary fade show mt-2" role="alert">
+                    <i class="mdi mdi-information"></i>
+                    <small>
+                      Anda tidak dapat melakukan pencairan lagi sebelum pencairan ini selesai diproses.
+                      Pencairan berlangsung 3 x 24 jam hari kerja.
+                    </small>
+                  </div>
+                `;
+                $('#list-pencairan-processing').html('')
+                $('#list-pencairan-processing').append(`
+                  <div class="card mb-3">
+                    <div class="card-header bg-white">
+                      <div class="row">
+                        <div class="col-10 text-start pt-2">
+                          <div class="row">
+                            <small>${item.created_at}</small>
+                            <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
+                          </div>
+                        </div>
+                        <div class="col-2 text-end pt-2"><span class="badge p-2 bg-warning">${item.status}</span></div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <span><b>${item.rek_name}</b></span>
+                        <span>${item.bank_name} - ${item.rek_number}</span>
+                        <span>Rincian penggunaan dana: ${item.description}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                `);
                 break;
               case 'approved':
                 bg = 'success';
@@ -340,6 +373,31 @@
                 } else if (datas.document && item.status == 'approved'){
                   alert = ``;
                 };
+                $('#list-pencairan-approved').html('');
+                $('#list-pencairan-approved').append(`
+                  <div class="card mb-3">
+                    <div class="card-header bg-white">
+                      <div class="row">
+                        <div class="col-10 text-start pt-2">
+                          <div class="row">
+                            <small>${item.created_at}</small>
+                            <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
+                          </div>
+                        </div>
+                        <div class="col-2 text-end pt-2"><span class="badge p-2 bg-success">${item.status}</span></div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <span><b>${item.rek_name}</b></span>
+                        <span>${item.bank_name} - ${item.rek_number}</span>
+                        <span>Rincian penggunaan dana: ${item.description}
+                        </span>
+                      </div>
+                      <div>${alert}<div>
+                    </div>
+                  </div>
+                `);
                 break;
               case 'rejected':
                 bg = 'danger';
@@ -379,139 +437,153 @@
           });
         },
         error: function (data) {
-          console.log(data);
+          res = data.responseJSON;
+          Swal.fire({
+            icon: 'error',
+            text: res.meta.message,
+            title: 'OOps...!!!',
+          })
         }
       });
   });
 
-  $(document).ready(()=>{
-      $.ajax({
-        url: "{{ route('api.master.withdrawal.list', '') }}/" + $('#campaign_id').val() + "&status=processing",
-        type: "GET",
-        dataType: "json",
-        success: function (response) {
-          const datas = response.data;
-          $('#list-pencairan-processing').html('');
-          $.each(datas, function(i, item) {
-            $('#list-pencairan-processing').append(`
-            <div class="card mb-3">
-              <div class="card-header bg-white">
-                <div class="row">
-                  <div class="col-10 text-start pt-2">
-                    <div class="row">
-                      <small>${item.created_at}</small>
-                      <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
-                    </div>
-                  </div>
-                  <div class="col-2 text-end pt-2"><span class="badge p-2 bg-warning">${item.status}</span></div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <span><b>${item.rek_name}</b></span>
-                  <span>${item.bank_name} - ${item.rek_number}</span>
-                  <span>Rincian penggunaan dana: ${item.description}
-                  </span>
-                </div>
-              </div>
-            </div>
-            `);
-          });
-        },
-        error: function (data) {
-          console.log(data);
-        }
-      });
-  });
+  // $(document).ready(()=>{
+  //     $.ajax({
+  //       headers: {
+  //         'Authorization': "Bearer " + localStorage.getItem('_token'),
+  //       },
+  //       url: "{{ route('api.master.withdrawal.list', '') }}/" + $('#campaign_id').val() + "?status=processing",
+  //       type: "GET",
+  //       dataType: "json",
+  //       success: function (response) {
+  //         const datas = response.data;
+  //         $('#list-pencairan-processing').html('');
+  //         $.each(datas, function(i, item) {
+  //           $('#list-pencairan-processing').append(`
+  //           <div class="card mb-3">
+  //             <div class="card-header bg-white">
+  //               <div class="row">
+  //                 <div class="col-10 text-start pt-2">
+  //                   <div class="row">
+  //                     <small>${item.created_at}</small>
+  //                     <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
+  //                   </div>
+  //                 </div>
+  //                 <div class="col-2 text-end pt-2"><span class="badge p-2 bg-warning">${item.status}</span></div>
+  //               </div>
+  //             </div>
+  //             <div class="card-body">
+  //               <div class="row">
+  //                 <span><b>${item.rek_name}</b></span>
+  //                 <span>${item.bank_name} - ${item.rek_number}</span>
+  //                 <span>Rincian penggunaan dana: ${item.description}
+  //                 </span>
+  //               </div>
+  //             </div>
+  //           </div>
+  //           `);
+  //         });
+  //       },
+  //       error: function (data) {
+  //         console.log(data);
+  //       }
+  //     });
+  // });
 
-  $(document).ready(()=>{
-      $.ajax({
-        url: "{{ route('api.master.withdrawal.list', '') }}/" + $('#campaign_id').val() + "&status=approved",
-        type: "GET",
-        dataType: "json",
-        success: function (response) {
-          const datas = response.data;
-          if (datas.document && datas.status == 'approved'){
-                  alert = `<div class="alert alert-warning fade show mt-2" role="alert">
-                    <i class="mdi mdi-information"></i>
-                    <small> Anda belum mengunggah kabar terbaru kepada para donatur. Segera mengunggah kabar terbaru setelah pencairan berhasil.</small>
-                    </div>`;
-                } else if (datas.document && datas.status == 'approved'){
-                  alert = ``;
-                };
-          $('#list-pencairan-approved').html('');
-          $.each(datas, function(i, item) {
-            $('#list-pencairan-approved').append(`
-            <div class="card mb-3">
-              <div class="card-header bg-white">
-                <div class="row">
-                  <div class="col-10 text-start pt-2">
-                    <div class="row">
-                      <small>${item.created_at}</small>
-                      <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
-                    </div>
-                  </div>
-                  <div class="col-2 text-end pt-2"><span class="badge p-2 bg-success">${item.status}</span></div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="row">
-                  <span><b>${item.rek_name}</b></span>
-                  <span>${item.bank_name} - ${item.rek_number}</span>
-                  <span>Rincian penggunaan dana: ${item.description}
-                  </span>
-                </div>
-                <div>${alert}<div>
-              </div>
-            </div>
-            `);
-          });
-        },
-        error: function (data) {
-          console.log(data);
-        }
-      });
-  });
+  // $(document).ready(()=>{
+  //     $.ajax({
+  //       headers: {
+  //         'Authorization': "Bearer " + localStorage.getItem('_token'),
+  //       },
+  //       url: "{{ route('api.master.withdrawal.list', '') }}/" + $('#campaign_id').val() + "?status=approved",
+  //       type: "GET",
+  //       dataType: "json",
+  //       success: function (response) {
+  //         const datas = response.data;
+  //         if (datas.document && datas.status == 'approved'){
+  //                 alert = `<div class="alert alert-warning fade show mt-2" role="alert">
+  //                   <i class="mdi mdi-information"></i>
+  //                   <small> Anda belum mengunggah kabar terbaru kepada para donatur. Segera mengunggah kabar terbaru setelah pencairan berhasil.</small>
+  //                   </div>`;
+  //               } else if (datas.document && datas.status == 'approved'){
+  //                 alert = ``;
+  //               };
+  //         $('#list-pencairan-approved').html('');
+  //         $.each(datas, function(i, item) {
+  //           $('#list-pencairan-approved').append(`
+  //           <div class="card mb-3">
+  //             <div class="card-header bg-white">
+  //               <div class="row">
+  //                 <div class="col-10 text-start pt-2">
+  //                   <div class="row">
+  //                     <small>${item.created_at}</small>
+  //                     <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
+  //                   </div>
+  //                 </div>
+  //                 <div class="col-2 text-end pt-2"><span class="badge p-2 bg-success">${item.status}</span></div>
+  //               </div>
+  //             </div>
+  //             <div class="card-body">
+  //               <div class="row">
+  //                 <span><b>${item.rek_name}</b></span>
+  //                 <span>${item.bank_name} - ${item.rek_number}</span>
+  //                 <span>Rincian penggunaan dana: ${item.description}
+  //                 </span>
+  //               </div>
+  //               <div>${alert}<div>
+  //             </div>
+  //           </div>
+  //           `);
+  //         });
+  //       },
+  //       error: function (data) {
+  //         console.log(data);
+  //       }
+  //     });
+  // });
 
-  $(document).ready(()=>{
-    $.ajax({
-      url: "{{ route('api.master.withdrawal.list', '') }}/" + $('#campaign_id').val() + "&status=rejected",
-      type: "GET",
-      dataType: "json",
-      success: function (response) {
-        const datas = response.data;
-        $('#list-pencairan-rejected').html('');
-        $.each(datas, function(i, item) {
-          $('#list-pencairan-rejected').append(`
-          <div class="card mb-3">
-            <div class="card-header bg-white">
-              <div class="row">
-                <div class="col-10 text-start pt-2">
-                  <div class="row">
-                    <small>${item.created_at}</small>
-                    <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
-                  </div>
-                </div>
-                <div class="col-2 text-end pt-2"><span class="badge p-2 bg-danger">${item.status}</span></div>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="row">
-                <span><b>${item.rek_name}</b></span>
-                <span>${item.bank_name} - ${item.rek_number}</span>
-                <span>Rincian penggunaan dana: ${item.description}
-                </span>
-              </div>
-            </div>
-          </div>
-          `);
-        });
-      },
-      error: function (data) {
-        console.log(data);
-      }
-      });
-  });
+  // $(document).ready(()=>{
+  //   $.ajax({
+  //       headers: {
+  //         'Authorization': "Bearer " + localStorage.getItem('_token'),
+  //       },
+  //     url: "{{ route('api.master.withdrawal.list', '') }}/" + $('#campaign_id').val() + "?status=rejected",
+  //     type: "GET",
+  //     dataType: "json",
+  //     success: function (response) {
+  //       const datas = response.data;
+  //       $('#list-pencairan-rejected').html('');
+  //       $.each(datas, function(i, item) {
+  //         $('#list-pencairan-rejected').append(`
+  //         <div class="card mb-3">
+  //           <div class="card-header bg-white">
+  //             <div class="row">
+  //               <div class="col-10 text-start pt-2">
+  //                 <div class="row">
+  //                   <small>${item.created_at}</small>
+  //                   <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
+  //                 </div>
+  //               </div>
+  //               <div class="col-2 text-end pt-2"><span class="badge p-2 bg-danger">${item.status}</span></div>
+  //             </div>
+  //           </div>
+  //           <div class="card-body">
+  //             <div class="row">
+  //               <span><b>${item.rek_name}</b></span>
+  //               <span>${item.bank_name} - ${item.rek_number}</span>
+  //               <span>Rincian penggunaan dana: ${item.description}
+  //               </span>
+  //             </div>
+  //           </div>
+  //         </div>
+  //         `);
+  //       });
+  //     },
+  //     error: function (data) {
+  //       console.log(data);
+  //     }
+  //     });
+  // });
   
 </script>
 @endpush

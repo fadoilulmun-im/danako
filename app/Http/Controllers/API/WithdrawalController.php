@@ -83,6 +83,12 @@ class WithdrawalController extends Controller
 
         $withdraw = Withdrawal::where('campaign_id', $request->campaign_id)->where('status', 'approved');
         $campaign = Campaign::where('id', $request->campaign_id)->first();
+
+        $user = auth()->user();
+        if($user->id != $campaign->user_id){
+            return $this->setResponse(null, 'Anda tidak memiliki akses', 403);
+        }
+        
         if (!$withdraw) {
             $maxWithdraw = $campaign->real_time_amount;
         } else {
@@ -197,17 +203,23 @@ class WithdrawalController extends Controller
 
     public function list($id, Request $request)
     {
-        $model = Withdrawal::where('campaign_id', $id)->with(['document', 'campaign.user.detail'])->get();
+        $campaign = Campaign::findOrFail($id);
+        $model = Withdrawal::where('campaign_id', $id)->with(['document', 'campaign.user.detail']);
+
+        $user = auth()->user();
+        if($user->id != $campaign->user_id){
+            return $this->setResponse(null, 'Anda tidak memiliki akses', 403);
+        }
 
         if ($request->filled('status')) {
-            $model->where('status', $request->status)->get();
+            $model->where('status', $request->status);
         }
 
         if(!$model){
             return $this->setResponse(null, 'Withdrawal not found', 404);
         }
 
-        return $this->setResponse($model, 'Withdrawal retrieved successfully');
+        return $this->setResponse($model->get(), 'Withdrawal retrieved successfully');
     }
 
     public function updateVerifiying($id, Request $request)
