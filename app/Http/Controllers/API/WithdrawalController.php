@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Campaign;
+use App\Models\Donation;
 use App\Models\Withdrawal;
 use App\Models\WithdrawalCalculation;
 use App\Models\WithdrawalDocument;
@@ -304,5 +305,33 @@ class WithdrawalController extends Controller
         return DataTables::of($model)
             ->addIndexColumn()
             ->make(true);
+    }
+
+    function infoUseFunds($campaignId) {
+        $campaign = Campaign::findOrFail($campaignId);
+
+        $sudahDicairkans = Withdrawal::where('campaign_id', $campaignId)->where('status', 'approved')->sum('amount');
+        $sudahDicairkan = number_format($sudahDicairkans);
+
+        $totalDanas = $campaign->real_time_amount;
+        $totalDana = number_format($totalDanas);
+
+        $donasi = Donation::where('campaign_id', $campaignId)->where('status', 'PAID')->count();
+        $donatur = Donation::where('campaign_id', $campaignId)->where('status', 'PAID')->distinct('name')->count();
+        
+        $totalBiayaTransaksi = number_format(Donation::where('campaign_id', $campaignId)->where('status', 'PAID')->sum('transaction_fee'));
+        $totalBiayaPlatform = number_format(Donation::where('campaign_id', $campaignId)->where('status', 'PAID')->sum('platform_fee'));
+        
+        $dapatDicairkan = number_format($totalDanas - $sudahDicairkans);
+
+        return $this->setResponse([
+            'sudah_dicairkan' => $sudahDicairkan,
+            'dapat_dicairkan' => $dapatDicairkan,
+            'total_dana' => $totalDana,
+            'donasi' => $donasi,
+            'donatur' => $donatur,
+            'total_biaya_transaksi' => $totalBiayaTransaksi,
+            'total_biaya_platform' => $totalBiayaPlatform,
+        ], 'Info use funds retrieved successfully');
     }
 }

@@ -1,5 +1,5 @@
 <section>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <div class="d-flex align-items-center">
         <a class="navbar-brand" href="{{ route('home') }}">
@@ -46,7 +46,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>DanaKO adalah platform crowdfunding karya mahasiswa yang berada dalam program studi Manajemen Sistem Informasi, angkatan MSIB batch 4, di Lingkungan Mahasiswa Islam. Platform ini memungkinkan individu, kelompok, maupun organisasi untuk menggalang dana secara online untuk berbagai keperluan seperti pendidikan, kesehatan, bencana alam, sosial, dan lain sebagainya.</p>
+        <p>Danako adalah platform crowdfunding karya mahasiswa yang berada dalam program studi Manajemen Sistem Informasi, angkatan MSIB batch 4, di Lingkungan Mahasiswa Islam. Platform ini memungkinkan individu, kelompok, maupun organisasi untuk menggalang dana secara online untuk berbagai keperluan seperti pendidikan, kesehatan, bencana alam, sosial, dan lain sebagainya.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

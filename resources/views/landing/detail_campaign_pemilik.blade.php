@@ -255,7 +255,7 @@ button:focus {
 <div class="my-div information-container">
     <div class="container">
      <h1 class="title pt-5">Download Aplikasi DANAKO!</h1>
-     <h6>LNikmati Kemudahan Beramal di manapun bersama Danako</h6>
+     <h6>Nikmati Kemudahan Beramal di manapun bersama Danako</h6>
      <div class="text-center">
        <img src="{{ asset('') }}danako/img/category/googleplay.png" style="padding-top: 24px; padding-bottom: 41px;" />
      </div>
@@ -363,7 +363,7 @@ $(document).ready(function() {
                 <div class="row">
                   <div class="col-9">
                     <h6 class="text-start">${item.user.name}</h6>
-                    <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.net_amount ?? item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.created_at)).fromNow()}</span></h6>
+                    <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.created_at)).fromNow()}</span></h6>
                   </div>
                   <div class="col-3 pe-0">
                     <img src="${item.user.photo_profile ? "{{ asset('uploads') }} " + item.user.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 

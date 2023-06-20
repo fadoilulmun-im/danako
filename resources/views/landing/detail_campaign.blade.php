@@ -160,70 +160,12 @@
                                             <div class="col-sm-7">
                                                 <div class="bg-white rounded mb-5">
                                                     <div class="row">
-                                                        <div class="col-sm-12 px-4 shadow">
-                                                            <h5 class="pt-4 pb-3">Informasi Pengunaan Dana</h5>
-                                                            <div class="bg-info border border-primary mb-3 rounded-3" >
-                                                                <div class="card-body text-white">
-                                                                    <div class="row">
-                                                                        <div class="col-md-6">
-                                                                            <h6 class="card-title">Sudah Di Cairkan</h6>
-                                                                            <p class="card-text">Rp </p>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            <h6 class="card-title">Belum Di Cairkan</h6>
-                                                                            <p class="card-text">Rp </p>
-                                                                        </div>
-                                                                        {{-- <div class="col-md-12 py-1 bg-light text-dark rounded-3">
-                                                                            Data Di Perbarui setiap 15 menit harap Terakir 23 - Maret - 2022
-                                                                        </div> --}}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <h5 class="pt-1 pb-1">Total Transaksi sampai saat  ini</h5>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>Jumlah Donasi</span>
-                                                              <span> transaksi</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>Jumlah Donatur</span>
-                                                              <span> donatur</span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>Dana Terkumpul</span>
-                                                              <span>Rp </span>
-                                                            </div>
+                                                        <div class="col-sm-12 px-4 shadow" id="informasi-penggunaan-dana">
                                                             
-                                                            <h5 class="pt-1 pb-1">Rincian dana terkumpul</h5>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>&#8226; Biaya Transaksi Bank</span>
-                                                              <span>Rp </span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>&#8226; Donasi operasional DANAKO</span>
-                                                              <span>Rp </span>
-                                                            </div>
-                                                            <div class="d-flex justify-content-between pb-3">
-                                                              <span>Dana dapat dicairkan</span>
-                                                              <span>Rp </span>
-                                                            </div>
                                                             
-                                                            <div class="alert alert-warning fade show" role="alert">
-                                                                
-                                                                <div class="row">
-                                                                  <div class="col-md-1">
-                                                                    <strong>***</strong>
-                                                                  </div>
-                                                                  <div class="col-md-11">
-                                                                    <span>Catatan
-                                                                    </span>
-                                                                  </div>
-                                                                </div>
-                                                                    {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                     </div>
-                                              
+                                                </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="alert alert-warning fade show" role="alert">
@@ -436,7 +378,7 @@
     <div class="my-div information-container">
         <div class="container text-center">
             <h1 class="title pt-5">Download Aplikasi DANAKO!</h1>
-            <h6>Nikmati Kemudahan Beramal di manapun bersama Danako</h6>
+            <h6 class="text-center">Nikmati Kemudahan Beramal di manapun bersama Danako</h6>
             <div class="text-center">
                 <img src="{{ asset('') }}danako/img/category/googleplay.png"
                     style="padding-top: 24px; padding-bottom: 41px;" />
@@ -451,13 +393,10 @@
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.5/plugin/relativeTime.min.js"></script>
 
-
-
     <script>
         
         function myFunction() {
             $(".message").text("link copied");
-
         }
 
         dayjs.extend(window.dayjs_plugin_relativeTime);
@@ -502,102 +441,191 @@
                     $('.progress-bar').css({
                         'width': `${data.real_time_amount / data.target_amount * 100}%`
                     });
+
+                    $.ajax({
+                        url: "{{ route('api.master.donations.list') }}?campaign_id={{ $id }}&status=paid",
+                        type: 'GET',
+                        success: (response) => {
+                            const data = response.data;
+                            $('#list-donasi').html('');
+                            $('#list-hope').html('');
+                            if (data.length > 0) {
+                                $('#count-donasi').html(
+                                    `<b>${new Intl.NumberFormat().format(data.length)}</b> orang baik telah berdonasi untuk campaign ini`
+                                );
+
+                                let hopes = data.filter(item => item.hope != null);
+                                if(hopes && hopes.length > 0){
+                                    $('#list-hope').append(`<h5 class="mb-4">Pesan dari orang baik (${data.length})</h5>`);
+                                }else{
+                                    $('#list-hope').html(`
+                                        <div class="card-body">
+                                            <p class="text-center">Belum ada data</p>
+                                        </div>
+                                    `);
+                                }
+                                data.forEach(item => {
+                                    $('#list-donasi').append(`
+                                        <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2 px-2">                  
+                                            <div class="row">
+                                            <div class="col-9">
+                                                <h6 class="text-start">${item.name}</h6>
+                                                <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.paid_at)).fromNow()}</span></h6>
+                                            </div>
+                                            <div class="col-3 pe-0">
+                                                <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 
+                                            </div> 
+                                            </div>
+                                        </div>
+                                    `);
+
+                                    if(item.hope){
+                                        $('#list-hope').append(`
+                                            <div class="row mb-4 ps-1">
+                                            <div class="col-md-1">
+                                                <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
+                                            </div>
+                                            <div class="col-md-11">
+                                                <h6>${item.name}</h6>
+                                                <p>${item.hope}</p>
+                                            </div>
+                                            </div>
+                                        `);
+                                    }
+                                });
+                            }else{
+                                $('#list-donasi').html(`
+                                    <div class="card-body">
+                                        <p class="text-center">Belum ada donasi</p>
+                                    </div>
+                                `);
+                                $('#list-hope').html(`
+                                    <div class="card-body">
+                                        <p class="text-center">Belum ada data</p>
+                                    </div>
+                                `);
+                            }
+
+                        },
+                        error: (response) => {
+                            const res = response.responseJSON;
+                            $('#list-donasi').html(`
+                                <div class="card-body">
+                                    <p class="text-center">${res.message}</p>
+                                </div>
+                            `);
+                        },
+                    })
+                },
+                error: (response) => {
+                    const res = response.responseJSON;
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: res.meta.message,
+                    }).then((result) => {
+                        if(res.meta.code == 404){
+                            history.back()
+                        }
+                    })
                 }
             });
 
-            $.ajax({
-                url: "{{ route('api.master.donations.list') }}?campaign_id={{ $id }}&status=paid",
-                type: 'GET',
-                success: (response) => {
-                    const data = response.data;
-                    $('#list-donasi').html('');
-                    $('#list-hope').html('');
-                    if (data.length > 0) {
-                        $('#count-donasi').html(
-                            `<b>${new Intl.NumberFormat().format(data.length)}</b> orang baik telah berdonasi untuk campaign ini`
-                            );
-
-                        let hopes = data.filter(item => item.hope != null);
-                        if(hopes && hopes.length > 0){
-                          $('#list-hope').append(`<h5 class="mb-4">Pesan dari orang baik (${data.length})</h5>`);
-                        }
-                        data.forEach(item => {
-                            $('#list-donasi').append(`
-                                <div class="card-text border-bottom info-donatur pt-3 pb-3 rounded-2 px-2">                  
+            $('#pills-profile-tab').click(() => {
+                $.ajax({
+                    url: "{{ route('api.withdrawal.infoUseFunds', '') }}/{{ $id }}",
+                    beforeSend: () => {
+                        $('#informasi-penggunaan-dana').html(`
+                            <div class="d-flex justify-content-center py-5">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        `)
+                    },
+                    success: (response) => {
+                        const data = response.data;
+                        $('#informasi-penggunaan-dana').html(`
+                            <h5 class="pt-4 pb-3">Informasi Pengunaan Dana</h5>
+                            <div class="bg-info border border-primary mb-3 rounded-3" >
+                                <div class="card-body text-white">
                                     <div class="row">
-                                    <div class="col-9">
-                                        <h6 class="text-start">${item.name}</h6>
-                                        <h6 class="text-start" >Rp ${new Intl.NumberFormat().format(item.net_amount ?? item.amount_donations)} • <span class="text-end text-secondary fw-lighter" style="font-size: 0.7rem">${dayjs(new Date(item.paid_at)).fromNow()}</span></h6>
-                                    </div>
-                                    <div class="col-3 pe-0">
-                                        <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" class="img-thumbnail"> 
-                                    </div> 
+                                        <div class="col-md-6">
+                                            <h6 class="card-title">Sudah Di Cairkan</h6>
+                                            <p class="card-text">Rp ${data.sudah_dicairkan}</p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <h6 class="card-title">Belum Di Cairkan</h6>
+                                            <p class="card-text">Rp ${data.dapat_dicairkan}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            `);
-
-                            if(item.hope){
-                              $('#list-hope').append(`
-                                  <div class="row mb-4 ps-1">
-                                  <div class="col-md-1">
-                                      <img src="${item.user?.photo_profile ? "{{ asset('uploads') }} " + item.user?.photo_profile.path : "{{ asset('') }}danako/img/campaign/icon_akun.png" }" alt="Testimoni" class="img-fluid rounded-circle">
-                                  </div>
-                                  <div class="col-md-11">
-                                      <h6>${item.name}</h6>
-                                      <p>${item.hope}</p>
-                                  </div>
-                                  </div>
-                              `);
-                            }
-            
-                        });
-                    }else{
-                    $('#list-donasi').html(`
-                        <div class="card-body">
-                        <p class="text-center">Belum ada donasi</p>
-                        </div>
-                    `);
-                    }
-
+                            </div>
+                            <h5 class="pt-1 pb-1">Total Transaksi sampai saat  ini</h5>
+                            <div class="d-flex justify-content-between pb-3">
+                                <span>Jumlah Donasi</span>
+                                <span>${data.donasi} transaksi</span>
+                            </div>
+                            <div class="d-flex justify-content-between pb-3">
+                                <span>Jumlah Donatur</span>
+                                <span>${data.donatur} donatur</span>
+                            </div>
+                            <div class="d-flex justify-content-between pb-3">
+                                <span>Dana Terkumpul</span>
+                                <span>Rp ${data.total_dana}</span>
+                            </div>
+                            
+                            <h5 class="pt-1 pb-1">Rincian dana terkumpul</h5>
+                            <div class="d-flex justify-content-between pb-3">
+                                <span>&#8226; Biaya Transaksi Bank</span>
+                                <span>Rp ${data.total_biaya_transaksi}</span>
+                            </div>
+                            <div class="d-flex justify-content-between pb-3">
+                                <span>&#8226; Donasi operasional DANAKO</span>
+                                <span>Rp ${data.total_biaya_platform}</span>
+                            </div>
+                            <div class="d-flex justify-content-between pb-3">
+                                <span>Dana dapat dicairkan</span>
+                                <span>Rp ${data.dapat_dicairkan}</span>
+                            </div>
+                        `);
                     },
                     error: (response) => {
                         const res = response.responseJSON;
-                        $('#list-donasi').html(`
-                    <div class="card-body">
-                        <p class="text-center">${res.message}</p>
-                    </div>
-                    `);
-                },
+                        $('#informasi-penggunaan-dana').html(`
+                            <div class="alert alert-danger my-3" role="alert">
+                                ${res.meta.message}
+                            </div>
+                        `)
+                    }
+                })
             })
 
             $('#donasi').click((e) => {
-  e.preventDefault();
-  if (!localStorage.getItem('_token')) {
-    Swal.fire({
-      icon: 'warning',
-      title: 'Anda belum login',
-      text: 'Apakah anda ingin login supaya data Donasi tersimpan di aku anda',
-      showCancelButton: false,
-      confirmButtonText: 'Ya, login',
-      showDenyButton: true,
-      denyButtonText: 'Tanpa, login',
-      denyButtonColor: '#28a745', // Warna tombol Tanpa Login
-      showCloseButton: true, // Menampilkan ikon "x"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        sessionStorage.setItem('redirect', "{{ url('donasi') . '/' . $id }}");
-        window.location.href = "{{ route('login') }}";
-      } else if (result.isDenied) {
-        window.location.href = "{{ url('donasi') . '/' . $id }}";
-      }
-    });
-  } else {
-    window.location.href = "{{ url('donasi') . '/' . $id }}";
-  }
-});
-
-
-
+                e.preventDefault();
+                if (!localStorage.getItem('_token')) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Anda belum login',
+                        text: 'Apakah anda ingin login supaya data Donasi tersimpan di aku anda',
+                        showCancelButton: false,
+                        confirmButtonText: 'Ya, login',
+                        showDenyButton: true,
+                        denyButtonText: 'Tanpa, login',
+                        denyButtonColor: '#28a745', // Warna tombol Tanpa Login
+                        showCloseButton: true, // Menampilkan ikon "x"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            sessionStorage.setItem('redirect', "{{ url('donasi') . '/' . $id }}");
+                            window.location.href = "{{ route('login') }}";
+                        } else if (result.isDenied) {
+                            window.location.href = "{{ url('donasi') . '/' . $id }}";
+                        }
+                    });
+                } else {
+                    window.location.href = "{{ url('donasi') . '/' . $id }}";
+                }
+            });
 
             const {
                 referral_code

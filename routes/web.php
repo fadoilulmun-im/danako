@@ -406,19 +406,23 @@ Route::get('/pilih-kategori', function () {
 Route::get('/pencairan-dana/{id}', function ($id) {
     $campaign = Campaign::findOrFail($id);
     $withdrawal = Withdrawal::all();
-    $donasi = Donation::where('campaign_id', $id)->count();
-    $donatur = Donation::where('campaign_id', $id)->distinct('name')->count();
-    // $totalDana = Donation::where('campaign_id', $id)->sum('net_amount');
+    $donasi = Donation::where('campaign_id', $id)->where('status', 'PAID')->count();
+    $donatur = Donation::where('campaign_id', $id)->where('status', 'PAID')->distinct('name')->count();
+    // $totalDana = Donation::where('campaign_id', $id)->where('status', 'PAID')->sum('net_amount');
     $totalDanas = $campaign->real_time_amount;
     $totalDana = number_format($totalDanas);
-    $totalBiayaTransaksi = number_format(Donation::where('campaign_id', $id)->sum('transaction_fee'));
-    $totalBiayaPlatform = number_format(Donation::where('campaign_id', $id)->sum('platform_fee'));
+
+    $nonFormatTotalBiayaTransaksi = Donation::where('campaign_id', $id)->where('status', 'PAID')->sum('transaction_fee');
+    $totalBiayaTransaksi = number_format($nonFormatTotalBiayaTransaksi);
+    $nonFormatTotalBiayaPlatform = Donation::where('campaign_id', $id)->where('status', 'PAID')->sum('platform_fee');
+    $totalBiayaPlatform = number_format($nonFormatTotalBiayaPlatform);
+
     $sudahDicairkans = Withdrawal::where('campaign_id', $id)->where('status', 'approved')->sum('amount');
     $sudahDicairkan = number_format($sudahDicairkans);
     // $targetDonasi = number_format($campaign->target_amount);
-    $dapatDicairkan = number_format($totalDanas - $sudahDicairkans);
-    $dapatDicairkans = number_format($totalDanas - $sudahDicairkans);
-    $belumDicairkan = number_format($totalDanas - $sudahDicairkans);
+    $dapatDicairkan = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
+    $dapatDicairkans = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
+    $belumDicairkan = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
 
     return view('landing.pencairan.pencairan_dana', compact('id', 'campaign', 'donasi', 'donatur', 'totalDana', 
     'totalBiayaTransaksi', 'totalBiayaPlatform', 'sudahDicairkan', 'belumDicairkan', 'dapatDicairkan'));
@@ -427,19 +431,23 @@ Route::get('/pencairan-dana/{id}', function ($id) {
 Route::get('/ajukan-pencairan-dana/{id}', function ($id) {
     $campaign = Campaign::findOrFail($id);
     $withdrawal = Withdrawal::all();
-    $donasi = Donation::where('campaign_id', $id)->count();
-    $donatur = Donation::where('campaign_id', $id)->distinct('name')->count();
-    // $totalDana = Donation::where('campaign_id', $id)->sum('net_amount');
+    $donasi = Donation::where('campaign_id', $id)->where('status', 'PAID')->count();
+    $donatur = Donation::where('campaign_id', $id)->where('status', 'PAID')->distinct('name')->count();
+    // $totalDana = Donation::where('campaign_id', $id)->where('status', 'PAID')->sum('net_amount');
     $totalDanas = $campaign->real_time_amount;
     $totalDana = number_format($totalDanas);
-    $totalBiayaTransaksi = number_format(Donation::where('campaign_id', $id)->sum('transaction_fee'));
-    $totalBiayaPlatform = number_format(Donation::where('campaign_id', $id)->sum('platform_fee'));
+
+    $nonFormatTotalBiayaTransaksi = Donation::where('campaign_id', $id)->where('status', 'PAID')->sum('transaction_fee');
+    $totalBiayaTransaksi = number_format($nonFormatTotalBiayaTransaksi);
+    $nonFormatTotalBiayaPlatform = Donation::where('campaign_id', $id)->where('status', 'PAID')->sum('platform_fee');
+    $totalBiayaPlatform = number_format($nonFormatTotalBiayaPlatform);
+
     $sudahDicairkans = Withdrawal::where('campaign_id', $id)->where('status', 'approved')->sum('amount');
     $sudahDicairkan = number_format($sudahDicairkans);
     // $targetDonasi = number_format($campaign->target_amount);
-    $dapatDicairkan = number_format($totalDanas - $sudahDicairkans);
-    $dapatDicairkans = number_format($totalDanas - $sudahDicairkans);
-    $belumDicairkan = number_format($totalDanas - $sudahDicairkans);
+    $dapatDicairkan = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
+    $dapatDicairkans = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
+    $belumDicairkan = number_format($totalDanas - $sudahDicairkans - $nonFormatTotalBiayaTransaksi - $nonFormatTotalBiayaPlatform);
     
     return view('landing.pencairan.ajukan_pencairan_dana', compact('id', 'campaign', 'donasi', 'donatur', 'totalDana', 
     'totalBiayaTransaksi', 'totalBiayaPlatform', 'sudahDicairkan', 'belumDicairkan', 'dapatDicairkan'));

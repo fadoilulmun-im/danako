@@ -38,7 +38,7 @@
             
                 <div id="myTabContent" class="tab-content">
                   <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade py-5 show active">
-                    <div class="container-fluid" style="max-height: 800px; overflow-y: scroll;" id="list-pencairan-all">
+                    <div class="container-fluid py-3" style="max-height: 800px; overflow-y: scroll;" id="list-pencairan-all">
                       {{-- //kontain --}}
                       {{-- <div class="card mt-3">
                         <div class="card-header bg-white">
@@ -85,7 +85,7 @@
                   </div>
             
                   <div id="approved" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade py-5">
-                    <div class="container-fluid" style="max-height: 1500px; overflow-y: scroll;" id="list-pencairan-approved">
+                    <div class="container-fluid py-3" style="max-height: 1500px; overflow-y: scroll;" id="list-pencairan-approved">
                       {{-- //kontain --}}
                       <div class="d-flex justify-content-center">
                         <div class="spinner-border" role="status">
@@ -115,7 +115,7 @@
                   </div>
             
                   <div id="rejected" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade py-5">
-                    <div class="container-fluid" style="max-height: 1500px; overflow-y: scroll;" id="list-pencairan-rejected">
+                    <div class="container-fluid py-3" style="max-height: 1500px; overflow-y: scroll;" id="list-pencairan-rejected">
                       {{-- //kontain --}}
                       <div class="d-flex justify-content-center">
                         <div class="spinner-border" role="status">
@@ -126,7 +126,7 @@
                   </div>
             
                   <div id="processing" role="tabpanel" aria-labelledby="contact-tab" class="tab-pane fade py-5">
-                    <div class="container-fluid" style="max-height: 1500px; overflow-y: scroll;" id="list-pencairan-processing">
+                    <div class="container-fluid py-3" style="max-height: 1500px; overflow-y: scroll;" id="list-pencairan-processing">
                       {{-- //kontain --}}
                       <div class="d-flex justify-content-center">
                         <div class="spinner-border" role="status">
@@ -313,7 +313,13 @@
         dataType: "json",
         success: function (response) {
           const datas = response.data;
-          $('#list-pencairan-all').html('');
+          let btn = '';
+          let isNotNullStatusProcessing = false;
+          let isNotNullStatusApproved = false;
+          let isNotNullStatusRejected = false;
+          if(datas.length){
+            $('#list-pencairan-all').html('');
+          }
           $.each(datas, function(i, item) {
             let bg = '';
             let status = '';
@@ -330,7 +336,10 @@
                     </small>
                   </div>
                 `;
-                $('#list-pencairan-processing').html('')
+                if(!isNotNullStatusProcessing){
+                  $('#list-pencairan-processing').html('')
+                  isNotNullStatusProcessing = true;
+                }
                 $('#list-pencairan-processing').append(`
                   <div class="card mb-3">
                     <div class="card-header bg-white">
@@ -365,15 +374,20 @@
                 //     break;
                  // if penggalang dana belum mengunggah distribution report
                 if (!datas.document && item.status == 'approved'){
-                  alert = `<div class="alert alert-warning fade show mt-2" role="alert">
-                    <i class="mdi mdi-information"></i>
-                    <small> Anda belum mengunggah kabar terbaru kepada para donatur. Segera mengunggah kabar terbaru setelah pencairan berhasil.</small>
-                    </div>`;
+                  alert = `
+                    <div class="alert alert-warning fade show mt-2" role="alert">
+                      <i class="mdi mdi-information"></i>
+                      <small> Anda belum mengunggah kabar terbaru kepada para donatur. Segera mengunggah kabar terbaru setelah pencairan berhasil.</small>
+                    </div>
+                  `;
                   btn = `<a href="{{ url('buat-kabar-terbaru','') }}/`+item.id+`" class="btn btn-sm btn-info mt-2 align-center text-white" type="button">Tulis Kabar Terbaru</a>`;
                 } else if (datas.document && item.status == 'approved'){
                   alert = ``;
                 };
-                $('#list-pencairan-approved').html('');
+                if(!isNotNullStatusApproved){
+                  $('#list-pencairan-approved').html('');
+                  isNotNullStatusApproved = true;
+                }
                 $('#list-pencairan-approved').append(`
                   <div class="card mb-3">
                     <div class="card-header bg-white">
@@ -402,39 +416,104 @@
               case 'rejected':
                 bg = 'danger';
                 status = 'Ditolak';
-                alert = `div class="alert alert-danger fade show mt-2" role="alert">
+                alert = `
+                  <div class="alert alert-danger fade show mt-2" role="alert">
                     <small>Ditolak karena:${item.reject_note}</small>
-                  </div>`;
+                  </div>
+                `;
+
+                if(!isNotNullStatusRejected){
+                  $('#list-pencairan-rejected').html('');
+                  isNotNullStatusRejected = true;
+                }
+                  
+                $('#list-pencairan-rejected').append(`
+                  <div class="card mb-3">
+                    <div class="card-header bg-white">
+                      <div class="row">
+                        <div class="col-10 text-start pt-2">
+                          <div class="row">
+                            <small>${item.created_at}</small>
+                            <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
+                          </div>
+                        </div>
+                        <div class="col-2 text-end pt-2"><span class="badge p-2 bg-danger">${item.status}</span></div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <span><b>${item.rek_name}</b></span>
+                        <span>${item.bank_name} - ${item.rek_number}</span>
+                        <span>Rincian penggunaan dana: ${item.description}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                `);
                 break;
               default:
                 break;
             }
             $('#list-pencairan-all').append(`
-            <div class="card mb-3">
-              <div class="card-header bg-white">
-                <div class="row">
-                  <div class="col-10 text-start pt-2">
-                    <div class="row">
-                      <small>${item.created_at}</small>
-                      <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
+              <div class="card mb-3">
+                <div class="card-header bg-white">
+                  <div class="row">
+                    <div class="col-10 text-start pt-2">
+                      <div class="row">
+                        <small>${item.created_at}</small>
+                        <h5 class="pt-1">Pencairan Dana <span class="text-success">Rp ${new Intl.NumberFormat().format(item.amount)}</span></h5>
+                      </div>
                     </div>
+                    <div class="col-2 text-end pt-2"><span class="badge p-2 bg-${bg}">${status}</span></div>
                   </div>
-                  <div class="col-2 text-end pt-2"><span class="badge p-2 bg-${bg}">${status}</span></div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <span style="font-weight: 600;">${item.bank_name} - ${item.rek_number}</span>
+                    <span style="font-weight: 600;">a/n ${item.rek_name}</span>
+                    <span>Rincian penggunaan dana: ${item.description}
+                    </span>
+                  </div>
+                  <div>${btn}<div>
+                  <div>${alert}<div>
                 </div>
               </div>
-              <div class="card-body">
-                <div class="row">
-                  <span style="font-weight: 600;">${item.bank_name} - ${item.rek_number}</span>
-                  <span style="font-weight: 600;">a/n ${item.rek_name}</span>
-                  <span>Rincian penggunaan dana: ${item.description}
-                  </span>
-                </div>
-                <div>${btn}<div>
-                <div>${alert}<div>
-              </div>
-            </div>
             `);
           });
+
+          if(!isNotNullStatusApproved){
+            $('#list-pencairan-approved').html(`
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <span class="text-center">Belum ada pencairan dana yang berhasil.</span>
+                  </div>
+                </div>
+              </div>
+            `);
+          }
+          if(!isNotNullStatusProcessing){
+            $('#list-pencairan-processing').html(`
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <span class="text-center">Belum ada pencairan dana yang sedang diproses.</span>
+                  </div>
+                </div>
+              </div>
+            `);
+          }
+          if(!isNotNullStatusRejected){
+            $('#list-pencairan-rejected').html(`
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <span class="text-center">Belum ada pencairan dana yang ditolak.</span>
+                  </div>
+                </div>
+              </div>
+            `);
+          }
         },
         error: function (data) {
           res = data.responseJSON;

@@ -74,7 +74,7 @@
 
         <div class="row">
             <div class="col-lg-4 col-sm-6">
-                <div class="choose-card">
+                <div class="choose-card h-100">
                     <i class="flaticon-resume"></i>
                     <h3>Apakah aman untuk melakukan donasi melalui Danako?</h3>
                     <p>Ya, Danako memiliki sistem keamanan yang ketat untuk melindungi data pribadi dan informasi keuangan pengguna. Selain itu, Danako juga bekerja sama dengan lembaga keuangan terpercaya dan memiliki sertifikasi keamanan yang memenuhi standar internasional. </p>
@@ -82,7 +82,7 @@
             </div>
 
             <div class="col-lg-4 col-sm-6">
-                <div class="choose-card">
+                <div class="choose-card h-100">
                     <i class="flaticon-recruitment"></i>
                     <h3>Apakah donasi yang diberikan melalui Danako bisa dikembalikan?</h3>
                     <p>Tidak, donasi yang telah diberikan melalui Danako tidak dapat dikembalikan kecuali terjadi kesalahan atau kecurangan dari pihak penerima dana. </p>
@@ -90,7 +90,7 @@
             </div>
 
             <div class="col-lg-4 col-sm-6 offset-sm-3 offset-lg-0">
-                <div class="choose-card">
+                <div class="choose-card h-100">
                     <i class="flaticon-employee"></i>
                     <h3>Apakah ada biaya atau potongan tertentu yang dikenakan oleh Danako?</h3>
                     <p>Ya, Danako akan memotong sejumlah biaya administrasi dan biaya transaksi dari total donasi yang diberikan. Namun, besarnya potongan ini akan tergantung pada jenis kampanye dan metode pembayaran yang dipilih.</p>
