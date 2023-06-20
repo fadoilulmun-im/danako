@@ -85,5 +85,24 @@
 </script>
 
 <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var textArray = ["Apa itu Danako", "Mengenai Danako", "Mengenal Danako"]; // Daftar teks yang akan ditampilkan
+    var currentIndex = 0;
+    var dynamicText = document.getElementById("dynamic-text");
+
+    function changeText() {
+      dynamicText.textContent = textArray[currentIndex];
+      currentIndex = (currentIndex + 1) % textArray.length;
+    }
+
+    setInterval(changeText, 10000); // Mengubah teks setiap 10 detik (10000 ms)
+  });
+
   
-  </script>
+</script>
+
+
+
+
+
+

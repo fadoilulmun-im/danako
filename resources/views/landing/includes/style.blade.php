@@ -618,5 +618,13 @@ a {
 #question-icon:hover {
   transform: scale(1.1);
 }
+
+.custom-text {
+    color: rgba(121, 194, 33, 0.7); /* Warna dengan transparansi */
+  }
+
+  /* Tambahkan kode ini untuk efek bayangan pada navbar saat di-scroll */
+
+
 </style>
 
