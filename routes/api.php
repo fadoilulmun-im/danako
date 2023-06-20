@@ -32,7 +32,7 @@ Route::group(['prefix' => 'withdrawal'], function () {
     // Route::post('/', [WithdrawalController::class, 'storeCoba'])->name('api.withdrawal.storeCoba');
     Route::get('/info-use-funds/{campaignId}', [WithdrawalController::class, 'infoUseFunds'])->name('api.withdrawal.infoUseFunds');
     Route::get('/{id}', [WithdrawalController::class, 'show'])->name('api.master.withdrawal.show');
-    Route::get('/list/{id}', [WithdrawalController::class, 'list'])->name('api.master.withdrawal.list')->middleware(['auth:sanctum']);
+    Route::get('/list/{id}', [WithdrawalController::class, 'list'])->name('api.master.withdrawal.list');
     Route::post('/verif/{id}', [WithdrawalController::class, 'updateVerifiying'])->name('api.master.withdrawal.verif')->middleware(['auth:sanctum']);
 });
 

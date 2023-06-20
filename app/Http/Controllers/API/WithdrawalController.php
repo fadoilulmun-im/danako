@@ -207,10 +207,13 @@ class WithdrawalController extends Controller
         $campaign = Campaign::findOrFail($id);
         $model = Withdrawal::where('campaign_id', $id)->with(['document', 'campaign.user.detail']);
 
-        $user = auth()->user();
-        if($user->id != $campaign->user_id){
-            return $this->setResponse(null, 'Anda tidak memiliki akses', 403);
+        if($request->status != 'approved'){
+            $user = auth()->user();
+            if($user && $user->id != $campaign->user_id){
+                return $this->setResponse(null, 'Anda tidak memiliki akses', 403);
+            }
         }
+        
 
         if ($request->filled('status')) {
             $model->where('status', $request->status);

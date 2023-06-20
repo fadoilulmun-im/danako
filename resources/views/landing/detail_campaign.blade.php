@@ -130,10 +130,10 @@
                                           <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Penggunaan Dana</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                          <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Kabar terbaru</button>
+                                          <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Pencairan dana</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-hope" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Doa Doa</button>
+                                            <button class="nav-link" id="pills-hope-tab" data-bs-toggle="pill" data-bs-target="#pills-hope" type="button" role="tab" aria-controls="pills-hope" aria-selected="false">Doa Doa</button>
                                           </li>
                                       </ul>
                                       <div class="tab-content" id="pills-tabContent">
@@ -160,10 +160,7 @@
                                             <div class="col-sm-7">
                                                 <div class="bg-white rounded mb-5">
                                                     <div class="row">
-                                                        <div class="col-sm-12 px-4 shadow" id="informasi-penggunaan-dana">
-                                                            
-                                                            
-                                                        </div>
+                                                        <div class="col-sm-12 px-4 shadow" id="informasi-penggunaan-dana"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,33 +202,17 @@
                                           </div>
                                         </div>
                                         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">                                          
-                                            <div  style="height: 500px; overflow-y: scroll;">
-                                                        <div class="card-kabar py-3 px-3 mt-3">                                                 
-                                                               <div class="card rounded py-3 px-3 mt-3"> 
-                                                                    <p class="card-text ">21 Januari 2023</p>
-                                                                    <h6 class="card-text">Pencariran <span class="text-danako"> RP.10000</span></h6>
-                                                                    <h5 class="card-title pb-1 pt-1">Kerekening bri ********</h5>
-                                                                    <p>Rencan Penggunaan Dana:<br>
-                                                                    <span>Rencan pengunaan Dana</span>
-                                                                    </p> 
-                                                               </div>
-                                                          </div>
-
-                                                          <div class="card-kabar py-3 px-3 mt-3">                                                 
-                                                            <div class="card rounded py-3 px-3 mt-3"> 
-                                                                 <p class="card-text ">21 Januari 2023</p>
-                                                                 <h6 class="card-text">Pencariran <span class="text-danako"> RP.10000</span></h6>
-                                                                 <h5 class="card-title pb-1 pt-1">Kerekening bri ********</h5>
-                                                                 <p>Rencan Penggunaan Dana:<br>
-                                                                 <span>Rencan pengunaan Dana</span>
-                                                                 </p> 
-                                                            </div>
-                                                       </div>
+                                            <div  style="max-height: 500px; overflow-y: scroll;" id="list-pencairan-dana">
+                                                <div class="text-center w-100">
+                                                    <div class="spinner-border" role="status">
+                                                        <span class="visually-hidden">Loading...</span>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                  
 
-                                      <div class="tab-pane fade" id="pills-hope" role="tabpanel" aria-labelledby="pills-contact-tab">
+                                      <div class="tab-pane fade" id="pills-hope" role="tabpanel" aria-labelledby="pills-hope-tab">
                                         <div class="container p-0 pt-3" id="list-hope">
                                             <div class="text-center w-100">
                                                 <div class="spinner-border" role="status">
@@ -593,6 +574,56 @@
                     error: (response) => {
                         const res = response.responseJSON;
                         $('#informasi-penggunaan-dana').html(`
+                            <div class="alert alert-danger my-3" role="alert">
+                                ${res.meta.message}
+                            </div>
+                        `)
+                    }
+                })
+            })
+
+            $('#pills-contact-tab').click(() => {
+                $.ajax({
+                    url: "{{ route('api.master.withdrawal.list', '') }}/{{ $id }}?status=approved",
+                    beforeSend: () => {
+                        $('#list-pencairan-dana').html(`
+                            <div class="d-flex justify-content-center py-5">
+                                <div class="spinner-border" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        `)
+                    },
+                    success: (response) => {
+                        const data = response.data;
+                        if(data.length){
+                            $('#list-pencairan-dana').html('');
+                            data.forEach(item => {
+                                $('#list-pencairan-dana').append(`
+                                    <div class="card-kabar py-3 px-3 mt-3">                                                 
+                                        <div class="card rounded py-3 px-3 mt-3"> 
+                                            <p class="card-text ">21 Januari 2023</p>
+                                            <h6 class="card-text">Pencariran <span class="text-danako"> RP ${new Intl.NumberFormat().format(item.amount)}</span></h6>
+                                            <h5 class="card-title pb-1 pt-1">Kerekening ${item.bank_name} ********</h5>
+                                            <p>
+                                                Rencan Penggunaan Dana:<br>
+                                                <span>${item.description}</span>
+                                            </p> 
+                                        </div>
+                                    </div>
+                                `)
+                            });
+                        }else{
+                            $('#list-pencairan-dana').html(`
+                                <div class="card-body">
+                                    <p class="text-center">Belum ada data</p>
+                                </div>
+                            `);
+                        }
+                    },
+                    error: (response) => {
+                        const res = response.responseJSON;
+                        $('#list-pencairan-dana').html(`
                             <div class="alert alert-danger my-3" role="alert">
                                 ${res.meta.message}
                             </div>
