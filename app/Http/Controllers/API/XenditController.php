@@ -141,7 +141,7 @@ class XenditController extends Controller
         if($donation->status == 'PAID'){
             $campaign = $donation->campaign;
             // $campaign->real_time_amount += $campaign->donations->where('status', 'PAID')->sum('amount');
-            $campaign->real_time_amount = Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('amount');
+            $campaign->real_time_amount = Donation::where('status', 'PAID')->where('campaign_id', $campaign->id)->sum('amount_donations');
             $campaign->save();
         }
         
